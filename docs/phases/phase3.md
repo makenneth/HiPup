@@ -1,44 +1,37 @@
-# Phase 3: Notebooks and Tags (2 days)
+# Phase 3: Flux Architecture and Router (1.5 days)
 
 ## Rails
 ### Models
-* Notebook
-* Tag
-* Tagging
 
 ### Controllers
-* Api::NotebooksController (create, destroy, index, show, update)
+* Api::GroupsController (create, destroy, index, show, update)
 
 ### Views
-* notebooks/index.json.jbuilder
-* notebooks/show.json.jbuilder
+* groups/index.json.jbuilder
+* groups/show.json.jbuilder
 * tags/show.json.jbuilder
 
 ## Flux
 ### Views (React Components)
-* NotebooksIndex
-  - NotebookIndexItem
-* NotebookForm
-* SearchIndex
+* GroupsIndex
+  - GroupsIndexItem
+* GroupsDetail
+* GroupForm
 
 ### Stores
-* Notebook
 
 ### Actions
-* ApiActions.receiveAllNotebooks -> triggered by ApiUtil
-* ApiActions.receiveSingleNotebook
-* ApiActions.deleteNotebook
-* NotebookActions.fetchAllNotebooks -> triggers ApiUtil
-* NotebookActions.fetchSingleNotebook
-* NotebookActions.createNotebook
-* NotebookActions.editNotebook
-* NotebookActions.destroyNotebook
+* ServerActions.receiveAllGroups -> triggered by ApiUtil
+* ServerActions.receiveSingleGroup
+* ServerActions.deleteGroup
+* ClientActions.fetchAllGroups -> triggers ApiUtil
+* ClientActions.fetchSingleGroup 
+* ClientActions.createGroup
+* ClientActions.editGroup
+* ClientActions.destroyGroup
 
 ### ApiUtil
-* ApiUtil.fetchAllNotebooks
-* ApiUtil.fetchSingleNotebook
-* ApiUtil.createNotebook
-* ApiUtil.editNotebook
-* ApiUtil.destroyNotebook
+
 
 ## Gems/Libraries
+

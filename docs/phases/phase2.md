@@ -1,37 +1,30 @@
-# Phase 2: Flux Architecture and Note CRUD (2 days)
+# Phase 2: Groups Model, API, and basic APIUtil (1.5 day)
 
 ## Rails
 ### Models
+* Group
+* Tags
+* Taggsing
 
 ### Controllers
+* GroupsControllers (index, show, create, destroy, update)
 
 ### Views
 
 ## Flux
 ### Views (React Components)
-* NotesIndex
-  - NotesIndexItem
-* NoteForm
+
 
 ### Stores
-* Note
+* Group
 
 ### Actions
-* ApiActions.receiveAllNotes -> triggered by ApiUtil
-* ApiActions.receiveSingleNote
-* ApiActions.deleteNote
-* NoteActions.fetchAllNotes -> triggers ApiUtil
-* NoteActions.fetchSingleNote 
-* NoteActions.createNote
-* NoteActions.editNote 
-* NoteActions.destroyNote
-
 ### ApiUtil
-* ApiUtil.fetchAllNotes
-* ApiUtil.fetchSingleNote
-* ApiUtil.createNote
-* ApiUtil.editNote
-* ApiUtil.destroyNote
+* ApiUtil.fetchAllGroups
+* ApiUtil.fetchSingleGroup
+* ApiUtil.createGroup
+* ApiUtil.editGroup
+* ApiUtil.destroyGroup
 
 ## Gems/Libraries
 * Flux Dispatcher (npm)

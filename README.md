@@ -11,7 +11,8 @@ Hip Up is a web application inspired by Meet Up that will be built using Ruby on
 - [ ] New account creation, login, and guest/demo login
 - [ ] Smooth, bug-free navigation
 - [ ] Adequate seed data to demonstrate the site's features
-- [ ] The minimally necessary features for an Evernote-inspired site: note creation and saving, note editing, and notes organized into notebooks
+- [ ] The minimally necessary features for an Meet-Up-inspired site: Creation, joining, and editing of groups
+- [ ] Creation, joining, editing and canceling/destroying of events
 - [ ] Hosting on Heroku
 - [ ] CSS styling that is satisfactorily visually appealing
 - [ ] A production README, replacing this README (**NB**: check out the [sample production README](https://github.com/appacademy/sample-project-proposal/blob/master/docs/production_readme.md) -- you'll write this later)
@@ -26,8 +27,8 @@ progress. Put an x between the brackets for a checkmark: [x] -->
 - [ ] Create an account (MVP)
 - [ ] Log in / Log out, including as a Guest/Demo User (MVP)
 - [ ] Create, read, edit, delete, and join groups (MVP)
-- [ ] Organize notes within Notebooks (MVP)
-- [ ] Tag events with multiple tags (expected feature, but not MVP)
+- [ ] Create, read, edit, delete, and join Events (MVP)
+- [ ] Users can search for events based on proximity and tags (MVP)
 - [ ] Apply animations to site while browsing (expected feature, but not MVP)
 
 ## Design Docs
@@ -57,7 +58,7 @@ progress. Put an x between the brackets for a checkmark: [x] -->
 - [ ] blank landing page after signin
 - [ ] temporary basic bootstrap CSS
 
-### Phase 2: Groups Model, API, and basic APIUtil (1.5 days)
+### Phase 2: Groups Model, API, and basic APIUtil (1.5 day)
 
 **Objective:** Groups can be created, read, edited and deleted through
 the API.
@@ -82,63 +83,63 @@ user interface.
   - [ ] `GroupIndex`
   - [ ] `GroupIndexItem`
   - [ ] `GroupDetail`
-- [ ] save Notes to the DB when the form loses focus or is left idle
-  after editing.
-- [ ] temporary bootstrap CSS
+- [ ] form for creating new groups
+- [ ] temporary bootstrap CSS / start styling if time allows
 
 
+### Phase 4: Tags (1.5 days)
 
-### Phase 4: Group Events (1 day)
+**Objective:** Groups can be tagged with multiple tags, and tags are searchable.
+
+- [ ] create `Tags` model and join table
+- build out API, Flux loop, and components for:
+  - [ ] fetching events for tag
+  - [ ] fetching tags for event
+- preliminary styling
+
+### Phase 5: Group Events (2 day)
 
 **Objective:** Group Events belong to groups.
 
 - [ ] create `Group Events` model
+- [ ] create seed data
 - [ ] set up associations with users and group
 - [ ] set up polymorphic association of images
 - build out API, Flux loop, and components for:
   - [ ] Group Events CRUD
   - [ ] Showing all events information
-- temporary Bootstrap CSS
+  - [ ] Creating events
+- build calendar for events in group index page
+- temporary Bootstrap CSS / start styling if time allows
 
 
-### Phase 6: Tags (1.5 days)
+### Phase 6: Start Styling (1 days)
 
-**Objective:** Notes can be tagged with multiple tags, and tags are searchable.
-
-- [ ] create `User` model and join table
-- build out API, Flux loop, and components for:
-  - [ ] fetching users for events
-  - [ ] fetching events for users
-- [ ] Style new elements
-
-### Phase 4: Start Styling (0.5 days)
-
-**Objective:** Existing pages (including singup/signin) will look good.
+**Objective:** Existing pages (at least Events Index) will look good.
 
 - [ ] create a basic style guide
 - [ ] position elements on the page
 - [ ] add basic colors & styles
 
-### Phase 7: Allow Complex Styling in Notes (0.5 days)
+### Phase 7: Google Map Distance Matrix (0.5 days)
 
-**objective:** Enable complex styling of notes.
+**objective:** Allow users to browse events by location and show the events with closest proximity
 
-- [ ] Integrate `react-quill` (based on Quill.js).
-- [ ] Use Rails helpers to sanitize HTML before rendering.
-- [ ] Style the new Quill elements.
+- [ ] Add query options for proximity in Group models
+- [ ] Add google map showing the location in Group Events
 
-### Phase 8: Styling Cleanup and Seeding (1 day)
+### Phase 8: Further Styling (1.5 day)
 
 **objective:** Make the site feel more cohesive and awesome.
 
-- [ ] Get feedback on my UI from others
-- [ ] Refactor HTML classes & CSS rules
-- [ ] Add modals, transitions, and other styling flourishes.
+- [ ] Further Styling
+- [ ] Add transitions and other styling flourishes.
+
 
 ### Bonus Features (TBD)
-- [ ] Infinite Scroll for event index
-- [ ] Discussion page for group
-- [ ] Page Animation
+- [ ] Discussion PAges
+- [ ] Infinite Scroll for group indices
+- [ ] Associate users with groups of their interest
 - [ ] Multiple sessions
 
 [phase-one]: ./docs/phases/phase1.md
@@ -146,3 +147,7 @@ user interface.
 [phase-three]: ./docs/phases/phase3.md
 [phase-four]: ./docs/phases/phase4.md
 [phase-five]: ./docs/phases/phase5.md
+[phase-six]: ./docs/phases/phase6.md
+[phase-seven]: ./docs/phases/phase7.md
+[phase-eight]: ./docs/phases/phase8.md
+[phase-nine]: ./docs/phases/phase9.md

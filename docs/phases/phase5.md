@@ -1,8 +1,9 @@
-# Phase 5: Reminders and Garbage Collection
+# Phase 4: Tags and Taggings (1.5days)
 
 ## Rails
 ### Models
-* Reminder
+* Tags
+* Taggings
 
 ### Controllers
 * Api::RemindersController (create, destroy, index, show, update)
@@ -18,7 +19,7 @@
 * ReminderForm
 
 ### Stores
-* Reminder
+*
 
 ### Actions
 * ApiActions.receiveAllReminders -> triggered by ApiUtil

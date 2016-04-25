@@ -5,6 +5,8 @@ column name  | data type | details
 -------------|-----------|-----------------------
 id           | integer   | not null, primary key
 title        | string    | not null, unique
+lat          | float     | not null
+lng          | float     | not null
 description  | text      | not null
 creator_id   | integer   | not null, foreign key (references users), indexed
 taggings_id  | integer   | not null, foreign key (references taggings), indexed
@@ -74,14 +76,14 @@ id              | integer   | not null, primary key
 group_id        | string    | not null, indexed, unique user_id
 user_id         | string    | not null, indexed
 
-## userInterests
+## userInterests - bonus
 column name     | data type | details
 ----------------|-----------|-----------------------
 id              | integer   | not null, primary key
 user_id         | integer   | not null, indexed
 interest_id     | integer   | not null, indexed
 
-## interests
+## interests - bonus
 column name     | data type | details
 ----------------|-----------|-----------------------
 id              | integer   | not null, primary key
