@@ -20,27 +20,25 @@
 
 ## JSON API
 
-### Notes
+### Users
+-	`GET /users/:id`
 
-- `GET /api/notes`
-  - Notes index/search
+### Groups
+
+- `GET /api/groups`
+  - Group index/search
   - accepts `tag_name` query param to list notes by tag
-  - accepts pagination params (if I get there)
-- `POST /api/notes`
-- `GET /api/notes/:id`
-- `PATCH /api/notes/:id`
-- `DELETE /api/notes/:id`
+- `POST /api/groups`
+- `GET /api/groups/:id`
+- `PATCH /api/groups/:id`
+- `DELETE /api/groups/:id`
 
-### Notebooks
+### GroupEvents
 
-- `GET /api/notebooks`
-- `POST /api/notebooks`
-- `GET /api/notebooks/:id`
-- `PATCH /api/notebooks/:id`
-- `DELETE /api/notebooks/:id`
-- `GET /api/notebooks/:id/notes`
-  - index of all notes for a notebook
-  - accepts pagination params (if I get there)
+- `GET /api/groups/:id/group_events`
+- `POST /api/group_events`
+- `PATCH /api/group_events/:id`
+- `DELETE /api/group_events/:id`
 
 ### Tags
 

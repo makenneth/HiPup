@@ -12,56 +12,56 @@ because once you start implementing your flux loops, that's precisely
 what you'll need to do.
 
 
-## Note Cycles
+## Events Cycles
 
-### Notes API Request Actions
+### Event API Request Actions
 
-* `fetchAllNotes`
-  0. invoked from `NotesIndex` `didMount`/`willReceiveProps`
-  0. `GET /api/notes` is called.
-  0. `receiveAllNotes` is set as the callback.
+* `fetchAllevents`
+  0. invoked from `EventsIndex` `didMount`/`willReceiveProps`
+  0. `GET /api/events` is called.
+  0. `receiveAllEvents` is set as the callback.
 
-* `createNote`
+* `createEvent`
   0. invoked from new note button `onClick`
-  0. `POST /api/notes` is called.
-  0. `receiveSingleNote` is set as the callback.
+  0. `POST /api/events` is called.
+  0. `receiveSingleEvent` is set as the callback.
 
-* `fetchSingleNote`
-  0. invoked from `NoteDetail` `didMount`/`willReceiveProps`
-  0. `GET /api/notes/:id` is called.
-  0. `receiveSingleNote` is set as the callback.
+* `fetchSingleEvent`
+  0. invoked from `EventDetail` `didMount`/`willReceiveProps`
+  0. `GET /api/events/:id` is called.
+  0. `receiveSingleEvent` is set as the callback.
 
-* `updateNote`
-  0. invoked from `NoteForm` `onSubmit`
-  0. `POST /api/notes` is called.
-  0. `receiveSingleNote` is set as the callback.
+* `updateEvent`
+  0. invoked from `EventForm` `onSubmit`
+  0. `POST /api/events` is called.
+  0. `receiveSingleEvent` is set as the callback.
 
-* `destroyNote`
-  0. invoked from delete note button `onClick`
-  0. `DELETE /api/notes/:id` is called.
-  0. `removeNote` is set as the callback.
+* `destroyEvent`
+  0. invoked from delete event button `onClick`
+  0. `DELETE /api/events/:id` is called.
+  0. `removeEvent` is set as the callback.
 
-### Notes API Response Actions
+### Events API Response Actions
 
-* `receiveAllNotes`
+* `receiveAllEvents`
   0. invoked from an API callback.
-  0. `Note` store updates `_notes` and emits change.
+  0. `Event` store updates `_events` and emits change.
 
-* `receiveSingleNote`
+* `receiveSingleEvent`
   0. invoked from an API callback.
-  0. `Note` store updates `_notes[id]` and emits change.
+  0. `Event` store updates `_events[id]` and emits change.
 
-* `removeNote`
+* `removeEvent`
   0. invoked from an API callback.
-  0. `Note` store removes `_notes[id]` and emits change.
+  0. `Event` store removes `_events[id]` and emits change.
 
 ### Store Listeners
 
-* `NotesIndex` component listens to `Note` store.
-* `NoteDetail` component listens to `Note` store.
+* `EventIndex` component listens to `Event` store.
+* `EventDetail` component listens to `Event` store.
 
 
-## Notebook Cycles
+## Users Cycles
 
 ### Notebooks API Request Actions
 

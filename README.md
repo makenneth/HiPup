@@ -6,7 +6,7 @@
 
 ## Minimum Viable Product
 
-FresherNote is a web application inspired by Evernote that will be build using Ruby on Rails and React.js.  By the end of Week 9, this app will, at a minimum, satisfy the following criteria:
+Hip Up is a web application inspired by Meet Up that will be built using Ruby on Rails and React.js.  By the end of Week 9, this app will, at a minimum, satisfy the following criteria:
 
 - [ ] New account creation, login, and guest/demo login
 - [ ] Smooth, bug-free navigation
@@ -18,17 +18,17 @@ FresherNote is a web application inspired by Evernote that will be build using R
 
 ## Product Goals and Priorities
 
-FresherNote will allow users to do the following:
+Hip Up will allow users to do the following:
 
 <!-- This is a Markdown checklist. Use it to keep track of your
 progress. Put an x between the brackets for a checkmark: [x] -->
 
 - [ ] Create an account (MVP)
 - [ ] Log in / Log out, including as a Guest/Demo User (MVP)
-- [ ] Create, read, edit, and delete notes (MVP)
+- [ ] Create, read, edit, delete, and join groups (MVP)
 - [ ] Organize notes within Notebooks (MVP)
-- [ ] Tag notes with multiple tags (expected feature, but not MVP)
-- [ ] Apply complex styling to notes while editing (expected feature, but not MVP)
+- [ ] Tag events with multiple tags (expected feature, but not MVP)
+- [ ] Apply animations to site while browsing (expected feature, but not MVP)
 
 ## Design Docs
 * [View Wireframes][views]
@@ -53,34 +53,63 @@ progress. Put an x between the brackets for a checkmark: [x] -->
 - [ ] create `User` model
 - [ ] authentication
 - [ ] user signup/signin pages
+- [ ] record user's geolocation
 - [ ] blank landing page after signin
+- [ ] temporary basic bootstrap CSS
 
-### Phase 2: Notes Model, API, and basic APIUtil (1.5 days)
+### Phase 2: Groups Model, API, and basic APIUtil (1.5 days)
 
-**Objective:** Notes can be created, read, edited and destroyed through
+**Objective:** Groups can be created, read, edited and deleted through
 the API.
 
-- [ ] create `Note` model
+- [ ] create `Group` model
 - [ ] seed the database with a small amount of test data
-- [ ] CRUD API for notes (`NotesController`)
-- [ ] jBuilder views for notes
+- [ ] CRUD API for events (`GroupsController`)
+- [ ] set up association with Users
+- [ ] jBuilder views for events
 - [ ] setup Webpack & Flux scaffold
 - [ ] setup `APIUtil` to interact with the API
 - [ ] test out API interaction in the console.
 
 ### Phase 3: Flux Architecture and Router (1.5 days)
 
-**Objective:** Notes can be created, read, edited and destroyed with the
+**Objective:** Group can be created, read, edited and destroyed with the
 user interface.
 
 - [ ] setup the flux loop with skeleton files
 - [ ] setup React Router
-- implement each note component, building out the flux loop as needed.
-  - [ ] `NotesIndex`
-  - [ ] `NoteIndexItem`
-  - [ ] `NoteForm`
+- implement each group event component, building out the flux loop as needed.
+  - [ ] `GroupIndex`
+  - [ ] `GroupIndexItem`
+  - [ ] `GroupDetail`
 - [ ] save Notes to the DB when the form loses focus or is left idle
   after editing.
+- [ ] temporary bootstrap CSS
+
+
+
+### Phase 4: Group Events (1 day)
+
+**Objective:** Group Events belong to groups.
+
+- [ ] create `Group Events` model
+- [ ] set up associations with users and group
+- [ ] set up polymorphic association of images
+- build out API, Flux loop, and components for:
+  - [ ] Group Events CRUD
+  - [ ] Showing all events information
+- temporary Bootstrap CSS
+
+
+### Phase 6: Tags (1.5 days)
+
+**Objective:** Notes can be tagged with multiple tags, and tags are searchable.
+
+- [ ] create `User` model and join table
+- build out API, Flux loop, and components for:
+  - [ ] fetching users for events
+  - [ ] fetching events for users
+- [ ] Style new elements
 
 ### Phase 4: Start Styling (0.5 days)
 
@@ -89,33 +118,6 @@ user interface.
 - [ ] create a basic style guide
 - [ ] position elements on the page
 - [ ] add basic colors & styles
-
-### Phase 5: Notebooks (1 day)
-
-**Objective:** Notes belong to Notebooks, and can be viewed by notebook.
-
-- [ ] create `Notebook` model
-- build out API, Flux loop, and components for:
-  - [ ] Notebook CRUD
-  - [ ] adding notes requires a notebook
-  - [ ] moving notes to a different notebook
-  - [ ] viewing notes by notebook
-- Use CSS to style new views
-
-Phase 3 adds organization to the Notes. Notes belong to a Notebook,
-which has its own `Index` view.
-
-### Phase 6: Tags (1.5 days)
-
-**Objective:** Notes can be tagged with multiple tags, and tags are searchable.
-
-- [ ] create `Tag` model and join table
-- build out API, Flux loop, and components for:
-  - [ ] fetching tags for notebook
-  - [ ] adding tags to notebook
-  - [ ] creating tags while adding to notebooks
-  - [ ] searching notebooks by tag
-- [ ] Style new elements
 
 ### Phase 7: Allow Complex Styling in Notes (0.5 days)
 
@@ -134,10 +136,9 @@ which has its own `Index` view.
 - [ ] Add modals, transitions, and other styling flourishes.
 
 ### Bonus Features (TBD)
-- [ ] Search through notes for blocks of text
-- [ ] Pagination / infinite scroll for Notes Index
-- [ ] Set reminders on notes
-- [ ] Changelogs for Notes
+- [ ] Infinite Scroll for event index
+- [ ] Discussion page for group
+- [ ] Page Animation
 - [ ] Multiple sessions
 
 [phase-one]: ./docs/phases/phase1.md

@@ -2,12 +2,12 @@
 
 * `App`
   * `SearchIndex`
-  * `NotebooksIndex`
-    * `NotebookIndexItem`
-  * `NotebookForm`
-  * `NotesIndex`
-    * `NoteForm`
-    * `NoteIndexItem`
-  * `NoteDetail`
-    * `NoteTags`
-    * `NoteEditArea`
+  * `EventsIndex`
+    * `EventIndexItem`
+  * `EventForm`
+  * `UserShow`
+    * `UserProfileEdit`
+  * `EventDetail`
+    * `AssociatedUsers`
+    * `PastEvents`
+    * `EventEditing`
