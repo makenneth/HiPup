@@ -26,8 +26,7 @@
 ### Groups
 
 - `GET /api/groups`
-  - Group index/search
-  - accepts `tag_name` query param to list notes by tag
+  - accepts `tag_name` query param to list groups by tags
 - `POST /api/groups`
 - `GET /api/groups/:id`
 - `PATCH /api/groups/:id`
@@ -42,10 +41,9 @@
 
 ### Tags
 
-- A note's tags will be included in the note show template
+
 - `GET /api/tags`
   - includes query param for typeahead suggestions
-- `POST /api/notes/:note_id/tags`: add tag to note by name
-  - if note doesn't already exist, it will be created
-- `DELETE /api/notes/:note_id/tags/:tag_name`: remove tag from note by
+- `POST /api/groups/:groups_id/tags`: add tag to group by name
+- `DELETE /api/groups/:group_id/tags/:tag_name`: remove tag from group by
   name

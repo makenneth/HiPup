@@ -22,7 +22,7 @@ what you'll need to do.
   0. `receiveAllGroups` is set as the callback.
 
 * `createGroup`
-  0. invoked from new note button `onClick`
+  0. invoked from new group button `onClick`
   0. `POST /api/groups` is called.
   0. `receiveSingleGroup` is set as the callback.
 
