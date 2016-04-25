@@ -137,7 +137,8 @@ user interface.
 
 
 ### Bonus Features (TBD)
-- [ ] Discussion PAges
+- [ ] Discussion Pages
+- [ ] Search Suggestions
 - [ ] Infinite Scroll for group indices
 - [ ] Associate users with groups of their interest
 - [ ] Multiple sessions

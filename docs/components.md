@@ -1,13 +1,13 @@
 ## Component Hierarchy
 
 * `App`
-  * `SearchIndex`
-  * `EventsIndex`
-    * `EventIndexItem`
-  * `EventForm`
+  * `GroupsIndex`
+    * `GroupIndexItem`
+  * `GroupForm`
   * `UserShow`
     * `UserProfileEdit`
-  * `EventDetail`
+  * `GroupEventsIndex`
+    * `GroupEventsIndexItem`
     * `AssociatedUsers`
     * `PastEvents`
-    * `EventEditing`
+    * `EventEdit`
