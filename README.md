@@ -67,7 +67,7 @@ the API.
 - [ ] seed the database with a small amount of test data
 - [ ] CRUD API for events (`GroupsController`)
 - [x] set up association with Users
-- [ ] jBuilder views for events
+- [x] jBuilder views for events
 - [ ] setup Webpack & Flux scaffold
 - [ ] setup `APIUtil` to interact with the API
 - [ ] test out API interaction in the console.
