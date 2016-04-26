@@ -1,12 +1,12 @@
-var UserActions = require('../actions/userActions');
+var UserServerActions = require("../actions/userServerActions");
 
 module.exports = {
 	fetchCurrentUser: function(){
 		$.ajax({
 			method: "GET",
 			url: "/api/user",
-			success: UserActions.receiveCurrentUser,
-			error: UserActions.handleErrors
+			success: UserServerActions.receiveCurrentUser,
+			error: UserServerActions.handleErrors
 		});
 	},
 	signUp: function(user){
@@ -14,25 +14,32 @@ module.exports = {
 			method: "POST",
 			url: "/api/user",
 			data: {user: user},
-			success: UserActions.receiveCurrentUser,
-			error: UserActions.handleErrors
+			success: UserServerActions.receiveCurrentUser,
+			error: UserServerActions.handleErrors
 		});
 	},
 	signIn: function(user){
 		$.ajax({
-			method: "POST",
+			type: "POST",
 			url: "/api/session",
 			data: {user: user},
-			success: UserActions.receiveCurrentUser,
-			error: UserActions.handleErrors
+			dataType: "json",
+			success: function(user){
+				UserServerActions.receiveCurrentUser(user);
+			},
+			error: UserServerActions.handleErrors
 		});
 	},
 	logOut: function(){
 		$.ajax({
-			method: "DELETE",
 			url: "/api/session",
-			success: UserActions.removeCurrentUser,
-			error: UserActions.hanldeErrors
+			method: "DELETE",
+			success: function(data){
+				console.log(data);
+				debugger;
+				UserServerActions.removeCurrentUser();
+			},
+			error: UserServerActions.hanldeErrors
 		});
 	}
 }

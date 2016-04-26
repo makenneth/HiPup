@@ -19,13 +19,14 @@ var _setCurrentUser = function(user){
 	_errors = [];
 };
 var _unsetCurrentUser = function(){
+	debugger;
 	_currentUser = null;
 	_errors = [];
-}
+};
 var _setErrors = function(errors){
 	_errors = errors;
 };
-UserStore.__onDispatcher = function(payload) {
+UserStore.__onDispatch = function(payload) {
 	switch (payload.actionType){
 		case UserConstants.ERROR:
 			_setErrors(payload.errors);

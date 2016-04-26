@@ -1,5 +1,7 @@
 var React = require('react'),
-		UserActions = require('../../actions/userActions');
+		UserActions = require('../../actions/userActions'),
+		UserStore = require('../../stores/userStore'),
+		HashHistory = require('react-router').hashHistory;
 
 var SignUpForm = React.createClass({
 	getInitialState: function() {
@@ -12,6 +14,16 @@ var SignUpForm = React.createClass({
 			lng: 0 
 		};
 	},
+	componentDidMount: function() {
+		navigator.geolocation.getCurrentPosition(this.setPosition);
+		UserStore.addListener(this._onLogIn);
+	},
+	_onLogIn: function() {
+		HashHistory.goBack();
+	},
+	setPosition: function(pos) {
+		this.setState({lat: pos.coords.latitude, lng: pos.coords.longitude });
+	},
 	updateName: function(e) {
 		this.setState({name: e.target.value});
 	},
@@ -21,7 +33,7 @@ var SignUpForm = React.createClass({
 	updateEmail: function(e) {
 		this.setState({email: e.target.value});
 	},
-	updatePassWord: function(e) {
+	updatePassword: function(e) {
 		this.setState({password: e.target.value});
 	},
 	handleSubmit: function(e) {

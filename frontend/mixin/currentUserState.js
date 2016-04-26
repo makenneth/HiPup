@@ -13,7 +13,7 @@ module.exports = {
 			UserActions.fetchCurrentUser();
 		}
 	},
-	updateUser: function() {
+	_updateUser: function() {
 		this.setState({
 			currentUser: UserStore.currentUser(),
 			errors: UserStore.errors()	

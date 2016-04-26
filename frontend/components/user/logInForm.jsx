@@ -1,6 +1,7 @@
 var React = require('react'),
 		UserActions = require('../../actions/userActions'),
-		HashHistory = require('react-router').hashHistory;
+		HashHistory = require('react-router').hashHistory,
+		UserStore = require('../../stores/userStore');
 
 var LogInForm = React.createClass({
 	getInitialState: function() {
@@ -8,6 +9,12 @@ var LogInForm = React.createClass({
 			username: "",
 			password: ""
 		};
+	},
+	componentDidMount: function() {
+		UserStore.addListener(this._onLogIn);
+	},
+	_onLogIn: function() {
+		HashHistory.goBack();
 	},
 	handleSubmit: function(e) {
 		e.preventDefault();
@@ -19,18 +26,14 @@ var LogInForm = React.createClass({
 	updatePassword: function(e) {
 		this.setState({password: e.target.value});
 	},
-	back: function(){
-		HashHistory.push("/");
-	},
-	guestLogin: function() {
+	guestLogin: function(e) {
 		this.setState({username: "sampleuser", password: "password"});
 	},
 	render: function() {
-		var LogInButton = this.state.username.length >= 8 && this.state.password.length >= 8 ?
-				<input type="submit" className="btn btn-success" value="Log In"/> :
-				<input type="submit" className="btn btn-success" value="Log In" disabled/>;
+		var isDisabled = this.state.password.length >= 8;
 		return (
 			<div>
+				<h3>Log In</h3>
 				<form onSubmit={this.handleSubmit}>
 					<div className="form-group">
 						<label for="username">Username</label>
@@ -40,10 +43,10 @@ var LogInForm = React.createClass({
 						<label for="password">Password</label>
 						<input id="password" type="text" value={this.state.password} onChange={this.updatePassword}/ >
 					</div>
-					{LogInButton}
-					<button className="btn btn-info" onClick={this.guestLogin}>Guest Login</button>
-					<button className="btn" onClick={this.back}>Back</button>
+					<input type="submit" className="btn btn-success" value="Log In" disabled={!isDisabled}/>
 				</form>
+					<button className="btn btn-info" onClick={this.guestLogin}>Guest Login</button>
+					<button className="btn" href="#/">Back</button>
 			</div>
 		);
 	}
