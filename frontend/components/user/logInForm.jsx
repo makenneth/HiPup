@@ -1,5 +1,6 @@
 var React = require('react'),
-		UserActions = require('../../actions/userActions');
+		UserActions = require('../../actions/userActions'),
+		HashHistory = require('react-router').hashHistory;
 
 var LogInForm = React.createClass({
 	getInitialState: function() {
@@ -11,13 +12,18 @@ var LogInForm = React.createClass({
 	handleSubmit: function(e) {
 		e.preventDefault();
 		UserActions.signIn(this.state);
-		console.log("log in success");
 	},
 	updateUsername: function(e) {
 		this.setState({username: e.target.value});
 	},
 	updatePassword: function(e) {
 		this.setState({password: e.target.value});
+	},
+	back: function(){
+		HashHistory.push("/");
+	},
+	guestLogin: function() {
+		this.setState({username: "sampleuser", password: "password"});
 	},
 	render: function() {
 		var LogInButton = this.state.username.length >= 8 && this.state.password.length >= 8 ?
@@ -35,8 +41,8 @@ var LogInForm = React.createClass({
 						<input id="password" type="text" value={this.state.password} onChange={this.updatePassword}/ >
 					</div>
 					{LogInButton}
-					<button className="btn" onClick={UserActions.guestLogin}>Guest Login</button>
-					<button href="/">Back</button>
+					<button className="btn btn-info" onClick={this.guestLogin}>Guest Login</button>
+					<button className="btn" onClick={this.back}>Back</button>
 				</form>
 			</div>
 		);

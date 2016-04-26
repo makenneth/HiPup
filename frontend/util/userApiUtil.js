@@ -7,7 +7,7 @@ module.exports = {
 			url: "/api/user",
 			success: UserActions.receiveCurrentUser,
 			error: UserActions.handleErrors
-		})
+		});
 	},
 	signUp: function(user){
 		$.ajax({
@@ -16,7 +16,7 @@ module.exports = {
 			data: {user: user},
 			success: UserActions.receiveCurrentUser,
 			error: UserActions.handleErrors
-		})
+		});
 	},
 	signIn: function(user){
 		$.ajax({
@@ -25,7 +25,7 @@ module.exports = {
 			data: {user: user},
 			success: UserActions.receiveCurrentUser,
 			error: UserActions.handleErrors
-		})
+		});
 	},
 	logOut: function(){
 		$.ajax({
@@ -33,6 +33,6 @@ module.exports = {
 			url: "/api/session",
 			success: UserActions.removeCurrentUser,
 			error: UserActions.hanldeErrors
-		})
+		});
 	}
 }

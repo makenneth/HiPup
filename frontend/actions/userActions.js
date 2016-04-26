@@ -15,9 +15,6 @@ module.exports = {
 	logOut: function(){
 		UserApiUtil.logOut;
 	},
-	guestLogin: function(){
-		UserApiUtil.signIn({username: "sampleuser", password: "password"});
-	},
 	receiveCurrentUser: function(user){
 		AppDispatcher.dispatch({
 			actionType: UserConstants.LOGIN,

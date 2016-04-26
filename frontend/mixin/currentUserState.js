@@ -9,9 +9,14 @@ module.exports = {
 	},
 	componentDidMount: function() {
 		UserStore.addListener(this._updateUser);
-		if (!currentUser){
-
+		if (!this.state.currentUser){
+			UserActions.fetchCurrentUser();
 		}
 	},
-
-}
+	updateUser: function() {
+		this.setState({
+			currentUser: UserStore.currentUser(),
+			errors: UserStore.errors()	
+		});
+	}
+};

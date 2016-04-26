@@ -2,7 +2,7 @@ class Api::UsersController < ApplicationController
 
 	def show
 		if current_user
-			render :show
+			render :current_user
 		else
 			render json: {}
 		end
