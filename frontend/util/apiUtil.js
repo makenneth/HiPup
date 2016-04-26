@@ -6,7 +6,7 @@ module.exports = {
 			method: "GET",
 			url: "/api/groups",
 			success: function(groups){
-
+				ServerActions.receivedGroups(groups);
 			}
 		});
 	},
@@ -28,7 +28,7 @@ module.exports = {
 			data: {group: group},
 			dataType: "json",
 			success: function(group){
-				
+
 			}
 		})
 	}

@@ -6,18 +6,18 @@ module.exports = {
 		AppDispatcher.dispatch({
 			actionType: GroupConstants.RECEIVED_GROUPS,
 			groups: groups
-		})
+		});
 	},
 	receivedGroup: function(group){
 		AppDispatcher.dispatch({
 			actionType: GroupConstants.RECEIVED_GROUP,
 			group: group
-		})
+		});
 	},
 	removedGroup: function(group){
 		AppDispatcher.dispatch({
-			actionType: GroupConstants.REMOVED_GROUP
+			actionType: GroupConstants.REMOVED_GROUP,
 			group: group
-		})
+		});
 	}
 };

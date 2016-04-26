@@ -18,8 +18,10 @@ var App = React.createClass({
 		return (
 			<div>
 			<Navbar />
-				<h1>Home Page</h1>
-				{this.props.children}
+				<div class="page-container">
+					<h1>Home Page</h1>
+					{this.props.children}
+				</div>
 			</div>
 		);
 	}
