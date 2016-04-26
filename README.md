@@ -24,8 +24,8 @@ Hip Up will allow users to do the following:
 <!-- This is a Markdown checklist. Use it to keep track of your
 progress. Put an x between the brackets for a checkmark: [x] -->
 
-- [ ] Create an account (MVP)
-- [ ] Log in / Log out, including as a Guest/Demo User (MVP)
+- [x] Create an account (MVP)
+- [x] Log in / Log out, including as a Guest/Demo User (MVP)
 - [ ] Create, read, edit, delete, and join groups (MVP)
 - [ ] Create, read, edit, delete, and join Events (MVP)
 - [ ] Users can search for events based on proximity and tags (MVP)
@@ -50,23 +50,23 @@ progress. Put an x between the brackets for a checkmark: [x] -->
 
 **Objective:** Functioning rails project with Authentication
 
-- [ ] create new project
-- [ ] create `User` model
-- [ ] authentication
-- [ ] user signup/signin pages
-- [ ] record user's geolocation
-- [ ] blank landing page after signin
-- [ ] temporary basic bootstrap CSS
+- [x] create new project
+- [x] create `User` model
+- [x] authentication
+- [x] user signup/signin pages
+- [x] record user's geolocation
+- [x] blank landing page after signin
+- [x] temporary basic bootstrap CSS
 
 ### Phase 2: Groups Model, API, and basic APIUtil (1.5 day)
 
 **Objective:** Groups can be created, read, edited and deleted through
 the API.
 
-- [ ] create `Group` model
+- [x] create `Group` model
 - [ ] seed the database with a small amount of test data
 - [ ] CRUD API for events (`GroupsController`)
-- [ ] set up association with Users
+- [x] set up association with Users
 - [ ] jBuilder views for events
 - [ ] setup Webpack & Flux scaffold
 - [ ] setup `APIUtil` to interact with the API

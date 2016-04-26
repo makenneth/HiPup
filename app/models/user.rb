@@ -5,6 +5,10 @@ class User < ActiveRecord::Base
 	validates :password, length: {minimum: 8, allow_nil: true}
 	validates :username, :email, uniqueness: true
 
+	has_many :groups, foreign_key: :creator_id, className: :Groups
+	has_many :group_participants, foreign_key: :participant_id, className: :GroupParticipant
+	has_many :joined_groups, through: :group_participants, source: :group
+	
 	attr_reader :password
 
 	def self.find_by_credentials(username, password)

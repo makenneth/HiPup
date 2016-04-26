@@ -11,10 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160425233429) do
+ActiveRecord::Schema.define(version: 20160426184346) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "group_participants", force: :cascade do |t|
+    t.integer "group_id",       null: false
+    t.integer "participant_id", null: false
+  end
 
   create_table "groups", force: :cascade do |t|
     t.string   "title",       null: false
@@ -24,6 +29,7 @@ ActiveRecord::Schema.define(version: 20160425233429) do
     t.integer  "creator_id",  null: false
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.string   "image_url"
   end
 
   add_index "groups", ["creator_id"], name: "index_groups_on_creator_id", using: :btree
@@ -38,6 +44,7 @@ ActiveRecord::Schema.define(version: 20160425233429) do
     t.float    "lng",             null: false
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
+    t.string   "image_url"
   end
 
 end

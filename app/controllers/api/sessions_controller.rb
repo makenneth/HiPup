@@ -14,7 +14,7 @@ class Api::SessionsController < ApplicationController
 	def destroy
 		current_user.reset_session_token!
 		log_out!
-		render json: "Successfully logged out!"
+		render json: ["Successfully logged out!"], status: 200
 	end
 
 end

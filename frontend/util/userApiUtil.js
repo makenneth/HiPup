@@ -34,12 +34,11 @@ module.exports = {
 		$.ajax({
 			url: "/api/session",
 			method: "DELETE",
+			dataType: "json",
 			success: function(data){
-				console.log(data);
-				debugger;
 				UserServerActions.removeCurrentUser();
 			},
-			error: UserServerActions.hanldeErrors
+			error: UserServerActions.handleErrors
 		});
 	}
 }
