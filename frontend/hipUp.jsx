@@ -10,6 +10,7 @@ var React = require('react'),
 		GroupIndex = require('./components/group/groupIndex'),
 		LogInForm = require('./components/user/logInForm'),
 		SignUpForm = require('./components/user/signUpForm'),
+		GroupForm = require('./components/group/groupForm'),
 		CurrentUserStateMixin = require('./mixin/currentUserState'),
 		Navbar = require('./components/navbar');
 
@@ -33,6 +34,7 @@ var routes = (
 			<Route path="groups" component={GroupIndex} />
 			<Route path="session/new" component={LogInForm} />
 			<Route path="user/new" component={SignUpForm} />
+			<Route path="groups/new" component={GroupForm} />
 		</Route>
 );
 

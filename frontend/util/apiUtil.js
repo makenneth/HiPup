@@ -28,7 +28,7 @@ module.exports = {
 			data: {group: group},
 			dataType: "json",
 			success: function(group){
-
+				ServerActions.receivedGroup(group);
 			}
 		})
 	}

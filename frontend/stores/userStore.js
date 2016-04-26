@@ -19,7 +19,6 @@ var _setCurrentUser = function(user){
 	_errors = [];
 };
 var _unsetCurrentUser = function(){
-	debugger;
 	_currentUser = null;
 	_errors = [];
 };

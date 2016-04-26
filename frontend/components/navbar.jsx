@@ -1,6 +1,7 @@
 var React = require('react'),
 		CurrentUserStateMixin = require('../mixin/currentUserState'),
-		UserActions = require('../actions/userActions');
+		UserActions = require('../actions/userActions'),
+		UserStore = require('../stores/userStore');
 
 var Navbar = React.createClass({
 	mixins: [CurrentUserStateMixin],
@@ -8,6 +9,12 @@ var Navbar = React.createClass({
 		return {
 			active: 0 
 		};
+	},
+	componentDidMount: function() {
+		this.listener = UserStore.addListener(buttonsForLoggedIn);
+	},
+	componentWillUnmount: function() {
+		this.listener.remove();
 	},
 	setTab: function(tab) {
 		this.setState({active: tab});
@@ -28,6 +35,15 @@ var Navbar = React.createClass({
 			</ul>);
 		}
 	},
+	buttonsForLoggedIn: function() {
+		if (this.state.currentUser){
+			return (<li className={this.state.active === 2 ? "active" : ""}
+									onClick={this.setTab.bind(null, 2)}>
+									<a href="#/groups/new">Create Your Group</a>
+							</li>);
+		}
+		return "";
+	},
 	render: function() {
 		return (
 			<nav className="navbar navbar-inverse">
@@ -36,6 +52,7 @@ var Navbar = React.createClass({
 							onClick={this.setTab.bind(null, 0)}><a href="#/">Home</a></li>
 					<li className={this.state.active === 1 ? "active" : ""}
 							onClick={this.setTab.bind(null, 1)}><a href="#/groups">Groups</a></li>
+					{this.buttonsForLoggedIn()}
 				</ul>
 				<ul className="nav navbar-nav navbar-right">
 					{this.userButtons()}

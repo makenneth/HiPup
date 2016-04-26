@@ -3,7 +3,7 @@ var UserStore = require('../stores/userStore'),
 module.exports = {
 	getInitialState: function() {
 		return {
-			currentUser: null,
+			currentUser: UserStore.currentUser(),
 			errors: [] 
 		};
 	},

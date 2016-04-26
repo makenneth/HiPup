@@ -12,7 +12,9 @@ var _resetGroups = function(groups){
 };
 
 var _resetGroup = function(group){
+	console.log(_groups);
 	_groups[group.id] = group;
+	console.log(_groups);
 };
 
 var _removeGroup = function(group){

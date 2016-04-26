@@ -40,6 +40,9 @@ button {
 	border: 5px solid black;
 	border-radius: 5px;
 }
+.group-index-item:hover {
+	background-color: black;
+}
 .cf:after {
 	content: "";
 	display: block;

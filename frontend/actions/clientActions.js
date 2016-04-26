@@ -8,6 +8,7 @@ module.exports = {
 		ApiUtil.fetchSingleGroup(id);
 	},
 	createGroup: function(group){
+		console.log("util called");
 		ApiUtil.createGroup(group);
 	}
 }
