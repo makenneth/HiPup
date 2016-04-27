@@ -8,6 +8,7 @@ var SignUpForm = React.createClass({
 		return {
 			name: "",
 			username: "",
+			owner_name: "",
 			email: "",
 			password: "",
 			lat: 0,
@@ -36,6 +37,9 @@ var SignUpForm = React.createClass({
 	updatePassword: function(e) {
 		this.setState({password: e.target.value});
 	},
+	updateOwnerName: function(e) {
+		this.setState({owner_name: e.target.value});
+	},
 	handleSubmit: function(e) {
 		e.preventDefault();
 		UserActions.signUp(this.state);
@@ -46,9 +50,14 @@ var SignUpForm = React.createClass({
 				<h2>Sign Up</h2>
 				<form onSubmit={this.handleSubmit}>
 					<div className="form-group">
-						<label for="name">Name</label>
+						<label for="name">My Name</label>
 						<input type="text" id="name" 
 							value={this.state.name} onChange={this.updateName}/>
+					</div>
+					<div className="form-group">
+						<label for="owner-name">Owner's Name</label>
+						<input type="text" id="owner-name" 
+							value={this.state.owner_name} onChange={this.updateOwnerName}/>
 					</div>
 					<div className="form-group">
 						<label for="username">Username</label>

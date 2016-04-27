@@ -1,12 +1,18 @@
 class User < ActiveRecord::Base
 	after_initialize :ensure_session_token
 	validates :username, :email, :name, :password_digest, 
-									:session_token, :lat, :lng, presence: true
+									:session_token, :lat, :lng, :owner_name, presence: true
 	validates :password, length: {minimum: 8, allow_nil: true}
 	validates :username, :email, uniqueness: true
 
-	has_many :groups, foreign_key: :creator_id, class_name: :Groups
-	has_many :group_participants, foreign_key: :participant_id, primary_key: :id, class_name: :GroupParticipant
+	has_many :groups, 
+		foreign_key: :creator_id, 
+		class_name: :Group
+	has_many :group_participants, 
+		foreign_key: :participant_id, 
+		primary_key: :id, 
+		class_name: :GroupParticipant
+
 	has_many :joined_groups, through: :group_participants, source: :group
 	
 	attr_reader :password

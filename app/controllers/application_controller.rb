@@ -17,4 +17,6 @@ class ApplicationController < ActionController::Base
   	@current_user = nil
   	session[:session_token] = nil
   end
+
+  helper_method :current_user
 end

@@ -13,7 +13,7 @@ module.exports = {
 										    top                        : '0px',
 										    left                       : '0px',
 										    bottom                     : '0px',
-										    width                      : '150px',
+										    width                      : '200px',
 										    border                     : '1px solid #ccc',
 										    color                      : '#aaa',
 										    background                 : '#fff',

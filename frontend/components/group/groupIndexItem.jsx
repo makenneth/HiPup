@@ -3,7 +3,7 @@ var React = require('react'),
 
 var GroupIndexItem = React.createClass({
 	showDetail: function() {
-		HashHistory.push("groups/" + this.props.group.id);
+		HashHistory.push("groups/" + this.props.group.id + "/home");
 	},
 	render: function() {
 		var imgUrl = this.props.group.image_url;

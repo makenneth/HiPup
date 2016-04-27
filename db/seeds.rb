@@ -5,16 +5,20 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
-User.create({username: "sampleuser", email: "sampleuser@example.com", 
-							lat: 37.7749, lng: -122.4194, name: "Sample User", password: "password"});
-
+User.create({
+							owner_name: "Sample User", email: "whisker@example.com", 
+							lat: 37.7749, lng: -122.4194, 
+							name: "Whisker", password: "password"
+						});
 
 30.times do 
+		name = Faker::Name.first_name
 		User.create({
-			name: Faker::Superhero.name,
+			name: name,
 			username: Faker::Internet.user_name,
+			owner_name: Faker::Name.name,
 			password: "password",
-			email: Faker::Internet.free_email,
+			email: Faker::Internet.free_email(name),
 			lat: Faker::Address.latitude,
 			lng: Faker::Address.longitude
 			})
@@ -28,5 +32,12 @@ end
 			lng: Faker::Address.longitude,
 			creator_id: rand(30) + 1,
 			image_url: Faker::Placeholdit.image("500x300", 'jpg')
+			})
+end
+
+50.times do
+		GroupParticipant.create({
+			group_id: rand(20) + 1,
+			participant_id: rand(30) + 1
 			})
 end

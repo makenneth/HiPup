@@ -28,9 +28,9 @@ var GroupDetail = React.createClass({
 			<div>
 				<GroupNav groupId={this.state.group.id}/>
 				<div className="group-detail">
-					<h3>{this.state.group.title}</h3>
-					<p>{this.state.group.description}</p>
-					{this.props.children}
+					{
+						React.cloneElement(this.props.children, { group: this.state.group } )
+					}
 				</div>
 			</div>
 

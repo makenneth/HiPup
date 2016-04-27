@@ -5,6 +5,6 @@ json.lat group.lat
 json.lng group.lng
 
 unless simple
-	# json.participants group.participants
+	json.participants group.participants
 	json.description group.description
 end
