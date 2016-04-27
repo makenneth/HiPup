@@ -2,6 +2,7 @@ var React = require('react'),
 		GroupStore = require('../../stores/groupStore'),
 		ClientActions = require('../../actions/clientActions'),
 		GroupIndexItem = require('./groupIndexItem');
+var banner = "http://cdn.thebolditalic.com/paperclip/articles/6006/rect_images/original/Lantern2800.png?1412726396";
 
 var GroupIndex = React.createClass({
 	getInitialState: function() {
@@ -19,6 +20,7 @@ var GroupIndex = React.createClass({
 	render: function() {
 		return (
 			<div>
+				<div className="banner"><img src={banner} /></div>
 				<h3>This is the Group Index page</h3>
 				<div className="group-index cf">
 					{

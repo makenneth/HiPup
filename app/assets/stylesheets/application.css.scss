@@ -19,7 +19,45 @@
 button {
 	margin: 0 5px;
 }
+.nav-main {
+	position: absolute;
+	top: 0;
+	z-index: 1000;
+	right: 0;
+	left: 0;
+	background-color: white;
+	max-height: 70px;
+}
+.nav-list {
+	list-style-type: none;
+}
+.nav-list li, .nav-list-right li{
+	float: left;
+	bottom: 0;
+	background-color: white;
+	margin-right: 0.5em;
+	font-size: 1.0em;
+	width: 5em;
+}
+.nav-list-right {
+	float: right;
+}
 
+.nav-list a {
+	background-color: white;
+}
+.nav-list a:hover {
+	background-color: #69f;
+}
+.banner {
+	height: 350px;
+	overflow: hidden;
+	margin-top: -20px;
+}
+.banner img {
+	height: auto;
+	width: 100%;
+}
 .page-container {
 	margin: 0 auto;
 	width: 80em;
@@ -28,17 +66,19 @@ button {
 
 .group-index-photos {
 	min-width: 150px;
-	width: 18em;
-	margin: 0 10px;
-	overflow: hidden;
+	width: 100%;
+	margin: 0px;
+
 }
 .group-index-item {
-	padding: 20px;
-	margin: 30px;
+	overflow: hidden;
+	padding: 20px 0;
+	margin: 60px;
 	width: 22em;
 	float: left;
-	border: 5px solid black;
-	border-radius: 5px;
+	border: 3px solid black;
+	border-radius: 7px;
+	box-shadow: 2px 2px 5px black;
 }
 .group-index-item:hover {
 	background-color: black;

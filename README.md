@@ -8,7 +8,7 @@
 
 Hip Up is a web application inspired by Meet Up that will be built using Ruby on Rails and React.js.  By the end of Week 9, this app will, at a minimum, satisfy the following criteria:
 
-- [ ] New account creation, login, and guest/demo login
+- [x] New account creation, login, and guest/demo login
 - [ ] Smooth, bug-free navigation
 - [ ] Adequate seed data to demonstrate the site's features
 - [ ] The minimally necessary features for an Meet-Up-inspired site: Creation, joining, and editing of groups
@@ -64,26 +64,26 @@ progress. Put an x between the brackets for a checkmark: [x] -->
 the API.
 
 - [x] create `Group` model
-- [ ] seed the database with a small amount of test data
-- [ ] CRUD API for events (`GroupsController`)
+- [x] seed the database with a small amount of test data
+- [x] CRUD API for events (`GroupsController`)
 - [x] set up association with Users
 - [x] jBuilder views for events
-- [ ] setup Webpack & Flux scaffold
-- [ ] setup `APIUtil` to interact with the API
-- [ ] test out API interaction in the console.
+- [x] setup Webpack & Flux scaffold
+- [x] setup `APIUtil` to interact with the API
+- [x] test out API interaction in the console.
 
 ### Phase 3: Flux Architecture and Router (1.5 days)
 
 **Objective:** Group can be created, read, edited and destroyed with the
 user interface.
 
-- [ ] setup the flux loop with skeleton files
-- [ ] setup React Router
+- [x] setup the flux loop with skeleton files
+- [x] setup React Router
 - implement each group event component, building out the flux loop as needed.
-  - [ ] `GroupIndex`
-  - [ ] `GroupIndexItem`
+  - [x] `GroupIndex`
+  - [x] `GroupIndexItem`
   - [ ] `GroupDetail`
-- [ ] form for creating new groups
+- [x] form for creating new groups
 - [ ] temporary bootstrap CSS / start styling if time allows
 
 

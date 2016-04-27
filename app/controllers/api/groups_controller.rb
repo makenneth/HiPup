@@ -4,7 +4,7 @@ class Api::GroupsController < ApplicationController
 	end
 
 	def show
-		@group = Group.includes(:participants).find(params[:id])
+		@group = Group.find(params[:id])
 	end
 
 	def create

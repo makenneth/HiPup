@@ -4,4 +4,5 @@ class Group < ActiveRecord::Base
 	belongs_to :user
 	has_many :group_participants #join table
 	has_many :participants, through: :group_participants, source: :participant
+	has_many :images, as: :imageable
 end

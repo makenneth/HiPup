@@ -16,7 +16,7 @@ module.exports = {
 			method: "GET",
 			url: "/api/groups/" + id,
 			success: function(group) {
-
+				ServerActions.receivedGroup(group);
 			}
 		});
 	},
@@ -29,6 +29,28 @@ module.exports = {
 			dataType: "json",
 			success: function(group){
 				ServerActions.receivedGroup(group);
+			}
+		});
+	},
+
+	editGroup: function(group){
+		$.ajax({
+			method: "PATCH",
+			url: "/api/groups/" + group.id,
+			data: {group: group},
+			dataType: "json",
+			success: function(group){
+				ServerActions.receivedGroup(group)
+			} 
+		});
+	},
+
+	removeGroup: function(id){
+		$.ajax({
+			method: "DELETE",
+			url: "/api/groups/" + group.id,
+			success: function(group){
+				ServerActions.removedGroup(group);
 			}
 		})
 	}
