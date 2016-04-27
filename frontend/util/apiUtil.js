@@ -1,6 +1,15 @@
 var ServerActions = require('../actions/serverActions');
 
 module.exports = {
+	fetchMember: function(id) {
+		$.ajax({
+			method: "GET",
+			url: "/api/show_users/" + id,
+			success: function(user){
+				ServerActions.memberFetched(user);
+			}
+		})
+	},
 	fetchAllGroups: function() {
 		$.ajax({
 			method: "GET",

@@ -20,8 +20,10 @@ var React = require('react'),
 		GroupMembers = require('./components/group/groupMembers'),
 		GroupPhotos = require('./components/group/groupPhotos'),
 		GroupEvents = require('./components/group/groupEvents'),
+		CurrentUserProfile = require('./components/user/currentUserProfile'),
 		FormStyle = require('./modal/formStyle'),
 		NavStyle= require('./modal/navStyle');
+
 var App = React.createClass({
 	mixins: [CurrentUserStateMixin],
 	getInitialState: function() {
@@ -107,6 +109,7 @@ var routes = (
 			<Route path="groups" component={GroupIndex} />
 			<Route path="session/new" component={LogInForm} />
 			<Route path="user/new" component={SignUpForm} />
+			<Route path="user/profile" component={CurrentUserProfile} />
 			<Route path="groups/new" component={GroupForm} />
 			<Route path="groups/:groupId" component={GroupDetail}>
 				<Route path="home" component={GroupHome}/>

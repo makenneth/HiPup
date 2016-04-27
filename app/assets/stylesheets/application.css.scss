@@ -64,6 +64,9 @@ button {
 		color: black;
 	}
 }
+.nav-list-user {
+	margin-top: 50px;
+}
 .nav-div {
 	width: 100%;
 	background-color: gray;
@@ -181,7 +184,36 @@ button {
 		margin-right: 25px;
 	}
 }
+.current-user-profile {
+	width: 80%;
+	margin: 0 auto;
+	background-color: #2864a0;
+	border: 1px solid black;
+	margin-top: 50px;
+	border-radius: 5px;
+	padding: 40px;
 
+	.profile-img {
+		float: left;
+		overflow: hidden;
+		border-radius: 10px;
+	}
+
+	.profile-list {
+		margin-left: 50px;
+		float: left;
+		li {
+			border-bottom: 2px solid black;
+			padding: 20px 0;
+			text-indent: 30px;
+			font-family: 'Slabo 27px', sans-serif;
+			font-size: 24px;
+		}
+		li:first-child {
+			border-top: 2px solid black;
+		}
+	}
+}
 .cf:after {
 	content: "";
 	display: block;

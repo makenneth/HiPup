@@ -1,5 +1,6 @@
 var AppDispatcher = require('../dispatcher/dispatcher'),
-		GroupConstants = require('../constants/groupConstants');
+		GroupConstants = require('../constants/groupConstants'),
+		MemberConstants = require('../constants/memberConstants');
 
 module.exports = {
 	receivedGroups: function(groups){
@@ -19,5 +20,11 @@ module.exports = {
 			actionType: GroupConstants.REMOVED_GROUP,
 			group: group
 		});
+	},
+	memberFetch: function(user){
+		AppDispatcher.dispatch({
+			actionType: MemberConstants.MEMBER_FETCHED,
+			user: user
+		})
 	}
 };

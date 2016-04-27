@@ -1,5 +1,2 @@
-json.extract! @user, :name, :owner_name, :image_url, :lat, :lng
+json.extract! @user, :name, :owner_name, :image_url, :lat, :lng, :id, :username
 
-if current_user == @user
-	json.extract! @user, :email, :username, :created_at
-end

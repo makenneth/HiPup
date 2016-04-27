@@ -9,5 +9,8 @@ module.exports = {
 	},
 	createGroup: function(group){
 		ApiUtil.createGroup(group);
+	},
+	fetchMember: function(id){
+		ApiUtil.fetchMember(id);
 	}
 }
