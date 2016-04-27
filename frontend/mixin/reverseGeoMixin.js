@@ -1,4 +1,12 @@
 module.exports = {
+	getInitialState: function() {
+		return {
+			location: [] 
+		};
+	},
+	_setLocation: function(data) {
+		this.setState({location: data});
+	},
 	_getCityAndCountry: function(lat, lng, callback){
 		$.ajax({
 			method: "GET",
@@ -7,7 +15,6 @@ module.exports = {
 			dataType: "json",
 			success: function(res){
 				var result = Array(2);
-				debugger;
 				res.results[0].address_components.forEach(function(component){
 					if ((/locality/).test(component.types[0])){
 							result[0] = component.long_name;

@@ -1,7 +1,8 @@
 var React = require('react'),
 		GroupStore = require('../../stores/groupStore'),
 		Modal = require('react-modal'),
-		MemberProfile = require('./memberProfile');
+		MemberProfile = require('./memberProfile'),
+		FormStyle = require('../../modal/formStyle');
 
 var GroupMembers = React.createClass({
 	getInitialState: function() {
@@ -12,8 +13,8 @@ var GroupMembers = React.createClass({
 			modalIsOpen: false
 		};
 	},
-	openModal: function() {
-		this.setState({modalIsOpen: true});
+	openModal: function(id) {
+		this.setState({modalIsOpen: true, selectedUserId: id});
 	},
 	closeModal: function() {
 		this.setState({modalIsOpen: false});
@@ -29,18 +30,21 @@ var GroupMembers = React.createClass({
 		return (
 			<div>
 				<h1>Group Members</h1>
-				{
-					participants.map(function(participant){
-						return <li onClick={ this.openModal.bind(null, participant.id) } 
-												key={ participant.id }>
-											{participant.name}
-									  </li>;
-					})
-				}
+					<ul className="member-list">
+					{
+						participants.map(function(participant){
+							return <li onClick={ this.openModal.bind(null, participant.id) } 
+													 key={ participant.id }>
+												<a>{participant.name}</a>
+										  </li>;
+						}.bind(this))
+					}
+				</ul>
 				<Modal isOpen={this.state.modalIsOpen}
-							 onRequestClose={this.closeNavModal}
-							 style={NavStyle}>
-						<MemberProfile id={} closeModal={this.closeModal}/>
+							 onRequestClose={this.closeModal}
+							 style={FormStyle}>
+						<MemberProfile userId={this.state.selectedUserId} 
+													 closeModal={this.closeModal}/>
 				</Modal>
 			</div>
 		);

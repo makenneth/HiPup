@@ -5,6 +5,7 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
 User.create({
 							owner_name: "Sample User", email: "whisker@example.com", 
 							lat: 37.7749, lng: -122.4194, 
@@ -19,12 +20,12 @@ User.create({
 			owner_name: Faker::Name.name,
 			password: "password",
 			email: Faker::Internet.free_email(name),
-			lat: Faker::Address.latitude,
-			lng: Faker::Address.longitude
+			lat: 37.7749, lng: -122.4194,
+			image_url: Faker::Placeholdit.image("250x250", 'jpg')
 			})
 end
 
-20.times do
+20.times do |i|
 		Group.create({
 			title: Faker::Hipster.words(2).join(" "),
 			description: Faker::Hipster.paragraph,
@@ -33,6 +34,14 @@ end
 			creator_id: rand(30) + 1,
 			image_url: Faker::Placeholdit.image("500x300", 'jpg')
 			})
+
+	5.times do 
+		Image.create({
+			imageable_id: i,
+			imageable_type: "Group",
+			image_url: Faker::Placeholdit.image("500x300", 'jpg')
+			})
+	end
 end
 
 50.times do
@@ -41,3 +50,5 @@ end
 			participant_id: rand(30) + 1
 			})
 end
+
+

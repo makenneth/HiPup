@@ -21,10 +21,10 @@ module.exports = {
 			group: group
 		});
 	},
-	memberFetch: function(user){
+	memberFetched: function(member){
 		AppDispatcher.dispatch({
 			actionType: MemberConstants.MEMBER_FETCHED,
-			user: user
+			member: member
 		})
 	}
 };

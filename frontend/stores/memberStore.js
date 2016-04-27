@@ -23,3 +23,5 @@ MemberStore.__onDispatch = function(payload){
 			break;
 	}
 };
+
+module.exports = MemberStore;

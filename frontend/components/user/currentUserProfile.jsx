@@ -3,11 +3,6 @@ var React = require('react'),
 		ReverseGeoMixin = require('../../mixin/reverseGeoMixin');
 
 var CurrentUserProfile = React.createClass({
-	getInitialState: function() {
-		return {
-			location: [] 
-		};
-	},
 	mixins: [CurrentUserState, ReverseGeoMixin],
 	componentDidMount: function() {
 			this._getLocation();
@@ -17,9 +12,6 @@ var CurrentUserProfile = React.createClass({
 		if (!user) return "";
 
 		this._getCityAndCountry(user.lat, user.lng, this._setLocation);
-	},
-	_setLocation: function(data) {
-		this.setState({location: data});
 	},
 	render: function() {
 		var user = this.state.currentUser || {name: "", username: ""};

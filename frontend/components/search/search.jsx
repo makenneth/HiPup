@@ -3,13 +3,16 @@ var React = require('react');
 var Search = React.createClass({
 	getInitialState: function() {
 		return {
-			searchString: "" 
+			searchString: this.props.searchString
 		};
 	},
+	componentDidMount: function() {
+		document.getElementById("searchBox").focus();
+	},
 	filter: function() {
-		var search = this.searchString.trim();
-		this.props.groups.filter(function(group){
-			return search.toLowerCase() === group.title.toLowerCase();
+		var search = this.state.searchString.trim();
+		return this.props.groups.filter(function(group){
+			return group.title.match(search);
 		});
 	},
 	updateSearch: function(e) {
@@ -17,16 +20,19 @@ var Search = React.createClass({
 	},
 	render: function() {
 		return (
-			<div>
+			<div className="search-modal">
 				<div>
-					<input type="text" onChange={this.updateSearch} value={this.state.searchString} />
-				</div>
-				<div>
+					<input type="text" onChange={this.updateSearch} 
+									value={this.state.searchString} id="searchBox"/>
+					<ul>
 					{
 						this.filter().map(function(group){
-							return <li>{group.title}</li>;
-						});
+							return <li key={group.id}>{group.title}</li>;
+						})
 					}
+
+
+					</ul>
 				</div>
 			</div>
 		);
