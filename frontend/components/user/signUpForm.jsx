@@ -19,7 +19,7 @@ var SignUpForm = React.createClass({
 		UserStore.addListener(this._onLogIn);
 	},
 	_onLogIn: function() {
-		HashHistory.goBack();
+		this.props.closeModal();
 	},
 	setPosition: function(pos) {
 		this.setState({lat: pos.coords.latitude, lng: pos.coords.longitude });

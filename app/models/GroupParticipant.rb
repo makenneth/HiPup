@@ -4,5 +4,5 @@ class GroupParticipant < ActiveRecord::Base
 
 		belongs_to :group
 		belongs_to :participant, primary_key: :id,
-								foreign_key: :participant_id, className: :User
+								foreign_key: :participant_id, class_name: :User
 end

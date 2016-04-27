@@ -15,49 +15,61 @@
  */
 
  @import 'bootstrap';
-
+ html, body, header, nav, h1, a,
+ul, li, strong, main, button, i,
+section, img, div, h2, p, form,
+fieldset, label, input, textarea,
+span, article, footer, time, small {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  font: sans-serif;
+  color: inherit;
+  text-align: inherit;
+  text-decoration: inherit;
+  vertical-align: inherit;
+  box-sizing: inherit;
+  background: transparent;
+}
+a, a:hover {
+ 	text-decoration: none;
+ 	color: white;
+ }
+ul {
+	list-style-type: none;
+	margin: 0;
+}
 button {
 	margin: 0 5px;
 }
-.nav-main {
-	position: absolute;
-	top: 0;
-	z-index: 1000;
-	right: 0;
-	left: 0;
-	background-color: white;
-	max-height: 70px;
-}
-.nav-list {
-	list-style-type: none;
-}
-.nav-list li, .nav-list-right li{
-	float: left;
-	bottom: 0;
-	background-color: white;
-	margin-right: 0.5em;
-	font-size: 1.0em;
-	width: 5em;
-}
-.nav-list-right {
-	float: right;
-}
 
-.nav-list a {
-	background-color: white;
-}
-.nav-list a:hover {
-	background-color: #69f;
+.nav-list {
+  max-width: 250px;
+  min-width: 150px;
+  font-size: 24px;
+	li {
+		display: block;
+		border-bottom: 2px solid #aaa;
+	}
+	li:first-child {
+		border-top: 2px solid #aaa;
+	}
+	li:hover {
+		background-color: #aaa;
+		color: black;
+	}
 }
 .banner {
 	height: 350px;
 	overflow: hidden;
 	margin-top: -20px;
+	img {
+		height: auto;
+		width: 100%;
+	}
 }
-.banner img {
-	height: auto;
-	width: 100%;
-}
+
 .page-container {
 	margin: 0 auto;
 	width: 80em;
@@ -73,16 +85,61 @@ button {
 .group-index-item {
 	overflow: hidden;
 	padding: 20px 0;
-	margin: 60px;
-	width: 22em;
+	margin: 0 60px 20px 20px;
+	width: 25em;
 	float: left;
-	border: 3px solid black;
+/*	border: 3px solid black;
 	border-radius: 7px;
-	box-shadow: 2px 2px 5px black;
+	box-shadow: 2px 2px 5px black;*/
 }
 .group-index-item:hover {
 	background-color: black;
 }
+.menu-icon {
+	background-color:black;
+	opacity: 0.8;
+	position: fixed;
+	left: 20px;
+	top: 20px;
+	width: 30px;
+	height: 30px;
+	color: white;
+	font-size: 22px;
+	text-align: center;
+}
+
+.menu-icon:hover {
+	background-color: white;
+	color: black;
+}
+
+.main-buttons {
+	background-color: black;
+	opacity: 0.8;
+	width: 120px;
+	height: 20px;
+	position: absolute;
+	top: 0px;
+	right: 0px;
+	padding: 5px;
+	border: 1px solid transparent;
+}
+
+.user-button a:hover {
+	font: grey;
+}
+.user-button  {
+	li {
+		float: left;
+		font-size: 14px;
+		whitespace: nowrap;
+	}
+
+	li:first-child {
+		margin-right: 25px;
+	}
+}
+
 .cf:after {
 	content: "";
 	display: block;

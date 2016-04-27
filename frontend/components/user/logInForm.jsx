@@ -14,7 +14,7 @@ var LogInForm = React.createClass({
 		UserStore.addListener(this._onLogIn);
 	},
 	_onLogIn: function() {
-		HashHistory.goBack();
+		this.props.closeModal();
 	},
 	handleSubmit: function(e) {
 		e.preventDefault();
@@ -46,7 +46,6 @@ var LogInForm = React.createClass({
 					<input type="submit" className="btn btn-success" value="Log In" disabled={!isDisabled}/>
 				</form>
 					<button className="btn btn-info" onClick={this.guestLogin}>Guest Login</button>
-					<button className="btn" href="#/">Back</button>
 			</div>
 		);
 	}
