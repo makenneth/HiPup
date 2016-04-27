@@ -32,10 +32,13 @@ span, article, footer, time, small {
   box-sizing: inherit;
   background: transparent;
 }
-a, a:hover {
+a {
  	text-decoration: none;
- 	color: white;
+ 	color: #aaa;
  }
+a:hover {
+	text-decoration: none;
+}
 ul {
 	list-style-type: none;
 	margin: 0;
@@ -48,6 +51,7 @@ button {
   max-width: 250px;
   min-width: 150px;
   font-size: 24px;
+  font-family: 'Dosis', sans-serif;
 	li {
 		display: block;
 		border-bottom: 2px solid #aaa;
@@ -101,11 +105,12 @@ button {
 	position: fixed;
 	left: 20px;
 	top: 20px;
-	width: 30px;
-	height: 30px;
+	width: 35px;
+	height: 35px;
 	color: white;
-	font-size: 22px;
+	font-size: 24px;
 	text-align: center;
+	border-radius: 5px;
 }
 
 .menu-icon:hover {
@@ -114,6 +119,8 @@ button {
 }
 
 .main-buttons {
+	font-family: 'Dosis', sans-serif;
+	font: 14px;
 	background-color: black;
 	opacity: 0.8;
 	width: 120px;
