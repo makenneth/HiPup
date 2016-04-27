@@ -109,7 +109,7 @@ var routes = (
 			<Route path="user/new" component={SignUpForm} />
 			<Route path="groups/new" component={GroupForm} />
 			<Route path="groups/:groupId" component={GroupDetail}>
-				<Route path="home" component={GroupHome}/>
+				<Route path="detail" component={GroupHome}/>
 				<Route path="members" component={GroupMembers}/>
 				<Route path="photos" component={GroupPhotos}/>
 				<Route path="events" component={GroupEvents}/>

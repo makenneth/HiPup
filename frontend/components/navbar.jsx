@@ -41,6 +41,10 @@ var Navbar = React.createClass({
 								onClick={this.setTab.bind(null, 0)}><a href="#/">Home</a></li>
 						<li className={this.state.active === 1 ? "active" : ""}
 								onClick={this.setTab.bind(null, 1)}><a href="#/groups">Groups</a></li>
+						<li className={this.state.active === 2 ? "active" : ""}
+								onClick={this.setTab.bind(null, 2)}><a href="#">Profile</a></li>
+						<li className={this.state.active === 3 ? "active" : ""}
+								onClick={this.setTab.bind(null, 3)}><a href="#">Manage Your Events</a></li>
 						{this.buttonsForLoggedIn()}
 					</ul>
 				</nav>

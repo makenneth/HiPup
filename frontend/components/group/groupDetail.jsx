@@ -27,8 +27,8 @@ var GroupDetail = React.createClass({
 		return (
 			<div>
 				<GroupNav groupId={this.state.group.id}/>
-				<div>
-					<h5>{this.state.group.title}</h5>
+				<div className="group-detail">
+					<h3>{this.state.group.title}</h3>
 					<p>{this.state.group.description}</p>
 					{this.props.children}
 				</div>

@@ -64,6 +64,25 @@ button {
 		color: black;
 	}
 }
+.nav-div {
+	width: 100%;
+	background-color: gray;
+}
+.group-nav {
+	width: 80%;
+	margin: 0 auto;
+	display: block;
+
+	li {
+		display: inline-block;
+		padding: 5px;
+		font-family: 'Slabo 27px', serif;
+		float: left;
+		font-size: 26px;
+		margin-right: 40px;
+		text-align: center;
+	}
+}
 .banner {
 	height: 350px;
 	overflow: hidden;
@@ -74,31 +93,48 @@ button {
 	}
 }
 
+.group-detail {
+	width: 80%;
+	margin: 0 auto;
+	background-color: #eee;
+	opacity: 0.9;
+	border: 1px solid transparent;
+	border-radius: 5px;
+	box-shadow: 1px 1px 0px black;
+	padding: 20px;
+}
 .page-container {
 	margin: 0 auto;
-	width: 80em;
+	width: 80%;
 	display: block;
 }
 
-.group-index-photos {
-	min-width: 150px;
-	width: 100%;
-	margin: 0px;
-
-}
 .group-index-item {
+	min-height: 200px;
 	overflow: hidden;
 	padding: 20px 0;
-	margin: 0 60px 20px 20px;
-	width: 25em;
+	margin: 0 10px 20px 10px;
+	width: 20em;
 	float: left;
-/*	border: 3px solid black;
-	border-radius: 7px;
-	box-shadow: 2px 2px 5px black;*/
+	font-size: 24px;
+  font-family: 'Dosis', sans-serif;
+  color: white;
+}
+.group-index-item h4{
+	font-size: 60px;
+	text-align: center;
+	vertical-align: center;
 }
 .group-index-item:hover {
-	background-color: black;
+	background-color: #aaa;
 }
+/*.image-mask {
+	width: 100%;
+	height: 100%;
+	background-color: "69f";
+	opacity: 0.5;
+	z-index: 2;
+}*/
 .menu-icon {
 	background-color:black;
 	opacity: 0.8;
