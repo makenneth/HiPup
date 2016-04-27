@@ -22,15 +22,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/makenneth/Hip-Up.git"
+    "url": "git+https://github.com/makenneth/HiPup.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/makenneth/Hip-Up/issues"
+    "url": "https://github.com/makenneth/HiPup/issues"
   },
-  "homepage": "https://github.com/makenneth/Hip-Up#readme",
+  "homepage": "https://github.com/makenneth/HiPup#readme",
   "dependencies": {
     "babel-core": "^6.7.7",
     "babel-loader": "^6.2.4",
