@@ -1,4 +1,4 @@
-# Hip Up
+# HiPup
 
 [Heroku link][heroku] **NB:** This should be a link to your production site
 
@@ -6,7 +6,7 @@
 
 ## Minimum Viable Product
 
-Hip Up is a web application inspired by Meet Up that will be built using Ruby on Rails and React.js.  By the end of Week 9, this app will, at a minimum, satisfy the following criteria:
+HiPup is a web application inspired by Meet Up that will be built using Ruby on Rails and React.js.  By the end of Week 9, this app will, at a minimum, satisfy the following criteria:
 
 - [x] New account creation, login, and guest/demo login
 - [ ] Smooth, bug-free navigation
@@ -19,7 +19,7 @@ Hip Up is a web application inspired by Meet Up that will be built using Ruby on
 
 ## Product Goals and Priorities
 
-Hip Up will allow users to do the following:
+HiPup will allow users to do the following:
 
 <!-- This is a Markdown checklist. Use it to keep track of your
 progress. Put an x between the brackets for a checkmark: [x] -->
