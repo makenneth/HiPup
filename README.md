@@ -93,8 +93,8 @@ user interface.
 
 - [x] create `Tags` model and join table
 - build out API, Flux loop, and components for:
-  - [ ] fetching groups for tag
-  - [ ] fetching tags for group
+  - [x] fetching groups for tag
+  - [x] fetching tags for group
 - preliminary styling
 
 ### Phase 5: Group Events (2 day)
@@ -106,8 +106,8 @@ user interface.
 - [x] set up associations with users and group
 - [x] set up polymorphic association of images
 - build out API, Flux loop, and components for:
-  - [ ] Group Events CRUD
-  - [ ] Showing all events information
+  - [x] Group Events CRUD
+  - [x] Showing all events information
   - [ ] Creating events
 - build calendar for events in group index page
 - temporary Bootstrap CSS / start styling if time allows

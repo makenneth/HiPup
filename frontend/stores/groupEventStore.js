@@ -11,14 +11,38 @@ var _resetGroupEvents = function(groupEvents){
 	});
 };
 
-var _resetSinglesEvent = function(singleEvent){
-	
+var _resetSingleEvent = function(singleEvent){
+	_groupEvents[singleEvent.id] = singleEvent;
 };
 
 GroupEventStore.all = function(){
 	return _groupEvents;
 };
 
-GroupEventStore.__onDispatch = function(payload){
-
+GroupEventStore.find = function(id){
+	return _groupEvents[id] || {
+		event_time: null,
+		lat: null,
+		lng: null,
+		city: null,
+		state: null,
+		title: null,
+		description: null,
+		group_id: null
+	};
 };
+
+GroupEventStore.__onDispatch = function(payload){
+	switch (payload.actionType){
+		case "FETCHED_GROUP_EVENTS":
+			_resetGroupEvents(payload.groupEvents);
+			GroupEventStore.__emitChange();
+			break;
+		case "FETCHED_SINGLE_EVENT":
+			_resetSingleEvent(payload.groupEvent);
+			GroupEventStore.__emitChange();
+			break;
+	}
+};
+
+module.exports = GroupEventStore;

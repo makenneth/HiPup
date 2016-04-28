@@ -21,5 +21,11 @@ module.exports = {
 	},
 	createTag: function(tag){
 		ApiUtil.createTag(tag);
+	},
+	fetchAllEvents: function(){
+		ApiUtil.fetchAllEvents();
+	},
+	fetchSingleEvent: function(id){
+		ApiUtil.fetchSingleEvent(id);
 	}
 }

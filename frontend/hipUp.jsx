@@ -23,7 +23,8 @@ var React = require('react'),
 		CurrentUserProfile = require('./components/user/currentUserProfile'),
 		FormStyle = require('./modal/formStyle'),
 		NavStyle= require('./modal/navStyle'),
-		TagShow = require('./components/tag/tagShow');
+		TagShow = require('./components/tag/tagShow'),
+		EventShow = require('./components/events/eventShow');
 
 var App = React.createClass({
 	mixins: [CurrentUserStateMixin],
@@ -120,6 +121,7 @@ var routes = (
 				<Route path="members" component={GroupMembers}/>
 				<Route path="photos" component={GroupPhotos}/>
 				<Route path="events" component={GroupEvents}/>
+				<Route path="events/:eventId" component={EventShow} />
 			</Route>
 		</Route>
 );

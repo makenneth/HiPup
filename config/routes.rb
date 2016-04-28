@@ -7,5 +7,6 @@ Rails.application.routes.draw do
     resources :groups, except: [:new, :edit]
     resources :show_users, only: [:show] #should have update route
     resources :tags, only: [:show, :create, :index]
+    resources :group_events, except: [:new, :create]
   end
 end

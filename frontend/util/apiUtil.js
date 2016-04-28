@@ -25,7 +25,6 @@ module.exports = {
 			method: "GET",
 			url: "/api/groups/" + id,
 			success: function(group) {
-				debugger;
 				ServerActions.receivedGroup(group);
 			}
 		});
@@ -94,5 +93,25 @@ module.exports = {
 				ServerActions.createdTag(tag);
 			}
 		});
+	},
+
+	fetchAllEvents: function(){
+		$.ajax({
+			method: "GET",
+			url: "/api/group_events",
+			success: function(groupEvents){
+				ServerActions.fetchedAllEvents(groupEvents);
+			}
+		})
+	},
+	fetchSingleEvent: function(id){
+		$.ajax({
+			method: "GET",
+			url: "/api/group_events/" + id,
+			success: function(groupEvent){
+				ServerActions.fetchedSingleEvent(groupEvent);
+			}
+		})
 	}
+
 };

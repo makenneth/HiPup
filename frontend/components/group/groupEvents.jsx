@@ -34,8 +34,9 @@ var GroupEvents = React.createClass({
 				<ul>
 					{
 						groupEvents.map(function(groupEvent){
-							return <GroupEventItem key={event.id} groupEvent={groupEvent}/>;
-						})
+							return <GroupEventItem key={groupEvent.id} groupEvent={groupEvent}
+													groupId={this.props.params.groupId} />;
+						}.bind(this))
 					}
 				</ul>
 			</div>

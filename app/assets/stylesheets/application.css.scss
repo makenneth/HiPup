@@ -16,6 +16,7 @@
 
  @import 'bootstrap';
  @import url(https://fonts.googleapis.com/css?family=PT+Sans+Narrow);
+ @import url(https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300);
  html, body, header, nav, h1, a,
 ul, li, strong, main, button, i,
 section, img, div, h2, p, form,
@@ -73,36 +74,48 @@ button {
 }
 .nav-div {
 	width: 100%;
-	background-color: gray;
 }
 .group-nav {
-	width: 80%;
+	background-color: white;
+	width: 83%;
 	margin: 0 auto;
 	display: block;
-
+	height: 50px;
+	margin-top: 5%;
 	li {
 		display: inline-block;
 		padding: 5px;
-		font-family: 'Slabo 27px', serif;
+		font-family:'Open Sans Condensed', sans-serif;
+		color: #575A5C;
 		float: left;
-		font-size: 26px;
+		font-size: 20px;
 		margin-right: 40px;
-		text-align: center;
+		a {
+			vertical-align: bottom;
+		}
+		a:hover {
+			background-color: black;
+			opacity: 0.7;
+			color: white;
+		}
 	}
+
 }
 .banner {
-	height: 350px;
+	height: 600px;
 	overflow: hidden;
 	margin-top: -20px;
 	img {
 		height: auto;
 		width: 100%;
+		position: relative;
+		top: -500px;
 	}
 }
 
 .group-detail {
 	width: 80%;
-	margin: 0 auto;
+	margin: 10px auto 0 auto;
 	background-color: #eee;
 	opacity: 0.9;
 	border: 1px solid transparent;
@@ -115,11 +128,13 @@ button {
 	width: 80%;
 	margin: 0 auto;
 	.group-index-item {
-		min-height: 200px;
+		min-height: 100px;
+		height: auto;
 		overflow: hidden;
 		padding: 20px 0;
 		margin: 0 10px 20px 10px;
-		width: 500px;
+		width: 30%;
+		min-width: 250px;
 		float: left;
 		font-size: 24px;
 	  font-family: 'Dosis', sans-serif;
@@ -175,7 +190,10 @@ button {
 		font-size: 24px;
 	}
 }
-
+.map {
+	width: 500px;
+	height: 500px;
+}
 
 .cf:after {
 	content: "";

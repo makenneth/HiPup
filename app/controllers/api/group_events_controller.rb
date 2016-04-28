@@ -9,7 +9,7 @@ class Api::GroupEventsController < ApplicationController
 
 	def show
 		#show should be nested under events
-		@group_event = GroupEvent.find(params[:group_id])
+		@group_event = GroupEvent.find(params[:id])
 	end
 
 	def update
