@@ -1,0 +1,4 @@
+module.exports = {
+	RECEIVED_TAGS: "RECEIVED_TAGS",
+	RECEIVED_TAG: "RECEIVED_TAG"
+}

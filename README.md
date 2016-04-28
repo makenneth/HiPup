@@ -82,7 +82,7 @@ user interface.
 - implement each group event component, building out the flux loop as needed.
   - [x] `GroupIndex`
   - [x] `GroupIndexItem`
-  - [ ] `GroupDetail`
+  - [x] `GroupDetail`
 - [x] form for creating new groups
 - [ ] temporary bootstrap CSS / start styling if time allows
 
@@ -91,10 +91,10 @@ user interface.
 
 **Objective:** Groups can be tagged with multiple tags, and tags are searchable.
 
-- [ ] create `Tags` model and join table
+- [x] create `Tags` model and join table
 - build out API, Flux loop, and components for:
-  - [ ] fetching events for tag
-  - [ ] fetching tags for event
+  - [ ] fetching groups for tag
+  - [ ] fetching tags for group
 - preliminary styling
 
 ### Phase 5: Group Events (2 day)
@@ -138,7 +138,7 @@ user interface.
 
 ### Bonus Features (TBD)
 - [ ] Discussion Pages
-- [ ] Search Suggestions
+- [x] Search Suggestions
 - [ ] Infinite Scroll for group indices
 - [ ] Associate users with groups of their interest
 - [ ] Multiple sessions

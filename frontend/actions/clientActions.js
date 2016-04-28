@@ -12,5 +12,14 @@ module.exports = {
 	},
 	fetchMember: function(id){
 		ApiUtil.fetchMember(id);
+	},
+	fetchTags: function(){
+		ApiUtil.fetchTags();
+	},
+	fetchTag: function(id){
+		ApiUtil.fetchTag(id);
+	},
+	createTag: function(tag){
+		ApiUtil.createTag(tag);
 	}
 }

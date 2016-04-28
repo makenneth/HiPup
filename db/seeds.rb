@@ -25,16 +25,26 @@ User.create({
 			})
 end
 
+5.times do
+		Tag.create({
+			name: Faker::Team.sport
+			})
+end
 20.times do |i|
 		Group.create({
 			title: Faker::Hipster.words(2).join(" "),
-			description: Faker::Hipster.paragraph,
+			description: Faker::Hipster.paragraph(2),
 			lat: Faker::Address.latitude,
 			lng: Faker::Address.longitude,
 			creator_id: rand(30) + 1,
 			image_url: Faker::Placeholdit.image("500x300", 'jpg')
 			})
-
+		2.times do 
+			Tagging.create({
+				group_id: i,
+				tag_id: rand(5) + 1
+				})
+		end
 	5.times do 
 		Image.create({
 			imageable_id: i,
@@ -50,5 +60,4 @@ end
 			participant_id: rand(30) + 1
 			})
 end
-
 

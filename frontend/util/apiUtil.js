@@ -62,5 +62,36 @@ module.exports = {
 				ServerActions.removedGroup(group);
 			}
 		})
+	},
+
+	fetchTags: function(){
+		$.ajax({
+			method: "GET",
+			url: "/api/tags",
+			success:function(tags){
+				ServerActions.fetchedTags(tags);
+			}
+		});		
+	},
+	fetchTag: function(id){
+		$.ajax({
+			method: "GET",
+			url: "/api/tags/" + id,
+			success:function(tag){
+				ServerActions.fetchedTag(tag);
+			}
+		});
+	},
+
+	createTag: function(tag){
+		$.ajax({
+			method: "POST",
+			url: "/api/tags",
+			data: {tag: tag},
+			dataType: "json",
+			success:function(tag){
+				ServerActions.createdTag(tag);
+			}
+		});
 	}
 };

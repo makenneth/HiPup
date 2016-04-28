@@ -1,10 +1,10 @@
 class Api::GroupsController < ApplicationController
 	def index
-		@groups = Group.all
+		@groups = Group.includes(:tags).all
 	end
 
 	def show
-		@group = Group.includes(:participants, :images).find(params[:id])
+		@group = Group.includes(:participants, :images, :tags).find(params[:id])
 	end
 
 	def create

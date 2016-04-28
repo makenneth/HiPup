@@ -1,6 +1,7 @@
 var AppDispatcher = require('../dispatcher/dispatcher'),
 		GroupConstants = require('../constants/groupConstants'),
-		MemberConstants = require('../constants/memberConstants');
+		MemberConstants = require('../constants/memberConstants'),
+		TagConstants = require('../constants/tagConstants');
 
 module.exports = {
 	receivedGroups: function(groups){
@@ -25,6 +26,24 @@ module.exports = {
 		AppDispatcher.dispatch({
 			actionType: MemberConstants.MEMBER_FETCHED,
 			member: member
-		})
+		});
+	},
+	fetchedTags: function(tags){
+		AppDispatcher.dispatch({
+			actionType: TagConstants.RECEIVED_TAGS,
+			tags: tags
+		});
+	},
+	fetchedTag: function(tag){
+		AppDispatcher.dispatch({
+			actionType: TagConstants.RECEIVED_TAG,
+			tag: tag
+		});					
+	},
+	createdTag: function(tag){
+		AppDispatcher.dispatch({
+			actionType: TagConstants.RECEIVED_TAG,
+			tag: tag
+		});
 	}
 };

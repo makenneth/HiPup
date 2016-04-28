@@ -5,4 +5,6 @@ class Group < ActiveRecord::Base
 	has_many :group_participants #join table
 	has_many :participants, through: :group_participants, source: :participant
 	has_many :images, as: :imageable
+	has_many :taggings
+	has_many :tags, through: :taggings, source: :tag
 end
