@@ -61,7 +61,9 @@ var App = React.createClass({
 	userButtons: function() {
 		if (this.state.currentUser){
 			return (<ul className="user-button">
-				<li><a>Welcome, {this.state.currentUser.name}!</a></li>
+				<li><a href="#/user/profile">
+							Welcome, {this.state.currentUser.name}!
+						</a></li>
 				<li><a href="#" onClick={this.logOut}>Log Out</a></li>
 			</ul>);
 		} else {

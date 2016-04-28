@@ -39,9 +39,9 @@ var GroupIndex = React.createClass({
 				<Modal isOpen={ this.state.searchModalOpen } 
 							 onRequestClose={this.closeSearchModal}
 							 style={SearchStyle}>
-					<button onClick={this.closeSearchModal}>Close</button>
 					<Search groups={ this.state.groups } 
-									searchString={ this.state.searchString } />
+									searchString={ this.state.searchString } 
+									closeModal={this.closeSearchModal}/>
 				</Modal>
 				<div className="group-index cf">
 					{

@@ -21,9 +21,14 @@ var Search = React.createClass({
 	render: function() {
 		return (
 			<div className="search-modal">
+				<div className="close-icon" onClick={this.props.closeModal}>&#10006;</div>
 				<div>
-					<input type="text" onChange={this.updateSearch} 
+					<div className="search-container cf">
+						<img className="search-icon"
+								src="http://www.endlessicons.com/wp-content/uploads/2015/08/search-icon-2.png"/>
+						<input type="text" onChange={this.updateSearch} 
 									value={this.state.searchString} id="searchBox"/>
+					</div>
 					<ul>
 					{
 						this.filter().map(function(group){

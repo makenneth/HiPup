@@ -147,16 +147,29 @@ button {
 	position: fixed;
 	left: 20px;
 	top: 20px;
-	width: 35px;
-	height: 35px;
+	width: 50px;
+	height: 50px;
 	color: white;
-	font-size: 24px;
+	font-size: 36px;
 	text-align: center;
 	border-radius: 5px;
 }
-/*glyphicon glyphicon-search   content: "\e003";
-glyphicon glyphicon-remove   content: "\e014";*/
-.menu-icon:hover {
+.close-icon {
+	right: 40px;
+	top: 40px;
+	width: 50px;
+	height: 50px;
+	color: white;
+	font-size: 38px;
+	text-align: center;
+	border-radius: 5px;
+	background-color:black;
+	opacity: 0.8;
+	position: fixed;
+}
+
+
+.menu-icon:hover, .close-icon:hover {
 	background-color: white;
 	color: black;
 }
@@ -229,23 +242,40 @@ glyphicon glyphicon-remove   content: "\e014";*/
 	height: 150px;
 }
 .search-modal {
-	width: 60%;
+	width: 70%;
 	color: white;
-	margin: 0 auto;
+	margin: 40px auto 0 auto;
 	font-size: 36px;
 	font-family: 'Slabo 27px', sans-serif;
-	input {
-		height: 50px;
-		width: 100%;
+
+	.search-container {
 		border: 2px solid #aaa;	
 		border-radius: 5px;
 		box-shadow: 1px 1px 1px black;
+		height: 52px;
+			margin-bottom: 20px;
+		input {
+			margin-left: 5px;
+			height: 50px;
+			width: 80%;
+			border: none;
+			float: left;
+		}
 	}
-	
-	li {
-
+	ul {
+		margin: 0 auto;
+	}
+	.search-icon {
+		background-color: white;
+		color: black;
+		border: 1px solid black;
+		border-radius: 5px;
+		height: 50px;
+		width: 50px;
+		float: left;
 	}
 }
+
 .cf:after {
 	content: "";
 	display: block;
