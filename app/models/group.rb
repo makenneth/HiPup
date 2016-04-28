@@ -7,4 +7,5 @@ class Group < ActiveRecord::Base
 	has_many :images, as: :imageable
 	has_many :taggings
 	has_many :tags, through: :taggings, source: :tag
+	has_many :group_events
 end

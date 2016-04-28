@@ -11,7 +11,7 @@ var _resetTags = function(tags){
 };
 
 var _addTag = function(tag){
-	_tags.push(tag)
+	_tags.push(tag);
 };
 
 TagStore.all = function(){
@@ -20,7 +20,7 @@ TagStore.all = function(){
 
 TagStore.find = function(id){
 	for (var i = 0; i < _tags.length; i++) {
-		if (_tags[i] === id){
+		if (_tags[i].id === id){
 			return _tags[i];
 		}
 	}

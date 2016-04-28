@@ -1,7 +1,6 @@
 class Api::TagsController < ApplicationController
   def index
-  	@tags = Tag.all
-  	render json: @tags, status: 200
+  	@tags = Tag.includes(:groups)
   end
 
   def show

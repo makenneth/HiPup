@@ -19,7 +19,9 @@ var GroupDetail = React.createClass({
 		ClientActions.fetchSingleGroup(this.props.params.groupId);
 	},
 	_loadDetail: function(){
-		this.setState({group: GroupStore.find(this.props.params.groupId)});
+		this.setState({
+			group: GroupStore.find(this.props.params.groupId)
+		});
 	},
 	componentWillUnmount: function() {
 		if (this.groupListener){
@@ -27,13 +29,14 @@ var GroupDetail = React.createClass({
 		}
 	},
 	render: function() {
+		var children = !this.props.children ? this.props.children :
+			React.cloneElement(this.props.children, { group: this.state.group } );
+		
 		return (
 			<div>
 				<GroupNav groupId={this.state.group.id}/>
 				<div className="group-detail">
-					{
-						React.cloneElement(this.props.children, { group: this.state.group } )
-					}
+					{children}
 				</div>
 			</div>
 

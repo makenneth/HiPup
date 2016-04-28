@@ -1,12 +1,4 @@
 Rails.application.routes.draw do
-  namespace :api do
-  get 'tags/show'
-  end
-
-  get 'tags/show'
-
-  get 'tags/index'
-
   root to: "static_pages#root"
 
   namespace :api, defaults: {format: :json} do

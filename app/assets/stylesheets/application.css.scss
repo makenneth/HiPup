@@ -141,8 +141,8 @@ button {
 	font-family: 'Dosis', sans-serif;
 	background-color: black;
 	opacity: 0.8;
-	width: 140px;
-	height: 20px;
+	width: 10em;
+	height: 2em;
 	position: absolute;
 	top: 0px;
 	right: 0px;
@@ -154,14 +154,18 @@ button {
 	font: grey;
 }
 .user-button  {
+	width: 15em;
+	margin: 0 auto;
+	text-align: center;
 	li {
+		display: inline;
 		float: left;
-		font-size: 18px;
+		font-size: 1.5em;
 		whitespace: nowrap;
 	}
 
 	li:first-child {
-		margin-right: 25px;
+		margin-right: 30px;
 	}
 }
 

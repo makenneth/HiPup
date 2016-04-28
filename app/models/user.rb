@@ -12,8 +12,9 @@ class User < ActiveRecord::Base
 		foreign_key: :participant_id, 
 		primary_key: :id, 
 		class_name: :GroupParticipant
-
 	has_many :joined_groups, through: :group_participants, source: :group
+	has_many :event_users, foreign_key: :user_id, class_name: :EventUser
+	has_many :joined_events, through: :event_users, source: :group_event
 	
 	attr_reader :password
 
