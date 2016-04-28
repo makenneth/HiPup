@@ -8,4 +8,5 @@ unless simple
 		json.extract! image, :image_url, :id
 	end
 	json.description group.description
+	json.group_events group.group_events
 end

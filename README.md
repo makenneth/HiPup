@@ -102,9 +102,9 @@ user interface.
 **Objective:** Group Events belong to groups.
 
 - [x] create `Group Events` model
-- [ ] create seed data
-- [ ] set up associations with users and group
-- [ ] set up polymorphic association of images
+- [x] create seed data
+- [x] set up associations with users and group
+- [x] set up polymorphic association of images
 - build out API, Flux loop, and components for:
   - [ ] Group Events CRUD
   - [ ] Showing all events information

@@ -25,6 +25,7 @@ module.exports = {
 			method: "GET",
 			url: "/api/groups/" + id,
 			success: function(group) {
+				debugger;
 				ServerActions.receivedGroup(group);
 			}
 		});

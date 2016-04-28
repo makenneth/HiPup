@@ -4,7 +4,9 @@ class Api::GroupsController < ApplicationController
 	end
 
 	def show
-		@group = Group.includes(:participants, :images, :tags).find(params[:id])
+		@group = Group
+								.includes(:participants, :images, :tags, :group_events)
+								.find(params[:id])
 	end
 
 	def create

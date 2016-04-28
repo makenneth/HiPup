@@ -45,13 +45,38 @@ end
 				tag_id: rand(5) + 1
 				})
 		end
-	5.times do 
+	3.times do |j|
+		GroupEvent.create({
+			title: Faker::Hacker.noun.capitalize + " Convention",
+			description: Faker::Lorem.paragraphs(2),
+			lat: 37.7749, lng: -122.4194,
+			city: "San Francisco",
+			state: "California",
+			group_id: i,
+			event_time: Faker::Time.forward(2389, :day)
+			})
+			5.times do
+				EventUser.create({
+					event_id: j,
+					user_id: rand(30) + 1
+					})
+			end
+	end
+	3.times do 
 		Image.create({
 			imageable_id: i,
 			imageable_type: "Group",
 			image_url: Faker::Placeholdit.image("500x300", 'jpg')
 			})
 	end
+	3.times do 
+		Image.create({
+			imageable_id: j,
+			imageable_type: "GroupEvent",
+			image_url: Faker::Placeholdit.image("500x300", 'jpg')
+			})
+	end
+
 end
 
 50.times do
