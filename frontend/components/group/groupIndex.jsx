@@ -4,7 +4,8 @@ var React = require('react'),
 		GroupIndexItem = require('./groupIndexItem'),
 		Search = require('../search/search'),
 		Modal = require('react-modal'),
-		SearchStyle = require('../../modal/searchStyle');
+		SearchStyle = require('../../modal/searchStyle'),
+		TagIndex = require('../tag/tagIndex');
 var banner = "http://cdn.thebolditalic.com/paperclip/articles/6006/rect_images/original/Lantern2800.png?1412726396";
 
 var GroupIndex = React.createClass({
@@ -12,6 +13,7 @@ var GroupIndex = React.createClass({
 		return {
 			groups: [],
 			searchModalOpen: false,
+			tagSearchModalOpen: false,
 			searchString: ""
 		};
 	},
@@ -28,13 +30,30 @@ var GroupIndex = React.createClass({
 	closeSearchModal: function() {
 		this.setState({ searchModalOpen: false });
 	},
+	openTagSearchModal: function(){
+		this.setState({ tagSearchModalOpen: true });
+	},
+	closeTagSearchModal: function() {
+		this.setState({ tagSearchModalOpen: false });
+	},
 	render: function() {
 		return (
 			<div>
 				<div className="banner"><img src={banner} /></div>
 				<div className="search-bar">
-					<input type="text" onChange={this.openSearchModal} 
-								 value={this.state.searchString} />
+					<div className="search-container-sm cf">
+						<img className="search-icon-sm"
+									src="http://www.endlessicons.com/wp-content/uploads/2015/08/search-icon-2.png"/>
+						<input type="text" onChange={this.openSearchModal} 
+									 value={this.state.searchString} placeholder="Type your search..."/>
+					 </div>
+					 <div className="search-by cf">
+					 	<h5>
+					 		<a onClick={this.openTagSearchModal}>
+					 			Search By Tags
+					 		</a>
+					 	</h5>
+					 </div> 
 				</div>
 				<Modal isOpen={ this.state.searchModalOpen } 
 							 onRequestClose={this.closeSearchModal}
@@ -42,6 +61,11 @@ var GroupIndex = React.createClass({
 					<Search groups={ this.state.groups } 
 									searchString={ this.state.searchString } 
 									closeModal={this.closeSearchModal}/>
+				</Modal>
+				<Modal isOpen={ this.state.tagSearchModalOpen } 
+							 onRequestClose={this.closeTagSearchModal}
+							 style={SearchStyle}>
+					<TagIndex closeModal={this.closeTagSearchModal}/>
 				</Modal>
 				<div className="group-index cf">
 					{

@@ -9,7 +9,8 @@ var GroupDetail = React.createClass({
 		return {
 			group: {
 				title: undefined,
-				description: undefined
+				description: undefined,
+				tags: []
 			}
 		};
 	},
@@ -21,7 +22,9 @@ var GroupDetail = React.createClass({
 		this.setState({group: GroupStore.find(this.props.params.groupId)});
 	},
 	componentWillUnmount: function() {
-		this.groupListener.remove();
+		if (this.groupListener){
+			this.groupListener.remove();
+		}
 	},
 	render: function() {
 		return (

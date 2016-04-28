@@ -14,11 +14,11 @@ var _addTag = function(tag){
 	_tags.push(tag)
 };
 
-TagsStore.all = function(){
+TagStore.all = function(){
 	return _tags;
 };
 
-TagsStore.find = function(id){
+TagStore.find = function(id){
 	for (var i = 0; i < _tags.length; i++) {
 		if (_tags[i] === id){
 			return _tags[i];
@@ -27,15 +27,17 @@ TagsStore.find = function(id){
 };
 //fetch all tags in the beginning?
 
-TagsStore.__onDispatch = function(payload){
+TagStore.__onDispatch = function(payload){
 	switch (payload.actionType){
 		case TagConstants.RECEIVED_TAGS:
 			_resetTags(payload.tags);
-			TagsStore.__emitChange();
+			TagStore.__emitChange();
 			break;
 		case TagConstants.RECEIVED_TAG:
 			_addTag(payload.tag);
-			TagsStore.__emitChange();
+			TagStore.__emitChange();
 			break;
 	}
 };
+
+module.exports = TagStore;

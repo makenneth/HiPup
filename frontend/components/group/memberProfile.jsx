@@ -16,7 +16,7 @@ var MemberProfile = React.createClass({
 		};
 	},
 	componentDidMount: function() {
-		this.listener = MemberStore.addListener(this._updateUser);
+		this.memberListener = MemberStore.addListener(this._updateUser);
 		ClientActions.fetchMember(this.props.userId);
 
 	},
@@ -24,7 +24,9 @@ var MemberProfile = React.createClass({
 		this._getCityAndCountry(user.lat, user.lng, this._setLocation);
 	},
 	componentWillUnmount: function() {
-		this.listener.remove();
+		if (this.memberListener){
+			this.memberListener.remove();
+		}
 	},
 	_updateUser: function() {
 		var member = MemberStore.find(this.props.userId);

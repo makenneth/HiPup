@@ -14,10 +14,12 @@ var Navbar = React.createClass({
 	},
 
 	componentDidMount: function() {
-		this.listener = UserStore.addListener(this.buttonsForLoggedIn);
+		this.navListener = UserStore.addListener(this.buttonsForLoggedIn);
 	},
 	componentWillUnmount: function() {
-		this.listener.remove();
+		if (this.navlistener){
+			this.navListener.remove();
+		}
 	},
 	setTab: function(tab) {
 		this.setState({active: tab});

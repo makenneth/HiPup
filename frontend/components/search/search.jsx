@@ -32,7 +32,7 @@ var Search = React.createClass({
 					<ul>
 					{
 						this.filter().map(function(group){
-							return <li key={group.id}>{group.title}</li>;
+							return <li key={group.id}><a href={"/#/groups/" + group.id}>{group.title}</a></li>;
 						})
 					}
 
