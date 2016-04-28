@@ -15,6 +15,7 @@
  */
 
  @import 'bootstrap';
+ @import url(https://fonts.googleapis.com/css?family=PT+Sans+Narrow);
  html, body, header, nav, h1, a,
 ul, li, strong, main, button, i,
 section, img, div, h2, p, form,
@@ -125,6 +126,7 @@ button {
 	font-size: 24px;
   font-family: 'Dosis', sans-serif;
   color: white;
+  border-radius: 4px;
 }
 .group-index-item h4{
 	font-size: 60px;
@@ -257,7 +259,7 @@ button {
 	color: white;
 	margin: 40px auto 0 auto;
 	font-size: 36px;
-	font-family: 'Slabo 27px', sans-serif;
+	font-family: 'PT Sans Narrow', sans-serif;
 
 	.search-container {
 		border: 2px solid #aaa;	
