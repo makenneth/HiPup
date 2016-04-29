@@ -46,36 +46,36 @@ var SignUpForm = React.createClass({
 	},
 	render: function() {
 		return (
-			<div>
-				<h2>Sign Up</h2>
-				<form onSubmit={this.handleSubmit}>
-					<div className="form-group">
+			<div className="form-div">
+				<h3>Sign Up</h3>
+				<form className="user-forms" onSubmit={this.handleSubmit}>
+					<div className="form-line cf">
 						<label for="name">My Name</label>
 						<input type="text" id="name" 
 							value={this.state.name} onChange={this.updateName}/>
 					</div>
-					<div className="form-group">
+					<div className="form-line cf">
 						<label for="owner-name">Owner's Name</label>
 						<input type="text" id="owner-name" 
 							value={this.state.owner_name} onChange={this.updateOwnerName}/>
 					</div>
-					<div className="form-group">
+					<div className="form-line cf">
 						<label for="username">Username</label>
 						<input type="text" id="username" 
 							value={this.state.username} onChange={this.updateUsername}/>
 					</div>
-					<div className="form-group">
+					<div className="form-line cf">
 						<label for="email">E-mail</label>
 						<input type="email" id="email" 
 							value={this.state.email} onChange={this.updateEmail}/>
 					</div>
-					<div className="form-group">
+					<div className="form-line cf">
 						<label for="password">Password</label>
 						<input type="password" id="password" 
 							value={this.state.password} onChange={this.updatePassword}/>
 					</div>
 
-					<input type="submit" className="btn btn-success" value="Create Account"/>
+					<input type="submit" className="button-create" value="Create Account"/>
 				</form>
 			</div>
 		);

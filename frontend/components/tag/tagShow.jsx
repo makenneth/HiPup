@@ -23,12 +23,13 @@ var TagShow = React.createClass({
 		}
 	},
 	render: function() {
+		debugger;
 		return (
 			<div>
-				<ul>
+				<ul className="tag-groups">
 				{
 					this.state.tag.groups.map(function(group){
-						return <li key={group.id}>{group.name}</li>;
+						return <li key={group.id}>{group.title}</li>;
 					})
 				}
 				</ul>

@@ -19,8 +19,9 @@ TagStore.all = function(){
 };
 
 TagStore.find = function(id){
+	var newId = parseInt(id);
 	for (var i = 0; i < _tags.length; i++) {
-		if (_tags[i].id === id){
+		if (_tags[i].id === newId){
 			return _tags[i];
 		}
 	}

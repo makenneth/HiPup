@@ -8,16 +8,18 @@ module.exports = {
 										    backgroundColor   : 'rgba(255, 255, 255, 0.75)'
 										  },
 										  content : {
-										    position                   : 'absolute',
-										    top                        : '100px',
-										    left                       : '150px',
-										    right                      : '150px',
-										    bottom                     : '100px',
+										    position                   : 'relative',
+										    margin 										 : "0 auto",
+										    top:  "50%",
+										    transform: "translateY(50%)",
+										    width									 		 : '600px',
+										    height									   : '450px',
 										    border                     : '1px solid #ccc',
-										    background                 : '#fff',
+										    opacity										 : '0.8',
+										    background                 : '#000',
 										    overflow                   : 'auto',
 										    WebkitOverflowScrolling    : 'touch',
-										    borderRadius               : '4px',
-										    padding                    : '20px'
+										    borderRadius               : '10px',
+										    padding                    : '40px'
 										  }
 										};
