@@ -11,5 +11,9 @@ Rails.application.routes.draw do
     resources :group_participants, only: [:create] do
       delete :leave, on: :collection
     end
+
+    resources :event_users, only: [:create] do
+      delete :leave, on: :collection
+    end
   end
 end

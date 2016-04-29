@@ -7,6 +7,14 @@ var groupParticipantData = function(userId, groupId){
 							}
 						};
 };
+var eventParticipantData = function(userId, eventId){
+		return {
+							event_user: {
+								user_id: userId,
+								event_id: eventId
+							}
+						};
+};
 module.exports = {
 	fetchAllGroups: function(){
 		ApiUtil.fetchAllGroups();
@@ -40,6 +48,13 @@ module.exports = {
 	},
 	leaveGroup: function(userId, groupId){
 		ApiUtil.leaveGroup(groupParticipantData(userId, groupId));
+	},
+	joinEvent: function(userId, eventId){
+		ApiUtil.joinEvent(eventParticipantData(userId, eventId));
+
+	}, //modal on close, on open
+	leaveEvent: function(userId, eventId){
+		ApiUtil.leaveEvent(eventParticipantData(userId, eventId));
 	}
 }
 

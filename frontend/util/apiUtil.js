@@ -135,6 +135,29 @@ module.exports = {
 				ServerActions.toggledGroup(currentUser);
 			}
 		})
+	},
+	joinEvent: function(data){
+		debugger
+		$.ajax({
+			method: "POST",
+			url: "/api/event_users",
+			data: data,
+			success: function(currentUser){
+				debugger;
+				ServerActions.toggledEvent(currentUser);
+			}
+		});
+	},
+
+	leaveEvent: function(data){
+		$.ajax({
+			method: "DELETE",
+			url: "/api/event_users/leave",
+			data: data,
+			success: function(currentUser){
+				ServerActions.toggledEvent(currentUser);
+			}
+		});
 	}
 
 };

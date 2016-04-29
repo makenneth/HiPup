@@ -3,7 +3,8 @@ var React = require('react'),
 		GroupStore = require('../../stores/groupStore'),
 		ClientActions = require('../../actions/clientActions'),
 		GroupNav = require('./groupNav'),
-		CurrentUserState = require('../../mixin/currentUserState');
+		CurrentUserState = require('../../mixin/currentUserState'),
+		ReactCSSTransitionGroup = require('react-addons-css-transition-group');
 
 
 var GroupDetail = React.createClass({
@@ -31,23 +32,24 @@ var GroupDetail = React.createClass({
 			this.groupListener.remove();
 		}
 	},
-	joinEvent: function() {
+	joinGroup: function() {
 		if (this.state.currentUser && !this.hasJoinedGroup()){
 			ClientActions.joinGroup(this.state.currentUser.id, this.state.group.id);
 		} else {
 			//bring in log-in or sign-up modal //put them in mixins?
 		}
 	},
-	leaveEvent: function() {
+	leaveGroup: function() {
 		if (this.state.currentUser && this.hasJoinedGroup){
 			ClientActions.leaveGroup(this.state.currentUser.id, this.state.group.id);
 		}
 	},
 	_joinButtons: function(){
+		if ((/events\/\d+$/).test(this.props.location.pathname)) return "";
 		if (!this.state.currentUser || !this.hasJoinedGroup()){//should be in user store
-			return <button className="join-group" onClick={this.joinEvent}>Join Us</button>
+			return <button className="join-group" onClick={this.joinGroup}>Join Group</button>
 		} else {
-			return <button className="leave-group" onClick={this.leaveEvent}>Leave Group</button>
+			return <button className="leave-group" onClick={this.leaveGroup}>Leave Group</button>
 		}
 	},
 	hasJoinedGroup: function(){
@@ -63,15 +65,18 @@ var GroupDetail = React.createClass({
 		var children = !this.props.children ? this.props.children :
 			React.cloneElement(this.props.children, { group: this.state.group } );
 		return (
-			<div>
-				<GroupNav group={this.state.group} />
+			<ReactCSSTransitionGroup transitionName="page" 
+							transitionAppear={true} transitionAppearTimeout={500} 
+								transitionEnterTimeout={300} transitionLeaveTimeout={300}>
+				<div>
+					<GroupNav group={this.state.group} />
 
-				<div className="group-detail">
-					{this._joinButtons()}
-					{children}
+					<div className="group-detail">
+						{this._joinButtons()}
+						{children}
+					</div>
 				</div>
-			</div>
-
+			</ReactCSSTransitionGroup>
 		);
 	}
 

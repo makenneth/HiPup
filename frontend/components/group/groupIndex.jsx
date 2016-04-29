@@ -5,8 +5,9 @@ var React = require('react'),
 		Search = require('../search/search'),
 		Modal = require('react-modal'),
 		SearchStyle = require('../../modal/searchStyle'),
-		TagIndex = require('../tag/tagIndex');
-var banner = "http://cdn.thebolditalic.com/paperclip/articles/6006/rect_images/original/Lantern2800.png?1412726396";
+		TagIndex = require('../tag/tagIndex'),
+		ReactCSSTransitionGroup = require('react-addons-css-transition-group');
+
 var banner = "https://images.unsplash.com/photo-1443750200537-00fd518bdc82?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&w=1080&fit=max&s=ad7a9ff44b3026fcf49d80830ffb20ee";
 
 var GroupIndex = React.createClass({
@@ -42,7 +43,15 @@ var GroupIndex = React.createClass({
 	closeTagSearchModal: function() {
 		this.setState({ tagSearchModalOpen: false });
 	},
+	onSuggestSelect: function(suggest) {
+		console.log(suggest);
+	},
 	render: function() {
+		    var fixtures = [
+      {label: 'Old Elbe Tunnel, Hamburg', location: {lat: 53.5459, lng: 9.966576}},
+      {label: 'Reeperbahn, Hamburg', location: {lat: 53.5495629, lng: 9.9625838}},
+      {label: 'Alster, Hamburg', location: {lat: 53.5610398, lng: 10.0259135}}
+    ];
 		return (
 			<div>
 				<div className="banner"></div>
@@ -60,6 +69,7 @@ var GroupIndex = React.createClass({
 					 		</a>
 					 	</h5>
 					 </div> 
+
 				</div>
 				<Modal isOpen={ this.state.searchModalOpen } 
 							 onRequestClose={this.closeSearchModal}

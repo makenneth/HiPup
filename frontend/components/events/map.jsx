@@ -1,4 +1,5 @@
-var React = require('react');
+var React = require('react'),
+   Geosuggest = require('react-geosuggest');
 
 var EventMap = React.createClass({
 	componentDidMount: function(){
@@ -13,15 +14,17 @@ var EventMap = React.createClass({
     	position: new google.maps.LatLng(+this.props.lat, +this.props.lng)
     }).setMap(this.map);
   },
-  setMarker: function() {
-
-  },
   error: function(err) {
   	console.log(err);
   },
+    onSuggestSelect: function(suggest) {
+    console.log(suggest);
+  },
 	render: function() {
-		return (
-			<div>
+    return (
+      <div>
+        <div>
+        </div>
 				<div className="map" ref="map">
 				</div>
 			</div>

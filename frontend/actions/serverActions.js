@@ -66,5 +66,12 @@ module.exports = {
 			actionType: UserConstants.TOGGLED_GROUP,
 			currentUser: currentUser
 		})
+	},
+
+	toggledEvent: function(currentUser){
+		AppDispatcher.dispatch({
+			actionType: UserConstants.TOGGLED_EVENT,
+			currentUser: currentUser
+		})
 	}
 };

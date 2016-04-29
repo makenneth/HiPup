@@ -51,7 +51,44 @@ ul {
 button {
 	margin: 0 5px;
 }
+/*.page-enter {
+  opacity: 0.01;
+}
 
+.page-enter.page-enter-active {
+  opacity: 1;
+  transition: opacity 500ms ease-in;
+}
+
+.page-leave {
+  opacity: 1;
+}
+
+.page-leave.page-leave-active {
+  opacity: 0.01;
+  transition: opacity 300ms ease-in;
+}*/
+.nav-modal-enter {
+	opacity: 0;
+}
+.nav-modal-enter.nav-model-enter-active {
+	opacity: 1;
+	transition: opacity 0.5s ease-in;
+}
+.nav-modal-leave {
+
+}
+.nav-modal-leave.nav-model-leave-active {
+	
+}
+.page-appear {
+  opacity: 0.01;
+}
+
+.page-appear.page-appear-active {
+  opacity: 1;
+  transition: opacity .5s ease-in;
+}
 .nav-list {
   max-width: 250px;
   min-width: 150px;
@@ -63,6 +100,7 @@ button {
 	li {
 		display: block;
 		border-bottom: 2px solid #aaa;
+		cursor: pointer;
 	}
 	li:first-child {
 		border-top: 2px solid #aaa;
@@ -145,7 +183,36 @@ button {
 	padding: 5px;
 	border: 1px solid transparent;
 }*/
+#header {
+	width: 100%;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	button {
+		align-self: flex-end;
+		padding: 10px 15px;
+		color: white;
 
+		border-radius: 4px;
+		font-size: 20px;
+		cursor: pointer;
+	}
+	.join {
+		background-color: #30690E;
+	}
+	.leave {
+		background-color: #791710;
+	}
+	.join:hover {
+		background-color: #BFE4A9;
+	}
+	.leave:hover {
+		background-color: #DB7D76;
+	}
+	h2 {
+		align-self: center;
+	}
+}
 .user-button  {
 	display: flex;
 	position: absolute;

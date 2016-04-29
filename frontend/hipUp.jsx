@@ -4,7 +4,10 @@ var ReactRouter = require('react-router'),
 		IndexRoute = ReactRouter.IndexRoute,
 		HashHistory = ReactRouter.hashHistory,
 		Link = ReactRouter.Link,
-		Modal = require('react-modal');
+		Modal = require('react-modal'),
+		EasyTransition = require('react-easy-transition'),
+		ReactCSSTransitionGroup = require('react-addons-css-transition-group');
+
 
 var React = require('react'),
 		ReactDOM = require('react-dom'), 
@@ -79,7 +82,7 @@ var App = React.createClass({
 		return (
 			<div>
 				<div class="page-container">
-					{this.props.children}
+						{this.props.children}
 				</div>
 					{this.userButtons()}
 				<div className="menu-icon" onClick={this.openNavModal}>&#9776;</div>
@@ -97,8 +100,11 @@ var App = React.createClass({
 				</Modal>
 				<Modal isOpen={this.state.navModalOpen}
 							onRequestClose={this.closeNavModal}
-							style={NavStyle} >
-					<Navbar closeModal={this.closeNavModal}/>
+							style={NavStyle}>
+							<ReactCSSTransitionGroup transitionName="nav-modal"
+								transitionEnterTimeout={300} transitionLeaveTimeout={300}>
+								<Navbar closeModal={this.closeNavModal}/>
+							</ReactCSSTransitionGroup>
 				</Modal>
 			</div>
 		);

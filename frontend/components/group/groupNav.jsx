@@ -4,7 +4,7 @@ var React = require('react'),
 var GroupNav = React.createClass({
 	mixins: [CurrentUserState],
 	render: function() {
-		var id = this.props.group.groupId,
+		var id = this.props.group.id,
 				title = this.props.group.title;
 		return (
 			<div>
