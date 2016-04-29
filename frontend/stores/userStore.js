@@ -39,7 +39,7 @@ UserStore.__onDispatch = function(payload) {
 			_unsetCurrentUser();
 			UserStore.__emitChange();
 			break;
-		case UserConstants.JOINED_GROUP:
+		case UserConstants.TOGGLED_GROUP:
 			_setCurrentUser(payload.currentUser);
 			UserStore.__emitChange(); //this should refetch the currentUser
 			break;

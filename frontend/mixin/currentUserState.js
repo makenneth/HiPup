@@ -8,7 +8,7 @@ module.exports = {
 		};
 	},
 	componentDidMount: function() {
-		UserStore.addListener(this._updateUser);
+		this.cUListener = UserStore.addListener(this._updateUser);
 		if (!this.state.currentUser){
 			UserActions.fetchCurrentUser();
 		}
@@ -18,5 +18,10 @@ module.exports = {
 			currentUser: UserStore.currentUser(),
 			errors: UserStore.errors()	
 		});
-	}
+	},
+	componentWillUnmount: function() {
+		if (this.cUListener){
+			this.cUListener.remove();
+		}	
+	},
 };

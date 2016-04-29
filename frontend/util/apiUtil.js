@@ -113,21 +113,26 @@ module.exports = {
 			}
 		})
 	},
-	joinGroup: function(userId, groupId){
+	joinGroup: function(data){
 		$.ajax({
 			method: "POST",
 			url: "/api/group_participants/",
-			data: {
-				group_participant: {
-					participant_id: userId,
-					group_id: groupId
-				}
-			},
+			data: data,
 			success: function(currentUser){
-				ServerActions.joinedGroup(currentUser);
+				ServerActions.toggledGroup(currentUser);
 			},
 			error: function(err){
 				console.log(err);
+			}
+		})
+	},
+	leaveGroup: function(data){
+		$.ajax({
+			method: "DELETE",
+			url: "/api/group_participants/leave",
+			data: data,
+			success: function(currentUser){
+				ServerActions.toggledGroup(currentUser);
 			}
 		})
 	}

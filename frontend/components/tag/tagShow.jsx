@@ -23,7 +23,6 @@ var TagShow = React.createClass({
 		}
 	},
 	render: function() {
-		debugger;
 		return (
 			<div>
 				<ul className="tag-groups">

@@ -1,5 +1,6 @@
 module.exports = {
 	ERROR: "ERROR",
 	LOGIN: "LOGIN",
-	LOGOUT: "LOGOUT"
+	LOGOUT: "LOGOUT",
+	TOGGLED_GROUP: "TOGGLED_GROUP"
 }

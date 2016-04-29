@@ -11,7 +11,7 @@ var GroupHome = React.createClass({
 		var group = this.props.group;
 		return (
 			<div>
-					<h3>{group.title}</h3>
+					<h2>Description: </h2>
 					<p>{group.description}</p>
 					<div className="group-tags">
 						<h3>tags</h3>

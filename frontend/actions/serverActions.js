@@ -61,9 +61,9 @@ module.exports = {
 			groupEvent: groupEvent
 		})
 	},
-	joinedGroup: function(currentUser){
+	toggledGroup: function(currentUser){
 		AppDispatcher.dispatch({
-			actionType: UserConstants.JOINED_GROUP,
+			actionType: UserConstants.TOGGLED_GROUP,
 			currentUser: currentUser
 		})
 	}

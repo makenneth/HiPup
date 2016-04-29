@@ -1,5 +1,12 @@
 var ApiUtil = require('../util/apiUtil');
-
+var groupParticipantData = function(userId, groupId){
+		return {
+							group_participant: {
+								participant_id: userId,
+								group_id: groupId
+							}
+						};
+};
 module.exports = {
 	fetchAllGroups: function(){
 		ApiUtil.fetchAllGroups();
@@ -29,9 +36,12 @@ module.exports = {
 		ApiUtil.fetchSingleEvent(id);
 	},
 	joinGroup: function(userId, groupId){
-		ApiUtil.joinGroup(userId, groupId);
+		ApiUtil.joinGroup(groupParticipantData(userId, groupId));
 	},
 	leaveGroup: function(userId, groupId){
-		debugger;
+		ApiUtil.leaveGroup(groupParticipantData(userId, groupId));
 	}
 }
+
+
+
