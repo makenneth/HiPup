@@ -47,6 +47,7 @@ var SignUpForm = React.createClass({
 	render: function() {
 		return (
 			<div className="form-div">
+				<div className="close-form" onClick={this.props.closeModal}>&#10006;</div>
 				<h3>Sign Up</h3>
 				<form className="user-forms" onSubmit={this.handleSubmit}>
 					<div className="form-line cf">

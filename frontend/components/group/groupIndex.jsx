@@ -40,7 +40,7 @@ var GroupIndex = React.createClass({
 	render: function() {
 		return (
 			<div>
-				<div className="banner"><img src={banner} /></div>
+				<div className="banner"></div>
 				<div className="search-bar">
 					<div className="search-container-sm cf">
 						<img className="search-icon-sm"

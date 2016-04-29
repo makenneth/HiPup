@@ -33,6 +33,7 @@ var LogInForm = React.createClass({
 		var isDisabled = this.state.password.length >= 8;
 		return (
 			<div className="form-div">
+				<div className="close-form" onClick={this.props.closeModal}>&#10006;</div>
 				<h3>Log In</h3>
 				<form className="user-forms" onSubmit={this.handleSubmit}>
 					<div className="form-line cf">
@@ -43,8 +44,10 @@ var LogInForm = React.createClass({
 						<label for="password">Password</label>
 						<input id="password" type="text" value={this.state.password} onChange={this.updatePassword} />
 					</div>
-					<input type="submit" className="button-login" value="Log In" disabled={!isDisabled}/>
-					<button className="guest-login" onClick={this.guestLogin}>Guest Login</button>
+					<div className="form-btn-div cf">
+						<input type="submit" className="button-login" value="Log In" disabled={!isDisabled}/>
+						<button className="guest-login" onClick={this.guestLogin}>Guest Login</button>
+					</div>
 				</form>
 			</div>
 		);

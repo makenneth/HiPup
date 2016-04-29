@@ -39,7 +39,7 @@ input {
 }
 a {
  	text-decoration: none;
- 	color: #aaa;
+ 	color: #ccc;
  }
 a:hover {
 	text-decoration: none;
@@ -101,7 +101,7 @@ button {
 	}
 
 }
-.banner {
+/*.banner {
 	height: 600px;
 	overflow: hidden;
 	margin-top: -20px;
@@ -111,6 +111,17 @@ button {
 		position: relative;
 		top: -500px;
 	}
+}*/
+.banner {
+	background-image: url(https://images.unsplash.com/photo-1443750200537-00fd518bdc82?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&w=1080&fit=max&s=ad7a9ff44b3026fcf49d80830ffb20ee);
+	height: 600px;
+	width: 100%;
+	 -ms-background-position-x: center;
+  -ms-background-position-y: bottom;
+  background-position: center bottom;
+
+  /* scale bg image proportionately */
+  background-size: cover;
 }
 
 .group-detail {
@@ -127,14 +138,14 @@ button {
 .group-index {
 	width: 80%;
 	margin: 0 auto;
+	display: flex;
+	flex-wrap: wrap;
 	.group-index-item {
-		min-height: 100px;
+		flex: 2 2 300px;
 		height: auto;
 		overflow: hidden;
 		padding: 20px 0;
 		margin: 0 10px 20px 10px;
-		width: 30%;
-		min-width: 250px;
 		float: left;
 		font-size: 24px;
 	  font-family: 'Dosis', sans-serif;
@@ -142,7 +153,7 @@ button {
 	  border-radius: 4px;
 	}
 	.group-index-item h4{
-		font-size: 60px;
+		font-size: 40px;
 		text-align: center;
 		vertical-align: center;
 	}
@@ -152,35 +163,36 @@ button {
 }
 
 
-.main-buttons {
-	font-family: 'Dosis', sans-serif;
-	background-color: black;
-	opacity: 0.8;
-	width: 10em;
-	height: 2em;
-	position: absolute;
-	top: 0px;
-	right: 0px;
+/*.main-buttons {
+	width: 20%;
 	padding: 5px;
 	border: 1px solid transparent;
-}
+}*/
 
-.user-button a:hover {
-	font: grey;
-}
 .user-button  {
-	width: 15em;
-	margin: 0 auto;
+	display: flex;
+	position: absolute;
+	font-family: 'Dosis', sans-serif;
+	top: 30px;
+	right: 50px;
+	width: 300px;
 	text-align: center;
+	justify-content: space-around;
 	li {
-		display: inline;
-		float: left;
+		border: 1px solid white;
+		background-color: black;
+		opacity: 0.8;
 		font-size: 1.5em;
-		whitespace: nowrap;
+		padding: 5px 25px;
+		border-radius: 5px;
+		width: 80px;
 	}
-
-	li:first-child {
-		margin-right: 30px;
+	li a:first {
+		margin-right: 20px;
+	}
+	li:hover {
+		font: black;
+		background-color: white;
 	}
 }
 .tag-groups {

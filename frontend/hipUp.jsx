@@ -62,14 +62,14 @@ var App = React.createClass({
 	},
 	userButtons: function() {
 		if (this.state.currentUser){
-			return (<ul className="user-button">
+			return (<ul className="user-button cf">
 				<li><a href="#/user/profile">
 							Welcome, {this.state.currentUser.name}!
 						</a></li>
 				<li><a href="#" onClick={this.logOut}>Log Out</a></li>
 			</ul>);
 		} else {
-			return (<ul className="user-button">
+			return (<ul className="user-button cf">
 				<li><a href="#" onClick={this.openLogInModal}>Log In</a></li>
 				<li><a href="#" onClick={this.openSignUpModal}>Sign Up</a></li>
 			</ul>);
@@ -81,9 +81,7 @@ var App = React.createClass({
 				<div class="page-container">
 					{this.props.children}
 				</div>
-				<div className="main-buttons">
 					{this.userButtons()}
-				</div>
 				<div className="menu-icon" onClick={this.openNavModal}>&#9776;</div>
 				<Modal isOpen={this.state.logInModalOpen} 
 							 onRequestClose={this.closeLogInModal}
