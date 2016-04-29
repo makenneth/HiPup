@@ -16,15 +16,21 @@
 	.profile-list {
 		margin-left: 50px;
 		float: left;
-		li {
-			border-bottom: 2px solid black;
-			padding: 20px 0;
-			text-indent: 30px;
-			font-family: 'Slabo 27px', sans-serif;
-			font-size: 24px;
-		}
-		li:first-child {
-			border-top: 2px solid black;
-		}
 	}
+}
+.profile-list > li {
+	text-indent: 30px;
+	border-bottom: 2px solid black;
+	padding: 20px 0;
+	text-indent: 30px;
+	font-family: 'Slabo 27px', sans-serif;
+	font-size: 24px;
+}
+.profile-list > li:first-child {
+	border-top: 2px solid black;
+}
+
+
+.group-list {
+	text-indent: 60px;
 }

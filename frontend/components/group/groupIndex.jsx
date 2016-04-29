@@ -19,11 +19,16 @@ var GroupIndex = React.createClass({
 		};
 	},
 	componentDidMount: function() {
-		GroupStore.addListener(this._onLoad);
+		this.groupIndexListener = GroupStore.addListener(this._onLoad);
 		ClientActions.fetchAllGroups();
 	},
 	_onLoad: function() {
 		this.setState({groups: GroupStore.all()});
+	},
+	componentWillUnmount: function() {
+		if (this.groupIndexListener){
+			this.groupIndexListener.remove();
+		}
 	},
 	openSearchModal: function(e){
 		this.setState({ searchModalOpen: true, searchString: e.target.value});

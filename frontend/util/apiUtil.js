@@ -112,6 +112,24 @@ module.exports = {
 				ServerActions.fetchedSingleEvent(groupEvent);
 			}
 		})
+	},
+	joinGroup: function(userId, groupId){
+		$.ajax({
+			method: "POST",
+			url: "/api/group_participants/",
+			data: {
+				group_participant: {
+					participant_id: userId,
+					group_id: groupId
+				}
+			},
+			success: function(currentUser){
+				ServerActions.joinedGroup(currentUser);
+			},
+			error: function(err){
+				console.log(err);
+			}
+		})
 	}
 
 };

@@ -70,8 +70,8 @@ var App = React.createClass({
 			</ul>);
 		} else {
 			return (<ul className="user-button cf">
-				<li><a href="#" onClick={this.openLogInModal}>Log In</a></li>
-				<li><a href="#" onClick={this.openSignUpModal}>Sign Up</a></li>
+				<li onClick={this.openLogInModal}><a href="#">Log In</a></li>
+				<li onClick={this.openSignUpModal}><a href="#">Sign Up</a></li>
 			</ul>);
 		}
 	},

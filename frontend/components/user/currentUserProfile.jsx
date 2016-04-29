@@ -14,7 +14,7 @@ var CurrentUserProfile = React.createClass({
 		this._getCityAndCountry(user.lat, user.lng, this._setLocation);
 	},
 	render: function() {
-		var user = this.state.currentUser || {name: "", username: ""};
+		var user = this.state.currentUser || {name: "", username: "", groups: []};
 		return (
 			<div className="current-user-profile cf">
 				<h3>Name: {user.name}</h3>
@@ -26,7 +26,16 @@ var CurrentUserProfile = React.createClass({
 					<li>Owner_name: {user.owner_name}</li>
 					<li>Email: {user.email}</li>
 					<li>Location: {this.state.location.join(", ")}</li>
-				</ul>
+					<li>Group Association: 
+						<ul className="group-list">
+							{
+								user.groups.map(function(group){
+									return <li key={group.id}>{group.title}</li>;
+								})
+							}
+						</ul>
+					</li>
+					</ul>
 			</div>
 		);
 	}

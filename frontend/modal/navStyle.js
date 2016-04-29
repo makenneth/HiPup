@@ -16,7 +16,7 @@ module.exports = {
 										    width                      : '15%',
 										    minWidth                   : "150px",
 										    border                     : '1px solid #ccc',
-										    background                 : '#549f5d',
+										    background                 : '#ffffff',
 										    opacity                    : '0.9',
 										    overflow                   : 'auto',
 										    WebkitOverflowScrolling    : 'touch',

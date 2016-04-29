@@ -27,5 +27,11 @@ module.exports = {
 	},
 	fetchSingleEvent: function(id){
 		ApiUtil.fetchSingleEvent(id);
+	},
+	joinGroup: function(userId, groupId){
+		ApiUtil.joinGroup(userId, groupId);
+	},
+	leaveGroup: function(userId, groupId){
+		debugger;
 	}
 }

@@ -2,7 +2,8 @@ var AppDispatcher = require('../dispatcher/dispatcher'),
 		GroupConstants = require('../constants/groupConstants'),
 		MemberConstants = require('../constants/memberConstants'),
 		TagConstants = require('../constants/tagConstants'),
-		GroupEventConstants = require('../constants/groupEventConstants');
+		GroupEventConstants = require('../constants/groupEventConstants'),
+		UserConstants = require('../constants/userConstants');
 
 module.exports = {
 	receivedGroups: function(groups){
@@ -58,6 +59,12 @@ module.exports = {
 		AppDispatcher.dispatch({
 			actionType: GroupEventConstants.FETCHED_SINGLE_EVENT,
 			groupEvent: groupEvent
+		})
+	},
+	joinedGroup: function(currentUser){
+		AppDispatcher.dispatch({
+			actionType: UserConstants.JOINED_GROUP,
+			currentUser: currentUser
 		})
 	}
 };
