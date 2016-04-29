@@ -17,7 +17,7 @@ var LogInForm = React.createClass({
 		this.props.closeModal();
 	},
 	handleSubmit: function(e) {
-		e.preventDefault();
+		if(e) e.preventDefault();
 		UserActions.signIn(this.state);
 	},
 	updateUsername: function(e) {
@@ -27,7 +27,28 @@ var LogInForm = React.createClass({
 		this.setState({password: e.target.value});
 	},
 	guestLogin: function(e) {
-		this.setState({username: "sampleuser", password: "password"});
+		e.preventDefault();
+		this.ghostFill();
+	},
+	ghostFill: function(){
+		var sampleUsername = "sampleuser", samplePassword = "password",
+				usernameCount = 0, passwordCount = 0;
+		var intervalKey = setInterval(function(){
+			if (usernameCount < 10){
+				this.setState({
+						username: this.state.username + sampleUsername[usernameCount]
+					});
+				usernameCount++;
+			} else if (passwordCount < 8){
+				this.setState({
+					password: this.state.password + samplePassword[passwordCount]
+				})
+				passwordCount++;
+			} else {
+				clearInterval(intervalKey);
+				this.handleSubmit();
+			}
+		}.bind(this), 100)
 	},
 	render: function() {
 		var isDisabled = this.state.password.length >= 8;

@@ -23,7 +23,6 @@ var EventShow = React.createClass({
 			method: "GET",
 			url: url,
 			success: function(data){
-				debugger
 				console.log(data);
 			},
 			error: function(error){

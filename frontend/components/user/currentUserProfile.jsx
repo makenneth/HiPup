@@ -1,9 +1,15 @@
 var React = require('react'),
 		CurrentUserState = require('../../mixin/currentUserState'),
-		ReverseGeoMixin = require('../../mixin/reverseGeoMixin');
+		ReverseGeoMixin = require('../../mixin/reverseGeoMixin'),
+		HashHistory = require('react-router').hashHistory;
 
 var CurrentUserProfile = React.createClass({
 	mixins: [CurrentUserState, ReverseGeoMixin],
+	componentWillMount: function() {
+		if (!this.state.currentUser){
+			HashHistory.push('/');
+		}
+	},
 	componentDidMount: function() {
 			this._getLocation();
 	},
