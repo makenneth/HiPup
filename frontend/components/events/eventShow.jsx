@@ -2,10 +2,11 @@ var React = require('react'),
 		GroupEventStore = require('../../stores/groupEventStore'),
 		ClientActions = require('../../actions/clientActions'),
 		EventMap = require('./map.jsx'),
-		CurrentUserState = require('../../mixin/currentUserState');
+		CurrentUserState = require('../../mixin/currentUserState'),
+		HaversineFormula = require('../../mixin/haversine');
 
 var EventShow = React.createClass({
-	mixins: [CurrentUserState],
+	mixins: [CurrentUserState, HaversineFormula],
 	getInitialState: function() {
 		return {
 			groupEvent: GroupEventStore.find(this.props.params.eventId),
@@ -13,30 +14,37 @@ var EventShow = React.createClass({
 		};
 	},
 	_calculateDistance: function(position){
-		// var groupEvent = this.state.groupEvent;
-		// var coords = position.coords;
-		// var api = "AIzaSyDBLpIlf0l0YTDYqk8oNmHbiJldzeKMQKM";
-		// var url = "https://maps.googleapis.com/maps/api/distancematrix/" + 
-		// "json?units=imperial&origins=" + coords.latitude + ","
-		// + coords.longitude + "&destinations=" + groupEvent.lat + 
-		// 	"%2C" + groupEvent.lng + "&key=" + api;
-		// $.ajax({
-		// 	method: "GET",
-		// 	url: url,
-		// 	success: function(data){
-		// 		console.log(data);
-		// 	},
-		// 	error: function(error){
-		// 		console.log(error);
-		// 	}
-		// })  
+		var groupEvent = this.state.groupEvent,
+				coords = position.coords;
+		var p1 = {
+							lat: groupEvent.lat,
+							lng: groupEvent.lng
+						 },
+				p2 = {
+							lat: coords.latitude,
+							lng: coords.longitude
+						 };
+
+		this.setState({ distance: HaversineFormula.getDistance(p1, p2) });
 	},
 	componentDidMount: function() {
 		this.esListener = GroupEventStore.addListener(this._fetchedEvent);
+
 		if (!this.state.groupEvent.event_time){
 			ClientActions.fetchSingleEvent(this.props.params.eventId);
 		} else {
-			navigator.geolocation.getCurrentPosition(this._calculateDistance, this.handleError);
+			if (this.state.currentUser){
+				//should watch currentUser's position upon login
+				this._calculateDistance(
+				{
+					coords: {
+										lat: this.state.currentUser.lat,
+										lng: this.state.currentUser.lng
+									}
+				});
+			} else {
+				navigator.geolocation.getCurrentPosition(this._calculateDistance, this.handleError);		
+			}
 		}
 	},
 	handleError: function(err) {
@@ -77,12 +85,12 @@ var EventShow = React.createClass({
 		navigator.geolocation.getCurrentPosition(this._calculateDistance, this.handleError);
 	},
 	componentWillUnmount: function() {
-		this.esListener.remove();
+		if (this.esListener) this.esListener.remove();
 	},
 	render: function() {
 		var groupEvent = this.state.groupEvent;
 		var showDistance = this.state.distance ? 
-				(<p>Distance away: {this.state.distance}</p>) : "";
+				(<p>Distance away: {this.state.distance} miles</p>) : "";
 		return (
 			<div>
 					<div className="group-event-detail">

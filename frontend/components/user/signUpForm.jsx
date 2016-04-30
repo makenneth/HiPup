@@ -11,40 +11,46 @@ var SignUpForm = React.createClass({
 			owner_name: "",
 			email: "",
 			password: "",
-			lat: 0,
-			lng: 0 
+			state: "",
+			city: ""
 		};
 	},
 	componentDidMount: function() {
-		navigator.geolocation.getCurrentPosition(this.setPosition);
 		UserStore.addListener(this._onLogIn);
+		var options = {
+      types: ['(regions)'],
+      componentRestrictions: {country: "us"}
+    };
+		this.autocomplete = new google.maps.places.Autocomplete(
+        document.getElementById("autocomplete"),
+        options
+        );
+  	this.autocomplete.addListener('place_changed', this.fillInAddress);
 	},
+	fillInAddress: function(){
+    var place = this.autocomplete.getPlace();
+   	var city = place.adr_address.match(/locality\">(\w+\s?\w+)</),
+   			state = place.adr_address.match(/region\">(\w+)</);
+   			city = city ? city[1] : "";
+   			state = state ? state[1] : ""; //need to convert these to lat and lng as well
+   	this.setState({state: state, city: city});
+  },
 	_onLogIn: function() {
 		this.props.closeModal();
 	},
-	setPosition: function(pos) {
-		this.setState({lat: pos.coords.latitude, lng: pos.coords.longitude });
-	},
-	updateName: function(e) {
-		this.setState({name: e.target.value});
-	},
-	updateUsername: function (e){
-		this.setState({username: e.target.value});
-	},
-	updateEmail: function(e) {
-		this.setState({email: e.target.value});
-	},
-	updatePassword: function(e) {
-		this.setState({password: e.target.value});
-	},
-	updateOwnerName: function(e) {
-		this.setState({owner_name: e.target.value});
+	updateField: function(field, e){
+		var stateObj = {};
+		stateObj[field] = e.target.value;
+		this.setState(stateObj);
 	},
 	handleSubmit: function(e) {
 		e.preventDefault();
 		UserActions.signUp(this.state);
 	},
 	render: function() {
+		var passwordConditions = "Minimum 8 characters in length\nContain at least one uppercase letter\n"
+		+ "Contain at least one lowercase letter\nContain at least one number\n" 
+		+ "Contain at least one special characters _!@#*&$."
 		return (
 			<div className="form-div">
 				<div className="close-form" onClick={this.props.closeModal}>&#10006;</div>
@@ -53,27 +59,45 @@ var SignUpForm = React.createClass({
 					<div className="form-line cf">
 						<label for="name">My Name</label>
 						<input type="text" id="name" 
-							value={this.state.name} onChange={this.updateName}/>
+							value={this.state.name} onChange={this.updateField.bind(null, "name")}
+							required />
 					</div>
 					<div className="form-line cf">
 						<label for="owner-name">Owner's Name</label>
 						<input type="text" id="owner-name" 
-							value={this.state.owner_name} onChange={this.updateOwnerName}/>
+							value={this.state.owner_name} onChange={this.updateField.bind(null, "owner_name")}
+							required />
 					</div>
 					<div className="form-line cf">
 						<label for="username">Username</label>
 						<input type="text" id="username" 
-							value={this.state.username} onChange={this.updateUsername}/>
+							value={this.state.username} onChange={this.updateField.bind(null, "username")}
+							title="At least 8 characters long"
+							required pattern=".{8,}"/>
 					</div>
 					<div className="form-line cf">
 						<label for="email">E-mail</label>
 						<input type="email" id="email" 
-							value={this.state.email} onChange={this.updateEmail}/>
+							value={this.state.email} onChange={this.updateField.bind(null, "email")}
+							required />
 					</div>
 					<div className="form-line cf">
 						<label for="password">Password</label>
-						<input type="password" id="password" 
-							value={this.state.password} onChange={this.updatePassword}/>
+						<input type="password" id="password" title={passwordConditions}
+							value={this.state.password} onChange={this.updateField.bind(null, "password")}
+							required pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[._!@#*&$])[a-zA-Z0-9_!@#*&$.]{8,}$"/>
+					</div>					
+					<div className="form-line cf">
+						<label for="autocomplete">City</label>
+						 <input type="text" id="autocomplete" 
+						 				value={this.state.city} onChange={this.updateField.bind(null, "city")}
+						 				required />
+					</div>
+					<div className="form-line cf">
+						<label for="state">State</label>
+						 <input type="text" id="state" 
+						 				value={this.state.state} onChange={this.updateField.bind(null, "state")}
+						 				required />
 					</div>
 
 					<input type="submit" className="button-create" value="Create Account"/>

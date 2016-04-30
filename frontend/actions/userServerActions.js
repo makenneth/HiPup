@@ -13,9 +13,10 @@ module.exports = {
 			actionType: UserConstants.LOGOUT
 		});
 	},
-	handleErrors: function (errors){
+	handleErrors: function (errorObject){
+		var errors = JSON.parse(errorObject.responseText);
 		AppDispatcher.dispatch({
-			actionType: UserConstants.LOGIN,
+			actionType: UserConstants.ERROR,
 			errors: errors
 		});
 	}

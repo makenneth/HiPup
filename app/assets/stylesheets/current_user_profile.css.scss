@@ -1,5 +1,6 @@
 .current-user-profile {
 	width: 60%;
+	min-width: 710px;
 	display: flex;
 	flex-direction:column;
 	justify-content: center;
@@ -46,10 +47,8 @@
 	}
 }
 .profile-list > li {
-	text-indent: 30px;
 	border-bottom: 2px solid black;
 	padding: 20px 0;
-	text-indent: 30px;
 	font-size: 24px;
 	display: flex;
 	justify-content: space-between;

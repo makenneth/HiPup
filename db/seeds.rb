@@ -48,7 +48,7 @@ end
 	3.times do |j|
 		GroupEvent.create({
 			title: Faker::Hacker.noun.capitalize + " Convention",
-			description: Faker::Lorem.paragraphs(2),
+			description: Faker::Lorem.paragraphs(2).join("\n"),
 			lat: 37.7749, lng: -122.4194,
 			city: "San Francisco",
 			state: "California",

@@ -23,5 +23,6 @@ module.exports = {
 		if (this.cUListener){
 			this.cUListener.remove();
 		}	
-	},
+	}
+
 };

@@ -89,13 +89,11 @@ var App = React.createClass({
 				<Modal isOpen={this.state.logInModalOpen} 
 							 onRequestClose={this.closeLogInModal}
 							 style={FormStyle}>
-					<button onClick={this.closeLogInModal}>Close</button>
 					<LogInForm closeModal={this.closeLogInModal}/>
 				</Modal>
 				<Modal isOpen={this.state.signUpModalOpen} 
 							 onRequestClose={this.closeSignUpModal}
 							 style={FormStyle}>
-					<button onClick={this.closeSignUpModal}>Close</button>
 					<SignUpForm closeModal={this.closeSignUpModal}/>
 				</Modal>
 				<Modal isOpen={this.state.navModalOpen}
