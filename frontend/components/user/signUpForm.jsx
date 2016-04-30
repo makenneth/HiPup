@@ -4,6 +4,7 @@ var React = require('react'),
 		HashHistory = require('react-router').hashHistory;
 
 var SignUpForm = React.createClass({
+	// mixins: [GeocodingMixin],
 	getInitialState: function() {
 		return {
 			name: "",
@@ -12,7 +13,9 @@ var SignUpForm = React.createClass({
 			email: "",
 			password: "",
 			state: "",
-			city: ""
+			city: "",
+			lat: 0,
+			lng: 0
 		};
 	},
 	componentDidMount: function() {
@@ -30,10 +33,12 @@ var SignUpForm = React.createClass({
 	fillInAddress: function(){
     var place = this.autocomplete.getPlace();
    	var city = place.adr_address.match(/locality\">(\w+\s?\w+)</),
-   			state = place.adr_address.match(/region\">(\w+)</);
-   			city = city ? city[1] : "";
-   			state = state ? state[1] : ""; //need to convert these to lat and lng as well
-   	this.setState({state: state, city: city});
+   			state = place.adr_address.match(/region\">(\w+)</),
+   			location = place.geometry.location;
+		city = city ? city[1] : "";
+		state = state ? state[1] : ""; 
+   	this.setState({state: state, city: city, 
+   									lat: location.lat(), lng: location.lng()});
   },
 	_onLogIn: function() {
 		this.props.closeModal();
@@ -46,6 +51,13 @@ var SignUpForm = React.createClass({
 	handleSubmit: function(e) {
 		e.preventDefault();
 		UserActions.signUp(this.state);
+		// GeocodingMixin.getCoords(this.state.city, this.state.state);
+	},
+	// submitForm: function(coords){
+	// 	User.setState({lat: coords.lat, lng: coords.lng});
+	// },
+	handleError: function(err) {
+		this.errors = err;
 	},
 	render: function() {
 		var passwordConditions = "Minimum 8 characters in length\nContain at least one uppercase letter\n"
@@ -79,13 +91,13 @@ var SignUpForm = React.createClass({
 						<label for="email">E-mail</label>
 						<input type="email" id="email" 
 							value={this.state.email} onChange={this.updateField.bind(null, "email")}
-							required />
+							required/>
 					</div>
 					<div className="form-line cf">
 						<label for="password">Password</label>
 						<input type="password" id="password" title={passwordConditions}
 							value={this.state.password} onChange={this.updateField.bind(null, "password")}
-							required pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[._!@#*&$])[a-zA-Z0-9_!@#*&$.]{8,}$"/>
+							required pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[._!@#*&$-])[a-zA-Z0-9_!@#*&$.-]{8,}$"/>
 					</div>					
 					<div className="form-line cf">
 						<label for="autocomplete">City</label>
@@ -99,6 +111,7 @@ var SignUpForm = React.createClass({
 						 				value={this.state.state} onChange={this.updateField.bind(null, "state")}
 						 				required />
 					</div>
+					<div className="errors">{this.errors}</div>
 
 					<input type="submit" className="button-create" value="Create Account"/>
 				</form>

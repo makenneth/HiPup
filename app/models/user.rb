@@ -1,7 +1,8 @@
 class User < ActiveRecord::Base
 	after_initialize :ensure_session_token
 	validates :username, :email, :name, :password_digest, 
-									:session_token, :lat, :lng, :owner_name, presence: true
+									:session_token, :lat, :lng, :owner_name, 
+									:city, :state, presence: true
 	validates :password, length: {minimum: 8, allow_nil: true}
 	validates :username, :email, uniqueness: true
 

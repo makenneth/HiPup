@@ -137,13 +137,11 @@ module.exports = {
 		})
 	},
 	joinEvent: function(data){
-		debugger
 		$.ajax({
 			method: "POST",
 			url: "/api/event_users",
 			data: data,
 			success: function(currentUser){
-				debugger;
 				ServerActions.toggledEvent(currentUser);
 			}
 		});

@@ -37,7 +37,7 @@ var Navbar = React.createClass({
 									  onClick={this.setTab.bind(null, 3, "user/profile")}>
 									  Profile</li>
 							  <li className={this.state.active === 4 ? "active" : ""}
-									  onClick={this.setTab.bind(null, 4, "")}>
+									  onClick={this.setTab.bind(null, 4, "user/events")}>
 									  Manage Your Events</li>
 						  </ul>);
 		}

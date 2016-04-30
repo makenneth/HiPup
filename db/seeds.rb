@@ -9,7 +9,7 @@
 User.create({
 							owner_name: "Sample User", email: "whisker@example.com", 
 							lat: 37.7749, lng: -122.4194, 
-							name: "Whisker", password: "password", username: "sampleuser"
+							name: "Whisker", password: "P8ssword*", username: "sampleuser"
 						});
 
 30.times do 
@@ -18,7 +18,7 @@ User.create({
 			name: name,
 			username: Faker::Internet.user_name,
 			owner_name: Faker::Name.name,
-			password: "password",
+			password: "P8ssword*",
 			email: Faker::Internet.free_email(name),
 			lat: 37.7749, lng: -122.4194,
 			image_url: Faker::Placeholdit.image("250x250", 'jpg')

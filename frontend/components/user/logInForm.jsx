@@ -30,6 +30,7 @@ var LogInForm = React.createClass({
 	},
 	guestLogin: function(e) {
 		e.preventDefault();
+		this.setState({username: "", password: ""})
 		this.ghostFill();
 	},
 	ghostFill: function(){
@@ -53,10 +54,7 @@ var LogInForm = React.createClass({
 		}.bind(this), 100)
 	},
 	render: function() {
-		var isDisabled = this.state.password.length >= 8,
-				passwordConditions = "Minimum 8 characters in length\nContain at least one uppercase letter\n"
-						+ "Contain at least one lowercase letter\nContain at least one number\n" 
-						+ "Contain at least one special characters _!@#*&$.";
+		var isDisabled = this.state.password.length >= 8;
 
 		return (
 			<div className="form-div">
@@ -68,14 +66,13 @@ var LogInForm = React.createClass({
 						<label for="username">Username</label>
 						<input id="username" type="text" 
 								value={this.state.username} onChange={this.updateUsername} 
-								title="At least 8 characters long"
-								 required pattern=".{8,}"/>
+								 required/>
 					</div>
 					<div className="form-line cf">
 						<label for="password">Password</label>
-						<input id="password" type="password" title={passwordConditions}
+						<input id="password" type="password"
 										value={this.state.password} onChange={this.updatePassword} 
-										require pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[._!@#*&$])[a-zA-Z0-9_!@#*&$.]{8,}$"/>
+										required/>
 					</div>
 					<div className="form-btn-div cf">
 						<input type="submit" className="button-login" value="Log In" disabled={!isDisabled}/>

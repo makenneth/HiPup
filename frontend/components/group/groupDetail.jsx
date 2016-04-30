@@ -40,7 +40,7 @@ var GroupDetail = React.createClass({
 		}
 	},
 	leaveGroup: function() {
-		if (this.state.currentUser && this.hasJoinedGroup){
+		if (this.state.currentUser && this.hasJoinedGroup()){
 			ClientActions.leaveGroup(this.state.currentUser.id, this.state.group.id);
 		}
 	},
@@ -53,6 +53,7 @@ var GroupDetail = React.createClass({
 		}
 	},
 	hasJoinedGroup: function(){
+		if (!this.state.currentUser) return false;
 		var groups = this.state.currentUser.groups;
 		for (var i = 0; i < groups.length; i++) {
 			if (groups[i].id === this.state.group.id){

@@ -117,9 +117,9 @@ user interface.
 
 **Objective:** Existing pages (at least Events Index) will look good.
 
-- [ ] create a basic style guide
-- [ ] position elements on the page
-- [ ] add basic colors & styles
+- [x] create a basic style guide
+- [x] position elements on the page
+- [x] add basic colors & styles
 
 ### Phase 7: Google Map Distance Matrix (0.5 days)
 
