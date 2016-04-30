@@ -37,15 +37,17 @@ var MemberProfile = React.createClass({
 		var member = this.state.member;
 		return (
 			<div className="user-profile">
-				<h3>Name: {member.name}</h3>
-				<div>
+				<div className="user-name">Name: {member.name}</div>
+				<div className="profile-pic">
 					<img src={member.image_url} width="250px" height="auto"/>
 				</div>
-				<ul>
-					<li>Owner's Name:{member.owner_name}</li>
-					<li>Username: {member.username}</li>
-					<li>Location: {this.state.location.join(", ")}</li>
-				</ul>
+				<div className="user-detail">
+					<ul>
+						<li><label>Owner's Name:</label><div>{member.owner_name}</div></li>
+						<li><label>Username:</label><div>{member.username}</div></li>
+						<li><label>Location:</label><div>{this.state.location.join(", ")}</div></li>
+					</ul>
+				</div>
 			</div>
 		);
 	}

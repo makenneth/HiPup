@@ -1,21 +1,48 @@
 .current-user-profile {
-	width: 80%;
-	margin: 0 auto;
-	background-color: #2864a0;
-	border: 1px solid black;
-	margin-top: 50px;
+	width: 60%;
+	display: flex;
+	flex-direction:column;
+	justify-content: center;
+	margin: 10% auto 0 auto;
+	background-color: white;
+	opacity: 0.7;
+	border: 2px solid black;
+	margin-top: 5%;
 	border-radius: 5px;
 	padding: 40px;
+		font-family: 'Slabo 27px', sans-serif;
 
+	.user-name {
+		text-align: center;
+		font-size: 36px;
+		background-color: #31a5c6;
+		color: white;
+		border-radius: 5px;
+	}
+	.sub-section {
+		margin-top: 6%;
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+	}
 	.profile-img {
-		float: left;
 		overflow: hidden;
-		border-radius: 10px;
+		border-radius: 5px;
 	}
 
 	.profile-list {
+		width: 60%;
 		margin-left: 50px;
 		float: left;
+		display: flex;
+		justify-content: center;
+		flex-direction: column;
+	}
+	.profile-edit-button {
+		margin-top: 7%;
+		font-size: 20px;
+		display: flex;
+		justify-content: center;
 	}
 }
 .profile-list > li {
@@ -23,14 +50,31 @@
 	border-bottom: 2px solid black;
 	padding: 20px 0;
 	text-indent: 30px;
-	font-family: 'Slabo 27px', sans-serif;
 	font-size: 24px;
+	display: flex;
+	justify-content: space-between;
 }
 .profile-list > li:first-child {
 	border-top: 2px solid black;
 }
-
-
+.edit-profile, .change-password{
+	background-color: #a5c631;
+	padding: 10px 15px;
+	border-radius: 3px;
+	color: white;
+	width: 50%;
+	text-align: center;
+}
+.edit-profile {
+	background-color: #31c652;
+}
 .group-list {
 	text-indent: 60px;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+}
+
+.group-list ul {
+	align-self: flex-start;
 }
