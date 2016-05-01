@@ -4,7 +4,8 @@ var React = require('react'),
 		ClientActions = require('../../actions/clientActions'),
 		GroupNav = require('./groupNav'),
 		CurrentUserState = require('../../mixin/currentUserState'),
-		ReactCSSTransitionGroup = require('react-addons-css-transition-group');
+		ReactCSSTransitionGroup = require('react-addons-css-transition-group'),
+		UserStore = require('../../stores/userStore');
 
 
 var GroupDetail = React.createClass({
@@ -28,9 +29,7 @@ var GroupDetail = React.createClass({
 		});
 	},
 	componentWillUnmount: function() {
-		if (this.groupListener){
-			this.groupListener.remove();
-		}
+		if (this.groupListener) this.groupListener.remove(); 
 	},
 	joinGroup: function() {
 		if (this.state.currentUser && !this.hasJoinedGroup()){

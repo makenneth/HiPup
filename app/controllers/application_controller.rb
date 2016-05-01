@@ -18,5 +18,9 @@ class ApplicationController < ActionController::Base
   	session[:session_token] = nil
   end
 
-  helper_method :current_user
+
+  def current_user_info
+    User.includes(:joined_groups, :joined_events).find(current_user.id)
+  end
+  helper_method :current_user, :current_user_info
 end

@@ -116,7 +116,7 @@ module.exports = {
 	joinGroup: function(data){
 		$.ajax({
 			method: "POST",
-			url: "/api/group_participants/",
+			url: "/api/group_participants",
 			data: data,
 			success: function(currentUser){
 				ServerActions.toggledGroup(currentUser);
