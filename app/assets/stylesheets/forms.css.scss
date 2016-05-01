@@ -1,4 +1,5 @@
 @import url(https://fonts.googleapis.com/css?family=Lato:400,300italic);
+
 .user-forms {
 	padding: 50px;
 	display: flex;
@@ -10,6 +11,8 @@
 		width: 550px;
 		margin-bottom: 10px;
 		font-size: 24px;
+		display: flex;
+
 		label {
 			color: white;
 			font-family: 'Dosis', sans-serif;
@@ -21,7 +24,7 @@
 			padding: 5px;
 			background-color: white;
 			border-radius: 5px;
-			width: 240px		
+			width: 240px;
 		}
 		input:focus {
 			  border: solid 1px #707070;
@@ -90,4 +93,64 @@
 	margin-top: 80px;
 	justify-content: space-around;
 
+}
+
+.group-form-container {
+	border: 2px solid #333;
+	padding: 50px 30px;
+	border-radius: 3px;
+	margin: 15% auto;
+	width: 60%;
+	max-width: 600px;
+	height: 60%;
+	display: flex;
+	flex-wrap: nowrap;
+	justify-content: center;
+	flex-direction: column;
+			font-family: 'Dosis', sans-serif;
+	.group-form-title {
+		font-size: 50px;
+		align-self: center;
+		margin-bottom: 5%;
+	}
+	.group-form {
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+		font-size: 24px;
+		.form-line {
+			display: flex;
+			flex-direction: row;
+			justify-content: space-between;
+		}
+		input {
+			margin-bottom: 5%;
+			border: 2px solid black;
+			padding: 5px;
+			width: 60%;
+			border-radius: 3px;
+		}
+		input:focus {
+			  border: solid 1px #707070;
+			  box-shadow: 0 0 10px 5px #969696;
+		}
+		input:focus:invalid {
+			  border: solid 1px #ff1414;
+			  box-shadow: 0 0 10px 5px #ff1414;
+		}
+		textarea {
+			border: 2px solid black;
+			padding: 10px;
+			width: 60%;
+			border-radius: 3px;
+			margin-bottom: 5%;
+		}
+	}
+	.create-group-button {
+		margin-top: 5%;
+		width: 60%;
+		align-self: center;
+		text-align: center;
+		cursor: pointer;
+	}
 }

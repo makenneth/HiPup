@@ -20,13 +20,13 @@ var ManageEvents = React.createClass({
 	},
 	render: function() {
 		return (
-			<div>
-				<div class="event-parent-container">
+			<div class="parent-container">
+				<div class="events-container">
 					<div>Upcoming Events:</div>
 					<div>
 						{
 							this.state.joinedEvents.map(function(joinedEvent){
-								return (<div key={joinedEvent.id} class="user-event-detail" onClick={this.showDetail.bind(null, joinedEvent.id)}>
+								return (<div key={joinedEvent.id} class="user-events-detail" onClick={this.showDetail.bind(null, joinedEvent.id)}>
 													<h3>Title: {joinedEvent.title}</h3>
 													<li>Date and time: {joinedEvent.date}</li>
 													<p>Description: {joinedEvent.description}</p>

@@ -13,8 +13,7 @@
  *= require_tree .
  *= require_self
  */
-
- @import 'bootstrap';
+@import "bootstrap";
  @import url(https://fonts.googleapis.com/css?family=PT+Sans+Narrow);
  @import url(https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300);
  html, body, header, nav, h1, a,
@@ -143,7 +142,7 @@ button {
 }
 
 .group-index {
-	width: 80%;
+	width: 85%;
 	margin: 0 auto;
 	display: flex;
 	flex-wrap: wrap;

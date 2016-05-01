@@ -37,6 +37,7 @@ var App = React.createClass({
 			logInModalOpen: false,
 			signUpModalOpen: false,
 			navModalOpen: false
+			// groupModalOepn: false
 		};
 	},
 	componentDidMount: function() {
@@ -61,6 +62,12 @@ var App = React.createClass({
 	closeNavModal: function() {
 		this.setState({ navModalOpen: false});
 	},
+	// openGroupModal: function() {
+	// 	this.setState({ groupModalOpen: true});	
+	// },
+	// closeGroupModal: function() {
+	// 	this.setState({ groupModalOpen: false});
+	// },
 	logOut: function() {
 		UserActions.logOut();
 	},
@@ -109,6 +116,7 @@ var App = React.createClass({
 		);
 	}
 });
+
 
 var routes = (
 		<Route path="/" component={App}>

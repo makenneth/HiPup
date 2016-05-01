@@ -1,23 +1,28 @@
 var React = require('react'),
 		CurrentUserState = require('../../mixin/currentUserState'),
-		ReverseGeoMixin = require('../../mixin/reverseGeoMixin'),
-		HashHistory = require('react-router').hashHistory;
+		// ReverseGeoMixin = require('../../mixin/reverseGeoMixin'),
+		HashHistory = require('react-router').hashHistory,
+		UserStore = require('../../stores/userStore');
 
 var CurrentUserProfile = React.createClass({
-	mixins: [CurrentUserState, ReverseGeoMixin],
-	componentWillMount: function() {
+	mixins: [CurrentUserState],
+	componentDidMount: function() {
+		this.cupListener = UserStore.addListener(this._checkUser);
+	},
+	_checkUser: function() {
 		if (!this.state.currentUser){
 			HashHistory.push('/');
 		}
+		this._setLocation();
 	},
-	componentDidMount: function() {
-			this._getLocation();
-	},
-	_getLocation: function(){
+	_setLocation: function(){
 		var user = this.state.currentUser;
 		if (!user) return "";
-
-		this._getCityAndCountry(user.lat, user.lng, this._setLocation);
+		this.state.location = [user.city, user.state];
+		//should I check for location?
+	},
+	componentWillUnmount: function() {
+		if (this.cupListener) this.cupListener.remove();
 	},
 	render: function() {
 		var user = this.state.currentUser || {name: "", username: "", groups: []};
@@ -32,7 +37,7 @@ var CurrentUserProfile = React.createClass({
 						<li><label>Username:</label><div>{user.username}</div></li>
 						<li><label>Owner_name:</label><div>{user.owner_name}</div></li>
 						<li><label>Email:</label><div>{user.email}</div></li>
-						<li><label>Location:</label><div>{this.state.location.join(", ")}</div></li>
+						<li><label>Current Location:</label><div>{user.city + ", " + user.state}</div></li>
 						<li><label>Group Association:</label>
 							<ul className="group-list">
 								{

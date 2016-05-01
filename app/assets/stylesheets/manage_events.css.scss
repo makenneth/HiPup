@@ -1,11 +1,13 @@
-.event-parent-container {
+.parent-container {
 	width: 80%;
+}
+.events-container {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 }
 
-.user-event-detail {
+.user-events-detail {
 	display: flex;
 	flex-direction: column;
 	border: 2px solid #aaa;

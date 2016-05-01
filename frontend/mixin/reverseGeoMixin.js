@@ -5,7 +5,8 @@ module.exports = {
 		};
 	},
 	_setLocation: function(data) {
-		this.setState({location: data});
+		if (this.state.location[0] !== data[0] && this.state.location[1] !== data[1]) 
+			this.setState({location: data});
 	},
 	_getCityAndCountry: function(lat, lng, callback){
 		$.ajax({
@@ -23,6 +24,9 @@ module.exports = {
 					}
 				});
 				callback(result);
+			},
+			error: function(){
+
 			}
 		})
 	}

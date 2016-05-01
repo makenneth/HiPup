@@ -31,7 +31,7 @@ var Navbar = React.createClass({
 		if (this.state.currentUser){
 			return (<ul className="nav-list-user">
 								<li className={this.state.active === 2 ? "active" : ""}
-										onClick={this.setTab.bind(null, 2, "group/new")}>
+										onClick={this.setTab.bind(null, 2, "groups/new")}>
 										Create Your Group</li>
 								<li className={this.state.active === 3 ? "active" : ""}
 									  onClick={this.setTab.bind(null, 3, "user/profile")}>

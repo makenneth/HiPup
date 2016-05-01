@@ -10,9 +10,6 @@ module.exports = {
 	_updateImageUrl: function(e) {
 		this.setState({image_url: e.target.value});
 	},
-	_back: function(){
-		HashHistory.goBack();
-	},
 	_form: function(){
 		return (<div><form onSubmit={this._handleSubmit}>
 			<div className="form-group">
