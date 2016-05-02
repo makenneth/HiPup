@@ -21,10 +21,9 @@ User.create({
 			owner_name: Faker::Name.name,
 			password: "P8ssword*",
 			email: Faker::Internet.free_email(name),
-			city: "San Francisco", state: "CA"
+			city: "San Francisco", state: "CA",
 			lat: 37.7749, lng: -122.4194,
-			image_url: Faker::Placeholdit.image("250x250", 'jpg')
-			})
+			image_url: Faker::Placeholdit.image("250x250", 'jpg')})
 end
 
 5.times do
