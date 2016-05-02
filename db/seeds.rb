@@ -9,7 +9,8 @@
 User.create({
 							owner_name: "Sample User", email: "whisker@example.com", 
 							lat: 37.7749, lng: -122.4194, 
-							name: "Whisker", password: "password", username: "sampleuser"
+							name: "Whisker", password: "password", username: "sampleuser",
+							city: "San Francisco", state: "CA"
 						});
 
 30.times do 
@@ -20,6 +21,7 @@ User.create({
 			owner_name: Faker::Name.name,
 			password: "P8ssword*",
 			email: Faker::Internet.free_email(name),
+			city: "San Francisco", state: "CA"
 			lat: 37.7749, lng: -122.4194,
 			image_url: Faker::Placeholdit.image("250x250", 'jpg')
 			})
@@ -37,7 +39,9 @@ end
 			lat: Faker::Address.latitude,
 			lng: Faker::Address.longitude,
 			creator_id: rand(30) + 1,
-			image_url: Faker::Placeholdit.image("500x300", 'jpg')
+			image_url: Faker::Placeholdit.image("500x300", 'jpg'),
+			city: "San Francisco",
+			state: "CA"
 			})
 		2.times do 
 			Tagging.create({
@@ -53,6 +57,8 @@ end
 			city: "San Francisco",
 			state: "California",
 			group_id: i,
+			street: Faker::Address.street_address,
+			zip: Faker::Address.zip_code,
 			event_time: Faker::Time.forward(2389, :day)
 			})
 			5.times do
