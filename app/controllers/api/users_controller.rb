@@ -19,8 +19,15 @@ class Api::UsersController < ApplicationController
 	end
 
 	def update
-		@user = User.find(params[:id])
-		@user.password = params[:id][:new_password]
+		@user = current_user
+		debugger
+		if !@user.is_password?(params[:user][:old_password])
+			render json: ["Old password doesn't match record"], status: 422
+			return
+			#error may not be the right format..
+		end
+
+		@user.password = params[:user][:new_password]
 		if @user.save
 			#will this logout the user?
 			render :show

@@ -2,10 +2,19 @@ var React = require('react'),
 		CurrentUserState = require('../../mixin/currentUserState'),
 		// ReverseGeoMixin = require('../../mixin/reverseGeoMixin'),
 		HashHistory = require('react-router').hashHistory,
-		UserStore = require('../../stores/userStore');
+		UserStore = require('../../stores/userStore'),
+		Modal = require('react-modal'),
+		PasswordChange = require('./passwordChange'),
+		PasswordFormStyle = require('../../modal/passwordFormStyle');
 
 var CurrentUserProfile = React.createClass({
 	mixins: [CurrentUserState],
+	getInitialState: function() {
+		return {
+			passwordModalOpen: false,
+			profileEditModalOpen: false 
+		};
+	},
 	componentDidMount: function() {
 		this.cupListener = UserStore.addListener(this._checkUser);
 	},
@@ -14,6 +23,12 @@ var CurrentUserProfile = React.createClass({
 			HashHistory.push('/');
 		}
 		this._setLocation();
+	},
+	openPasswordModal: function(){
+		this.setState({passwordModalOpen: true});
+	},
+	closePasswordModal: function(){
+		this.setState({passwordModalOpen: false});
 	},
 	_setLocation: function(){
 		var user = this.state.currentUser;
@@ -50,9 +65,15 @@ var CurrentUserProfile = React.createClass({
 						</ul>
 				</div>
 				<div className="profile-edit-button">
-					<button className="change-password">Change Password</button>
+					<button className="change-password" 
+								  onClick={this.openPasswordModal}>Change Password</button>
 					<button className="edit-profile">Update Profile</button>
 				</div>
+				<Modal isOpen={this.state.passwordModalOpen}
+							 onRequestClose={this.state.closePasswordModal}
+							 style={PasswordFormStyle}>
+							 <PasswordChange closeModal={this.closePasswordModal}/>
+				 </Modal>
 			</div>
 		);
 	}

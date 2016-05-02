@@ -48,9 +48,9 @@ module.exports = {
 			method: "PATCH",
 			data: {user: data},
 			success: function(data){
-				UserServerActions.receiveCurrentUser(user);
+				UserServerActions.receiveCurrentUser(data);
 			},
-			error: ServerActions.handleErrors
+			error: ServerActions.errorReceived
 		})
 	}
 }

@@ -13,7 +13,7 @@ var PasswordChange = React.createClass({
 	},
 	componentDidMount: function() {
 		this.pcListener = UserStore.addListener(this._passwordChanged);
-		this.erListener = UserStore.addListener(this._errorReceived);
+		this.erListener = ErrorStore.addListener(this._errorReceived);
 	},
 	componentWillUnmount: function() {
 		if (this.pcListener) this.pcListener.remove();
@@ -30,15 +30,10 @@ var PasswordChange = React.createClass({
 		fieldObj[field] = e.target.value;
 		this.setState(fieldObj);
 	},
-	passwordCheck: function() {
-		if (!(this.state.newPassword === this.state.newPasswordRepeat)){
-			
-		}
-	},
 	handleSubmit: function(e) {
 		e.preventDefault();
 		UserActions.updateUser({
-			new_password: this.state.newPassword
+			new_password: this.state.newPassword,
 			old_password: this.state.oldPassword
 		});
 	},
@@ -47,12 +42,13 @@ var PasswordChange = React.createClass({
 			+ "Contain at least one lowercase letter\nContain at least one number\n" 
 			+ "Contain at least one special characters _!@#*&$.";
 		return (
-			<div>
-				<h3>Update Password</h3>
+			<div className="password-modal">
+				<div className="close-icon" onClick={this.props.closeModal}>&#10006;</div>
+				<h3 >Update Password</h3>
 				<div className="password-errors">
 					{
-						this.state.errors.map(function(error){
-							return <li>{error}</li>;
+						this.state.errors.map(function(error, i){
+							return <li key={"error" + i}>{error}</li>;
 						})
 					}
 				</div>
@@ -61,20 +57,21 @@ var PasswordChange = React.createClass({
 					<input id="old-password" type="password"
 								 value={this.state.oldPassword}
 								 onChange={this.setField.bind(null, "oldPassword")}
-								 requied>
+								 required />
 					<label for="new-password">New Password</label>
 					<input  title={passwordConditions} id="new-password" type="password"
 									value={this.state.newPassword}
 									onChange={this.setField.bind(null, "newPassword")}
 									required 
-									pattern="(?=.*[0-9])(?=.*[A-Z])(?=.*[a-z])(?=.[_!@#*&$.-])[_!@#*&$.-A-Za-z0-9]{8,}$">
+									pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[._!@#*&$-])[a-zA-Z0-9_!@#*&$.-]{8,}$" />
 					<label for="new-password-repeat">Repeat You Password</label>
-					<input id="new-password-repeat" type="password"
+					<input title="Password doesn't match" id="new-password-repeat" type="password"
 								 value={this.state.newPasswordRepeat}
-								 onChange={this.setField.bind(null, "newPasswordRepeat")
+								 onChange={this.setField.bind(null, "newPasswordRepeat")}
 								 required
-								 pattern={this.state.newPassword} }>
+								 pattern={this.state.newPassword} />
 					<input type="submit" value="Change Password"/>
+					</form>
 			</div>
 
 		);
