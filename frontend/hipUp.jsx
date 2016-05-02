@@ -17,6 +17,7 @@ var React = require('react'),
 		SignUpForm = require('./components/user/signUpForm'),
 		GroupForm = require('./components/group/groupForm'),
 		CurrentUserStateMixin = require('./mixin/currentUserState'),
+		ReverseGeoMixin = require('./mixin/reverseGeoMixin'),
 		Navbar = require('./components/navbar'),
 		GroupDetail = require('./components/group/groupDetail'),
 		GroupHome = require('./components/group/groupHome'),
@@ -24,6 +25,7 @@ var React = require('react'),
 		GroupPhotos = require('./components/group/groupPhotos'),
 		GroupEvents = require('./components/group/groupEvents'),
 		CurrentUserProfile = require('./components/user/currentUserProfile'),
+		UserStore = require('./stores/userStore'),
 		FormStyle = require('./modal/formStyle'),
 		NavStyle= require('./modal/navStyle'),
 		SearchStyle = require('./modal/searchStyle'),
@@ -33,16 +35,27 @@ var React = require('react'),
 		ManageEvents = require('./components/user/manageEvents');
 
 var App = React.createClass({
-	mixins: [CurrentUserStateMixin],
+	mixins: [CurrentUserStateMixin, ReverseGeoMixin],
 	getInitialState: function() {
 		return {
 			logInModalOpen: false,
 			signUpModalOpen: false,
 			navModalOpen: false,
-			searchModalOpen: false
+			searchModalOpen: false,
 		};
 	},
 	componentDidMount: function() {
+		this.posListener = navigator.geolocation.watchPosition(this.updateLatLng);
+	},
+	updateLatLng: function(position){
+		var coords = position.coords;
+		var lat = coords.latitude,
+				lng = coords.longitude;
+		UserStore.setCurrentCoords({lat: lat, lng: lng});
+		UserActions.getCityAndState(lat, lng);
+	},
+	_setPlace: function(result){
+		UserStore.setCurrentPlace(result.join(", "));
 	},
 	openLogInModal: function() {
 		this.setState({ logInModalOpen: true,
@@ -64,7 +77,7 @@ var App = React.createClass({
 	closeNavModal: function() {
 		this.setState({ navModalOpen: false});
 	},
-		openSearchModal: function(e){
+	openSearchModal: function(e){
 		this.setState({ searchModalOpen: true });
 	},
 	closeSearchModal: function() {

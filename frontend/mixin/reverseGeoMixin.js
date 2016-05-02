@@ -1,14 +1,10 @@
 module.exports = {
 	getInitialState: function() {
 		return {
-			location: [] 
+			currentLocation: [] 
 		};
 	},
-	_setLocation: function(data) {
-		if (this.state.location[0] !== data[0] && this.state.location[1] !== data[1]) 
-			this.setState({location: data});
-	},
-	_getCityAndCountry: function(lat, lng, callback){
+	_getCityAndState: function(lat, lng, callback){
 		$.ajax({
 			method: "GET",
 			url: "http://maps.googleapis.com/maps/api/geocode/json?latlng=" +

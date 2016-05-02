@@ -1,6 +1,5 @@
 var React = require('react'),
 		CurrentUserState = require('../../mixin/currentUserState'),
-		// ReverseGeoMixin = require('../../mixin/reverseGeoMixin'),
 		HashHistory = require('react-router').hashHistory,
 		UserStore = require('../../stores/userStore'),
 		Modal = require('react-modal'),
@@ -22,7 +21,6 @@ var CurrentUserProfile = React.createClass({
 		if (!this.state.currentUser){
 			HashHistory.push('/');
 		}
-		this._setLocation();
 	},
 	openPasswordModal: function(){
 		this.setState({passwordModalOpen: true});
@@ -30,12 +28,11 @@ var CurrentUserProfile = React.createClass({
 	closePasswordModal: function(){
 		this.setState({passwordModalOpen: false});
 	},
-	_setLocation: function(){
-		var user = this.state.currentUser;
-		if (!user) return "";
-		this.state.location = [user.city, user.state];
-		//should I check for location?
-	},
+	// _setLocation: function(result){
+	// 	var user = this.state.currentUser;
+	// 	if (!user) return "";
+	// 	this.setState({currentLocation: result})
+	// },
 	componentWillUnmount: function() {
 		if (this.cupListener) this.cupListener.remove();
 	},
@@ -52,7 +49,8 @@ var CurrentUserProfile = React.createClass({
 						<li><label>Username:</label><div>{user.username}</div></li>
 						<li><label>Owner_name:</label><div>{user.owner_name}</div></li>
 						<li><label>Email:</label><div>{user.email}</div></li>
-						<li><label>Current Location:</label><div>{user.city + ", " + user.state}</div></li>
+						<li><label>Current Location:</label><div>{UserStore.currentLocation().place}</div></li>
+						<li><label>Primary Location:</label><div>{user.city + ", " + user.state}</div></li>
 						<li><label>Group Association:</label>
 							<ul className="group-list">
 								{

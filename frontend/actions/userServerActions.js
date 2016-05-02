@@ -19,5 +19,11 @@ module.exports = {
 			actionType: UserConstants.ERROR,
 			errors: errors
 		});
+	},
+	receivedCurrentLocation: function(place) {
+		AppDispatcher.dispatch({
+			actionType: "LOCATION_RETRIEVED",
+			place: place.join(", ")
+		})
 	}
 };

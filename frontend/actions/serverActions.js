@@ -8,7 +8,6 @@ var AppDispatcher = require('../dispatcher/dispatcher'),
 
 module.exports = {
 	errorReceived: function(error){
-		debugger;
 		var errors = JSON.parse(error.responseText);
 		AppDispatcher.dispatch({
 			actionType: ErrorConstants.ERROR_RECEIVED,

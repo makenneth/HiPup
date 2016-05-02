@@ -4,7 +4,8 @@ var Store = require("flux/utils").Store,
 		UserConstants = require('../constants/userConstants');
 
 var _currentUser = null,
-		_errors = [];
+		_errors = [],
+		_currentLocation = {place: "", coords: {}};
 
 UserStore.currentUser = function(){
 	return _currentUser;
@@ -14,6 +15,16 @@ UserStore.errors = function(){
 	return _errors;
 };
 
+var _setCurrentPlace = function(place){
+	_currentLocation.place = place; 
+};
+
+UserStore.setCurrentCoords = function(coords){
+	_currentLocation.coords = coords;
+};
+UserStore.currentLocation = function(){
+	return _currentLocation;
+};
 var _setCurrentUser = function(user){
 	_currentUser = user;
 	_errors = [];
@@ -43,6 +54,10 @@ UserStore.__onDispatch = function(payload) {
 		case UserConstants.TOGGLED_EVENT:
 			_setCurrentUser(payload.currentUser);
 			UserStore.__emitChange(); //this should refetch the currentUser
+			break;
+		case "LOCATION_RETRIEVED":
+			_setCurrentPlace(payload.place);
+			UserStore.__emitChange();
 			break;
 	}
 };
