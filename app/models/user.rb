@@ -41,7 +41,7 @@ class User < ActiveRecord::Base
 	end
 
 	def ensure_image
-		self.image_url ||= "https://placehold.it/500x300.jpg/000"
+		self.image_url = "https://placehold.it/500x300.jpg/000" if self.image_url == ""
 	end
 	private
 	def ensure_session_token

@@ -9,7 +9,7 @@
 User.create({
 							owner_name: "Sample User", email: "whisker@example.com", 
 							lat: 37.7749, lng: -122.4194, 
-							name: "Whisker", password: "P8ssword*", username: "sampleuser"
+							name: "Whisker", password: "password", username: "sampleuser"
 						});
 
 30.times do 

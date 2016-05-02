@@ -10,8 +10,8 @@ module.exports = {
 										  content : {
 										    position                   : 'relative',
 										    margin 										 : "0 auto",
-										    top:  "30%",
-										    transform: "translateY(50%)",
+										    top:  "20%",
+										    transform: "translateY(20%)",
 										    width									 		 : '600px',
 										    height									   : '450px',
 										    border                     : '1px solid #ccc',
