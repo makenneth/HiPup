@@ -14,7 +14,6 @@ var GroupIndex = React.createClass({
 	getInitialState: function() {
 		return {
 			groups: [],
-			searchModalOpen: false,
 			tagSearchModalOpen: false,
 			searchString: ""
 		};
@@ -31,11 +30,8 @@ var GroupIndex = React.createClass({
 			this.groupIndexListener.remove();
 		}
 	},
-	openSearchModal: function(e){
-		this.setState({ searchModalOpen: true, searchString: e.target.value});
-	},
-	closeSearchModal: function() {
-		this.setState({ searchModalOpen: false });
+	setSearchString: function(e) {
+		this.setState({searchString: e.target.value});
 	},
 	openTagSearchModal: function(){
 		this.setState({ tagSearchModalOpen: true });
@@ -43,15 +39,11 @@ var GroupIndex = React.createClass({
 	closeTagSearchModal: function() {
 		this.setState({ tagSearchModalOpen: false });
 	},
-	onSuggestSelect: function(suggest) {
-		console.log(suggest);
-	},
 	render: function() {
-		    var fixtures = [
-      {label: 'Old Elbe Tunnel, Hamburg', location: {lat: 53.5459, lng: 9.966576}},
-      {label: 'Reeperbahn, Hamburg', location: {lat: 53.5495629, lng: 9.9625838}},
-      {label: 'Alster, Hamburg', location: {lat: 53.5610398, lng: 10.0259135}}
-    ];
+		var searchCriteria = this.state.searchString.trim();
+		var libraries = this.state.groups.filter(function(group){
+			return group.title.toLowerCase().match(searchCriteria);
+		});
 		return (
 			<div>
 				<div className="banner"></div>
@@ -59,7 +51,7 @@ var GroupIndex = React.createClass({
 					<div className="search-container-sm cf">
 						<img className="search-icon-sm"
 									src="http://www.endlessicons.com/wp-content/uploads/2015/08/search-icon-2.png"/>
-						<input type="text" onChange={this.openSearchModal} 
+						<input type="text" onChange={this.setSearchString} 
 									 value={this.state.searchString} placeholder="Type your search..."/>
 					 </div>
 					 <div className="search-by cf">
@@ -71,13 +63,6 @@ var GroupIndex = React.createClass({
 					 </div> 
 
 				</div>
-				<Modal isOpen={ this.state.searchModalOpen } 
-							 onRequestClose={this.closeSearchModal}
-							 style={SearchStyle}>
-					<Search groups={ this.state.groups } 
-									searchString={ this.state.searchString } 
-									closeModal={this.closeSearchModal}/>
-				</Modal>
 				<Modal isOpen={ this.state.tagSearchModalOpen } 
 							 onRequestClose={this.closeTagSearchModal}
 							 style={SearchStyle}>
@@ -85,7 +70,7 @@ var GroupIndex = React.createClass({
 				</Modal>
 				<div className="group-index cf">
 					{
-						this.state.groups.map(function(group){
+						libraries.map(function(group){
 							return <GroupIndexItem group={group} key={group.id} />;
 						})
 					}

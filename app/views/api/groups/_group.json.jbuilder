@@ -1,4 +1,4 @@
-json.extract! group, :id, :title, :image_url, :lat, :lng
+json.extract! group, :id, :title, :image_url, :lat, :lng, :creator_id
 json.tags group.tags
 unless simple
 	json.participants group.participants do |partic|

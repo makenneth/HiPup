@@ -20,16 +20,16 @@ var GroupForm = React.createClass({
 		};
 	},
 	componentDidMount: function() {
-		this.gfListener = UserStore.addListener(this.setCreatorId);
+		this.gfListener = UserStore.addListener(this._userFetched);
+		this.groupStoreListener = GroupStores.addListener(this._successInCreation);
 	},
 	componentWillUnmount: function() {
 		if (this.gfListener) this.gfListener.remove();
 	},
-	setCreatorId: function() {
+	_userFetched: function() {
 		if (!this.state.currentUser){
 			HashHistory.push("/");
 		}	
-		this.state.creator_id = this.state.currentUser.id;
 	},
 	_setLocation: function(position) {
 	},
@@ -40,23 +40,23 @@ var GroupForm = React.createClass({
 	},
 	_handleSubmit: function(e){
 		e.preventDefault();
-		ClientActions.createGroup(this.state);
+		this.state.creator_id = this.state.currentUser.id;
+		ClientActions.createGroup({
+															 lat: this.state.lat, 
+															 lng: this.state.lng, 
+															 city: this.state.city, 
+															 state: this.state.state,
+															 title: this.state.title,
+															 image_url: this.state.image_url,
+															 description: this.state.description,
+															 creator_id: this.state.creator_id
+															});
 	},
 	_successInCreation: function(){
-		this.setState({			
-			lat: 0,
-			lng: 0,
-			title: "",
-			description: "",
-			image_url: "",
-			creatorId: "",
-			city: "",
-			state: ""
-		});
-		HashHistory.goBack();//redirect to the new group
+		this._back();
 	},
-	back: function(e){
-		e.preventDefault();
+	_back: function(e){
+		if (e) e.preventDefault();
 		HashHistory.goBack();
 	},
 
@@ -94,6 +94,7 @@ var GroupForm = React.createClass({
 							</div>
 
 							<input className="create-group-button" type="submit" value="Create New Group" />
+							<button className="back-button" type="back">Back</button>
 						</form>
 					</div>
 			</div>

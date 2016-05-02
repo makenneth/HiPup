@@ -3,7 +3,8 @@ var Store = require('flux/utils').Store,
 		GroupEventStore = new Store(AppDispatcher),
 		GroupEventConstants = require('../constants/groupEventConstants');
 
-var _groupEvents = {};
+var _groupEvents = {},
+		_lastGroupEvents = null;
 
 var _resetGroupEvents = function(groupEvents){
 	groupEvents.forEach(function(groupEvent){
@@ -11,14 +12,18 @@ var _resetGroupEvents = function(groupEvents){
 	});
 };
 
-var _resetSingleEvent = function(singleEvent){
+var _setSingleEvent = function(singleEvent){
 	_groupEvents[singleEvent.id] = singleEvent;
+	_lastGroupEvents = singleEvent;
 };
 
 GroupEventStore.all = function(){
 	return _groupEvents;
 };
 
+GroupEventStore.last = function() {
+	return _lastGroupEvents.id;
+};
 GroupEventStore.find = function(id){
 	return _groupEvents[id] || {
 		event_time: null,
@@ -39,7 +44,7 @@ GroupEventStore.__onDispatch = function(payload){
 			GroupEventStore.__emitChange();
 			break;
 		case "FETCHED_SINGLE_EVENT":
-			_resetSingleEvent(payload.groupEvent);
+			_setSingleEvent(payload.groupEvent);
 			GroupEventStore.__emitChange();
 			break;
 	}

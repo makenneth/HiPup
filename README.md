@@ -13,7 +13,7 @@ HiPup is a web application inspired by Meet Up that will be built using Ruby on 
 - [ ] Adequate seed data to demonstrate the site's features
 - [x] The minimally necessary features for an Meet-Up-inspired site: Creation, joining, and editing of groups
 - [ ] Creation, joining, editing and canceling/destroying of events
-- [ ] Hosting on Heroku
+- [x] Hosting on Heroku
 - [ ] CSS styling that is satisfactorily visually appealing
 - [ ] A production README, replacing this README (**NB**: check out the [sample production README](https://github.com/appacademy/sample-project-proposal/blob/master/docs/production_readme.md) -- you'll write this later)
 
@@ -108,7 +108,7 @@ user interface.
 - build out API, Flux loop, and components for:
   - [x] Group Events CRUD
   - [x] Showing all events information
-  - [ ] Creating events
+  - [x] Creating events
 - build calendar for events in group index page
 - temporary Bootstrap CSS / start styling if time allows
 

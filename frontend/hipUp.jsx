@@ -26,6 +26,8 @@ var React = require('react'),
 		CurrentUserProfile = require('./components/user/currentUserProfile'),
 		FormStyle = require('./modal/formStyle'),
 		NavStyle= require('./modal/navStyle'),
+		SearchStyle = require('./modal/searchStyle'),
+		Search = require('./components/search/search')
 		TagShow = require('./components/tag/tagShow'),
 		EventShow = require('./components/events/eventShow'),
 		ManageEvents = require('./components/user/manageEvents');
@@ -36,8 +38,8 @@ var App = React.createClass({
 		return {
 			logInModalOpen: false,
 			signUpModalOpen: false,
-			navModalOpen: false
-			// groupModalOepn: false
+			navModalOpen: false,
+			searchModalOpen: false
 		};
 	},
 	componentDidMount: function() {
@@ -62,12 +64,13 @@ var App = React.createClass({
 	closeNavModal: function() {
 		this.setState({ navModalOpen: false});
 	},
-	// openGroupModal: function() {
-	// 	this.setState({ groupModalOpen: true});	
-	// },
-	// closeGroupModal: function() {
-	// 	this.setState({ groupModalOpen: false});
-	// },
+		openSearchModal: function(e){
+		this.setState({ searchModalOpen: true });
+	},
+	closeSearchModal: function() {
+		this.setState({ searchModalOpen: false });
+	},
+
 	logOut: function() {
 		UserActions.logOut();
 	},
@@ -112,6 +115,13 @@ var App = React.createClass({
 								<Navbar closeModal={this.closeNavModal}/>
 							</ReactCSSTransitionGroup>
 				</Modal>
+				<Modal isOpen={ this.state.searchModalOpen } 
+							 onRequestClose={this.closeSearchModal}
+							 style={SearchStyle}>
+					<Search groups={ this.state.groups } 
+									searchString={ this.state.searchString } 
+									closeModal={this.closeSearchModal}/>
+				</Modal>
 			</div>
 		);
 	}
@@ -133,7 +143,7 @@ var routes = (
 				<Route path="members" component={GroupMembers}/>
 				<Route path="photos" component={GroupPhotos}/>
 				<Route path="events" component={GroupEvents}/>
-				<Route path="events/:eventId" component={EventShow} />
+				<Route path="/events/:eventId" component={EventShow} />
 			</Route>
 		</Route>
 );

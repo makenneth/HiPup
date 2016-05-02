@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
 	after_initialize :ensure_session_token
+	before_validation :ensure_image
 	validates :username, :email, :name, :password_digest, 
 									:session_token, :lat, :lng, :owner_name, 
 									:city, :state, presence: true
@@ -39,6 +40,9 @@ class User < ActiveRecord::Base
 		BCrypt::Password.new(self.password_digest).is_password?(password)
 	end
 
+	def ensure_image
+		self.image_url ||= "https://placehold.it/500x300.jpg/000"
+	end
 	private
 	def ensure_session_token
 		self.session_token ||= SecureRandom.base64

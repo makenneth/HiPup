@@ -73,5 +73,11 @@ module.exports = {
 			actionType: UserConstants.TOGGLED_EVENT,
 			currentUser: currentUser
 		})
+	},
+	createdEvent: function(groupEvent){
+		AppDispatcher.dispatch({
+			actionType: GroupEventConstants.FETCHED_SINGLE_EVENT,
+			groupEvent: groupEvent
+		})
 	}
 };

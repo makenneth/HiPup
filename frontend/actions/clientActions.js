@@ -55,6 +55,9 @@ module.exports = {
 	}, //modal on close, on open
 	leaveEvent: function(userId, eventId){
 		ApiUtil.leaveEvent(eventParticipantData(userId, eventId));
+	},
+	createEvent: function(data){
+		ApiUtil.createEvent(data);
 	}
 }
 

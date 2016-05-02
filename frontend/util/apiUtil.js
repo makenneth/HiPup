@@ -31,12 +31,14 @@ module.exports = {
 	},
 
 	createGroup: function(group){
+		debugger;
 		$.ajax({
 			method: "POST",
 			url: "/api/groups",
 			data: {group: group},
 			dataType: "json",
 			success: function(group){
+				debugger;
 				ServerActions.receivedGroup(group);
 			}
 		});
@@ -156,6 +158,19 @@ module.exports = {
 				ServerActions.toggledEvent(currentUser);
 			}
 		});
-	}
+	},
 
+	createEvent: function(data) {
+		$.ajax({
+			method: "POST",
+			url: "/api/group_events",
+			data: {group_event: data},
+			success: function(event){
+				ServerActions.createdEvent(event);
+			},
+			error: function(err){
+				console.log(err);
+			}
+		})
+	}
 };

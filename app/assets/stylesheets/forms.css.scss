@@ -34,6 +34,11 @@
 			  border: solid 1px #ff1414;
 			  box-shadow: 0 0 10px 5px #ff1414;
 		}
+		input:focus:invalid:after {
+			content: "*";
+			color: red;
+			font-size: 24px;
+		}
 		input:focus:valid {
 			border: solid 1px #14ff14;
 			box-shadow: 0 0 10px 5px #14ff14;
@@ -152,5 +157,23 @@
 		align-self: center;
 		text-align: center;
 		cursor: pointer;
+	}
+}
+
+.event-form {
+	color: black;
+	display: flex;
+	flex-direction: column;
+	font-family: 'Dosis', sans-serif;
+	font-size: 24px;
+	input, textarea {
+		width: 100%;
+		margin-bottom: 3%;
+		border: 1px solid black;
+		border-radius: 3px;
+		padding: 5px;
+		align-self: center;
+	}
+	textarea {
 	}
 }

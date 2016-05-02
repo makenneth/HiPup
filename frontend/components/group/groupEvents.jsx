@@ -18,7 +18,7 @@ var GroupEvents = React.createClass({
 	componentWillUnmount: function() {
 		if (this.gelistener){
 			this.gelistener.remove();
-		} //export the whole cwun cdm gis to mixin
+		}
 	},
 	_fetchedGroup: function() {
 		this.setState(

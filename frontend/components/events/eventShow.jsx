@@ -3,7 +3,8 @@ var React = require('react'),
 		ClientActions = require('../../actions/clientActions'),
 		EventMap = require('./map.jsx'),
 		CurrentUserState = require('../../mixin/currentUserState'),
-		HaversineFormula = require('../../mixin/haversine');
+		HaversineFormula = require('../../mixin/haversine'),
+		UserStore = require('../../stores/userStore');
 
 var EventShow = React.createClass({
 	mixins: [CurrentUserState, HaversineFormula],
@@ -33,7 +34,7 @@ var EventShow = React.createClass({
 		if (!this.state.groupEvent.event_time){
 			ClientActions.fetchSingleEvent(this.props.params.eventId);
 		} else {
-			if (this.state.currentUser){
+			if (this.state.currentUser){ //bug here.. currentUser should still be null by this time
 				//should watch currentUser's position upon login
 				this._calculateDistance(
 				{
@@ -99,7 +100,7 @@ var EventShow = React.createClass({
 							{this.toggleEventButton()}
 						</div>
 						<p>Location: {groupEvent.city}, {groupEvent.state}</p>
-						<p>Days away: </p>
+						<p>Days away: {groupEvent.daysAway}</p>
 						{showDistance}
 						<p>{groupEvent.description}</p>
 					</div>

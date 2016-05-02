@@ -4,7 +4,13 @@ class Api::GroupEventsController < ApplicationController
 	end
 
 	def create
-		
+		@group_event = GroupEvent.new(group_event_params)
+		if @group_event.save
+			render :show
+		else
+			debugger
+			render json: @group_event.errors.full_messages, status: 422
+		end
 	end
 
 	def show
@@ -22,8 +28,7 @@ class Api::GroupEventsController < ApplicationController
 
 	private
 	def group_event_params
-		#group id should be grabbed from group_id
-		params.require(:group_event).permit(:lat, :lng, :city, 
-								:state, :title, :description, :event_time)
+		params.require(:group_event).permit(:lat, :lng, :street, :city, 
+								:state, :zip, :title, :description, :date, :time, :group_id)
 	end
 end

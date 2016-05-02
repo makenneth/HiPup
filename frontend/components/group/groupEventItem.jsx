@@ -3,9 +3,7 @@ var React = require('react'),
 
 var GroupEventItem = React.createClass({
 	showEvent: function(id){
-		HashHistory.push("groups/" + this.props.groupId + 
-											"/events/" + this.props.groupEvent.id
-										);
+		HashHistory.push("/events/" + this.props.groupEvent.id);
 	},
 	render: function() {
 		var groupEvent = this.props.groupEvent;

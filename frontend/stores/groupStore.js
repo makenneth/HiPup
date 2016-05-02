@@ -3,7 +3,8 @@ var AppDispatcher = require('../dispatcher/dispatcher'),
 		GroupStore = new Store(AppDispatcher),
 		GroupConstants =  require('../constants/groupConstants');
 
-var _groups = {};
+var _groups = {},
+		_lastEditedGroup = null;
 
 var _resetGroups = function(groups){
 	groups.forEach(function(group){
@@ -13,6 +14,7 @@ var _resetGroups = function(groups){
 
 var _resetGroup = function(group){
 	_groups[group.id] = group;
+	_lastEditedGroup = group;
 };
 
 var _removeGroup = function(group){
@@ -34,6 +36,9 @@ GroupStore.find = function(id){
 	return _groups[id];
 };
 
+GroupStore.last = function(){
+	return _lastEditedGroup.id;
+};
 GroupStore.__onDispatch = function(payload){
 	switch (payload.actionType){
 		case GroupConstants.RECEIVED_GROUPS:
