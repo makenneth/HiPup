@@ -12,5 +12,8 @@ module.exports = {
 	},
 	logOut: function (){
 		UserApiUtil.logOut();
+	},
+	updateUser: function(user){
+		UserApiUtil.updateUser(user);
 	}
 };

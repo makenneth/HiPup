@@ -31,16 +31,15 @@ module.exports = {
 	},
 
 	createGroup: function(group){
-		debugger;
 		$.ajax({
 			method: "POST",
 			url: "/api/groups",
 			data: {group: group},
 			dataType: "json",
 			success: function(group){
-				debugger;
 				ServerActions.receivedGroup(group);
-			}
+			},
+			error: ServerActions.errorReceived
 		});
 	},
 
@@ -52,7 +51,8 @@ module.exports = {
 			dataType: "json",
 			success: function(group){
 				ServerActions.receivedGroup(group)
-			} 
+			},
+			error: ServerActions.errorReceived
 		});
 	},
 
@@ -62,7 +62,8 @@ module.exports = {
 			url: "/api/groups/" + group.id,
 			success: function(group){
 				ServerActions.removedGroup(group);
-			}
+			},
+			error: ServerActions.errorReceived
 		})
 	},
 
@@ -93,7 +94,8 @@ module.exports = {
 			dataType: "json",
 			success:function(tag){
 				ServerActions.createdTag(tag);
-			}
+			},
+			error: ServerActions.errorReceived
 		});
 	},
 
@@ -123,9 +125,7 @@ module.exports = {
 			success: function(currentUser){
 				ServerActions.toggledGroup(currentUser);
 			},
-			error: function(err){
-				console.log(err);
-			}
+			error: ServerActions.errorReceived
 		})
 	},
 	leaveGroup: function(data){
@@ -135,7 +135,8 @@ module.exports = {
 			data: data,
 			success: function(currentUser){
 				ServerActions.toggledGroup(currentUser);
-			}
+			},
+			error: ServerActions.errorReceived
 		})
 	},
 	joinEvent: function(data){
@@ -145,7 +146,8 @@ module.exports = {
 			data: data,
 			success: function(currentUser){
 				ServerActions.toggledEvent(currentUser);
-			}
+			},
+			error: ServerActions.errorReceived
 		});
 	},
 
@@ -156,7 +158,8 @@ module.exports = {
 			data: data,
 			success: function(currentUser){
 				ServerActions.toggledEvent(currentUser);
-			}
+			},
+			error: ServerActions.errorReceived
 		});
 	},
 
@@ -168,9 +171,7 @@ module.exports = {
 			success: function(event){
 				ServerActions.createdEvent(event);
 			},
-			error: function(err){
-				console.log(err);
-			}
+			error: ServerActions.errorReceived
 		})
 	}
 };

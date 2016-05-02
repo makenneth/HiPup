@@ -3,9 +3,17 @@ var AppDispatcher = require('../dispatcher/dispatcher'),
 		MemberConstants = require('../constants/memberConstants'),
 		TagConstants = require('../constants/tagConstants'),
 		GroupEventConstants = require('../constants/groupEventConstants'),
-		UserConstants = require('../constants/userConstants');
+		UserConstants = require('../constants/userConstants'),
+		ErrorConstants = require('../constants/errorConstant');
 
 module.exports = {
+	errorReceived: function(error){
+		var errors = JSON.parse(error).responseText
+		AppDispatcher.dispatch({
+			actionType: ErrorConstants.ERROR_RECEIVED,
+			error: errors
+		})
+	},
 	receivedGroups: function(groups){
 		AppDispatcher.dispatch({
 			actionType: GroupConstants.RECEIVED_GROUPS,

@@ -1,4 +1,5 @@
-var UserServerActions = require("../actions/userServerActions");
+var UserServerActions = require("../actions/userServerActions"),
+		ServerActions = require('../actions/serverActions');
 
 module.exports = {
 	fetchCurrentUser: function(){
@@ -40,5 +41,16 @@ module.exports = {
 			},
 			error: UserServerActions.handleErrors
 		});
+	},
+	updateUser: function(data){
+		$.ajax({
+			url: "/api/user",
+			method: "PATCH",
+			data: {user: data},
+			success: function(data){
+				UserServerActions.receiveCurrentUser(user);
+			},
+			error: ServerActions.handleErrors
+		})
 	}
 }

@@ -7,4 +7,5 @@ class Api::ShowUsersController < ApplicationController
 			render json: ["User Doesn't exist"], status: 404
 		end
 	end
+
 end
