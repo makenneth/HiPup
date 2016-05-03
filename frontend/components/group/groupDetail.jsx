@@ -21,7 +21,8 @@ var GroupDetail = React.createClass({
 	},
 	componentDidMount: function() {
 		this.groupListener = GroupStore.addListener(this._loadDetail);
-		ClientActions.fetchSingleGroup(this.props.params.groupId);
+		ClientActions.fetchSingleGroup(this.props.params.groupId, UserStore.currentLocation().timeZone);
+		//watch out for error ...
 	},
 	_loadDetail: function(){
 		this.setState({

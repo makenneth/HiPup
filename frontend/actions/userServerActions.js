@@ -25,5 +25,11 @@ module.exports = {
 			actionType: "LOCATION_RETRIEVED",
 			place: place.join(", ")
 		})
+	},
+	receivedCurrentTimeZone: function(timezone) {
+		AppDispatcher.dispatch({
+			actionType: "TIMEZONE_RETRIEVED",
+			timezone: timezone
+		})
 	}
 };

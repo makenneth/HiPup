@@ -14,7 +14,7 @@ class Api::GroupEventsController < ApplicationController
 	end
 
 	def show
-		#show should be nested under events
+		debugger;
 		@group_event = GroupEvent.find(params[:id])
 	end
 

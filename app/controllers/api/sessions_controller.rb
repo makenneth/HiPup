@@ -4,6 +4,7 @@ class Api::SessionsController < ApplicationController
 		@user = User.find_by_credentials(params[:user][:username], params[:user][:password])
 		if @user
 			log_in!(@user)
+			set_time_zone(params[:time_zone])
 			render 'api/users/show', status: 200
 		else
 			error = ["Invalid username or password"]

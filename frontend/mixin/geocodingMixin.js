@@ -7,7 +7,6 @@ module.exports = {
 		var url = "https://maps.googleapis.com/maps/api/geocode/json?" + 
 								"components=locality:" + city + "|administrative_area:" + 
 								state + "|country:us&key=AIzaSyDBLpIlf0l0YTDYqk8oNmHbiJldzeKMQKM";
-								debugger;
 				that = this;
 		$.ajax({
 			method: "GET",

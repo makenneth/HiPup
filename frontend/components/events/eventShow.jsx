@@ -32,7 +32,7 @@ var EventShow = React.createClass({
 		this.esListener = GroupEventStore.addListener(this._fetchedEvent);
 
 		if (!this.state.groupEvent.event_time){
-			ClientActions.fetchSingleEvent(this.props.params.eventId);
+			ClientActions.fetchSingleEvent(this.props.params.eventId, UserStore.currentLocation().timeZone);
 		} else {
 			if (this.state.currentUser){ //bug here.. currentUser should still be null by this time
 				//should watch currentUser's position upon login
@@ -100,6 +100,7 @@ var EventShow = React.createClass({
 							{this.toggleEventButton()}
 						</div>
 						<p>Location: {groupEvent.city}, {groupEvent.state}</p>
+						<p>Date and Time: {groupEvent.event_time}</p>
 						<p>Days away: {groupEvent.daysAway}</p>
 						{showDistance}
 						<p>{groupEvent.description}</p>

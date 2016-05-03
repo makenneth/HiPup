@@ -5,7 +5,7 @@ var Store = require("flux/utils").Store,
 
 var _currentUser = null,
 		_errors = [],
-		_currentLocation = {place: "", coords: {}};
+		_currentLocation = {place: "", coords: {}, timeZone: "America/Los_Angeles"};
 
 UserStore.currentUser = function(){
 	return _currentUser;
@@ -18,10 +18,15 @@ UserStore.errors = function(){
 var _setCurrentPlace = function(place){
 	_currentLocation.place = place; 
 };
+var _setTimeZone = function(timezone){
+	_currentLocation.timeZone = timezone;
+}
 
 UserStore.setCurrentCoords = function(coords){
 	_currentLocation.coords = coords;
+ //I should fire a post request to update the server's cookie in 
 };
+
 UserStore.currentLocation = function(){
 	return _currentLocation;
 };
@@ -59,6 +64,11 @@ UserStore.__onDispatch = function(payload) {
 			_setCurrentPlace(payload.place);
 			UserStore.__emitChange();
 			break;
+		case "TIMEZONE_RETRIEVED":
+			_setTimeZone(payload.timezone);
+			UserStore.__emitChange();
+			break;
+
 	}
 };
 

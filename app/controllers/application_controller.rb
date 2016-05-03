@@ -12,6 +12,10 @@ class ApplicationController < ActionController::Base
   	session[:session_token] = user.reset_session_token!
   end
 
+  def set_time_zone(time_zone)
+    cookies[:time_zone] = time_zone
+  end
+
   def log_out!
   	current_user.reset_session_token!
   	@current_user = nil

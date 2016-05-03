@@ -33,11 +33,7 @@ var SignUpForm = React.createClass({
 	handleSubmit: function(e) {
 		e.preventDefault();
 		UserActions.signUp(this.state);
-		// GeocodingMixin.getCoords(this.state.city, this.state.state);
 	},
-	// submitForm: function(coords){
-	// 	User.setState({lat: coords.lat, lng: coords.lng});
-	// },
 	handleError: function(err) {
 		this.errors = err;
 	},

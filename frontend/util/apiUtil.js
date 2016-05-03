@@ -20,10 +20,11 @@ module.exports = {
 		});
 	},
 
-	fetchSingleGroup: function(id) {
+	fetchSingleGroup: function(id, timezone) {
 		$.ajax({
 			method: "GET",
 			url: "/api/groups/" + id,
+			data: {time_zone: timezone},
 			success: function(group) {
 				ServerActions.receivedGroup(group);
 			}
@@ -108,10 +109,12 @@ module.exports = {
 			}
 		})
 	},
-	fetchSingleEvent: function(id){
+	fetchSingleEvent: function(id, timeZone){
+		debugger;
 		$.ajax({
 			method: "GET",
 			url: "/api/group_events/" + id,
+			data: {time_zone: timeZone},
 			success: function(groupEvent){
 				ServerActions.fetchedSingleEvent(groupEvent);
 			}

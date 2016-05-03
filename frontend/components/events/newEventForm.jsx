@@ -71,6 +71,7 @@ var NewEventForm = React.createClass({
 	render: function() {
 		return (
 			<div>
+				<div>New Event</div>
 				<form className="event-form" onSubmit={this.handleSubmit} >
 						<label for="title">Title</label>
 						<input type="text" id="title" 

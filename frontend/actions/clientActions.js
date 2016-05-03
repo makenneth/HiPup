@@ -16,11 +16,11 @@ var eventParticipantData = function(userId, eventId){
 						};
 };
 module.exports = {
-	fetchAllGroups: function(){
-		ApiUtil.fetchAllGroups();
+	fetchAllGroups: function(timezone){
+		ApiUtil.fetchAllGroups(timezone);
 	},
-	fetchSingleGroup: function(id){
-		ApiUtil.fetchSingleGroup(id);
+	fetchSingleGroup: function(id, timezone){
+		ApiUtil.fetchSingleGroup(id, timezone);
 	},
 	createGroup: function(group){
 		ApiUtil.createGroup(group);
