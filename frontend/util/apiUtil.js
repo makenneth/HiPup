@@ -30,6 +30,17 @@ module.exports = {
 			}
 		});
 	},
+	updateGroup: function(group, id){
+		$.ajax({
+			method: "PATCH",
+			url: "/api/groups/" + id,
+			data: {group: group},
+			success: function(group){
+				ServerActions.receivedGroup(group);
+			},
+			error: ServerActions.errorReceived
+		})
+	},
 
 	createGroup: function(group){
 		$.ajax({
@@ -39,19 +50,6 @@ module.exports = {
 			dataType: "json",
 			success: function(group){
 				ServerActions.receivedGroup(group);
-			},
-			error: ServerActions.errorReceived
-		});
-	},
-
-	editGroup: function(group){
-		$.ajax({
-			method: "PATCH",
-			url: "/api/groups/" + group.id,
-			data: {group: group},
-			dataType: "json",
-			success: function(group){
-				ServerActions.receivedGroup(group)
 			},
 			error: ServerActions.errorReceived
 		});
@@ -110,7 +108,6 @@ module.exports = {
 		})
 	},
 	fetchSingleEvent: function(id, timeZone){
-		debugger;
 		$.ajax({
 			method: "GET",
 			url: "/api/group_events/" + id,

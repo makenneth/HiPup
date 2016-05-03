@@ -4,14 +4,14 @@ var AppDispatcher = require('../dispatcher/dispatcher'),
 
 var ErrorStore = new Store(AppDispatcher);
 
-var _errors = null;
+var _errors = [];
 
 var _setError = function(error) {
 	_errors = error;
 };
 ErrorStore.getError = function(){
 	var errors = _errors;
-	_errors = null;
+	_errors = [];
 	return errors;
 };
 

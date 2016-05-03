@@ -6,12 +6,14 @@ var React = require('react'),
 var GroupEvents = React.createClass({
 	getInitialState: function() {
 		return {
-			events: this.props.group.group_events
+			oldEvents: this.props.group.old_events,
+			upcomingEvents: this.props.group.upcoming_events,
+			tabSelected: 0
 		};
 	},
 	componentDidMount: function() {
 		this.gelistener = GroupStore.addListener(this._fetchedGroup);
-		if (!this.state.events){
+		if (!this.state.upcomingEvents){
 			ClientActions.fetchSingleGroup(this.props.params.groupId);
 		}
 	},
@@ -19,6 +21,9 @@ var GroupEvents = React.createClass({
 		if (this.gelistener){
 			this.gelistener.remove();
 		}
+	},
+	setTab: function(tab){
+		this.setState({tabSelected: tab});
 	},
 	_fetchedGroup: function() {
 		this.setState(
@@ -28,18 +33,42 @@ var GroupEvents = React.createClass({
 		);
 	},
 	render: function() {
-		var groupEvents = this.props.group.group_events || [];
+		var oldEvents = this.props.group.old_events || [],
+			upcomingEvents = this.props.group.upcoming_events || [],
+			that = this;
 		return (
 			<div>
-				<ul>
-					{
-						groupEvents.map(function(groupEvent){
-							return <GroupEventItem key={groupEvent.id} groupEvent={groupEvent}
-													groupId={this.props.params.groupId} />;
-						}.bind(this))
+				<div className="group-event-nav">
+						<li onClick={this.setTab.bind(null, 0)} 
+								className={this.state.tabSelected === 0 ? "active-tab" : ""}>
+								Upcoming Events ({upcomingEvents.length})
+						</li>
+						<li onClick={this.setTab.bind(null, 1)}
+								className={this.state.tabSelected === 1 ? "active-tab" : ""}>
+								Past Events ({oldEvents.length})
+								</li>
+				</div>
+				<div className="browsing-events">
+						{ 
+							this.state.tabSelected === 0 ?
+							(<ul>
+										{	
+											upcomingEvents.map(function(upcomingEvent){
+												return <GroupEventItem key={upcomingEvent.id} groupEvent={upcomingEvent}
+																			groupId={that.props.params.groupId} />;
+											})
+										}
+								</ul>) :  this.state.tabSelected === 1 ?
+						(<ul>
+							{
+								oldEvents.map(function(oldEvent){
+									return <GroupEventItem key={groupEvent.id} groupEvent={groupEvent}
+															groupId={that.props.params.groupId} />;
+								})
+							}
+						</ul>) : ""
 					}
-				</ul>
-			</div>
+			</div></div>
 		);
 	}
 

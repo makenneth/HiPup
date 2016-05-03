@@ -4,14 +4,18 @@ var React = require('react'),
 		UserStore = require('../../stores/userStore'),
 		Modal = require('react-modal'),
 		PasswordChange = require('./passwordChange'),
-		PasswordFormStyle = require('../../modal/passwordFormStyle');
+		PasswordFormStyle = require('../../modal/passwordFormStyle'),
+		SuccessMessage = require('../../mixin/successMessage'),
+		SuccessModalStyle = require("../../modal/successModalStyle");
 
 var CurrentUserProfile = React.createClass({
 	mixins: [CurrentUserState],
 	getInitialState: function() {
 		return {
 			passwordModalOpen: false,
-			profileEditModalOpen: false 
+			profileEditModalOpen: false,
+			successIsOpen: false,
+			message: ""
 		};
 	},
 	componentDidMount: function() {
@@ -28,11 +32,19 @@ var CurrentUserProfile = React.createClass({
 	closePasswordModal: function(){
 		this.setState({passwordModalOpen: false});
 	},
-	// _setLocation: function(result){
-	// 	var user = this.state.currentUser;
-	// 	if (!user) return "";
-	// 	this.setState({currentLocation: result})
-	// },
+	_setMessage: function(message){
+		this.setState({message: message});
+	},
+	showSuccessMessage: function(){
+		this.closePasswordModal();
+		this.openSuccessModal();
+	},
+	openSuccessModal: function() {
+		this.setState({successIsOpen: true});
+	},
+	closeSuccessModal: function() {
+		this.setState({successIsOpen: false});
+	},
 	componentWillUnmount: function() {
 		if (this.cupListener) this.cupListener.remove();
 	},
@@ -70,8 +82,14 @@ var CurrentUserProfile = React.createClass({
 				<Modal isOpen={this.state.passwordModalOpen}
 							 onRequestClose={this.state.closePasswordModal}
 							 style={PasswordFormStyle}>
-							 <PasswordChange closeModal={this.closePasswordModal}/>
+							 <PasswordChange closeModal={this.closePasswordModal}
+							 		setMessage={this._setMessage} showSuccess={this.showSuccessMessage}/>
 				 </Modal>
+				 	<Modal onRequestClose={this.closeSuccesModal}
+								 style={SuccessModalStyle} isOpen={this.state.successIsOpen}>
+						<SuccessMessage closeModal={this.closeSuccessModal}
+								message={this.state.message}/>
+					</Modal>
 			</div>
 		);
 	}

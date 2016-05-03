@@ -2,6 +2,7 @@ var React = require('react'),
 		UserStore = require('../../stores/userStore'),
 		ErrorStore = require('../../stores/errorStore'),
 		UserActions = require('../../actions/userActions');
+
 var PasswordChange = React.createClass({
 	getInitialState: function() {
 		return {
@@ -20,7 +21,8 @@ var PasswordChange = React.createClass({
 		if (this.erListener) this.erListener.remove();
 	},
 	_passwordChanged: function() {
-		this.props.closeModal();
+		this.props.setMessage("Password has been updated!");
+		this.props.showSuccess();
 	},
 	_errorReceived: function() {
 		this.setState({errors: ErrorStore.getError()});

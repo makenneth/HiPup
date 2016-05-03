@@ -8,7 +8,6 @@ class Api::GroupEventsController < ApplicationController
 		if @group_event.save
 			render :show
 		else
-			debugger
 			render json: @group_event.errors.full_messages, status: 422
 		end
 	end

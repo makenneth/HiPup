@@ -25,6 +25,9 @@ module.exports = {
 	createGroup: function(group){
 		ApiUtil.createGroup(group);
 	},
+	updateGroup: function(group, id){
+		ApiUtil.updateGroup(group, id);
+	},
 	fetchMember: function(id){
 		ApiUtil.fetchMember(id);
 	},

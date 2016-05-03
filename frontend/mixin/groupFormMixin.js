@@ -1,34 +1,55 @@
+
 var React = require('react'),
-		HashHistory = require('react-router').hashHistory;
+	  HashHistory = require('react-router').hashHistory;
+
 module.exports = {
-	_updateTitle: function(e) {
-		this.setState({title: e.target.value});
+	_userFetched: function() {
+		if (!this.state.currentUser){
+			HashHistory.push("/");
+		}	
 	},
-	_updateDescription: function(e) {
-		this.setState({description: e.target.value});
+	updateField: function(field, e){
+		var fieldObj = {};
+		fieldObj[field] = e.target.value;
+		this.setState(fieldObj);
 	},
-	_updateImageUrl: function(e) {
-		this.setState({image_url: e.target.value});
+	_back: function(e){
+		if (e) e.preventDefault();
+		HashHistory.goBack();
 	},
 	_form: function(){
-		return (<div><form onSubmit={this._handleSubmit}>
-			<div className="form-group">
-				<label for="title">Title</label>
-				<input className="form-control" type="text" value={this.state.title} 
-							 onChange={this._updateTitle} id="title"/>
-			</div>
-			<div className="form-group">
-				<label for="description">Description</label>
-				<textarea className="form-control" value={this.state.description} 
-							  	onChange={this._updateDescription} id="description"/>
-			</div>
-			<div className="form-group">
-				<label for="image">Image</label>
-				<input className="form-control" type="url" value={this.state.image_url} 
-						 	 onChange={this._updateImageUrl} id="image"/>
-			</div>
-			<input className="btn btn-success" type="submit" value="Create New Group"/>
-		</form>
-		<button className="btn btn-default" onClick={this._back}>Back</button></div>);
+				return (<div className="group-form-parent">
+						<form className="group-form" onSubmit={this._handleSubmit}>
+							<div className="form-line">
+								<label for="title">Title</label>
+								<input type="text" value={this.state.title} 
+											 onChange={this.updateField.bind(null, "title")} id="title" required/>
+							</div>
+							<div className="form-line">
+								<label for="image">Image Url</label>
+								<input type="url" value={this.state.image_url} 
+										 	 onChange={this.updateField.bind(null, "image_url")} id="image"/>
+							</div>
+							<div className="form-line">
+								<label for="autocomplete">Primary city</label>
+								<input className="city" id="autocomplete" 
+											onChange={this.updateField.bind(null, "city")}  value={this.state.city} />
+							</div>
+							<div className="form-line">
+								<label for="state">Primary state</label>
+								<input className="state" id="state" 
+											onChange={this.updateField.bind(null, "state")} value={this.state.state} />
+							</div>
+							<div className="form-line">
+								<label for="description">Description</label>
+								<textarea value={this.state.description} 
+											  	onChange={this.updateField.bind(null, "description")} 
+											  	id="description" rows="5" required/>
+							</div>
+
+							<input className="create-group-button" type="submit" value="Create New Group" />
+							<button className="back-button" type="back">Back</button>
+						</form>
+					</div>);
 	}
 };

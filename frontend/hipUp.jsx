@@ -15,7 +15,8 @@ var React = require('react'),
 		UserActions = require('./actions/userActions'),
 		LogInForm = require('./components/user/logInForm'),
 		SignUpForm = require('./components/user/signUpForm'),
-		GroupForm = require('./components/group/groupForm'),
+		NewGroupForm = require('./components/group/newGroupForm'),
+		// EditGroupForm = require('./components/group/editGroupForm'),
 		CurrentUserStateMixin = require('./mixin/currentUserState'),
 		ReverseGeoMixin = require('./mixin/reverseGeoMixin'),
 		Navbar = require('./components/navbar'),
@@ -142,6 +143,7 @@ var App = React.createClass({
 	}
 });
 
+	// <Route path="groups/:groupId/edit" component={EditGroupForm} />
 
 var routes = (
 		<Route path="/" component={App}>
@@ -152,7 +154,7 @@ var routes = (
 			<Route path="user/profile" component={CurrentUserProfile} />
 			<Route path="user/events" component={ManageEvents} />
 			<Route path="tags/:tagId" component={TagShow} />
-			<Route path="groups/new" component={GroupForm} />
+			<Route path="groups/new" component={NewGroupForm} />
 			<Route path="groups/:groupId" component={GroupDetail}>
 				<Route path="home" component={GroupHome}/>
 				<Route path="members" component={GroupMembers}/>

@@ -71,9 +71,9 @@ var GroupDetail = React.createClass({
 								transitionEnterTimeout={300} transitionLeaveTimeout={300}>
 				<div>
 					<GroupNav group={this.state.group} />
+						{this._joinButtons()}
 
 					<div className="group-detail">
-						{this._joinButtons()}
 						{children}
 					</div>
 				</div>
