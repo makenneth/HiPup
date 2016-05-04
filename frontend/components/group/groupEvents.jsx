@@ -62,7 +62,7 @@ var GroupEvents = React.createClass({
 						(<ul>
 							{
 								oldEvents.map(function(oldEvent){
-									return <GroupEventItem key={groupEvent.id} groupEvent={groupEvent}
+									return <GroupEventItem key={oldEvent.id} groupEvent={oldEvent}
 															groupId={that.props.groupId} />;
 								})
 							}

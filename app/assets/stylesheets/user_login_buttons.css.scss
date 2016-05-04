@@ -57,8 +57,11 @@
 	opacity: 0.7;
 	border-radius: 5px;
 	box-shadow: 1px 1px 1px #999;
-	width: 100%;
+	width: 150%;
 	overflow: hidden;
+	li {
+		padding: 5px;
+	}
 	a {
 		color: white;
 	}

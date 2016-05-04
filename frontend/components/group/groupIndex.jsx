@@ -66,6 +66,7 @@ var GroupIndex = React.createClass({
 						<input type="text" onChange={this.setSearchString} 
 									 value={this.state.searchString} placeholder="Type your search..."/>
 					 </div>
+					 
 					<div className="calendar" onClick={this.openDateModal} />
 				</div>
 				<Modal isOpen={ this.state.tagSearchModalOpen } 

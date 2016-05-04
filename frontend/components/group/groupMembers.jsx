@@ -21,15 +21,15 @@ var GroupMembers = React.createClass({
 	},
 	componentDidMount: function() {
 		if (this.state.participants !== undefined && !this.state.participants.length){
-			var group = GroupStore.find(this.props.params.postId);
-			this.setState({participants: group.participants});
+			var group = GroupStore.find(this.props.postId);
+			if (group) this.setState({participants: group.participants});
 		}
 	},
 	render: function() {
 		var participants = this.props.group.participants || [];
 		return (
 			<div>
-				<h1>Group Members</h1>
+				<h3>Members:</h3>
 					<ul className="member-list">
 					{
 						participants.map(function(participant){

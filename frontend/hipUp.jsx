@@ -170,9 +170,7 @@ var routes = (
 			<Route path="groups/new" component={NewGroupForm} />
 			<Route path="groups/:groupId" component={GroupDetail}>
 				<Route path="home" component={GroupHome}/>
-				<Route path="members" component={GroupMembers}/>
 				<Route path="photos" component={GroupPhotos}/>
-				<Route path="events" component={GroupEvents}/>
 				<Route path="events/:eventId" component={EventShow} />
 			</Route>
 		</Route>

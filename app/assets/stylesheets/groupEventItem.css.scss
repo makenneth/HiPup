@@ -120,11 +120,13 @@
 }
 
 .event-parent {
-		font-family: 'Titillium Web', sans-serif;
+	font-family: 'Titillium Web', sans-serif;
+	margin: 10px auto 0 auto;
 	display: flex;
 	flex-direction: row;
 	flex-wrap: nowrap;
 	justify-content: space-between;
+	width: 90%;
 	.rsvp-member {
 		margin: 0;
 		display: flex;

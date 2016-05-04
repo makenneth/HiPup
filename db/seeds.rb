@@ -34,7 +34,7 @@ end
 20.times do |i|
 		Group.create({
 			title: Faker::Hipster.words(2).join(" "),
-			description: Faker::Hipster.paragraph(2),
+			description: Faker::Hipster.paragraph(5),
 			lat: Faker::Address.latitude,
 			lng: Faker::Address.longitude,
 			creator_id: rand(30) + 1,
@@ -58,7 +58,7 @@ end
 			group_id: i,
 			street: Faker::Address.street_address,
 			zip: Faker::Address.zip_code,
-			event_time: Faker::Time.forward(2389, :day)
+			event_time: Faker::Time.between(365.days.ago, Date.today + 120, :day)
 			})
 			5.times do
 				EventUser.create({

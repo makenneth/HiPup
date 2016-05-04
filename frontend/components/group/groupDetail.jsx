@@ -72,10 +72,9 @@ var GroupDetail = React.createClass({
 			<ReactCSSTransitionGroup transitionName="page" 
 							transitionAppear={true} transitionAppearTimeout={500} 
 								transitionEnterTimeout={300} transitionLeaveTimeout={300}>
-				<div>
+				<div class="group-parent-div">
 					<GroupNav group={this.state.group} joinButtons={this._joinButtons()}/>
 	
-
 						{children}
 				</div>
 			</ReactCSSTransitionGroup>

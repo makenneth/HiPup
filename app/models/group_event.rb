@@ -12,7 +12,7 @@ class GroupEvent < ActiveRecord::Base
 	attr_reader :time, :date
 
 	def convert_time
-		self.event_time = Time.new(*@date, *@time)
+		self.event_time ||= Time.new(*@date, *@time)
 	end
 
 	def time=(event_time)
