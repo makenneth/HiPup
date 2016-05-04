@@ -5,7 +5,7 @@ var React = require('react'),
 		GroupStores = require('../../stores/groupStore'),
 		Autocomplete = require('../../mixin/autoComplete'),
 		UserStore = require('../../stores/userStore'),
-		GroupFormMixin = require('../../mixin/GroupFormMixin'),
+		GroupFormMixin = require('../../mixin/groupFormMixin'),
 		ErrorStore = require('../../stores/errorStore');
 var GroupEditForm = React.createClass({
 	mixins: [CurrentUserState, Autocomplete, GroupFormMixin],
