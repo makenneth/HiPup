@@ -17,6 +17,10 @@ module.exports = {
 		if (e) e.preventDefault();
 		HashHistory.goBack();
 	},
+	_home: function(e){
+		e.preventDefault();
+		HashHistory.push("/");
+	},
 	_form: function(){
 				return (<div className="group-form-parent">
 						<form className="group-form" onSubmit={this._handleSubmit}>
@@ -48,8 +52,8 @@ module.exports = {
 							</div>
 
 							<input className="create-group-button" type="submit" value="Create New Group" />
-							<button className="back-button" type="back">Back</button>
 						</form>
+						<div className="back-button" onClick={this._home}></div>
 					</div>);
 	}
 };

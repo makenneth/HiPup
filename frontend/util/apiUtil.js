@@ -121,7 +121,7 @@ module.exports = {
 		$.ajax({
 			method: "GET",
 			url: "/api/group_events",
-			data: {query_type: "time", time_zone: timeZone},
+			data: {query_type: "time", time_zone: timezone},
 			success: function(groupEvents){
 				ServerActions.fetchedEventsByDate(groupEvents);
 			}

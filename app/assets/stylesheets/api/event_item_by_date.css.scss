@@ -1,0 +1,42 @@
+.event-query-item {
+	padding: 10px;
+	border-bottom: 1px solid #ddd;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	.title {
+		display: flex;
+		flex-direction: column;
+	}
+	.group-title {
+		font-size: 16px;
+		align-self: flex-end;
+	}
+	.time {
+		align-self: flex-end;
+		font-size: 18px;
+	}
+	.group-event-title {
+		align-self: flex-end;
+		font-size: 20px;
+	}
+}
+.event-by-date .close-icon {
+	background-color: transparent;
+	position: fixed;
+	top: 5px;
+	right: 10px;
+}
+.event-by-date button {
+		width: 98%;
+		font-size: 18px;
+		padding: 5px 0;
+		border: 3px solid white;
+		margin-top: 10px;
+		border-radius: 5px;
+		text-align: center;
+	}
+.event-query-item:hover {
+	background-color: #999;
+}
+

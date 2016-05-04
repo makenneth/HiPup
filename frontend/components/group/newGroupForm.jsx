@@ -48,6 +48,7 @@ var NewGroupForm = React.createClass({
 	render: function() {
 		return (
 			<div className="group-form-container">
+				<div className="paw-print"></div>
 			  <div className="group-form-title">New Group</div>
 				{this._form()}
 			</div>

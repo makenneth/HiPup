@@ -177,3 +177,25 @@
 	textarea {
 	}
 }
+.back-button {
+	cursor: pointer;
+	position: absolute;
+	top: 20px;
+	left: 20px;
+ width: 60px;
+ height: 60px;
+ background-image: url(https://cdn0.iconfinder.com/data/icons/realty-1/512/doghouse-256.png);
+ background-size: cover;
+}
+.paw-print {
+	position: absolute;
+	bottom: 40px;
+	left: 20px;
+	width: 180px;
+	height: 180px;
+	background-image: url(http://image.spreadshirtmedia.com/image-server/v1/designs/11545505,width=200,height=200);
+	background-size: cover;
+}
+.group-form-container {
+	position: relative;
+}

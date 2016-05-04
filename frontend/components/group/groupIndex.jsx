@@ -57,10 +57,8 @@ var GroupIndex = React.createClass({
 			<div>
 				<div className="banner"></div>
 				<div className="search-bar">
-					 <div className="search-by cf">
-					 	<h5 onClick={this.openTagSearchModal}>
+					 <div className="search-by cf" onClick={this.openTagSearchModal}>
 					 			Search By Tags
-					 	</h5>
 					 </div> 
 					<div className="search-container-sm cf">
 						<img className="search-icon-sm"

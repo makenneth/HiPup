@@ -91,13 +91,13 @@ module.exports = {
 	},
 	fetchedEventsByLocation: function(groupEvents){
 		AppDispatcher.dispatch({
-			actionType: EventQueryConstants.TIME_QUERY_FETCHED,
+			actionType: EventQueryConstants.LOCATION_QUERY_FETCHED,
 			groupEvents: groupEvents
 		})
 	},
 	fetchedEventsByDate: function(groupEvents){
 		AppDispatcher.dispatch({
-			actionType: EventQueryConstants.LOCATION_QUERY_FETCHED,
+			actionType: EventQueryConstants.TIME_QUERY_FETCHED,
 			groupEvents: groupEvents
 		})
 	}

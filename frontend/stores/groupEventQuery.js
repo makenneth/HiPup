@@ -8,7 +8,7 @@ var _eventsByDate = [],
 
 
 var _setEventsByDate = function(groupEvents){
-	_eventsByDate = groupEvents;
+	_eventsByDate = groupEvents.group_events;
 };
 
 var _setEventsByLocation = function(groupEvent){
@@ -23,7 +23,7 @@ EventQueryStore.allByLocation = function(){
 	return _eventsByLocation;
 };
 
-EventQueryStore.__onDispatcher = function(payload){
+EventQueryStore.__onDispatch = function(payload){
 	switch (payload.actionType){
 		case EventQueryConstants.TIME_QUERY_FETCHED:
 			_setEventsByDate(payload.groupEvents);
@@ -35,3 +35,4 @@ EventQueryStore.__onDispatcher = function(payload){
 			break;
 	}
 };
+module.exports = EventQueryStore;
