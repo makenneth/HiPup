@@ -117,6 +117,26 @@ module.exports = {
 			}
 		})
 	},
+	fetchAllEventsByDate: function(timezone){
+		$.ajax({
+			method: "GET",
+			url: "/api/group_events",
+			data: {query_type: "time", time_zone: timeZone},
+			success: function(groupEvents){
+				ServerActions.fetchedEventsByDate(groupEvents);
+			}
+		})
+	},
+	fetchAllEventsByLocation: function(timezone){
+		$.ajax({
+			method: "GET",
+			url: "/api/group_events",
+			data: {query_type: "location", time_zone: timezone},
+			success: function(groupEvents){
+				ServerActions.fetchedEventsByLocation(groupEvents);
+			}
+		})
+	},
 	joinGroup: function(data){
 		$.ajax({
 			method: "POST",

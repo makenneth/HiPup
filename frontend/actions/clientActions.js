@@ -40,11 +40,11 @@ module.exports = {
 	createTag: function(tag){
 		ApiUtil.createTag(tag);
 	},
-	fetchAllEvents: function(){
-		ApiUtil.fetchAllEvents();
+	fetchAllEvents: function(timezone){
+		ApiUtil.fetchAllEvents(timezone);
 	},
-	fetchSingleEvent: function(id){
-		ApiUtil.fetchSingleEvent(id);
+	fetchSingleEvent: function(id, timezone){
+		ApiUtil.fetchSingleEvent(id, timezone);
 	},
 	joinGroup: function(userId, groupId){
 		ApiUtil.joinGroup(groupParticipantData(userId, groupId));
@@ -52,15 +52,21 @@ module.exports = {
 	leaveGroup: function(userId, groupId){
 		ApiUtil.leaveGroup(groupParticipantData(userId, groupId));
 	},
-	joinEvent: function(userId, eventId){
+	rsvpEvent: function(userId, eventId){
 		ApiUtil.joinEvent(eventParticipantData(userId, eventId));
 
 	}, //modal on close, on open
-	leaveEvent: function(userId, eventId){
+	changeRSVP: function(userId, eventId){
 		ApiUtil.leaveEvent(eventParticipantData(userId, eventId));
 	},
 	createEvent: function(data){
 		ApiUtil.createEvent(data);
+	},
+	fetchAllEventsByDate: function(timezone){
+		ApiUtil.fetchAllEventsByDate(timezone);
+	},
+	fetchAllEventsByLocation: function(timezone){
+		ApiUtil.fetchAllEventsByLocation(timezone)
 	}
 }
 

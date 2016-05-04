@@ -4,7 +4,8 @@ var AppDispatcher = require('../dispatcher/dispatcher'),
 		TagConstants = require('../constants/tagConstants'),
 		GroupEventConstants = require('../constants/groupEventConstants'),
 		UserConstants = require('../constants/userConstants'),
-		ErrorConstants = require('../constants/errorConstant');
+		ErrorConstants = require('../constants/errorConstant'),
+		EventQueryConstants = require('../constants/eventQueryConstants');
 
 module.exports = {
 	errorReceived: function(error){
@@ -86,6 +87,18 @@ module.exports = {
 		AppDispatcher.dispatch({
 			actionType: GroupEventConstants.FETCHED_SINGLE_EVENT,
 			groupEvent: groupEvent
+		})
+	},
+	fetchedEventsByLocation: function(groupEvents){
+		AppDispatcher.dispatch({
+			actionType: EventQueryConstants.TIME_QUERY_FETCHED,
+			groupEvents: groupEvents
+		})
+	},
+	fetchedEventsByDate: function(groupEvents){
+		AppDispatcher.dispatch({
+			actionType: EventQueryConstants.LOCATION_QUERY_FETCHED,
+			groupEvents: groupEvents
 		})
 	}
 };

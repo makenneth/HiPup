@@ -91,18 +91,31 @@ var App = React.createClass({
 		UserActions.logOut();
 	},
 	userButtons: function() {
-		if (this.state.currentUser){
-			return (<ul className="user-button cf">
-				<li><a href="#/user/profile">
-							Welcome, {this.state.currentUser.name}!
-						</a></li>
-				<li><a href="#" onClick={this.logOut}>Log Out</a></li>
-			</ul>);
+		if ((/^\/\w*\/?$/).test(this.props.location.pathname)){
+			if (this.state.currentUser){
+				return (<ul className="user-button cf">
+					<li><a href="#/user/profile">
+								Welcome, {this.state.currentUser.name}!
+							</a></li>
+					<li><a href="#" onClick={this.logOut}>Log Out</a></li>
+				</ul>);
+			} else {
+				return (<ul className="user-button cf">
+					<li onClick={this.openLogInModal}><a href="#">Log In</a></li>
+					<li onClick={this.openSignUpModal}><a href="#">Sign Up</a></li>
+				</ul>);
+			}	
 		} else {
-			return (<ul className="user-button cf">
-				<li onClick={this.openLogInModal}><a href="#">Log In</a></li>
-				<li onClick={this.openSignUpModal}><a href="#">Sign Up</a></li>
-			</ul>);
+			var buttonDiv = !this.state.currentUser ? (<ul className="user-profile-login-text">
+						<li onClick={this.openLogInModal}><a href="#">Log In</a></li>
+						<li onClick={this.openSignUpModal}><a href="#">Sign Up</a></li>
+					</ul>) : (<ul className="user-profile-logout-text">
+										<li><a href="#/user/profile">Profile</a></li>
+										<li><a href="#" onClick={this.logOut}>Log Out</a></li>
+									</ul>);
+			return (<div className="user-text-button"><div className="user-text">
+					{buttonDiv}
+				</div></div>)
 		}
 	},
 	render: function() {
@@ -143,7 +156,7 @@ var App = React.createClass({
 	}
 });
 
-	// <Route path="groups/:groupId/edit" component={EditGroupForm} />
+
 
 var routes = (
 		<Route path="/" component={App}>
@@ -160,7 +173,7 @@ var routes = (
 				<Route path="members" component={GroupMembers}/>
 				<Route path="photos" component={GroupPhotos}/>
 				<Route path="events" component={GroupEvents}/>
-				<Route path="/events/:eventId" component={EventShow} />
+				<Route path="events/:eventId" component={EventShow} />
 			</Route>
 		</Route>
 );

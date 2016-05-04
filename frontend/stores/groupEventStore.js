@@ -33,7 +33,8 @@ GroupEventStore.find = function(id){
 		state: null,
 		title: null,
 		description: null,
-		group_id: null
+		group_id: null,
+		event_users: []
 	};
 };
 

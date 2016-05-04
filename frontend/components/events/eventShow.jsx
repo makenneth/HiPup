@@ -30,47 +30,46 @@ var EventShow = React.createClass({
 	},
 	componentDidMount: function() {
 		this.esListener = GroupEventStore.addListener(this._fetchedEvent);
+		this._calculateDistance({
+			coords: UserStore.currentLocation().coords
+		});
 
 		if (!this.state.groupEvent.event_time){
 			ClientActions.fetchSingleEvent(this.props.params.eventId, UserStore.currentLocation().timeZone);
-		} else {
-			if (this.state.currentUser){ //bug here.. currentUser should still be null by this time
-				//should watch currentUser's position upon login
-				this._calculateDistance(
-				{
-					coords: {
-										lat: this.state.currentUser.lat,
-										lng: this.state.currentUser.lng
-									}
-				});
-			} else {
-				navigator.geolocation.getCurrentPosition(this._calculateDistance, this.handleError);		
-			}
-		}
+		} 
 	},
 	handleError: function(err) {
 		console.log(err);
 	},
 	toggleEventButton: function() {
-		if (!this.state.currentUser || !this._alreadyJoined()){
-			return <button onClick={this.joinEvent} className="join">Join Event</button>;
+		if (!this._alreadyRSVP()){
+			if (!this.state.currentUser || !this.props.hasJoinedGroup()){
+				return <button onClick={this.joinAndRsvpEvent} className="join">Join and RSVP</button>;
+				//this should show the sign in modal
+			} else if (this.state.currentUser && this.props.hasJoinedGroup()){
+				return <button onClick={this.rsvpEvent} className="join">RSVP</button>;
+			}
 		} else {
-			return <button onClick={this.leaveEvent} className="leave">Leave Event</button>;
+			return <button onClick={this.changeRSVP} className="leave">Change RSVP</button>;
 		}
 	},
-	joinEvent: function(e){
-		if (this.state.currentUser && !this._alreadyJoined()){
-			ClientActions.joinEvent(this.state.currentUser.id, this.state.groupEvent.id);
+	joinAndRsvpEvent: function(){
+
+	},
+	rsvpEvent: function(e){
+		if (this.state.currentUser && !this._alreadyRSVP()){
+			ClientActions.rsvpEvent(this.state.currentUser.id, this.state.groupEvent.id);
 		} else {
 			//show a sign in or sign up modal
 		}
 	},
-	leaveEvent: function(){
-		if (this.state.currentUser && this._alreadyJoined()){
-			ClientActions.leaveEvent(this.state.currentUser.id, this.state.groupEvent.id);
+	changeRSVP: function(){
+		if (this.state.currentUser && this._alreadyRSVP()){
+			ClientActions.changeRSVP(this.state.currentUser.id, this.state.groupEvent.id);
 		}
 	},
-	_alreadyJoined: function() {
+	_alreadyRSVP: function() {
+		if (!this.state.currentUser) return false;
 		var groupEvents = this.state.currentUser.joinedEvents;
 		for (var i = 0; i < groupEvents.length; i++) {
 			if (groupEvents[i].id === this.state.groupEvent.id){
@@ -83,7 +82,12 @@ var EventShow = React.createClass({
 		this.setState({
 				groupEvent: GroupEventStore.find(this.props.params.eventId)
 			})
-		navigator.geolocation.getCurrentPosition(this._calculateDistance, this.handleError);
+	},
+	parseTime: function(){
+		var parsingTime = this.state.groupEvent.event_time;
+		if (!parsingTime) return [0, 0];
+		return parsingTime.split(" || ");
+
 	},
 	componentWillUnmount: function() {
 		if (this.esListener) this.esListener.remove();
@@ -92,26 +96,52 @@ var EventShow = React.createClass({
 		var groupEvent = this.state.groupEvent;
 		var showDistance = this.state.distance ? 
 				(<p>Distance away: {this.state.distance} miles</p>) : "";
+		var eventTime = this.parseTime();
 		return (
-			<div>
-					<div className="group-event-detail">
+			<div className="event-parent">
+					<div className="event-details">
 						<div id="header">
 							<h2>{groupEvent.title}</h2>
-							{this.toggleEventButton()}
 						</div>
-						<p>Location: {groupEvent.city}, {groupEvent.state}</p>
-						<p>Date and Time: {groupEvent.event_time}</p>
-						<p>Days away: {groupEvent.daysAway}</p>
-						{showDistance}
-						<p>{groupEvent.description}</p>
+						<div className="event-sub">
+							<div className="event-time-info">
+								<div className="date-and-time">
+									<h3>{eventTime[0]}</h3>
+									<p>{eventTime[1]} - {groupEvent.daysAway} away</p>
+								</div>
+								<div id="location">
+									<h4>{groupEvent.street} <a style={{font: "blue" }} href={"https://maps.google.com/?ll=" + groupEvent.lat + "," + groupEvent.lng}>(map)</a></h4>
+									<p>{groupEvent.city}, {groupEvent.state} {groupEvent.zip}</p>
+									<p>{showDistance}</p>
+								</div>
+							</div>
+							<div className="event-map">
+								{
+									!this.state.groupEvent.event_time ? "" :
+									<EventMap lat={groupEvent.lat} lng={groupEvent.lng} />
+								}
+							</div>
+						</div>
+						<div>
+							{groupEvent.description}
+						</div>
 					</div>
-					<div>
-					{
-						!this.state.groupEvent.event_time ? "" :
-						<EventMap lat={groupEvent.lat} lng={groupEvent.lng} />
-					}
+					<div className="rsvp-member">
+					<div className="rsvp-buttons">
+						<div id="title">Interested?</div>
+						<div>{this.toggleEventButton()}</div>
+						</div>
+						<div className="event-participants">
+							{groupEvent.event_users.length} going: 
+							<ul className="participant-list">
+								{
+									groupEvent.event_users.map(function(participant){
+										return <li key={participant.id}>{participant.name}</li>;
+									})
+								}
+							</ul>
+						</div>
 					</div>
-
 			</div>
 		);
 	}

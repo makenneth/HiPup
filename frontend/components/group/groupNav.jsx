@@ -62,16 +62,18 @@ var GroupNav = React.createClass({
 				title = this.props.group.title;
 		return (
 			<div>
-				<div className="nav-div cf">
-					<h3>{title}</h3>
-					<ul className="group-nav">
-						<li><a href={"#/"}>Home</a></li>
-						<li><a href={"#/groups/" + id + "/home"}>Detail</a></li>
-						<li><a href={"#/groups/" + id + "/members"}>Members</a></li>
-						<li><a href={"#/groups/" + id + "/photos"}>Photos</a></li>
-						<li><a href={"#/groups/" + id + "/events"}>Events</a></li>
-					</ul>
-					{this.adminNav()}
+				<div>
+					<div className="nav-div cf">
+						<h3>{title}</h3>
+					</div>
+						<ul className="group-nav">
+							<li><a href={"#/"}>Home</a></li>
+							<li><a href={"#/groups/" + id + "/home"}>Detail</a></li>
+							<li><a href={"#/groups/" + id + "/members"}>Members</a></li>
+							<li><a href={"#/groups/" + id + "/photos"}>Photos</a></li>
+						</ul>
+						{this.adminNav()}
+						{this.props.joinButtons}
 				</div>
 				<Modal isOpen={this.state.eventFormIsOpen} style={EventFormStyle} 
 							onRequestClose={this.closeModal}>

@@ -116,7 +116,12 @@ button {
 	margin-top: 50px;
 }
 
-
+.calendar {
+	width: 80px;
+	height: 80px;
+	background-image: url(https://cdn4.iconfinder.com/data/icons/small-n-flat/24/calendar-128.png);
+	background-size: cover;
+}
 
 .banner {
 	background-image: url(https://images.unsplash.com/photo-1443750200537-00fd518bdc82?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&w=1080&fit=max&s=ad7a9ff44b3026fcf49d80830ffb20ee);
@@ -190,57 +195,12 @@ button {
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
-	button {
-		align-self: flex-end;
-		padding: 10px 15px;
-		color: white;
 
-		border-radius: 4px;
-		font-size: 20px;
-		cursor: pointer;
-	}
-	.join {
-		background-color: #30690E;
-	}
-	.leave {
-		background-color: #791710;
-	}
-	.join:hover {
-		background-color: #BFE4A9;
-	}
-	.leave:hover {
-		background-color: #DB7D76;
-	}
 	h2 {
 		align-self: center;
 	}
 }
-.user-button  {
-	display: flex;
-	position: absolute;
-	font-family: 'Dosis', sans-serif;
-	top: 30px;
-	right: 50px;
-	width: 300px;
-	text-align: center;
-	justify-content: space-around;
-	li {
-		border: 1px solid white;
-		background-color: black;
-		opacity: 0.8;
-		font-size: 1.5em;
-		padding: 5px 25px;
-		border-radius: 5px;
-		width: 80px;
-	}
-	li a:first {
-		margin-right: 20px;
-	}
-	li:hover {
-		font: black;
-		background-color: white;
-	}
-}
+
 
 .tag-groups {
 	color: black;
@@ -254,8 +214,9 @@ button {
 	}
 }
 .map {
-	width: 500px;
-	height: 500px;
+	width: 250px;
+	height: 250px;
+	border-radius: 5px;
 }
 
 .success-enter {

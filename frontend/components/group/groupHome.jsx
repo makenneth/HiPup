@@ -1,6 +1,7 @@
 var React = require('react'),
 		GroupStore = require('../../stores/groupStore'),
-		HashHistory = require('react-router').hashHistory;
+		HashHistory = require('react-router').hashHistory,
+		GroupEvents = require('./groupEvents');
 
 
 var GroupHome = React.createClass({
@@ -10,24 +11,39 @@ var GroupHome = React.createClass({
 	render: function() {
 		var group = this.props.group;
 		return (
-			<div>
-					<h2>Description: </h2>
-					<p>{group.description}</p>
-					<div className="group-tags">
-						<h3>tags</h3>
-						<ul>
-						{
-							group.tags.slice(0, 3).map(function(tag){
-								return <li key={tag.id} tag={tag}>
-													<a onClick={this._showTag.bind(null, tag.id)}>
-														{tag.name}
-													</a>
-												</li>;
-							}.bind(this))
-						}
-						</ul>
+			<div className="group-home">
+					<div className="group-info">
+						<li className="address">{group.city + ", " + group.state}</li>
+						<li className="founded">Founded {group.created_at} </li>
+						<li className="stats"><div>Members </div><div>{group.participants.length}</div></li>
+						<li className="stats"><div>Upcoming Meetups: </div><div>{group.upcoming_events.length}</div></li>
+						<li className="stats"><div>Past Meetups: </div><div>{group.old_events.length}</div></li>
+						<div className="group-tags">
+							<h3>We're about:</h3>
+							<ul>
+							{
+								group.tags.map(function(tag){
+									return <li key={tag.id} tag={tag}>
+														<a onClick={this._showTag.bind(null, tag.id)}>
+															{tag.name}
+														</a>
+													</li>;
+								}.bind(this))
+							}
+							</ul>
+						</div>
 					</div>
+				<div className="group-info-container">
+					<div className="group-description">
+							<h2>Description: </h2>
+							<p>{group.description}</p>
+					</div>
+				<div className="event-container">
+					<GroupEvents group={this.props.group} groupId={this.props.params.groupId}/>
+				</div>
+				</div>
 			</div>
+
 		);
 	}
 

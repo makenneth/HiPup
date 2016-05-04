@@ -1,6 +1,7 @@
 class Api::GroupEventsController < ApplicationController
 	def index
-		#don't think we need index
+		#filter by time
+		@group_events = GroupEvent.where("event_time > ?", time.now).order(:event_time)
 	end
 
 	def create
@@ -13,8 +14,10 @@ class Api::GroupEventsController < ApplicationController
 	end
 
 	def show
-		debugger;
-		@group_event = GroupEvent.find(params[:id])
+		if params[:query_type] == "time"
+			@group_event = GroupEvent.includes(:event_participants).find(params[:id])
+		elsif params[:query_type] == "location"
+		end
 	end
 
 	def update

@@ -39,6 +39,7 @@ var Navbar = React.createClass({
 							  <li className={this.state.active === 4 ? "active" : ""}
 									  onClick={this.setTab.bind(null, 4, "user/events")}>
 									  Manage Your Events</li>
+								<li className="log-out" onClick={UserActions.logOut}>Log Out</li>
 						  </ul>);
 		}
 		return "";

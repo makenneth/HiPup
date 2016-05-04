@@ -15,7 +15,10 @@ var GroupDetail = React.createClass({
 			group: {
 				title: undefined,
 				description: undefined,
-				tags: []
+				tags: [],
+				old_events: [],
+				upcoming_events: [],
+				participants: []
 			}
 		};
 	},
@@ -64,18 +67,16 @@ var GroupDetail = React.createClass({
 	},
 	render: function() {
 		var children = !this.props.children ? this.props.children :
-			React.cloneElement(this.props.children, { group: this.state.group } );
+			React.cloneElement(this.props.children, { group: this.state.group, hasJoinedGroup: this.hasJoinedGroup } );
 		return (
 			<ReactCSSTransitionGroup transitionName="page" 
 							transitionAppear={true} transitionAppearTimeout={500} 
 								transitionEnterTimeout={300} transitionLeaveTimeout={300}>
 				<div>
-					<GroupNav group={this.state.group} />
-						{this._joinButtons()}
+					<GroupNav group={this.state.group} joinButtons={this._joinButtons()}/>
+	
 
-					<div className="group-detail">
 						{children}
-					</div>
 				</div>
 			</ReactCSSTransitionGroup>
 		);

@@ -35,8 +35,6 @@ var Search = React.createClass({
 							return <li key={group.id}><a href={"/#/groups/" + group.id}>{group.title}</a></li>;
 						})
 					}
-
-
 					</ul>
 				</div>
 			</div>

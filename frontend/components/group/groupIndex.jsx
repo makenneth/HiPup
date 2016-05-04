@@ -6,7 +6,9 @@ var React = require('react'),
 		Modal = require('react-modal'),
 		SearchStyle = require('../../modal/searchStyle'),
 		TagIndex = require('../tag/tagIndex'),
-		ReactCSSTransitionGroup = require('react-addons-css-transition-group');
+		ReactCSSTransitionGroup = require('react-addons-css-transition-group'),
+		EventIndexByDate = require('../events/eventIndexByDate'),
+		DateModalStyle = require('../../modal/dateModalStyle');
 
 var banner = "https://images.unsplash.com/photo-1443750200537-00fd518bdc82?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&w=1080&fit=max&s=ad7a9ff44b3026fcf49d80830ffb20ee";
 
@@ -15,7 +17,8 @@ var GroupIndex = React.createClass({
 		return {
 			groups: [],
 			tagSearchModalOpen: false,
-			searchString: ""
+			searchString: "",
+			dateModalIsOpen: false
 		};
 	},
 	componentDidMount: function() {
@@ -39,6 +42,12 @@ var GroupIndex = React.createClass({
 	closeTagSearchModal: function() {
 		this.setState({ tagSearchModalOpen: false });
 	},
+	openDateModal: function() {
+		this.setState({ dateModalIsOpen: true });
+	},
+	closeDateModal: function() {
+		this.setState({dateModalIsOpen: false});
+	},
 	render: function() {
 		var searchCriteria = this.state.searchString.trim();
 		var libraries = this.state.groups.filter(function(group){
@@ -59,14 +68,18 @@ var GroupIndex = React.createClass({
 						<input type="text" onChange={this.setSearchString} 
 									 value={this.state.searchString} placeholder="Type your search..."/>
 					 </div>
-					 <div className="calendar-icon">
-					 </div>
+					<div className="calendar" onClick={this.openDateModal} />
 				</div>
 				<Modal isOpen={ this.state.tagSearchModalOpen } 
 							 onRequestClose={this.closeTagSearchModal}
 							 style={SearchStyle}>
 					<TagIndex closeModal={this.closeTagSearchModal}/>
 				</Modal>
+				<Modal isOpen={ this.state.dateModalIsOpen }
+							 onRequestClose={this.closeDateModal}
+							 style={DateModalStyle}>
+							<EventIndexByDate closeModal={this.closeDateModal} />
+				 </Modal>
 				<div className="group-index cf">
 					{
 						libraries.map(function(group){

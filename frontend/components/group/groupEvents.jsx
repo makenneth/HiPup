@@ -14,7 +14,7 @@ var GroupEvents = React.createClass({
 	componentDidMount: function() {
 		this.gelistener = GroupStore.addListener(this._fetchedGroup);
 		if (!this.state.upcomingEvents){
-			ClientActions.fetchSingleGroup(this.props.params.groupId);
+			ClientActions.fetchSingleGroup(this.props.groupId);
 		}
 	},
 	componentWillUnmount: function() {
@@ -28,7 +28,7 @@ var GroupEvents = React.createClass({
 	_fetchedGroup: function() {
 		this.setState(
 				{
-					events: GroupStore.find(this.props.params.groupId).group_events
+					events: GroupStore.find(this.props.groupId).group_events
 				}
 		);
 	},
@@ -55,7 +55,7 @@ var GroupEvents = React.createClass({
 										{	
 											upcomingEvents.map(function(upcomingEvent){
 												return <GroupEventItem key={upcomingEvent.id} groupEvent={upcomingEvent}
-																			groupId={that.props.params.groupId} />;
+																			groupId={that.props.groupId} />;
 											})
 										}
 								</ul>) :  this.state.tabSelected === 1 ?
@@ -63,7 +63,7 @@ var GroupEvents = React.createClass({
 							{
 								oldEvents.map(function(oldEvent){
 									return <GroupEventItem key={groupEvent.id} groupEvent={groupEvent}
-															groupId={that.props.params.groupId} />;
+															groupId={that.props.groupId} />;
 								})
 							}
 						</ul>) : ""
