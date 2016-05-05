@@ -7,7 +7,7 @@ class GroupEvent < ActiveRecord::Base
 	belongs_to :group
 	has_many :event_users, foreign_key: :event_id, class_name: :EventUser
 	has_many :event_participants, through: :event_users, source: :event_participant
-	belongs_to :user, foreign_key: :host_id, class_name: :User
+	belongs_to :host, foreign_key: :host_id, class_name: :User
 
 
 	attr_reader :time, :date

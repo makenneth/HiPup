@@ -1,5 +1,5 @@
 var React = require('react'),
-		ClientAction = require('../../actions/clientActions'),
+		ClientActions = require('../../actions/clientActions'),
 		GroupEventStore = require('../../stores/groupEventStore'),
 		HashHistory = require('react-router').hashHistory,
 		CurrentUserState = require('../../mixin/currentUserState');
@@ -58,8 +58,9 @@ var NewEventForm = React.createClass({
 		})
 	},
 	_createdEvent: function() {
+		var newEventId = GroupEventStore.last();
 		this.props.closeModal();
-		HashHistory.push("groups/" + this.props.groupId + "/events/" + GroupEventStore.last());
+		HashHistory.push("groups/" + this.props.groupId + "/events/" + newEventId);
 	},
 	updateField: function(field, e){
 		var fieldObj = {}
@@ -72,39 +73,40 @@ var NewEventForm = React.createClass({
 		this.state.group_id = this.props.groupId;
 		var obj = this.state;
 		delete obj["currentUser"]
-		ClientAction.createEvent(obj);
+		ClientActions.createEvent(obj);
 	},
 	render: function() {
 		return (
-			<div>
-				<div>New Event</div>
+			<div className="event-form-div">
+			<div className="close-icon" onClick={this.props.closeModal}>&#10006;</div>
+				<div className="title">New Event</div>
 				<form className="event-form" onSubmit={this.handleSubmit} >
-						<label for="title">Title</label>
+						<div className="form-line"><label for="title">Title</label>
 						<input type="text" id="title"
-									 value={this.state.title} onChange={this.updateField.bind(null, "title")} />
-						<label for="description">Description</label>
+									 value={this.state.title} onChange={this.updateField.bind(null, "title")} /></div>
+						<div className="form-line"><label for="description">Description</label>
 						<textarea id="descrption" value={this.state.description}
-											onChange={this.updateField.bind(null, "description")}/>
-						<label for="date">Date</label>
+											onChange={this.updateField.bind(null, "description")}/></div>
+						<div className="form-line"><label for="date">Date</label>
 						<input type="date" id="date"
-									 value={this.state.date} onChange={this.updateField.bind(null, "date")} />
- 						<label for="time">Time</label>
+									 value={this.state.date} onChange={this.updateField.bind(null, "date")} /></div>
+ 						<div className="form-line"><label for="time">Time</label>
 						<input type="time" id="time"
-									 value={this.state.time} onChange={this.updateField.bind(null, "time")} />
-						<label for="autocomplete">Street Address</label>
+									 value={this.state.time} onChange={this.updateField.bind(null, "time")} /></div>
+						<div className="form-line"><label for="autocomplete">Street Address</label>
 						<input type="text" id="autocomplete"
-									 value={this.state.street} onChange={this.updateField.bind(null, "street")} />
-						<label for="city">City</label>
+									 value={this.state.street} onChange={this.updateField.bind(null, "street")} /></div>
+						<div className="form-line"><label for="city">City</label>
 						<input type="text" id="city"
-									 value={this.state.city} onChange={this.updateField.bind(null, "city")} />
-						<label for="state">State</label>
+									 value={this.state.city} onChange={this.updateField.bind(null, "city")} /></div>
+						<div className="form-line"><label for="state">State</label>
 						<input type="text" id="state"
-									 value={this.state.state} onChange={this.updateField.bind(null, "state")} />
+									 value={this.state.state} onChange={this.updateField.bind(null, "state")} /></div>
 
-						<label for="zip">Zip</label>
+						<div className="form-line"><label for="zip">Zip</label>
 						<input type="text" id="zip"
-									 value={this.state.zip} onChange={this.updateField.bind(null, "zip")} />
-						<input type="submit" onSubmit={this.handleSubmit} value="New Event" />
+									 value={this.state.zip} onChange={this.updateField.bind(null, "zip")} /></div>
+						<input type="submit" className="submit-button" onSubmit={this.handleSubmit} value="New Event" />
 				</form>
 			</div>
 		);

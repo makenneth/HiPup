@@ -1,7 +1,9 @@
+@import url(https://fonts.googleapis.com/css?family=Kaushan+Script);
 .nav-div {
+	position: relative;
 	display: flex;
 	width: 100%;
-	min-width: 543px;
+	min-width: 820px;
 	height: 250px;
 	justify-content: flex-end;
 /*	align-items: flex-start;*/
@@ -14,19 +16,37 @@
   /* scale bg image proportionately */
   background-size: cover;
 	margin: 0 auto;
-		h3 {
-					font-family:'Open Sans Condensed', sans-serif;
+	.title-container {
+		position: absolute;
+		left: 15%;
+		top: 2%;
+	}
+		h3, input {
+		font-family: 'Kaushan Script', cursive;
 		align-self: center;
 		margin-left: 20px;
-		position: relative;
-		top: -200px;
 		font-size: 40px;
-		color: white;
-		font-family:'Open Sans Condensed', sans-serif;
+		color: #000;
 
+	}
+	input {
+		padding: 5px;
+		border: 2px solid white;
+	}
+	.edit {
+		position: absolute;
+		top: 0px;
+		right: 0px;
+		font-size: 20px;
+		color: white;
+	}
+	.edit:hover {
+		background-color: white;
+		color: black;
 	}
 }
 .group-nav-container {
+	min-width: 820px;
 			position: relative;
 			top: -50px;
 			background-color: #666;
@@ -66,9 +86,7 @@
 
 
 .join-group, .leave-group {	
-	position: absolute;
-	top: 20px;
-	right: 60px;
+	position: relative;
 	font-family:'Open Sans Condensed', sans-serif;
 	width: 150px;
 	min-width: 120px;

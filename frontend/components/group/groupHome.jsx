@@ -2,15 +2,63 @@ var React = require('react'),
 		GroupStore = require('../../stores/groupStore'),
 		HashHistory = require('react-router').hashHistory,
 		GroupEvents = require('./groupEvents'),
-		GroupMembers = require('./groupMembers');
+		GroupMembers = require('./groupMembers'),
+		ClientActions = require('../../actions/clientActions'),
+		CurrentUserState = require('../../mixin/currentUserState');
 
 
 var GroupHome = React.createClass({
+	getInitialState: function() {
+		return {
+			editMode: false,
+			description: ""
+		};
+	},
 	_showTag: function(id) {
 		HashHistory.push("tags/" + id);
 	},
 	pastMeetUp: function(){
 		return (<div>"No past meetups"</div>)
+	},
+	startEditMode: function(){
+		this.setState({description: this.props.group.description, editMode: true});
+	},
+	closeEditMode: function(){
+		this.setState({editMode: false});
+	},
+	saveEdit: function(){
+		ClientActions.updateGroup({
+			description: this.state.description
+		}, this.props.group.id);
+		this.closeEditMode();
+	},
+	description: function(){
+		var group = this.props.group;
+		if (!this.props.currentUser || this.props.currentUser.id !== group.creator_id){
+			return (<div className="group-description">
+								<h2>Description: </h2>
+								<p>{group.description}</p>
+								</div>);
+		} else {
+			var button, textbox;
+			if (this.state.editMode){
+				button = (<div className="edit" onClick={this.saveEdit}>✓</div>);
+				textbox = (<textarea id="group-descript-text" onChange={this.updateDescription} 
+												value={this.state.description} rows="5"/>);
+			} else {
+				button = (<div className="edit" onClick={this.startEditMode}>✎</div>);
+				textbox = (<p>{group.description}</p>);
+			}
+			return (
+				<div className="group-description">
+				{button}
+				<h2>Description: </h2>
+				{textbox}
+			</div>);
+		}
+	},
+	updateDescription: function(e){
+		this.setState({description: e.target.value});
 	},
 	render: function() {
 		var group = this.props.group;
@@ -50,10 +98,7 @@ var GroupHome = React.createClass({
 						</div>
 					</div>
 				<div className="group-info-container">
-					<div className="group-description">
-							<h2>Description: </h2>
-							<p>{group.description}</p>
-					</div>
+					{this.description()}
 				<div className="event-container">
 					<GroupEvents group={this.props.group} groupId={this.props.params.groupId}/>
 				</div>

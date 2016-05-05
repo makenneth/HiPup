@@ -10,6 +10,7 @@ class Api::GroupEventsController < ApplicationController
 	def create
 		@group_event = GroupEvent.new(group_event_params)
 		if @group_event.save
+			EventUser.create(user_id: @group_event.host_id, event_id: @group_event.id)
 			render :show
 		else
 			render json: @group_event.errors.full_messages, status: 422

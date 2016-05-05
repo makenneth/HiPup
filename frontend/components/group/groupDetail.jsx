@@ -90,14 +90,14 @@ var GroupDetail = React.createClass({
 	},
 	render: function() {
 		var children = !this.props.children ? this.props.children :
-			React.cloneElement(this.props.children, { group: this.state.group, hasJoinedGroup: this.hasJoinedGroup, joinGroup: this.joinGroup } );
+			React.cloneElement(this.props.children, { group: this.state.group, hasJoinedGroup: this.hasJoinedGroup, 
+																								joinGroup: this.joinGroup, currentUser: this.state.currentUser } );
 		return (
 			<ReactCSSTransitionGroup transitionName="page"
 							transitionAppear={true} transitionAppearTimeout={500}
 								transitionEnterTimeout={300} transitionLeaveTimeout={300}>
 				<div class="group-parent-div">
 					<GroupNav group={this.state.group} joinButtons={this._joinButtons()}/>
-
 						{children}
 				</div>
 				<Modal isOpen={this.state.logInIsOpen}

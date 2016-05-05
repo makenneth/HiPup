@@ -49,12 +49,30 @@
 		}
 	}
 	.group-description {
+		position: relative;
 		border: 3px solid #333;
 		border-radius: 10px;
 		box-shadow: 2px 2px 0 2px #aaa;
 		width: 100%;
 		padding: 15px;
 		min-width: 470px;
+		.edit {
+			color: black;
+			font-size: 20px;
+			position: absolute;
+			right: 10px;
+			top: 10px;
+		}
+		.edit:hover {
+			background-color: black;
+			color: white;
+		}
+		#group-descript-text {
+			border: 2px solid black;
+			width: 80%;
+			padding: 10px;
+			border-radius: 5px;
+		}
 	}
 }
 	.event-container {

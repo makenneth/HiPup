@@ -5,7 +5,7 @@ module.exports = {
 										    left              : 0,
 										    right             : 0,
 										    bottom            : 0,
-										    backgroundColor   : 'rgba(255, 255, 255, 0.75)'
+										    backgroundColor   : 'rgba(0, 0, 0, 0.8)'
 										  },
 										  content : {
 										    position                   : 'relative',
@@ -14,10 +14,9 @@ module.exports = {
 										    transform: "translateY(20%)",
 										    width									 		 : '50%',
 										    minWidth: '400px',
-										    height									   : '700px',
+										    height									   : '600px',
 										    border                     : '1px solid #ccc',
-										    boxShadow   							 : '0 0 5px 10px #ccc',
-										    opacity										 : '0.7',
+										    opacity										 : '0.8',
 										    background                 : '#FFF',
 										    overflow                   : 'auto',
 										    WebkitOverflowScrolling    : 'touch',

@@ -2,7 +2,6 @@ var React = require('react'),
 		CurrentUserState = require('../../mixin/currentUserState'),
 		NewEventForm = require('../events/newEventForm'),
 		EventFormStyle = require('../../modal/eventFormStyle'),
-		EditGroupForm = require('./editGroupForm'),
 		Modal = require('react-modal'),
 		SuccessModalStyle = require('../../modal/successModalStyle'),
 		SuccessMessage = require('../../mixin/successMessage'),
@@ -20,7 +19,9 @@ var GroupNav = React.createClass({
 			editFormIsOpen: false,
 			successModalIsOpen: false,
 			message: "",
-			confirmIsOpen: false
+			confirmIsOpen: false,
+			editMode: false,
+			title: ""
 		};
 	},
 	componentDidMount: function() {
@@ -28,7 +29,6 @@ var GroupNav = React.createClass({
 	adminNav: function() {
 		if (this.adminCheck()){
 			return (<ul className="admin-group-nav">
-								<li><a onClick={this.openEditModal}>Edit Group</a></li>
 								<li><a onClick={this.openModal}>Create Event</a></li>
 								<li><a onClick={this.deleteGroup}>Delete Group</a></li>
 							</ul>);
@@ -55,12 +55,6 @@ var GroupNav = React.createClass({
 	closeModal: function() {
 		this.setState({eventFormIsOpen: false});
 	},
-	openEditModal: function() {
-		this.setState({editFormIsOpen: true});
-	},
-	closeEditModal: function() {
-		this.setState({editFormIsOpen: false});
-	},
 	openSuccessModal: function(message) {
 		this.setState({successModalIsOpen: true, message: message});
 	},
@@ -78,15 +72,51 @@ var GroupNav = React.createClass({
 	adminCheck: function() {
 		return this.state.currentUser && this.props.group.creator_id === this.state.currentUser.id;
 	},
+	startEditMode: function(){
+		this.setState({editMode: true, title: this.props.group.title})
+	},
+	endEditMode: function(){
+		this.setState({editMode: false});
+	},
+	saveChange: function(){
+		ClientActions.updateGroup({
+				title: this.state.title
+			}, this.props.group.id);
+		this.endEditMode();
+	},
+	updateTitle: function(e){
+		e.preventDefault();
+		this.setState({title: e.target.value});
+	},
+	title: function() {
+		if (!this.adminCheck()){
+				return	(<div className="nav-div">
+						<h3>{this.props.group.title}</h3>
+					</div>);
+		} else {
+			var titleBox, icon;
+			if (this.state.editMode){
+				titleBox = <input type="text" value={this.state.title} onChange={this.updateTitle}/> ;
+				icon = (<div className="edit" onClick={this.saveChange}>✓</div>);
+			} else {
+				titleBox = <h3>{this.props.group.title}</h3>;
+				icon = (<div className="edit" onClick={this.startEditMode}>✎</div>);
+			}
+			return (<div className="nav-div cf">
+									<div className="title-container">
+											{icon}
+											{titleBox}
+											</div>
+										</div>);
+		}
+	},
 	render: function() {
 		var id = this.props.group.id,
 				title = this.props.group.title;
 		return (
 			<div>
-				<div>
-					<div className="nav-div cf">
-						<h3>{title}</h3>
-					</div>
+				<div style={{position: "relative"}}>
+					{this.title()}
 					<div className="group-nav-container">
 						<ul className="group-nav">
 							<li><a href={"#/"}>Home</a></li>
@@ -94,17 +124,12 @@ var GroupNav = React.createClass({
 							<li><a href={"#/groups/" + id + "/photos"}>Photos</a></li>
 						</ul>
 						{this.adminNav()}
-						{this.props.joinButtons}
 					</div>
+					{this.props.joinButtons}
 				</div>
 				<Modal isOpen={this.state.eventFormIsOpen} style={EventFormStyle}
 							onRequestClose={this.closeModal}>
 					<NewEventForm closeModal={this.closeModal} groupId={id}/>
-				</Modal>
-				<Modal isOpen={this.state.editFormIsOpen} style={EventFormStyle}
-							onRequestClose={this.closeEditModal}>
-					<EditGroupForm closeModal={this.closeEditModal} groupId={id}
-								setMessage={this._setMessage} showSuccess={this.showSuccessMessage}/>
 				</Modal>
 				<Modal isOpen={this.state.successModalIsOpen} style={SuccessModalStyle}
 								onRequestClose={this.closeSuccessModal}>
