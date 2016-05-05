@@ -23,7 +23,6 @@ var ManageEvents = React.createClass({
 		this.usListener.remove()
 	},
 	showDetail: function(id) {
-		debugger;
 	},
 	render: function() {
 		return (

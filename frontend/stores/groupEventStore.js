@@ -45,7 +45,6 @@ GroupEventStore.__onDispatch = function(payload){
 			GroupEventStore.__emitChange();
 			break;
 		case "FETCHED_SINGLE_EVENT":
-		debugger;
 			_setSingleEvent(payload.groupEvent);
 			GroupEventStore.__emitChange();
 			break;
