@@ -26,8 +26,8 @@ progress. Put an x between the brackets for a checkmark: [x] -->
 
 - [x] Create an account (MVP)
 - [x] Log in / Log out, including as a Guest/Demo User (MVP)
-- [ ] Create, read, edit, delete, and join groups (MVP)
-- [ ] Create, read, edit, delete, and join Events (MVP)
+- [x] Create, read, edit, delete, and join groups (MVP)
+- [x] Create, read, edit, delete, and join Events (MVP)
 - [ ] Users can search for events based on proximity and tags (MVP)
 - [ ] Apply animations to site while browsing (expected feature, but not MVP)
 
@@ -126,7 +126,7 @@ user interface.
 **objective:** Allow users to browse events by location and show the events with closest proximity
 
 - [ ] Add query options for proximity in Group models
-- [ ] Add google map showing the location in Group Events
+- [x] Add google map showing the location in Group Events
 
 ### Phase 8: Further Styling (1.5 day)
 
@@ -141,7 +141,7 @@ user interface.
 - [x] Search Suggestions
 - [ ] Infinite Scroll for group indices
 - [ ] Associate users with groups of their interest
-- [ ] Multiple sessions
+- [x] Multiple sessions
 
 [phase-one]: ./docs/phases/phase1.md
 [phase-two]: ./docs/phases/phase2.md
