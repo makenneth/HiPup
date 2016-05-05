@@ -23,7 +23,12 @@ class Api::GroupEventsController < ApplicationController
 	end
 
 	def update
-
+		@group_event = GroupEvent.find(params[:id])
+		if @group_event.update(group_event_params)
+			render :show
+		else
+			render json: @group_event.errors.full_messages, status: 404
+		end
 	end
 
 

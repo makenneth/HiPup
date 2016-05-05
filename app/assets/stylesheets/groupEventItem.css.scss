@@ -80,21 +80,32 @@
 	display: flex;
 	flex-direction: column;
 	width: 100%;
-	min-width: 78%;
+	min-width: 520px;
 	margin: 0px;
-		border: 1px solid black;
-		padding: 10px;
-		border-radius: 5px;
-		box-shadow: 2px 2px 2px 0 black;
+	border: 1px solid black;
+	padding: 10px;
+	border-radius: 5px;
+	box-shadow: 2px 2px 2px 0 black;
+		.edit {
+			align-self: flex-end;
+			font-size: 24px;
+			cursor: pointer;
+		}
+
+		textarea, input {
+			font-size: 22px;
+			padding: 5px;
+			border: 2px solid black;
+		}
 	.date-and-time {
 		padding-bottom: 10px;
 		border-bottom: 3px solid black;
 		h3 {
-			font-size: 22px;
+			font-size: 24px;
 			margin-bottom: 4px;
 		}
 		p {
-			font-size:18px;
+			font-size:20px;
 		}
 	}
 		.cancel-event {
@@ -126,11 +137,14 @@
 			}
 		}
 	}
+		#description {
+			font-size: 20px;
+		}
 }
 
 .event-parent {
 	font-family: 'Titillium Web', sans-serif;
-	margin: 7% auto 0 auto;
+	margin: 3% auto 0 auto;
 	display: flex;
 	flex-direction: row;
 	flex-wrap: nowrap;
@@ -141,6 +155,7 @@
 		display: flex;
 		flex-direction: column;
 		width: 100%;
+		max-width: 250px;
 		align-content: center;
 		border: 1px solid black;
 		padding: 10px;

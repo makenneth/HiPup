@@ -1,7 +1,6 @@
 .group-parent-div {
 	background-image: url('/background-image.jpg');
 	background-size: cover;
-	height: 1000;
 	width: 100%;
 }
 .group-info-container {
@@ -16,11 +15,11 @@
 }
 .group-home {
 
-		font-family: 'Titillium Web', sans-serif;
+	font-family: 'Titillium Web', sans-serif;
 	display: flex;
 	flex-direction: row;
-	margin: 5% auto 0 auto;
-	justify-content: space-around;
+	margin: 3% auto 0 auto;
+	justify-content: center;
 	font-size: 16px;
 	width: 90%;
 	.founded {
@@ -34,7 +33,6 @@
 		border: 3px solid #333;
 		border-radius: 10px;
 		box-shadow: 2px 2px 0 2px #aaa;
-		width: 25%;
 		min-width: 170px;
 		padding: 15px;
 		margin-right: 5px;
@@ -91,7 +89,8 @@
 		box-shadow: 2px 2px 0 2px #aaa;
 		padding: 15px;
 		border-radius: 10px;
-		margin-left: 50px;
+		margin-left: 40px;
+		min-width
 		a {
 			color: black;
 			cursor: pointer;

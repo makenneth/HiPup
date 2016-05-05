@@ -106,7 +106,16 @@ module.exports = {
 			error: ServerActions.errorReceived
 		});
 	},
-
+	editEvent: function(id, data){
+		$.ajax({
+			method: "PATCH",
+			url: "/api/group_events/" + id,
+			data: {group_event: data},
+			success: function(groupEvent){
+				ServerActions.fetchedSingleEvent(groupEvent);
+			}
+		})
+	},
 	fetchAllEvents: function(){
 		$.ajax({
 			method: "GET",

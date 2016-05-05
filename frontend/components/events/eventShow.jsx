@@ -3,7 +3,6 @@ var React = require('react'),
 		ClientActions = require('../../actions/clientActions'),
 		EventMap = require('./map.jsx'),
 		CurrentUserState = require('../../mixin/currentUserState'),
-		HaversineFormula = require('../../mixin/haversine'),
 		UserStore = require('../../stores/userStore'),
 		HashHistory = require('react-router').hashHistory,
 		Modal = require('react-modal'),
@@ -11,7 +10,7 @@ var React = require('react'),
 		ConfirmationStyle = require('../../modal/confirmationStyle');
 
 var EventShow = React.createClass({
-	mixins: [CurrentUserState, HaversineFormula],
+	mixins: [CurrentUserState],
 	getInitialState: function() {
 		return {
 			groupEvent: GroupEventStore.find(this.props.params.eventId),
@@ -19,8 +18,60 @@ var EventShow = React.createClass({
 			logInIsOpen: false,
 			signUpIsOpen: false,
 			confirmIsOpen: false,
-			editMode: false
+			editMode: false,
+			title: "",
+			description: ""
 		};
+	},
+	startEditMode: function(){
+		this.setState({editMode: true, title: this.state.groupEvent.title,
+											description: this.state.groupEvent.description});
+	},
+	editButton: function(){
+		if (!this.state.currentUser || this.state.currentUser.id !== this.state.groupEvent.host_id){
+			return ""
+		} else {
+			return this.state.editMode ?
+				(<div className="edit" onClick={this.saveEdit}>✓</div>) :
+				(<div className="edit" onClick={this.startEditMode}>✎</div>);
+		}
+	},
+	endEditMode: function(){
+		this.setState({editMode: false});
+	},
+	editTitle: function(){
+		var content = <h3>{this.state.groupEvent.title}</h3>;
+		if (this.state.editMode){
+			content = <input type="text" value={this.state.title}
+						 onChange={this.updateField.bind(null, "title")} />;
+		}
+		return (<div id="header">
+			{content}
+		</div>);
+	},
+	saveEdit: function(){
+		ClientActions.editEvent(this.state.groupEvent.id, {title: this.state.title, 
+															description: this.state.description});
+		this.setState({editMode: false})
+	},
+	updateField: function(field, e){
+		var fieldObj = {};
+		fieldObj[field] = e.target.value;
+		this.setState(fieldObj);
+	},
+	editDescription: function(){
+		if (this.state.editMode){
+			return <div id="description">
+				<h3>Description: </h3>
+				<textarea value={this.state.description}
+							 onChange={this.updateField.bind(null, "description")} />
+			</div>
+		} else {
+			return (<div id="description">
+				<h3>Description: </h3>
+				{this.state.groupEvent.description}
+			</div>);
+		}
 	},
 	componentDidMount: function() {
 		this.esListener = GroupEventStore.addListener(this._fetchedEvent);
@@ -28,9 +79,6 @@ var EventShow = React.createClass({
 		if (!this.state.groupEvent.event_time){
 			ClientActions.fetchSingleEvent(this.props.params.eventId, UserStore.currentLocation().timeZone);
 		}
-	},
-	handleError: function(err) {
-		console.log(err);
 	},
 	toggleEventButton: function() {
 		if (!this._alreadyRSVP()){
@@ -101,9 +149,8 @@ var EventShow = React.createClass({
 		return (
 			<div className="event-parent">
 					<div className="event-details">
-						<div id="header">
-							<h2>{groupEvent.title}</h2>
-						</div>
+						{this.editButton()}
+						{this.editTitle()}
 						<div className="event-sub">
 							<div className="event-time-info">
 								<div className="date-and-time">
@@ -131,9 +178,7 @@ var EventShow = React.createClass({
 								</div>
 							</div>
 						</div>
-						<div>
-							{groupEvent.description}
-						</div>
+							{this.editDescription()}
 					</div>
 					<div className="rsvp-member">
 					{ notCancelledNorOld  ?

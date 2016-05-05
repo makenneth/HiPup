@@ -49,6 +49,9 @@ module.exports = {
 	fetchSingleEvent: function(id, timezone){
 		ApiUtil.fetchSingleEvent(id, timezone);
 	},
+	editEvent: function(id, data){
+		ApiUtil.editEvent(id, data);
+	},
 	cancelEvent: function(userId, groupId){
 		ApiUtil.cancelEvent(userId, groupId);
 	},

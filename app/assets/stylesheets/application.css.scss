@@ -14,6 +14,9 @@
  *= require_self
  */
 @import "bootstrap";
+@import url(https://fonts.googleapis.com/css?family=Kaushan+Script);
+@import url(https://fonts.googleapis.com/css?family=Allura);
+@import url(https://fonts.googleapis.com/css?family=Seaweed+Script);
  @import url(https://fonts.googleapis.com/css?family=PT+Sans+Narrow);
  @import url(https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300);
  html, body, header, nav, h1, a,
@@ -53,23 +56,7 @@ ul {
 button {
 	margin: 0 5px;
 }
-/*.page-enter {
-  opacity: 0.01;
-}
 
-.page-enter.page-enter-active {
-  opacity: 1;
-  transition: opacity 500ms ease-in;
-}
-
-.page-leave {
-  opacity: 1;
-}
-
-.page-leave.page-leave-active {
-  opacity: 0.01;
-  transition: opacity 300ms ease-in;
-}*/
 .nav-modal-enter {
 	opacity: 0;
 }
@@ -124,17 +111,26 @@ button {
 }
 
 .banner {
+	display: flex;
+	position: relative;
+	justify-content: flex-start;
+	align-items: flex-end;
 	background-image: url(https://images.unsplash.com/photo-1443750200537-00fd518bdc82?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&w=1080&fit=max&s=ad7a9ff44b3026fcf49d80830ffb20ee);
 	height: 600px;
 	width: 100%;
 	 -ms-background-position-x: center;
   -ms-background-position-y: bottom;
   background-position: center bottom;
-
-  /* scale bg image proportionately */
   background-size: cover;
+  .logo {
+  	color: white;
+  	font-size: 96px;
+  	font-family: 'Seaweed Script', cursive;
+  	position: relative;
+  	left: 80px;
+  }
 }
-
+s
 .group-detail {
 	width: 80%;
 	margin: 10px auto 0 auto;
@@ -196,7 +192,16 @@ button {
 	display: flex;
 	flex-direction: row;
 	justify-content: space-between;
-
+	position: relative;
+	h3 {font-size: 30px;}
+	div.edit {
+		position: absolute;
+		top: 10px;
+		right: 20px;
+		width: 40px;
+		height: 40px;
+		font-size: 40px;
+	}
 	h2 {
 		align-self: center;
 	}

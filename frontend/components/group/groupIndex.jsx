@@ -96,7 +96,7 @@ var GroupIndex = React.createClass({
 		});
 		return (
 			<div>
-				<div className="banner"></div>
+				<div className="banner"><div className="logo">HiPup</div></div>
 				<div className="search-bar">
 						{this.searchByTagDiv()}
 					 {this.searchContainer()}
