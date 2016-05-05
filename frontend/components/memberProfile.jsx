@@ -5,7 +5,7 @@ var React = require('react'),
 var MemberProfile = React.createClass({
 	getInitialState: function() {
 		return {
-			member: null 
+			member: null
 		};
 	},
 	componentDidMount: function() {

@@ -40,7 +40,7 @@ var EventShow = React.createClass({
 
 		if (!this.state.groupEvent.event_time){
 			ClientActions.fetchSingleEvent(this.props.params.eventId, UserStore.currentLocation().timeZone);
-		} 
+		}
 	},
 	handleError: function(err) {
 		console.log(err);
@@ -64,7 +64,7 @@ var EventShow = React.createClass({
 		if (this.state.currentUser && !this._alreadyRSVP()){
 			ClientActions.rsvpEvent(this.state.currentUser.id, this.state.groupEvent.id);
 			ClientActions.fetchSingleEvent(this.props.params.eventId, UserStore.currentLocation().timeZone);
-		} 
+		}
 	},
 	changeRSVP: function(){
 		if (this.state.currentUser && this._alreadyRSVP()){
@@ -108,7 +108,7 @@ var EventShow = React.createClass({
 	render: function() {
 		var groupEvent = this.state.groupEvent, eventTime = this.parseTime(),
 			  user = this.state.currentUser || {id: ""},
-			  notCancelledNorOld = groupEvent.status != "CANCEL" && 
+			  notCancelledNorOld = groupEvent.status != "CANCEL" &&
 									groupEvent.time > Date.now();
 
 		return (
@@ -132,9 +132,9 @@ var EventShow = React.createClass({
 							</div>
 							<div className="event-detail-map-container">
 								{
-									user.id === groupEvent.host_id && notCancelledNorOld ? 
-									<button className="cancel-event" onClick={this.cancelEvent}>Cancel Event</button> : 
-									""				
+									user.id === groupEvent.host_id && notCancelledNorOld ?
+									<button className="cancel-event" onClick={this.cancelEvent}>Cancel Event</button> :
+									""
 								}
 								<div className="event-map">
 									{
@@ -149,13 +149,13 @@ var EventShow = React.createClass({
 						</div>
 					</div>
 					<div className="rsvp-member">
-					{ notCancelledNorOld  ? 
+					{ notCancelledNorOld  ?
 						(<div className="rsvp-buttons">
 						<div id="title">Interested?</div>
 						<div>{this.toggleEventButton()}</div>
-						</div>) : "" } 
+						</div>) : "" }
 						<div className="event-participants">
-							{groupEvent.event_users.length} {notCancelledNorOld ? "going" : "went"}: 
+							{groupEvent.event_users.length} {notCancelledNorOld ? "going" : "went"}:
 							<ul className="participant-list">
 								{
 									groupEvent.event_users.map(function(participant){
@@ -164,7 +164,7 @@ var EventShow = React.createClass({
 								}
 							</ul>
 						</div>
-					</div>) : 
+					</div>) :
 				}
 					<Modal isOpen={this.state.confirmIsOpen} style={ConfirmationStyle}
 							onRequestClose={this.closeConfirmModal}>

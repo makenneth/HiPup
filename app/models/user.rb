@@ -1,8 +1,7 @@
 class User < ActiveRecord::Base
-	after_initialize :ensure_session_token
 	before_validation :ensure_image
 	validates :username, :email, :name, :password_digest, 
-									:session_token, :lat, :lng, :owner_name, 
+									:lat, :lng, :owner_name, 
 									:city, :state, presence: true
 	validates :password, length: {minimum: 8, allow_nil: true}
 	validates :username, :email, uniqueness: true
@@ -17,7 +16,7 @@ class User < ActiveRecord::Base
 	has_many :joined_groups, through: :group_participants, source: :group
 	has_many :event_users, foreign_key: :user_id, class_name: :EventUser
 	has_many :joined_events, through: :event_users, source: :group_event
-	
+	has_many :sessions
 	attr_reader :password
 
 	def self.find_by_credentials(username, password)
@@ -25,10 +24,19 @@ class User < ActiveRecord::Base
 		return user if user && user.is_password?(password)
 	end
 
-	def reset_session_token!
-		self.session_token = SecureRandom.base64
-		self.save!
-		self.session_token
+	def self.find_by_session_token(session_token)
+		user = User.joins(:sessions).where("sessions.session_token = ?", session_token)
+		user[0]
+	end
+
+	# def reset_session_token!
+	# 	self.session_token = SecureRandom.base64
+	# 	self.save!
+	# 	self.session_token
+	# end
+	def destroy_session_token!(session_token)
+		session = Session.find_by(user_id: self.id, session_token: session_token)
+		session.destroy! if session
 	end
 
 	def password=(password)
@@ -43,8 +51,8 @@ class User < ActiveRecord::Base
 	def ensure_image
 		self.image_url = "https://placehold.it/500x300.jpg/000" if self.image_url == ""
 	end
-	private
-	def ensure_session_token
-		self.session_token ||= SecureRandom.base64
-	end
+	# private
+	# def ensure_session_token
+	# 	self.session_token ||= SecureRandom.base64
+	# end
 end

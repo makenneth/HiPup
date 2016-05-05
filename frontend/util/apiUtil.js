@@ -82,7 +82,7 @@ module.exports = {
 			success:function(tags){
 				ServerActions.fetchedTags(tags);
 			}
-		});		
+		});
 	},
 	fetchTag: function(id){
 		$.ajax({

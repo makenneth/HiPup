@@ -26,7 +26,7 @@ var Search = React.createClass({
 					<div className="search-container cf">
 						<img className="search-icon"
 								src="http://www.endlessicons.com/wp-content/uploads/2015/08/search-icon-2.png"/>
-						<input type="text" onChange={this.updateSearch} 
+						<input type="text" onChange={this.updateSearch}
 									value={this.state.searchString} id="searchBox"/>
 					</div>
 					<ul>

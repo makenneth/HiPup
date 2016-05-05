@@ -31,7 +31,6 @@ var GroupDetail = React.createClass({
 	componentDidMount: function() {
 		this.groupListener = GroupStore.addListener(this._loadDetail);
 		ClientActions.fetchSingleGroup(this.props.params.groupId, UserStore.currentLocation().timeZone);
-		//watch out for error ...
 	},
 	_loadDetail: function(){
 		this.setState({
@@ -39,7 +38,7 @@ var GroupDetail = React.createClass({
 		});
 	},
 	componentWillUnmount: function() {
-		if (this.groupListener) this.groupListener.remove(); 
+		if (this.groupListener) this.groupListener.remove();
 	},
 	joinGroup: function() {
 		if (this.state.currentUser && !this.hasJoinedGroup()){
@@ -74,7 +73,7 @@ var GroupDetail = React.createClass({
 		return false;
 	},
 	openLogInModal: function(){
-		this.setState({logInIsOpen: true});		
+		this.setState({logInIsOpen: true});
 	},
 	closeLogInModal: function(){
 		this.setState({logInIsOpen: false});
@@ -93,20 +92,20 @@ var GroupDetail = React.createClass({
 		var children = !this.props.children ? this.props.children :
 			React.cloneElement(this.props.children, { group: this.state.group, hasJoinedGroup: this.hasJoinedGroup, joinGroup: this.joinGroup } );
 		return (
-			<ReactCSSTransitionGroup transitionName="page" 
-							transitionAppear={true} transitionAppearTimeout={500} 
+			<ReactCSSTransitionGroup transitionName="page"
+							transitionAppear={true} transitionAppearTimeout={500}
 								transitionEnterTimeout={300} transitionLeaveTimeout={300}>
 				<div class="group-parent-div">
 					<GroupNav group={this.state.group} joinButtons={this._joinButtons()}/>
-	
+
 						{children}
 				</div>
-				<Modal isOpen={this.state.logInIsOpen} 
+				<Modal isOpen={this.state.logInIsOpen}
 							 onRequestClose={this.closeLogInModal}
 							 style={FormStyle}>
 					<LogInForm closeModal={this.closeLogInModal} redirectToSignUp={this.redirectToSignUp} />
 				</Modal>
-				<Modal isOpen={this.state.signUpIsOpen} 
+				<Modal isOpen={this.state.signUpIsOpen}
 							 onRequestClose={this.closeSignUpModal}
 							 style={FormStyle}>
 					<SignUpForm closeModal={this.closeSignUpModal}/>

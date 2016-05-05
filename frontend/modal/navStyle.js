@@ -18,7 +18,7 @@ module.exports = {
 										    minWidth                   : "150px",
 										    border                     : '1px solid #ccc',
 										    background                 : '#ffffff',
-										    opacity                    : '0.9',
+										    opacity                    : '1',
 										    overflow                   : 'auto',
 										    WebkitOverflowScrolling    : 'touch',
 										    borderRadius               : '4px',

@@ -16,7 +16,7 @@ UserStore.errors = function(){
 };
 
 var _setCurrentPlace = function(place){
-	_currentLocation.place = place; 
+	_currentLocation.place = place;
 };
 var _setTimeZone = function(timezone){
 	_currentLocation.timeZone = timezone;
@@ -24,7 +24,7 @@ var _setTimeZone = function(timezone){
 
 UserStore.setCurrentCoords = function(coords){
 	_currentLocation.coords = coords;
- //I should fire a post request to update the server's cookie in 
+ //I should fire a post request to update the server's cookie in
 };
 
 UserStore.currentLocation = function(){

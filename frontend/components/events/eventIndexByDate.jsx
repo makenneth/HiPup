@@ -46,7 +46,7 @@ var EventIndexByDate = React.createClass({
 					}
 				</ul>
 				{this.showMoreButton()}
-			</div>	
+			</div>
 		);
 	}
 

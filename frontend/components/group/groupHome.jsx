@@ -21,7 +21,7 @@ var GroupHome = React.createClass({
 						<li className="founded">Founded {group.created_at} </li>
 						<li className="stats"><div>Members </div><div>{group.participants.length}</div></li>
 						{
-							group.upcoming_events.length ? 
+							group.upcoming_events.length ?
 								<li className="stats">
 									<div>Upcoming Meetups: </div><div>{group.upcoming_events.length}</div></li>
 									:
@@ -39,11 +39,11 @@ var GroupHome = React.createClass({
 							<ul>
 							{
 								group.tags.map(function(tag){
-									return <li key={tag.id} tag={tag}>
+									return (<li key={tag.id} tag={tag}>
 														<a onClick={this._showTag.bind(null, tag.id)}>
 															{tag.name}
 														</a>
-													</li>;
+													</li>);
 								}.bind(this))
 							}
 							</ul>

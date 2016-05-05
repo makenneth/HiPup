@@ -59,17 +59,17 @@ var GroupIndex = React.createClass({
 				<div className="search-bar">
 					 <div className="search-by cf" onClick={this.openTagSearchModal}>
 					 			Search By Tags
-					 </div> 
+					 </div>
 					<div className="search-container-sm cf">
 						<img className="search-icon-sm"
 									src="http://www.endlessicons.com/wp-content/uploads/2015/08/search-icon-2.png"/>
-						<input type="text" onChange={this.setSearchString} 
+						<input type="text" onChange={this.setSearchString}
 									 value={this.state.searchString} placeholder="Type your search..."/>
 					 </div>
-					 
+
 					<div className="calendar" onClick={this.openDateModal} />
 				</div>
-				<Modal isOpen={ this.state.tagSearchModalOpen } 
+				<Modal isOpen={ this.state.tagSearchModalOpen }
 							 onRequestClose={this.closeTagSearchModal}
 							 style={SearchStyle}>
 					<TagIndex closeModal={this.closeTagSearchModal}/>

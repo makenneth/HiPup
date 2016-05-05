@@ -39,7 +39,7 @@ var GroupEvents = React.createClass({
 		return (
 			<div>
 				<div className="group-event-nav">
-						<li onClick={this.setTab.bind(null, 0)} 
+						<li onClick={this.setTab.bind(null, 0)}
 								className={this.state.tabSelected === 0 ? "active-tab" : ""}>
 								Upcoming Events ({upcomingEvents.length})
 						</li>
@@ -49,10 +49,10 @@ var GroupEvents = React.createClass({
 								</li>
 				</div>
 				<div className="browsing-events">
-						{ 
+						{
 							this.state.tabSelected === 0 ?
 							(<ul>
-										{	
+										{
 											upcomingEvents.map(function(upcomingEvent){
 												return <GroupEventItem key={upcomingEvent.id} groupEvent={upcomingEvent}
 																			groupId={that.props.groupId} />;

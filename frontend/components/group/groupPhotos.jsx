@@ -3,7 +3,7 @@ var React = require('react');
 var GroupPhotos = React.createClass({
 	getInitialState: function() {
 		return {
-			group: this.props.group 
+			group: this.props.group
 		};
 	},
 	render: function() {
@@ -13,7 +13,7 @@ var GroupPhotos = React.createClass({
 				<ul>
 					{
 						this.state.group.images.map(function(image){
-							return <li key={image.id}><img className="group-images" 
+							return <li key={image.id}><img className="group-images"
 												      src={image.image_url} /></li>;
 						})
 					}

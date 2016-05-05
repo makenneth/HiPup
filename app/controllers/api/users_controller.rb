@@ -13,7 +13,6 @@ class Api::UsersController < ApplicationController
 		@user = User.new(user_params)
 		if @user.save
 			log_in!(@user)
-			set_time_zone(params[:time_zone])
 			render json: @user
 		else
 			render json: @user.errors.full_messages, status: 422
@@ -25,7 +24,6 @@ class Api::UsersController < ApplicationController
 		if !@user.is_password?(params[:user][:old_password])
 			render json: ["Old password doesn't match record"], status: 422
 			return
-			#error may not be the right format..
 		end
 
 		@user.password = params[:user][:new_password]
@@ -36,16 +34,16 @@ class Api::UsersController < ApplicationController
 		end
 	end
 	
-	def update_coordinate
-		@user = current_user
-		@user.current_lat = params[:user][:lat]
-		@user.current_lng = params[:user][:lng]
-		if @user.save
-			render :shows
-		else
-			render json: @user.errors.full_messages, status: 422
-		end
-	end
+	# def update_coordinate
+	# 	@user = current_user
+	# 	@user.current_lat = params[:user][:lat]
+	# 	@user.current_lng = params[:user][:lng]
+	# 	if @user.save
+	# 		render :shows
+	# 	else
+	# 		render json: @user.errors.full_messages, status: 422
+	# 	end
+	# end
 	private
 	def user_params
 		params.require(:user)

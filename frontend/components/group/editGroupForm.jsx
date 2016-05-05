@@ -37,9 +37,9 @@ var GroupEditForm = React.createClass({
 	_handleSubmit: function(e){
 		e.preventDefault();
 		ClientActions.updateGroup({
-															 lat: this.state.lat, 
-															 lng: this.state.lng, 
-															 city: this.state.city, 
+															 lat: this.state.lat,
+															 lng: this.state.lng,
+															 city: this.state.city,
 															 state: this.state.state,
 															 title: this.state.title,
 															 image_url: this.state.image_url,

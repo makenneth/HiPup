@@ -33,17 +33,17 @@ var GroupMembers = React.createClass({
 					<ul className="member-list">
 					{
 						participants.map(function(participant){
-							return <li onClick={ this.openModal.bind(null, participant.id) } 
+							return (<li onClick={ this.openModal.bind(null, participant.id) }
 													 key={ participant.id }>
 												<a>{participant.name}</a>
-										  </li>;
+										  </li>);
 						}.bind(this))
 					}
 				</ul>
 				<Modal isOpen={this.state.modalIsOpen}
 							 onRequestClose={this.closeModal}
 							 style={MemberProfileStyle}>
-						<MemberProfile userId={this.state.selectedUserId} 
+						<MemberProfile userId={this.state.selectedUserId}
 													 closeModal={this.closeModal}/>
 				</Modal>
 			</div>

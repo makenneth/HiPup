@@ -41,7 +41,7 @@ var PasswordChange = React.createClass({
 	},
 	render: function() {
 		var passwordConditions = "Minimum 8 characters in length\nContain at least one uppercase letter\n"
-			+ "Contain at least one lowercase letter\nContain at least one number\n" 
+			+ "Contain at least one lowercase letter\nContain at least one number\n"
 			+ "Contain at least one special characters _!@#*&$.";
 		return (
 			<div className="password-modal">
@@ -64,7 +64,7 @@ var PasswordChange = React.createClass({
 					<input  title={passwordConditions} id="new-password" type="password"
 									value={this.state.newPassword}
 									onChange={this.setField.bind(null, "newPassword")}
-									required 
+									required
 									pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[._!@#*&$-])[a-zA-Z0-9_!@#*&$.-]{8,}$" />
 					<label for="new-password-repeat">Repeat You Password</label>
 					<input title="Password doesn't match" id="new-password-repeat" type="password"

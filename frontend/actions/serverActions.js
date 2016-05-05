@@ -49,7 +49,7 @@ module.exports = {
 		AppDispatcher.dispatch({
 			actionType: TagConstants.RECEIVED_TAG,
 			tag: tag
-		});					
+		});
 	},
 	createdTag: function(tag){
 		AppDispatcher.dispatch({

@@ -75,6 +75,3 @@ module.exports = {
 		ApiUtil.fetchAllEventsByLocation(timezone)
 	}
 }
-
-
-

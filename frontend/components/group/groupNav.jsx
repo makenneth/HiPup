@@ -97,18 +97,18 @@ var GroupNav = React.createClass({
 						{this.props.joinButtons}
 					</div>
 				</div>
-				<Modal isOpen={this.state.eventFormIsOpen} style={EventFormStyle} 
+				<Modal isOpen={this.state.eventFormIsOpen} style={EventFormStyle}
 							onRequestClose={this.closeModal}>
 					<NewEventForm closeModal={this.closeModal} groupId={id}/>
 				</Modal>
-				<Modal isOpen={this.state.editFormIsOpen} style={EventFormStyle} 
+				<Modal isOpen={this.state.editFormIsOpen} style={EventFormStyle}
 							onRequestClose={this.closeEditModal}>
 					<EditGroupForm closeModal={this.closeEditModal} groupId={id}
 								setMessage={this._setMessage} showSuccess={this.showSuccessMessage}/>
 				</Modal>
 				<Modal isOpen={this.state.successModalIsOpen} style={SuccessModalStyle}
 								onRequestClose={this.closeSuccessModal}>
-					<SuccessMessage message={this.state.message} 
+					<SuccessMessage message={this.state.message}
 									closeModal={this.closeSuccessModal} />
 				</Modal>
 				<Modal isOpen={this.state.confirmIsOpen} style={ConfirmationStyle}

@@ -7,12 +7,12 @@ var GroupIndexItem = React.createClass({
 	},
 	render: function() {
 		var tagTitles = [];
-		this.props.group.tags.forEach(function(tag){  //this is 0n^2
+		this.props.group.tags.forEach(function(tag){ 
 			tagTitles.push(tag.title);
 		});
 		var imgUrl = this.props.group.image_url;
 		return (
-			<div href="#" className="group-index-item" onClick={this.showDetail} 
+			<div href="#" className="group-index-item" onClick={this.showDetail}
 					 style={ { backgroundImage: 'url(' + imgUrl + ')'} }>
 					 <div className="image-mask"></div>
 				<h4>{this.props.group.title}</h4>

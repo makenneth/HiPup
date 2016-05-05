@@ -8,7 +8,7 @@ var GroupEventItem = React.createClass({
 	//in RSVP also need
 	parseTime: function(){
 		var parsedTime = this.props.groupEvent.event_time;
-		if (!parsedTime) return [0, 0] 
+		if (!parsedTime) return [0, 0]
 		return this.props.groupEvent.event_time.split(" || ");
 	},
 	render: function() {
@@ -28,7 +28,7 @@ var GroupEventItem = React.createClass({
 						<p className="event-time">{eventTime[0]}</p>
 						<p className="event-hour">{eventTime[1]}</p>
 						{
-							groupEvent.time > Date.now() || groupEvent.status === "SCHEDULED" ?  
+							groupEvent.time > Date.now() || groupEvent.status === "SCHEDULED" ?
 						  <button className="rsvp" onClick={this.showEvent}>RSVP</button> : ""
 						}
 					</div>
@@ -38,8 +38,5 @@ var GroupEventItem = React.createClass({
 	}
 
 });
-						// {
-						// 	groupEvent.event_time < Time.now ? "" : 
-						// 	(<button className="rsvp" onClick={this.showEvent}>RSVP</button> )
-						// }
+
 module.exports = GroupEventItem;

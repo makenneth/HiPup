@@ -74,8 +74,8 @@ module.exports = {
 		});
 	},
 	getTimeZone: function(lat, lng, timestamp){
-		var url = "https://maps.googleapis.com/maps/api/timezone/json?location=" + 
-							lat + "," + lng  + "&timestamp=" + timestamp/1000 + 
+		var url = "https://maps.googleapis.com/maps/api/timezone/json?location=" +
+							lat + "," + lng  + "&timestamp=" + timestamp/1000 +
 							"&key=AIzaSyBFOZ-djLJNV334-1cZmM-nLvPM-gQaw50";
 		$.ajax({
 			method: "GET",

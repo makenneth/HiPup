@@ -8,8 +8,8 @@ var MemberProfile = React.createClass({
 	getInitialState: function() {
 		return {
 			member: {
-							 id: null, 
-							 name: null, 
+							 id: null,
+							 name: null,
 							 owner_name: null,
 							 image_url: null
 							}

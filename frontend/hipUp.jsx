@@ -10,7 +10,7 @@ var ReactRouter = require('react-router'),
 
 
 var React = require('react'),
-		ReactDOM = require('react-dom'), 
+		ReactDOM = require('react-dom'),
 		GroupIndex = require('./components/group/groupIndex'),
 		UserActions = require('./actions/userActions'),
 		LogInForm = require('./components/user/logInForm'),
@@ -107,7 +107,7 @@ var App = React.createClass({
 					<li onClick={this.openLogInModal}><a href="#">Log In</a></li>
 					<li onClick={this.openSignUpModal}><a href="#">Sign Up</a></li>
 				</ul>);
-			}	
+			}
 		} else {
 			var buttonDiv = !this.state.currentUser ? (<ul className="user-profile-login-text">
 						<li onClick={this.openLogInModal}><a href="#">Log In</a></li>
@@ -131,12 +131,12 @@ var App = React.createClass({
 				</div>
 					{this.userButtons()}
 				<div className="menu-icon" onClick={this.openNavModal}>&#9776;</div>
-				<Modal isOpen={this.state.logInModalOpen} 
+				<Modal isOpen={this.state.logInModalOpen}
 							 onRequestClose={this.closeLogInModal}
 							 style={FormStyle}>
 					<LogInForm closeModal={this.closeLogInModal} redirectToSignUp={this.redirectToSignUp} />
 				</Modal>
-				<Modal isOpen={this.state.signUpModalOpen} 
+				<Modal isOpen={this.state.signUpModalOpen}
 							 onRequestClose={this.closeSignUpModal}
 							 style={FormStyle}>
 					<SignUpForm closeModal={this.closeSignUpModal}/>
@@ -149,11 +149,11 @@ var App = React.createClass({
 								<Navbar closeModal={this.closeNavModal}/>
 							</ReactCSSTransitionGroup>
 				</Modal>
-				<Modal isOpen={ this.state.searchModalOpen } 
+				<Modal isOpen={ this.state.searchModalOpen }
 							 onRequestClose={this.closeSearchModal}
 							 style={SearchStyle}>
-					<Search groups={ this.state.groups } 
-									searchString={ this.state.searchString } 
+					<Search groups={ this.state.groups }
+									searchString={ this.state.searchString }
 									closeModal={this.closeSearchModal}/>
 				</Modal>
 			</div>
@@ -185,4 +185,3 @@ document.addEventListener("DOMContentLoaded", function(){
 	Modal.setAppElement(document.body);
 	ReactDOM.render(<Router history={HashHistory}>{routes}</Router>, document.getElementById("root"));
 });
-
