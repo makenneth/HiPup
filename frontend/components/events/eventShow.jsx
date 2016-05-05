@@ -18,22 +18,9 @@ var EventShow = React.createClass({
 			distance: 0,
 			logInIsOpen: false,
 			signUpIsOpen: false,
-			confirmIsOpen: false
+			confirmIsOpen: false,
+			editMode: false
 		};
-	},
-	_calculateDistance: function(position){
-		var groupEvent = this.state.groupEvent,
-				coords = position.coords;
-		var p1 = {
-							lat: groupEvent.lat,
-							lng: groupEvent.lng
-						 },
-				p2 = {
-							lat: coords.latitude,
-							lng: coords.longitude
-						 };
-
-		this.setState({ distance: HaversineFormula.getDistance(p1, p2) });
 	},
 	componentDidMount: function() {
 		this.esListener = GroupEventStore.addListener(this._fetchedEvent);

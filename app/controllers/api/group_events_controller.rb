@@ -4,6 +4,7 @@ class Api::GroupEventsController < ApplicationController
 		if params[:query_type] == "time"
 			@group_events = GroupEvent.includes(:group).where("event_time > ?", Time.now).order(:event_time)
 		elsif params[:query_type] == "location"
+			#lat lng within 25miles
 		end
 	end
 

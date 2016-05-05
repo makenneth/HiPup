@@ -18,8 +18,16 @@ var GroupIndex = React.createClass({
 			groups: [],
 			tagSearchModalOpen: false,
 			searchString: "",
-			dateModalIsOpen: false
+			dateModalIsOpen: false,
+			searchBarOpen: false,
+			tag: null
 		};
+	},
+	selectTag: function(tag){
+		this.setState({tag: tag});
+	},
+	cancelTag: function(){
+		this.setState({tag: null});
 	},
 	componentDidMount: function() {
 		this.groupIndexListener = GroupStore.addListener(this._onLoad);
@@ -48,32 +56,54 @@ var GroupIndex = React.createClass({
 	closeDateModal: function() {
 		this.setState({dateModalIsOpen: false});
 	},
+	openSearchBar: function(e){
+		this.setState({searchBarOpen: true});
+	},
+	searchContainer: function(){
+		if (this.state.searchBarOpen){
+			return (<div className="search-container-sm cf">
+			<img className="search-icon-sm" src="/search-icon-2.png"/>
+			<input id="search-box" type="text" onChange={this.setSearchString}
+						 value={this.state.searchString} placeholder="Type your search..."/>
+		 	</div>)	
+		} else {
+			return (
+				<div className="search-icon-main" onClick={this.openSearchBar}></div>
+				) 
+		}
+	},
+	searchByTagDiv: function(){
+		if (this.state.tag){
+			return (<div className="searching-by-tag">Searching By: {this.state.tag} <p onClick={this.cancelTag}>Cancel Search</p></div>);
+		} else {
+		 return (<div className="search-by-tag" onClick={this.openTagSearchModal}>
+		 		<div className="tag-index"><TagIndex selectTag={this.selectTag} /></div>
+		 </div>);
+		}
+	},
 	render: function() {
 		var searchCriteria = this.state.searchString.trim();
+		var that = this;
 		var libraries = this.state.groups.filter(function(group){
-			return group.title.toLowerCase().match(searchCriteria);
+			if (that.state.tag){
+				return group.title.toLowerCase().match(searchCriteria) && 
+									group.tags.some(function(tag){ 
+										return tag.name === that.state.tag; 
+									});
+			} else {
+				return group.title.toLowerCase().match(searchCriteria);
+			}
 		});
 		return (
 			<div>
 				<div className="banner"></div>
 				<div className="search-bar">
-					 <div className="search-by cf" onClick={this.openTagSearchModal}>
-					 			Search By Tags
-					 </div>
-					<div className="search-container-sm cf">
-						<img className="search-icon-sm"
-									src="http://www.endlessicons.com/wp-content/uploads/2015/08/search-icon-2.png"/>
-						<input type="text" onChange={this.setSearchString}
-									 value={this.state.searchString} placeholder="Type your search..."/>
-					 </div>
+						{this.searchByTagDiv()}
+					 {this.searchContainer()}
 
 					<div className="calendar" onClick={this.openDateModal} />
 				</div>
-				<Modal isOpen={ this.state.tagSearchModalOpen }
-							 onRequestClose={this.closeTagSearchModal}
-							 style={SearchStyle}>
-					<TagIndex closeModal={this.closeTagSearchModal}/>
-				</Modal>
+
 				<Modal isOpen={ this.state.dateModalIsOpen }
 							 onRequestClose={this.closeDateModal}
 							 style={DateModalStyle}>
@@ -91,5 +121,9 @@ var GroupIndex = React.createClass({
 	}
 
 });
-
+				//<Modal isOpen={ this.state.tagSearchModalOpen }
+							// onRequestClose={this.closeTagSearchModal}
+						//	 style={SearchStyle}>
+					//<TagIndex closeModal={this.closeTagSearchModal}/>
+				//</Modal>
 module.exports = GroupIndex;
