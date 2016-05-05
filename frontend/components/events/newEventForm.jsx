@@ -1,9 +1,11 @@
 var React = require('react'),
 		ClientAction = require('../../actions/clientActions'),
 		GroupEventStore = require('../../stores/groupEventStore'),
-		HashHistory = require('react-router').hashHistory;
+		HashHistory = require('react-router').hashHistory,
+		CurrentUserState = require('../../mixin/currentUserState');
 
 var NewEventForm = React.createClass({
+	mixins: [CurrentUserState],
 	getInitialState: function() {
 		var d = new Date();
 		return {
@@ -55,10 +57,9 @@ var NewEventForm = React.createClass({
 			lng: street ? location.lng() : 0 
 		})
 	},
-	_createdEvent: function(id) {
+	_createdEvent: function() {
 		this.props.closeModal();
 		HashHistory.push("groups/" + this.props.groupId + "/events/" + GroupEventStore.last());
-
 	},
 	updateField: function(field, e){
 		var fieldObj = {}
@@ -67,9 +68,11 @@ var NewEventForm = React.createClass({
 	},
 	handleSubmit: function(e) {
 		e.preventDefault();
-		this.state.host_id = this.currentUser.id;
+		this.state.host_id = this.state.currentUser.id;
 		this.state.group_id = this.props.groupId;
-		ClientAction.createEvent(this.state);
+		var obj = this.state;
+		delete obj["currentUser"]
+		ClientAction.createEvent(obj);
 	},
 	render: function() {
 		return (

@@ -27,7 +27,7 @@ class Api::GroupEventsController < ApplicationController
 
 	def cancel
 		@group_event = GroupEvent.find(params[:id])
-		unless @group_event.host_id == params[:user_id]
+		if @group_event.host_id != params[:user_id].to_i
 			render json: ["No permission"], status: 403
 		else
 			@group_event.status = "CANCEL"
@@ -39,6 +39,6 @@ class Api::GroupEventsController < ApplicationController
 	private
 	def group_event_params
 		params.require(:group_event).permit(:lat, :lng, :street, :city, 
-								:state, :zip, :title, :description, :date, :time, :group_id)
+								:state, :zip, :title, :description, :date, :time, :group_id, :host_id)
 	end
 end

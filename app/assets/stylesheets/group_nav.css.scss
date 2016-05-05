@@ -2,11 +2,11 @@
 	display: flex;
 	width: 100%;
 	min-width: 543px;
-	height: 150px;
+	height: 250px;
 	justify-content: flex-end;
 /*	align-items: flex-start;*/
 	flex-direction: column;
-	background-image: url(https://images.unsplash.com/photo-1430063992682-8a301f946642?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&w=1080&fit=max&s=d06fd464ec977fcb4013ac4d3520d71e);
+	background-image: url('/group-banner.jpg');
 	-ms-background-position-x: center;
   -ms-background-position-y: bottom;
   background-position: center 40%;
@@ -15,7 +15,11 @@
   background-size: cover;
 	margin: 0 auto;
 		h3 {
+					font-family:'Open Sans Condensed', sans-serif;
+		align-self: center;
 		margin-left: 20px;
+		position: relative;
+		top: -200px;
 		font-size: 40px;
 		color: white;
 		font-family:'Open Sans Condensed', sans-serif;
@@ -23,7 +27,10 @@
 	}
 }
 .group-nav-container {
+			position: relative;
+			top: -50px;
 			background-color: #666;
+			opacity: 0.7;
 			display: flex;
 			flex-direction: row;
 			justify-content: space-between;

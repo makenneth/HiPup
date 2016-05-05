@@ -27,8 +27,10 @@ var GroupEventItem = React.createClass({
 					<div className="event-detail-right">
 						<p className="event-time">{eventTime[0]}</p>
 						<p className="event-hour">{eventTime[1]}</p>
-					  <button className="rsvp" onClick={this.showEvent}>RSVP</button> 
-						
+						{
+							groupEvent.time > Date.now() || groupEvent.status === "SCHEDULED" ?  
+						  <button className="rsvp" onClick={this.showEvent}>RSVP</button> : ""
+						}
 					</div>
 				</div>
 			</div>
