@@ -122,11 +122,9 @@ var App = React.createClass({
 		}
 	},
 	render: function() {
-		var backgroundStyleForManage = this.props.location.pathname === "/user/events" ? {backgroundImage: "url(http://1.bp.blogspot.com/-2Mru61G2560/UFrT8_dbShI/AAAAAAAABRQ/GfEYn0rB6yU/s1600/126.jpg)",
-																		backgroundSize: "covers"} : {};
 		return (
 			<div>
-				<div class="page-container" style={{backgroundStyleForManage}}>
+				<div class="page-container">
 						{this.props.children}
 				</div>
 					{this.userButtons()}
