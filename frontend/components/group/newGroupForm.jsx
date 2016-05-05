@@ -5,7 +5,8 @@ var React = require('react'),
 		GroupStores = require('../../stores/groupStore'),
 		Autocomplete = require('../../mixin/autoComplete'),
 		UserStore = require('../../stores/userStore'),
-		GroupFormMixin = require('../../mixin/groupFormMixin');
+		GroupFormMixin = require('../../mixin/groupFormMixin'),
+		GroupStore = require('../../stores/groupStore');
 var NewGroupForm = React.createClass({
 	mixins: [CurrentUserState, Autocomplete, GroupFormMixin],
 	getInitialState: function() {
@@ -43,7 +44,9 @@ var NewGroupForm = React.createClass({
 															});
 	},
 	_successInCreation: function(){
-		this._back(); //redirect to new page
+		var groupId = GroupStore.last();
+		ClientActions.joinGroup(this.state.currentUser.id, groupId)
+		HashHistory.push("groups/" + groupId + "/home");
 	},
 	render: function() {
 		return (

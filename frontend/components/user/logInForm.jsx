@@ -18,6 +18,9 @@ var LogInForm = React.createClass({
 			this.props.closeModal();
 		}
 	},
+	redirectToSignUp: function() {
+		this.props.redirectToSignUp();
+	},
 	handleSubmit: function(e) {
 		if(e) e.preventDefault();
 		UserActions.signIn(this.state);
@@ -79,6 +82,7 @@ var LogInForm = React.createClass({
 						<button className="guest-login" onClick={this.guestLogin}>Guest Login</button>
 					</div>
 				</form>
+				<div className="redirect">Don't have an account yet? <a onClick={this.redirectToSignUp}>Sign Up</a></div>
 			</div>
 		);
 	}

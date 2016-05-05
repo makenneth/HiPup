@@ -27,7 +27,8 @@ var GroupEventItem = React.createClass({
 					<div className="event-detail-right">
 						<p className="event-time">{eventTime[0]}</p>
 						<p className="event-hour">{eventTime[1]}</p>
-						<button className="rsvp" onClick={this.showEvent}>RSVP</button> 
+					  <button className="rsvp" onClick={this.showEvent}>RSVP</button> 
+						
 					</div>
 				</div>
 			</div>
@@ -35,5 +36,8 @@ var GroupEventItem = React.createClass({
 	}
 
 });
-
+						// {
+						// 	groupEvent.event_time < Time.now ? "" : 
+						// 	(<button className="rsvp" onClick={this.showEvent}>RSVP</button> )
+						// }
 module.exports = GroupEventItem;

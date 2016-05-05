@@ -28,7 +28,13 @@ class Api::GroupsController < ApplicationController
 	end
 
 	def destroy
-		
+		debugger;
+		@group = Group.find(params[:id])
+		if @group.destroy
+			render json: @group, status: 200
+		else
+			render json: ["Not found"], status: 404
+		end
 	end
 	
 	private

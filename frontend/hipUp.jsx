@@ -86,7 +86,10 @@ var App = React.createClass({
 	closeSearchModal: function() {
 		this.setState({ searchModalOpen: false });
 	},
-
+	redirectToSignUp: function(){
+		this.setState({logInModalOpen: false,
+			signUpModalOpen: true});
+	},
 	logOut: function() {
 		UserActions.logOut();
 	},
@@ -119,9 +122,11 @@ var App = React.createClass({
 		}
 	},
 	render: function() {
+		var backgroundStyleForManage = this.props.location.pathname === "/user/events" ? {backgroundImage: "url(http://1.bp.blogspot.com/-2Mru61G2560/UFrT8_dbShI/AAAAAAAABRQ/GfEYn0rB6yU/s1600/126.jpg)",
+																		backgroundSize: "covers"} : {};
 		return (
 			<div>
-				<div class="page-container">
+				<div class="page-container" style={{backgroundStyleForManage}}>
 						{this.props.children}
 				</div>
 					{this.userButtons()}
@@ -129,7 +134,7 @@ var App = React.createClass({
 				<Modal isOpen={this.state.logInModalOpen} 
 							 onRequestClose={this.closeLogInModal}
 							 style={FormStyle}>
-					<LogInForm closeModal={this.closeLogInModal}/>
+					<LogInForm closeModal={this.closeLogInModal} redirectToSignUp={this.redirectToSignUp} />
 				</Modal>
 				<Modal isOpen={this.state.signUpModalOpen} 
 							 onRequestClose={this.closeSignUpModal}

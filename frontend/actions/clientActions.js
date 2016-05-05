@@ -28,6 +28,9 @@ module.exports = {
 	updateGroup: function(group, id){
 		ApiUtil.updateGroup(group, id);
 	},
+	removeGroup: function(id){
+		ApiUtil.removeGroup(id);
+	},
 	fetchMember: function(id){
 		ApiUtil.fetchMember(id);
 	},
@@ -45,6 +48,9 @@ module.exports = {
 	},
 	fetchSingleEvent: function(id, timezone){
 		ApiUtil.fetchSingleEvent(id, timezone);
+	},
+	cancelEvent: function(userId, groupId){
+		ApiUtil.cancelEvent(userId, groupId);
 	},
 	joinGroup: function(userId, groupId){
 		ApiUtil.joinGroup(groupParticipantData(userId, groupId));

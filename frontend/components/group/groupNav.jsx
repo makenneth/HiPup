@@ -5,7 +5,12 @@ var React = require('react'),
 		EditGroupForm = require('./editGroupForm'),
 		Modal = require('react-modal'),
 		SuccessModalStyle = require('../../modal/successModalStyle'),
-		SuccessMessage = require('../../mixin/successMessage');
+		SuccessMessage = require('../../mixin/successMessage'),
+		ClientActions = require('../../actions/clientActions'),
+		HashHistory = require('react-router').hashHistory,
+		GroupStore = require('../../stores/groupStore'),
+		Confirmation = require('../../mixin/confirmation'),
+		ConfirmationStyle = require('../../modal/confirmationStyle');
 
 var GroupNav = React.createClass({
 	mixins: [CurrentUserState],
@@ -14,7 +19,8 @@ var GroupNav = React.createClass({
 			eventFormIsOpen: false,
 			editFormIsOpen: false,
 			successModalIsOpen: false,
-			message: ""
+			message: "",
+			confirmIsOpen: false
 		};
 	},
 	componentDidMount: function() {
@@ -24,10 +30,24 @@ var GroupNav = React.createClass({
 			return (<ul className="admin-group-nav">
 								<li><a onClick={this.openEditModal}>Edit Group</a></li>
 								<li><a onClick={this.openModal}>Create Event</a></li>
+								<li><a onClick={this.deleteGroup}>Delete Group</a></li>
 							</ul>);
 		} else {
 			return "";
 		}
+	},
+	deleteGroup: function(){
+		if (this.state.currentUser){
+			this.setState({confirmIsOpen: true});
+		}
+	},
+	forSureDeleteGroup: function(){
+		ClientActions.removeGroup(this.props.group.id);
+		this.closeConfirmModal();
+		HashHistory.push("/");
+	},
+	closeConfirmModal: function(){
+		this.setState({confirmIsOpen: false});
 	},
 	openModal: function() {
 		this.setState({eventFormIsOpen: true});
@@ -47,6 +67,7 @@ var GroupNav = React.createClass({
 	closeSuccessModal: function() {
 		this.setState({successModalIsOpen: false, message: ""});
 	},
+
 	showSuccessMessage: function(){
 		this.closeEditModal();
 		this.openSuccessModal();
@@ -90,7 +111,10 @@ var GroupNav = React.createClass({
 					<SuccessMessage message={this.state.message} 
 									closeModal={this.closeSuccessModal} />
 				</Modal>
-
+				<Modal isOpen={this.state.confirmIsOpen} style={ConfirmationStyle}
+							onRequestClose={this.closeConfirmModal}>
+							<Confirmation confirm={this.forSureDeleteGroup} deny={this.closeConfirmModal}/>
+				</Modal>
 			</div>
 		);
 	}

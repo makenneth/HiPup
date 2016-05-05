@@ -4,14 +4,21 @@ var React = require('react'),
 		EventMap = require('./map.jsx'),
 		CurrentUserState = require('../../mixin/currentUserState'),
 		HaversineFormula = require('../../mixin/haversine'),
-		UserStore = require('../../stores/userStore');
+		UserStore = require('../../stores/userStore'),
+		HashHistory = require('react-router').hashHistory,
+		Modal = require('react-modal'),
+		Confirmation = require('../../mixin/confirmation'),
+		ConfirmationStyle = require('../../modal/confirmationStyle');
 
 var EventShow = React.createClass({
 	mixins: [CurrentUserState, HaversineFormula],
 	getInitialState: function() {
 		return {
 			groupEvent: GroupEventStore.find(this.props.params.eventId),
-			distance: 0
+			distance: 0,
+			logInIsOpen: false,
+			signUpIsOpen: false,
+			confirmIsOpen: false
 		};
 	},
 	_calculateDistance: function(position){
@@ -30,9 +37,6 @@ var EventShow = React.createClass({
 	},
 	componentDidMount: function() {
 		this.esListener = GroupEventStore.addListener(this._fetchedEvent);
-		this._calculateDistance({
-			coords: UserStore.currentLocation().coords
-		});
 
 		if (!this.state.groupEvent.event_time){
 			ClientActions.fetchSingleEvent(this.props.params.eventId, UserStore.currentLocation().timeZone);
@@ -44,7 +48,7 @@ var EventShow = React.createClass({
 	toggleEventButton: function() {
 		if (!this._alreadyRSVP()){
 			if (!this.state.currentUser || !this.props.hasJoinedGroup()){
-				return <button onClick={this.joinAndRsvpEvent} className="join">Join and RSVP</button>;
+				return <button onClick={this.joinAndRsvpEvent} className="join">Sign In</button>;
 				//this should show the sign in modal
 			} else if (this.state.currentUser && this.props.hasJoinedGroup()){
 				return <button onClick={this.rsvpEvent} className="join">RSVP</button>;
@@ -54,18 +58,18 @@ var EventShow = React.createClass({
 		}
 	},
 	joinAndRsvpEvent: function(){
-
+		this.props.joinGroup();
 	},
-	rsvpEvent: function(e){
+	rsvpEvent: function(){
 		if (this.state.currentUser && !this._alreadyRSVP()){
 			ClientActions.rsvpEvent(this.state.currentUser.id, this.state.groupEvent.id);
-		} else {
-			//show a sign in or sign up modal
-		}
+			ClientActions.fetchSingleEvent(this.props.params.eventId, UserStore.currentLocation().timeZone);
+		} 
 	},
 	changeRSVP: function(){
 		if (this.state.currentUser && this._alreadyRSVP()){
 			ClientActions.changeRSVP(this.state.currentUser.id, this.state.groupEvent.id);
+			ClientActions.fetchSingleEvent(this.props.params.eventId, UserStore.currentLocation().timeZone);
 		}
 	},
 	_alreadyRSVP: function() {
@@ -87,16 +91,27 @@ var EventShow = React.createClass({
 		var parsingTime = this.state.groupEvent.event_time;
 		if (!parsingTime) return [0, 0];
 		return parsingTime.split(" || ");
-
 	},
 	componentWillUnmount: function() {
 		if (this.esListener) this.esListener.remove();
+	},
+	cancelEvent: function(){
+		if (this.state.currentUser) this.setState({confirmIsOpen: true});
+	},
+	forSureCancelEvent: function(){
+		ClientActions.cancelEvent(this.state.currentUser.id, this.state.groupEvent.id);
+		HashHistory.push("/");
+	},
+	closeConfirmModal: function(){
+		this.setState({confirmIsOpen: false});
 	},
 	render: function() {
 		var groupEvent = this.state.groupEvent;
 		var showDistance = this.state.distance ? 
 				(<p>Distance away: {this.state.distance} miles</p>) : "";
 		var eventTime = this.parseTime();
+		var user = this.state.currentUser || {id: ""};
+		debugger;
 		return (
 			<div className="event-parent">
 					<div className="event-details">
@@ -115,11 +130,18 @@ var EventShow = React.createClass({
 									<p>{showDistance}</p>
 								</div>
 							</div>
-							<div className="event-map">
+							<div className="event-detail-map-container">
 								{
-									!this.state.groupEvent.event_time ? "" :
-									<EventMap lat={groupEvent.lat} lng={groupEvent.lng} />
+									user.id === groupEvent.host_id ? 
+									<button className="cancel-event" onClick={this.cancelEvent}>Cancel Event</button> : 
+									""				
 								}
+								<div className="event-map">
+									{
+										!this.state.groupEvent.event_time ? "" :
+										<EventMap lat={groupEvent.lat} lng={groupEvent.lng} />
+									}
+								</div>
 							</div>
 						</div>
 						<div>
@@ -142,6 +164,10 @@ var EventShow = React.createClass({
 							</ul>
 						</div>
 					</div>
+					<Modal isOpen={this.state.confirmIsOpen} style={ConfirmationStyle}
+							onRequestClose={this.closeConfirmModal}>
+							<Confirmation confirm={this.forSureCancelEvent} deny={this.closeConfirmModal}/>
+					</Modal>
 			</div>
 		);
 	}

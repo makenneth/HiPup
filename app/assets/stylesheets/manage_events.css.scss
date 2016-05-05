@@ -1,5 +1,13 @@
-.parent-container {
+#parent-container {
+	background: url('http://1.bp.blogspot.com/-2Mru61G2560/UFrT8_dbShI/AAAAAAAABRQ/GfEYn0rB6yU/s1600/126.jpg') no-repeat center center ;
+	display: flex;
+	flex-direction: column;
+	height: 100%;
 	width: 80%;
+	margin: 20% auto 0 auto;
+	.title {
+		font-size: 28px;
+	}
 }
 .events-container {
 	display: flex;

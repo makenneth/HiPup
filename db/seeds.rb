@@ -58,7 +58,8 @@ end
 			group_id: i,
 			street: Faker::Address.street_address,
 			zip: Faker::Address.zip_code,
-			event_time: Faker::Time.between(365.days.ago, Date.today + 120, :day)
+			event_time: Faker::Time.between(365.days.ago, Date.today + 120, :day),
+			host_id: rand(30) + 1
 			})
 			5.times do
 				EventUser.create({

@@ -30,6 +30,15 @@ module.exports = {
 			}
 		});
 	},
+	removeGroup: function(id){
+		$.ajax({
+			method: "DELETE",
+			url: "/api/groups/" + id,
+			success: function(group){
+				ServerActions.removedGroup(group);
+			}
+		})
+	},
 	updateGroup: function(group, id){
 		$.ajax({
 			method: "PATCH",
@@ -58,7 +67,7 @@ module.exports = {
 	removeGroup: function(id){
 		$.ajax({
 			method: "DELETE",
-			url: "/api/groups/" + group.id,
+			url: "/api/groups/" + id,
 			success: function(group){
 				ServerActions.removedGroup(group);
 			},
@@ -192,6 +201,16 @@ module.exports = {
 				ServerActions.createdEvent(event);
 			},
 			error: ServerActions.errorReceived
+		})
+	},
+	cancelEvent: function(userId, groupId){
+		$.ajax({
+			method: "PATCH",
+			url: "/api/group_events/" + groupId + "/cancel",
+			data: {user_id: userId},
+			success: function(group){
+				ServerActions.cancelledEvent(group);
+			}
 		})
 	}
 };

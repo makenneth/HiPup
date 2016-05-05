@@ -24,8 +24,16 @@ class Api::GroupEventsController < ApplicationController
 
 	end
 
-	def destroy
-		#this is just going to alter the event to cancel if there are participants
+
+	def cancel
+		@group_event = GroupEvent.find(params[:id])
+		unless @group_event.host_id == params[:user_id]
+			render json: ["No permission"], status: 403
+		else
+			@group_event.status = "CANCEL"
+			@group_event.save
+			render :show	
+		end
 	end
 
 	private

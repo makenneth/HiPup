@@ -89,6 +89,12 @@ module.exports = {
 			groupEvent: groupEvent
 		})
 	},
+	cancelledEvent: function(groupEvent){
+		AppDispatcher.dispatch({
+			actionType: GroupEventConstants.FETCHED_SINGLE_EVENT,
+			groupEvent: groupEvent
+		})
+	},
 	fetchedEventsByLocation: function(groupEvents){
 		AppDispatcher.dispatch({
 			actionType: EventQueryConstants.LOCATION_QUERY_FETCHED,

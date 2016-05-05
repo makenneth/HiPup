@@ -1,6 +1,7 @@
 var React = require('react'),
 		CurrentUserState = require('../../mixin/currentUserState'),
-		HashHistory = require("react-router").hashHistory;
+		HashHistory = require("react-router").hashHistory,
+		UserStore = require('../../stores/userStore');
 
 var ManageEvents = React.createClass({
 	mixins: [CurrentUserState],
@@ -10,19 +11,25 @@ var ManageEvents = React.createClass({
 		};
 	},
 	componentDidMount: function() {
+		this.usListener = UserStore.addListener(this._fetchedUser);
+	},
+	_fetchedUser: function(){
 		if (!this.state.currentUser){
 			HashHistory.push('/');
 		}
-		this.setState({joinedEvents: this.state.currentUser.joinedEvents})
+		this.setState({joinedEvents: this.state.currentUser.joinedEvents});
+	},
+	componentWillUnmount: function() {
+		this.usListener.remove()
 	},
 	showDetail: function(id) {
 		debugger;
 	},
 	render: function() {
 		return (
-			<div class="parent-container">
+			<div id="parent-container cf">
+				<div className="title">Upcoming Events:</div>
 				<div class="events-container">
-					<div>Upcoming Events:</div>
 					<div>
 						{
 							this.state.joinedEvents.map(function(joinedEvent){

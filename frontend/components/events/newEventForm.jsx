@@ -17,7 +17,8 @@ var NewEventForm = React.createClass({
 			zip: "",
 			lat: "",
 			lng: "",
-			group_id: ""
+			group_id: "",
+			host_id: ""
 		};
 	},
 	componentDidMount: function() {
@@ -29,8 +30,7 @@ var NewEventForm = React.createClass({
 			document.getElementById("autocomplete"),
 			options);
 		this.nefListener = this.autocomplete.addListener('place_changed', this.parseAddress);
-		this.gesListener = GroupEventStore.addListener(this._createdEvent); //this would potentially cause bugs
-		//but if I add enough validations
+		this.gesListener = GroupEventStore.addListener(this._createdEvent); 
 	},
 	componentWillUnmount: function() {
 		if (this.nefListener) this.nefListener.remove();
@@ -56,7 +56,9 @@ var NewEventForm = React.createClass({
 		})
 	},
 	_createdEvent: function(id) {
-		HashHistory.push("events/" + GroupEventStore.last());
+		this.props.closeModal();
+		HashHistory.push("groups/" + this.props.groupId + "/events/" + GroupEventStore.last());
+
 	},
 	updateField: function(field, e){
 		var fieldObj = {}
@@ -65,6 +67,7 @@ var NewEventForm = React.createClass({
 	},
 	handleSubmit: function(e) {
 		e.preventDefault();
+		this.state.host_id = this.currentUser.id;
 		this.state.group_id = this.props.groupId;
 		ClientAction.createEvent(this.state);
 	},

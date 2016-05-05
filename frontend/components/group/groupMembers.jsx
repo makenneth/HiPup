@@ -2,7 +2,7 @@ var React = require('react'),
 		GroupStore = require('../../stores/groupStore'),
 		Modal = require('react-modal'),
 		MemberProfile = require('./memberProfile'),
-		FormStyle = require('../../modal/formStyle');
+		MemberProfileStyle = require('../../modal/memberProfile');
 
 var GroupMembers = React.createClass({
 	getInitialState: function() {
@@ -42,7 +42,7 @@ var GroupMembers = React.createClass({
 				</ul>
 				<Modal isOpen={this.state.modalIsOpen}
 							 onRequestClose={this.closeModal}
-							 style={FormStyle}>
+							 style={MemberProfileStyle}>
 						<MemberProfile userId={this.state.selectedUserId} 
 													 closeModal={this.closeModal}/>
 				</Modal>

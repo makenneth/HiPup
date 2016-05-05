@@ -5,7 +5,11 @@ var React = require('react'),
 		GroupNav = require('./groupNav'),
 		CurrentUserState = require('../../mixin/currentUserState'),
 		ReactCSSTransitionGroup = require('react-addons-css-transition-group'),
-		UserStore = require('../../stores/userStore');
+		UserStore = require('../../stores/userStore'),
+		LogInForm = require('../user/logInForm'),
+		SignUpForm = require('../user/signUpForm'),
+		FormStyle = require('../../modal/formStyle'),
+		Modal = require('react-modal');
 
 
 var GroupDetail = React.createClass({
@@ -18,8 +22,10 @@ var GroupDetail = React.createClass({
 				tags: [],
 				old_events: [],
 				upcoming_events: [],
-				participants: []
-			}
+				participants: [],
+			},
+			logInIsOpen: false,
+			signUpIsOpen: false
 		};
 	},
 	componentDidMount: function() {
@@ -38,13 +44,15 @@ var GroupDetail = React.createClass({
 	joinGroup: function() {
 		if (this.state.currentUser && !this.hasJoinedGroup()){
 			ClientActions.joinGroup(this.state.currentUser.id, this.state.group.id);
+			ClientActions.fetchSingleGroup(this.props.params.groupId, UserStore.currentLocation().timeZone);
 		} else {
-			//bring in log-in or sign-up modal //put them in mixins?
+			this.setState({logInIsOpen: true});
 		}
 	},
 	leaveGroup: function() {
 		if (this.state.currentUser && this.hasJoinedGroup()){
 			ClientActions.leaveGroup(this.state.currentUser.id, this.state.group.id);
+			ClientActions.fetchSingleGroup(this.props.params.groupId, UserStore.currentLocation().timeZone);
 		}
 	},
 	_joinButtons: function(){
@@ -65,9 +73,25 @@ var GroupDetail = React.createClass({
 		}
 		return false;
 	},
+	openLogInModal: function(){
+		this.setState({logInIsOpen: true});		
+	},
+	closeLogInModal: function(){
+		this.setState({logInIsOpen: false});
+	},
+	openSignUpModal: function(){
+		this.setState({signUpIsOpen: true});
+	},
+	closeSignUpModal: function(){
+		this.setState({signUpIsOpen: false});
+	},
+	redirectToSignUp: function(){
+		this.setState({logInIsOpen: false,
+			signUpIsOpen: true});
+	},
 	render: function() {
 		var children = !this.props.children ? this.props.children :
-			React.cloneElement(this.props.children, { group: this.state.group, hasJoinedGroup: this.hasJoinedGroup } );
+			React.cloneElement(this.props.children, { group: this.state.group, hasJoinedGroup: this.hasJoinedGroup, joinGroup: this.joinGroup } );
 		return (
 			<ReactCSSTransitionGroup transitionName="page" 
 							transitionAppear={true} transitionAppearTimeout={500} 
@@ -77,6 +101,16 @@ var GroupDetail = React.createClass({
 	
 						{children}
 				</div>
+				<Modal isOpen={this.state.logInIsOpen} 
+							 onRequestClose={this.closeLogInModal}
+							 style={FormStyle}>
+					<LogInForm closeModal={this.closeLogInModal} redirectToSignUp={this.redirectToSignUp} />
+				</Modal>
+				<Modal isOpen={this.state.signUpIsOpen} 
+							 onRequestClose={this.closeSignUpModal}
+							 style={FormStyle}>
+					<SignUpForm closeModal={this.closeSignUpModal}/>
+				</Modal>
 			</ReactCSSTransitionGroup>
 		);
 	}

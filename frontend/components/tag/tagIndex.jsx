@@ -46,7 +46,7 @@ var TagIndex = React.createClass({
 								<ul className="hidden">
 									{
 										tag.groups.map(function(group){
-											return <li key={group.id}><a href={"#/groups/" + group.id}>{group.title}</a></li>;
+											return <li key={group.id}><a href={"#/groups/" + group.id + "/home"}>{group.title}</a></li>;
 										})
 									}
 								</ul>
