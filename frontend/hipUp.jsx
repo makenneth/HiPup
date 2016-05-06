@@ -115,9 +115,12 @@ var App = React.createClass({
 										<li><a href="#/user/profile">Profile</a></li>
 										<li><a href="#" onClick={this.logOut}>Log Out</a></li>
 									</ul>);
-			return (<div className="user-text-button"><div className="user-text">
-					{buttonDiv}
-				</div></div>)
+			var img = this.state.currentUser ? this.state.currentUser.image_url : "/dogpaw.gif";
+			return (<div className="user-text-button">
+					<div className="user-text" style={{backgroundImage: "url(" +  img + ")", backgroundStyle: "cover"}}>
+						{buttonDiv}
+					</div>
+				</div>)
 		}
 	},
 	render: function() {

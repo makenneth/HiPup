@@ -121,9 +121,5 @@ var GroupIndex = React.createClass({
 	}
 
 });
-				//<Modal isOpen={ this.state.tagSearchModalOpen }
-							// onRequestClose={this.closeTagSearchModal}
-						//	 style={SearchStyle}>
-					//<TagIndex closeModal={this.closeTagSearchModal}/>
-				//</Modal>
+
 module.exports = GroupIndex;

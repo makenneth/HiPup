@@ -8,15 +8,15 @@ var GroupIndexItem = React.createClass({
 	render: function() {
 		var tagTitles = [];
 		this.props.group.tags.forEach(function(tag){ 
-			tagTitles.push(tag.title);
+			tagTitles.push(tag.name);
 		});
 		var imgUrl = this.props.group.image_url;
 		return (
 			<div href="#" className="group-index-item" onClick={this.showDetail}
-					 style={ { backgroundImage: 'url(' + imgUrl + ')'} }>
+					 style={ { backgroundImage: 'url(' + imgUrl + ')', backgroundSize: "cover"} }>
 					 <div className="image-mask"></div>
 				<h4>{this.props.group.title}</h4>
-				<p class="hidden-tags">{tagTitles ? tagTitles.join(", ") : ""}</p>
+				<div id="hidden-tags">{tagTitles ? tagTitles.join(", ") : ""}</div>
 			</div>
 		);
 	}

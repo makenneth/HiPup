@@ -130,7 +130,7 @@ button {
   	left: 80px;
   }
 }
-s
+
 .group-detail {
 	width: 80%;
 	margin: 10px auto 0 auto;
@@ -142,51 +142,67 @@ s
 	position: relative;
 }
 
+
 .group-index {
 	width: 85%;
-	margin: 0 auto;
+	margin: 3% auto;
 	display: flex;
 	flex-wrap: wrap;
 	min-width: 350px;
-	.group-index-item {
+
+}
+.group-index-item {
 		flex: 2 2 300px;
 		height: auto;
 		overflow: hidden;
 		padding: 20px 0;
 		margin: 0 10px 20px 10px;
 		float: left;
-		font-size: 24px;
+		font-size: 30px;
 	  font-family: 'Dosis', sans-serif;
 	  color: white;
 	  border-radius: 4px;
 	}
-	.hidden-tags {
+	#hidden-tags {
 		font-family: 'Dosis', sans-serif;
-		font-size: 14px;
-		display: hidden;
+		font-size: 30px;
+		text-align: center;
+		color: white;
+		display: none;
+				text-shadow: 1px 1px black;
+	}
+	.image-mask {
+		width: 100%;
+		background-color: black;
+	}
+	.group-index-item {
+		min-height: 160px;
 	}
 	.group-index-item h4{
 		font-size: 40px;
 		text-align: center;
-		vertical-align: center;
+		text-shadow: 1px 1px black;
 	}
 	.group-index-item:hover {
 		cursor: pointer;
 		background-color: #aaa;
+		opacity: 0.9;
 
 	}
-	.group-index-item:hover .hidden-tags {
+	.group-index-item:hover #hidden-tags {
 		display: block;
-		color: white;
+		-webkit-filter: blur(0.5px);
+	  -moz-filter: blur(0.5px);
+	  -o-filter: blur(0.5px);
+	  -ms-filter: blur(0.5px);
+	  filter: blur(0.5px);
+		-webkit-transition: 5s -webkit-filter linear;
+		-moz-transition: 5s -moz-filter linear;
+		-moz-transition: 5s filter linear;
+		-ms-transition: 5s -ms-filter linear;
+		-o-transition: 5s -o-filter linear;
+		transition: 5s filter linear;
 	}
-
-}
-
-/*.main-buttons {
-	width: 20%;
-	padding: 5px;
-	border: 1px solid transparent;
-}*/
 #header {
 	width: 100%;
 	display: flex;

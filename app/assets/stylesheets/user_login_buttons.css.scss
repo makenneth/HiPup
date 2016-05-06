@@ -31,14 +31,15 @@
 }
 .user-text {
 	position: relative;
-	background: url(https://therawcreativedotcom.files.wordpress.com/2013/10/dogpaw.gif?w=490) center center no-repeat;
-
+	cursor: pointer;
 	background-size: cover;
-	width: 60px;
-	height: 60px;
-	border: 2px solid black;
-	border-radius: 50px;
-	background-color: white;
+	width: 100px;
+	height: 100px;
+
+	border: 5px solid black;
+	border-radius: 55px;
+	background-color: black;
+	opacity: 0.8;
 	ul {
 		display: none;
 	}

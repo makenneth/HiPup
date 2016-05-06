@@ -8,10 +8,10 @@
 	justify-content: flex-end;
 /*	align-items: flex-start;*/
 	flex-direction: column;
-	background-image: url('/group-banner.jpg');
+	background-image: url('/pictures/banner2.jpg');
 	-ms-background-position-x: center;
-  -ms-background-position-y: bottom;
-  background-position: center 40%;
+  -ms-background-position-y: center;
+  background-position: center 65%;
 
   /* scale bg image proportionately */
   background-size: cover;
@@ -54,6 +54,17 @@
 			display: flex;
 			flex-direction: row;
 			justify-content: space-between;
+}
+@media (min-width: 1244px){
+	.nav-div {
+			background-image: url('/pictures/banner-sm.jpg');
+			-ms-background-position-x: center;
+		  -ms-background-position-y: center;
+		  background-position: center 65%;
+
+		  /* scale bg image proportionately */
+		  background-size: cover;
+	}
 }
 .group-nav {
 	display: flex;
