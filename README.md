@@ -27,7 +27,7 @@ Users are allowed to:
 ![Profile-page]
 
 #### Event View
-![Event-view]
+![Event-page]
 
 ## Implementation
 
@@ -71,8 +71,8 @@ Events within a group are organized by time, whether the event's time has passed
 
 
 ## Future Directions for HiPup
-[] Direct Messaging / Friend requests
-[] User groups suggestions based on their interest
+- [] Direct Messaging / Friend requests
+- [] User groups suggestions based on their interest
 
 [Front-page]: ./docs/images/Front-page.png
 [Group-page]: ./docs/images/Group-page.png
