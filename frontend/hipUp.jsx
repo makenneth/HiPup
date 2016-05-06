@@ -26,6 +26,7 @@ var React = require('react'),
 		GroupEvents = require('./components/group/groupEvents'),
 		CurrentUserProfile = require('./components/user/currentUserProfile'),
 		UserStore = require('./stores/userStore'),
+		UserServerActions = require('./actions/userServerActions');
 		FormStyle = require('./modal/formStyle'),
 		NavStyle= require('./modal/navStyle'),
 		SearchStyle = require('./modal/searchStyle'),
@@ -45,7 +46,10 @@ var App = React.createClass({
 		};
 	},
 	componentDidMount: function() {
-		this.posListener = navigator.geolocation.watchPosition(this.updateLatLng);
+		this.posListener = navigator.geolocation.watchPosition(this.updateLatLng, this.handleLocationError);
+	},
+	handleLocationError: function() {
+		UserServerActions.locationCalled();
 	},
 	updateLatLng: function(position){
 		var coords = position.coords;
@@ -55,6 +59,7 @@ var App = React.createClass({
 		UserStore.setCurrentCoords(position.coords);
 		UserActions.getTimeZone(lat, lng, position.timestamp);
 		UserActions.getCityAndState(lat, lng);
+		UserServerActions.locationCalled();
 	},
 	_setPlace: function(result){
 		UserStore.setCurrentPlace(result.join(", "));

@@ -2,6 +2,11 @@ var AppDispatcher = require("../dispatcher/dispatcher"),
 		UserConstants = require("../constants/userConstants");
 
 module.exports = {
+	locationCalled: function(){
+		AppDispatcher.dispatch({
+			actionType: "LOCATION_CALLBACK_CALLED"
+		})
+	},
 	receiveCurrentUser: function (user){
 		AppDispatcher.dispatch({
 			actionType: UserConstants.LOGIN,

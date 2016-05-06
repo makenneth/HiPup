@@ -72,5 +72,5 @@ Events within a group are organized by time, whether the event's time has passed
 
 [Front-page]: ./docs/images/Front-page.png
 [Group-page]: ./docs/images/Group-page.png
-[Profile-page]: ./docs/images/Profile-page.png
+[Profile-page]: ./docs/images/profile-page.png
 [Event-page]: ./docs/images/Event-page.png

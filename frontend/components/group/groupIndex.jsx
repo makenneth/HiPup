@@ -9,7 +9,7 @@ var React = require('react'),
 		ReactCSSTransitionGroup = require('react-addons-css-transition-group'),
 		EventIndexByDate = require('../events/eventIndexByDate'),
 		DateModalStyle = require('../../modal/dateModalStyle'),
-		CurrentUserState = require('../../mixin/CurrentUserState'),
+		CurrentUserState = require('../../mixin/currentUserState'),
 		UserStore = require("../../stores/userStore");
 
 var banner = "https://images.unsplash.com/photo-1443750200537-00fd518bdc82?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&w=1080&fit=max&s=ad7a9ff44b3026fcf49d80830ffb20ee";
@@ -23,7 +23,8 @@ var GroupIndex = React.createClass({
 			searchString: "",
 			dateModalIsOpen: false,
 			searchBarOpen: false,
-			tag: null
+			tag: null,
+			miles: 0
 		};
 	},
 	selectTag: function(tag){
@@ -34,15 +35,10 @@ var GroupIndex = React.createClass({
 	},
 	componentDidMount: function() {
 		this.groupIndexListener = GroupStore.addListener(this._onLoad);
-		if (this.state.currentUser){
-			ClientActions.fetchAllGroups({type: closest});
-		} else {
-			ClientActions.fetchAllGroups({})
-		}
+		ClientActions.fetchAllGroups();
 	},
 	_onLoad: function() {
 		this.setState({groups: GroupStore.all()});
-		ClientActions.fetchAllGroups();
 	},
 	componentWillUnmount: function() {
 		if (this.groupIndexListener){
@@ -79,6 +75,15 @@ var GroupIndex = React.createClass({
 				<div className="search-icon-main" onClick={this.openSearchBar}></div>
 				) 
 		}
+	},
+	changeDistance: function(e){
+		this.setState({miles: e.target.value});
+	},
+	searchByDistance: function(){
+	},
+	searchByDistanceIcon: function(){
+		return (<div className="searchByDistance">
+				Within <input type="number" value={this.state.miles} onChange={this.changeDistance} /> of your location</div>);
 	},
 	searchByTagDiv: function(){
 		if (this.state.tag){
