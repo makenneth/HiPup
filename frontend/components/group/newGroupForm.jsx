@@ -45,7 +45,6 @@ var NewGroupForm = React.createClass({
 	},
 	_successInCreation: function(){
 		var groupId = GroupStore.last();
-		ClientActions.joinGroup(this.state.currentUser.id, groupId)
 		HashHistory.push("groups/" + groupId + "/home");
 	},
 	render: function() {

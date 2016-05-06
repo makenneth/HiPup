@@ -12,6 +12,7 @@ class Api::GroupsController < ApplicationController
 	def create
 		@group = Group.new(group_params)
 		if @group.save
+			GroupParticipant.create({group_id: @group.id, participant_id: @group.creator_id})
 			render :show, status: 200
 		else
 			render json: @group.errors.full_messages, status: 422
