@@ -82,9 +82,11 @@ var EventShow = React.createClass({
 	},
 	toggleEventButton: function() {
 		if (!this._alreadyRSVP()){
-			if (!this.state.currentUser || !this.props.hasJoinedGroup()){
+			if (!this.state.currentUser){
 				return <button onClick={this.joinAndRsvpEvent} className="join">Sign In</button>;
-				//this should show the sign in modal
+				//this should show the sign in modal 
+			} else if (!this.props.hasJoinedGroup()) {
+				return <button onClick={this.joinAndRsvpEvent} className="join">Join And RSVP</button>;
 			} else if (this.state.currentUser && this.props.hasJoinedGroup()){
 				return <button onClick={this.rsvpEvent} className="join">RSVP</button>;
 			}
@@ -93,7 +95,11 @@ var EventShow = React.createClass({
 		}
 	},
 	joinAndRsvpEvent: function(){
-		this.props.joinGroup();
+		if (this.state.currentUser){
+			this.props.joinGroup(this.rsvpEvent());
+		} else {
+			this.props.joinGroup();
+		}
 	},
 	rsvpEvent: function(){
 		if (this.state.currentUser && !this._alreadyRSVP()){
@@ -145,7 +151,6 @@ var EventShow = React.createClass({
 			  user = this.state.currentUser || {id: ""},
 			  notCancelledNorOld = groupEvent.status != "CANCEL" &&
 									groupEvent.time > Date.now();
-
 		return (
 			<div className="event-parent">
 					<div className="event-details">
@@ -190,8 +195,17 @@ var EventShow = React.createClass({
 							{groupEvent.event_users.length} {notCancelledNorOld ? "going" : "went"}:
 							<ul className="participant-list">
 								{
-									groupEvent.event_users.map(function(participant){
-										return <li key={participant.id}>{participant.name}</li>;
+									groupEvent.event_users.slice(0, 10).map(function(participant){
+										return <li key={participant.id} >
+														<div className="mini-pic" style={
+															{
+																backgroundImage: "url(" + participant.image_url +")",
+																backgroundSize: "cover"
+															}
+														}></div>
+														<div className="ev-name">{participant.name}</div>
+														</li>;
+
 									})
 								}
 							</ul>

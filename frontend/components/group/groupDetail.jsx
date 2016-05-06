@@ -40,10 +40,14 @@ var GroupDetail = React.createClass({
 	componentWillUnmount: function() {
 		if (this.groupListener) this.groupListener.remove();
 	},
-	joinGroup: function() {
+	componentWillReceiveProps: function(nextProps) {
+		ClientActions.fetchSingleGroup(nextProps.params.groupId, UserStore.currentLocation().timeZone);
+	},
+	joinGroup: function(callback) {
 		if (this.state.currentUser && !this.hasJoinedGroup()){
 			ClientActions.joinGroup(this.state.currentUser.id, this.state.group.id);
 			ClientActions.fetchSingleGroup(this.props.params.groupId, UserStore.currentLocation().timeZone);
+			if (callback) callback();
 		} else {
 			this.setState({logInIsOpen: true});
 		}
@@ -57,9 +61,9 @@ var GroupDetail = React.createClass({
 	_joinButtons: function(){
 		if ((/events\/\d+$/).test(this.props.location.pathname)) return "";
 		if (!this.state.currentUser || !this.hasJoinedGroup()){//should be in user store
-			return <button className="join-group" onClick={this.joinGroup}>Join Group</button>
+			return <ul className="join-group" onClick={this.joinGroup}>Join Group</ul>
 		} else {
-			return <button className="leave-group" onClick={this.leaveGroup}>Leave Group</button>
+			return <ul className="leave-group" onClick={this.leaveGroup}>Leave Group</ul>
 		}
 	},
 	hasJoinedGroup: function(){
@@ -91,13 +95,14 @@ var GroupDetail = React.createClass({
 	render: function() {
 		var children = !this.props.children ? this.props.children :
 			React.cloneElement(this.props.children, { group: this.state.group, hasJoinedGroup: this.hasJoinedGroup, 
-																								joinGroup: this.joinGroup, currentUser: this.state.currentUser } );
+																								joinGroup: this.joinGroup, currentUser: this.state.currentUser  } );
+
 		return (
 			<ReactCSSTransitionGroup transitionName="page"
 							transitionAppear={true} transitionAppearTimeout={500}
 								transitionEnterTimeout={300} transitionLeaveTimeout={300}>
 				<div class="group-parent-div">
-					<GroupNav group={this.state.group} joinButtons={this._joinButtons()}/>
+					<GroupNav group={this.state.group} joinButtons={this._joinButtons()} path={this.props.location.pathname}/>
 						{children}
 				</div>
 				<Modal isOpen={this.state.logInIsOpen}

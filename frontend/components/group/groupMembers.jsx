@@ -32,10 +32,12 @@ var GroupMembers = React.createClass({
 				<h3>Members:</h3>
 					<ul className="member-list">
 					{
-						participants.map(function(participant){
+						participants.slice(0, 8).map(function(participant){
 							return (<li onClick={ this.openModal.bind(null, participant.id) }
 													 key={ participant.id }>
-												<a>{participant.name}</a>
+												<div className="mini-pic" style={{backgroundImage: "url(" + participant.image_url + ")",
+																backgroundSize: "cover"}}></div>
+												<div className="mini-pic-name">{participant.name}</div>
 										  </li>);
 						}.bind(this))
 					}

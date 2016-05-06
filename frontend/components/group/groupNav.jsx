@@ -41,6 +41,9 @@ var GroupNav = React.createClass({
 			this.setState({confirmIsOpen: true});
 		}
 	},
+	backHome: function(){
+		HashHistory.push("/");
+	},
 	forSureDeleteGroup: function(){
 		ClientActions.removeGroup(this.props.group.id);
 		this.closeConfirmModal();
@@ -88,6 +91,9 @@ var GroupNav = React.createClass({
 		e.preventDefault();
 		this.setState({title: e.target.value});
 	},
+	backToGroup: function(){
+		HashHistory.push(this.props.path.match(/(groups\/\d+)\/events/)[1] + "/home");
+	},
 	title: function() {
 		if (!this.adminCheck()){
 				return	(<div className="nav-div">
@@ -118,11 +124,16 @@ var GroupNav = React.createClass({
 				<div style={{position: "relative"}}>
 					{this.title()}
 					<div className="group-nav-container">
-						<ul className="group-nav">
-						</ul>
-						{this.adminNav()}
-					</div>
-					{this.props.joinButtons}
+							<ul className="back-nav">
+								<li onClick={this.backHome}>Home</li>
+								{
+									(/\/events\/\d+/).test(this.props.path) ?
+									<li onClick={this.backToGroup}>Back To Group</li> : ""
+								}
+							</ul>
+							{this.adminNav()}
+							{this.props.joinButtons}
+						</div>
 				</div>
 				<Modal isOpen={this.state.eventFormIsOpen} style={EventFormStyle}
 							onRequestClose={this.closeModal}>
