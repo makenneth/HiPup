@@ -116,8 +116,9 @@ var App = React.createClass({
 										<li><a href="#" onClick={this.logOut}>Log Out</a></li>
 									</ul>);
 			var img = this.state.currentUser ? this.state.currentUser.image_url : "/dogpaw.gif";
+			var color = this.state.currentUser ? "black" : "white";
 			return (<div className="user-text-button">
-					<div className="user-text" style={{backgroundImage: "url(" +  img + ")", backgroundStyle: "cover"}}>
+					<div className="user-text" style={{backgroundImage: "url(" +  img + ")", backgroundStyle: "cover",	backgroundColor: color}}>
 						{buttonDiv}
 					</div>
 				</div>)

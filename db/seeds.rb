@@ -1,4 +1,4 @@
-city1 = {city: "San Francisco", state: "CA", lat: 37.7749, lng: 122.4194}
+city1 = {city: "San Francisco", state: "CA", lat: 37.7749, lng: -122.4194}
 city2 = {city: "San Jose", state: "CA", lat: 37.3382, lng: -122.8864}
 city3 = {city: "New York City", state: "NY", lat: 40.7128, lng: -74.0059}
 city4 = {city: "Boston", state: "MA", lat: 42.3601, lng: -71.0589}

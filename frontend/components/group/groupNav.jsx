@@ -91,7 +91,7 @@ var GroupNav = React.createClass({
 	title: function() {
 		if (!this.adminCheck()){
 				return	(<div className="nav-div">
-						<h3>{this.props.group.title}</h3>
+						{this.props.group.title}
 					</div>);
 		} else {
 			var titleBox, icon;
@@ -99,7 +99,7 @@ var GroupNav = React.createClass({
 				titleBox = <input type="text" value={this.state.title} onChange={this.updateTitle}/> ;
 				icon = (<div className="edit" onClick={this.saveChange}>✓</div>);
 			} else {
-				titleBox = <h3>{this.props.group.title}</h3>;
+				titleBox = this.props.group.title;
 				icon = (<div className="edit" onClick={this.startEditMode}>✎</div>);
 			}
 			return (<div className="nav-div cf">
@@ -119,9 +119,6 @@ var GroupNav = React.createClass({
 					{this.title()}
 					<div className="group-nav-container">
 						<ul className="group-nav">
-							<li><a href={"#/"}>Home</a></li>
-							<li><a href={"#/groups/" + id + "/home"}>Detail</a></li>
-							<li><a href={"#/groups/" + id + "/photos"}>Photos</a></li>
 						</ul>
 						{this.adminNav()}
 					</div>
