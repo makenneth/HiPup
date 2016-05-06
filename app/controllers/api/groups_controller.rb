@@ -1,6 +1,14 @@
 class Api::GroupsController < ApplicationController
 	def index
-		@groups = Group.includes(:tags).all
+		if params[:location_type] = "closest"
+			@groups = Group.closest(params[:user_coord])
+		elsif params[:location_type] = "other"
+			@groups = Group.other(params[:user_coord]).includes(:tags)
+		elsif params[:location_type] = "custom"
+			@groups = Group.distance_between(params[:user_coord], params[:miles]).includes(:tags)
+		else
+			@groups = Group.includes(:tags)
+		end
 	end
 
 	def show

@@ -32,6 +32,9 @@ var Navbar = React.createClass({
 		this.props.openLogInModal();
 	},
 	buttonsForLoggedIn: function() {
+							  //<li className={this.state.active === 4 ? "active" : ""}
+									//  onClick={this.setTab.bind(null, 4, "user/events")}>
+									  //Manage Your Events</li>
 		if (this.state.currentUser){
 			return (<ul className="nav-list-user">
 								<li className={this.state.active === 2 ? "active" : ""}
@@ -40,9 +43,6 @@ var Navbar = React.createClass({
 								<li className={this.state.active === 3 ? "active" : ""}
 									  onClick={this.setTab.bind(null, 3, "user/profile")}>
 									  Profile</li>
-							  <li className={this.state.active === 4 ? "active" : ""}
-									  onClick={this.setTab.bind(null, 4, "user/events")}>
-									  Manage Your Events</li>
 								<li className="log-out" onClick={UserActions.logOut}>Log Out</li>
 						  </ul>);
 		}

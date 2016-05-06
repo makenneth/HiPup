@@ -5,6 +5,7 @@ source 'https://rubygems.org'
 gem 'rails', '4.2.5.1'
 # Use postgresql as the database for Active Record
 gem 'pg'
+gem 'geocoder'
 gem 'font-awesome-sass'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'

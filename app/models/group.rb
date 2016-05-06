@@ -13,4 +13,16 @@ class Group < ActiveRecord::Base
 	def ensure_image
 		self.image_url = "https://placehold.it/500x300.jpg/000" if self.image_url == ""
 	end
+
+	def self.distance_between(user_coord, miles)
+		Group.where(Geocoder::Calculations.distance_between(user_coord, [:lat, :lng]) < miles)
+	end
+
+	def self.closest(user_coord)
+		Group.where(Geocoder::Calculations.distance_between(user_coord, [:lat, :lng]) < 25)
+	end
+
+	def self.other(user_coord)
+		Group.where(Geocoder::Calculations.distance_between(user_coord, [:lat, :lng]) >= 25)
+	end
 end

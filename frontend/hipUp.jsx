@@ -52,7 +52,7 @@ var App = React.createClass({
 		var lat = coords.latitude,
 				lng = coords.longitude;
 		var	timeZone = position.timestamp;
-		UserStore.setCurrentCoords({lat: lat, lng: lng});
+		UserStore.setCurrentCoords(position.coords);
 		UserActions.getTimeZone(lat, lng, position.timestamp);
 		UserActions.getCityAndState(lat, lng);
 	},
