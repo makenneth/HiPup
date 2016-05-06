@@ -1,12 +1,9 @@
 # HiPup
-====
-
 HiPup is a full-stack web application inspired by MeetUp. It is a platform where pets can find groups by similar interests. If the owner can't, why can't they? 
 
 It utilizes Ruby on Rails on the backend, a PostgreSQL database, and React.js with a Flux architectural framework on the frontend.
 
 ## Features 
-===
 Users are allowed to:
 
 * Securely create an account
@@ -30,7 +27,6 @@ Users are allowed to:
 ![Event-page]
 
 ## Implementation
-
 ### Group
 Upon user's visit to the page, I start to watch the user's position. So I can narrow the results that are better fit to the users' current location. I store the user's location temporarily in the user store, not only because I can return tailored results to users that are not logged in, I can also provide better results for registered users.
 
