@@ -54,6 +54,7 @@
 		width: 100%;
 		padding: 15px;
 		min-width: 470px;
+		background: #F7D4D9;
 		.edit {
 			color: black;
 			font-size: 20px;
@@ -84,6 +85,7 @@
 
 	}
 	.group-member-container {
+		background-color: #F6E1D4;
 		border: 3px solid #333;
 		border-radius: 10px;
 		box-shadow: 2px 2px 0 2px #aaa;
@@ -97,6 +99,7 @@
 		}
 		.member-list {
 			padding: 20px;
+
 			li {
 				font-size: 20px;
 				margin-bottom: 5px;

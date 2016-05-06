@@ -113,7 +113,11 @@
 	flex-wrap: wrap;
 	justify-content: space-between;
 }
-
+.glist {
+	display: flex;
+	flex-direction: column;
+}
 .group-list ul {
-	align-self: flex-start;
+	align-self: flex-end;
+	flex-wrap: nowrap;
 }

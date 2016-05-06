@@ -61,7 +61,7 @@ var App = React.createClass({
 	},
 	openLogInModal: function() {
 		this.setState({ logInModalOpen: true,
-									  signUpModalOpen: false });
+									  signUpModalOpen: false, navModalOepn: false });
 	},
 	closeLogInModal: function() {
 		this.setState({ logInModalOpen: false });
@@ -147,7 +147,7 @@ var App = React.createClass({
 							style={NavStyle}>
 							<ReactCSSTransitionGroup transitionName="nav-modal"
 								transitionEnterTimeout={300} transitionLeaveTimeout={300}>
-								<Navbar closeModal={this.closeNavModal}/>
+								<Navbar closeModal={this.closeNavModal} openLogInModal={this.openLogInModal}/>
 							</ReactCSSTransitionGroup>
 				</Modal>
 				<Modal isOpen={ this.state.searchModalOpen }

@@ -63,7 +63,7 @@ var CurrentUserProfile = React.createClass({
 						<li><label>Email:</label><div>{user.email}</div></li>
 						<li><label>Current Location:</label><div>{UserStore.currentLocation().place}</div></li>
 						<li><label>Primary Location:</label><div>{user.city + ", " + user.state}</div></li>
-						<li><label>Group Association:</label>
+						<li className="glist"><label>Group Association:</label>
 							<ul className="group-list">
 								{
 									user.groups.map(function(group){
@@ -77,7 +77,6 @@ var CurrentUserProfile = React.createClass({
 				<div className="profile-edit-button">
 					<button className="change-password"
 								  onClick={this.openPasswordModal}>Change Password</button>
-					<button className="edit-profile">Update Profile</button>
 				</div>
 				<Modal isOpen={this.state.passwordModalOpen}
 							 onRequestClose={this.state.closePasswordModal}

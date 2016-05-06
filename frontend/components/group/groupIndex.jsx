@@ -99,7 +99,9 @@ var GroupIndex = React.createClass({
 				<div className="banner"><div className="logo">HiPup</div></div>
 				<div className="search-bar">
 						{this.searchByTagDiv()}
+						<div className="divider"></div>
 					 {this.searchContainer()}
+						<div className="divider"></div>
 
 					<div className="calendar" onClick={this.openDateModal} />
 				</div>

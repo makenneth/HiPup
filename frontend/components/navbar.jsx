@@ -27,6 +27,10 @@ var Navbar = React.createClass({
 		HashHistory.push(url);
 		this.props.closeModal();
 	},
+	openLogInModal: function(){
+		this.props.closeModal();
+		this.props.openLogInModal();
+	},
 	buttonsForLoggedIn: function() {
 		if (this.state.currentUser){
 			return (<ul className="nav-list-user">
@@ -51,8 +55,11 @@ var Navbar = React.createClass({
 					<ul className="nav-list cf">
 						<li className={this.state.active === 0 ? "active" : ""}
 								onClick={this.setTab.bind(null, 0, "/")}>Home</li>
-						<li className={this.state.active === 1 ? "active" : ""}
-								onClick={this.setTab.bind(null, 1, "groups")}>Search By</li>
+						{
+							this.state.currentUser ? "" :
+							<li onClick={this.openLogInModal}>Please Sign In</li>
+							
+						}
 						{this.buttonsForLoggedIn()}
 					</ul>
 				</nav>
