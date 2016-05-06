@@ -47,7 +47,7 @@ var GroupDetail = React.createClass({
 		if (this.state.currentUser && !this.hasJoinedGroup()){
 			ClientActions.joinGroup(this.state.currentUser.id, this.state.group.id);
 			ClientActions.fetchSingleGroup(this.props.params.groupId, UserStore.currentLocation().timeZone);
-			if (callback) callback();
+			if (Object.prototype.toString.call(callback) === '[object Array]') callback();
 		} else {
 			this.setState({logInIsOpen: true});
 		}
