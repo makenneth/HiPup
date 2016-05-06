@@ -190,9 +190,9 @@ button {
 		opacity: 0.9;
 
 	}
-	.group-index-item:hover #hidden-tags {
-		display: block;
-		-webkit-filter: blur(0.5px);
+
+	.group-index-item:hover h4{
+				-webkit-filter: blur(0.5px);
 	  -moz-filter: blur(0.5px);
 	  -o-filter: blur(0.5px);
 	  -ms-filter: blur(0.5px);
@@ -203,6 +203,10 @@ button {
 		-ms-transition: 5s -ms-filter linear;
 		-o-transition: 5s -o-filter linear;
 		transition: 5s filter linear;
+	}
+	.group-index-item:hover #hidden-tags {
+		display: block;
+				text-shadow: 1px 1px black;
 	}
 #header {
 	width: 100%;
