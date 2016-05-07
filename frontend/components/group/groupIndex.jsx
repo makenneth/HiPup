@@ -95,7 +95,7 @@ var GroupIndex = React.createClass({
 		}
 	},
 	render: function() {
-		var searchCriteria = this.state.searchString.trim();
+		var searchCriteria = this.state.searchString.toLowerCase().trim();
 		var that = this;
 		var libraries = this.state.groups.filter(function(group){
 			if (that.state.tag){
