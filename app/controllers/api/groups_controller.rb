@@ -39,7 +39,6 @@ class Api::GroupsController < ApplicationController
 	end
 
 	def destroy
-		debugger;
 		@group = Group.find(params[:id])
 		if @group.destroy
 			render json: @group, status: 200
