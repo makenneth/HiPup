@@ -44,7 +44,10 @@ module.exports = {
 	},
 	multipleCheckBox: function(id){
 		return <div id="multiple-checkbox-div">
-							{Array.from(Array(this.state.numOfTags), ((a,i)=>this.selectDiv(i)))}
+							{
+								Array.from(Array(this.state.numOfTags), function(a,i){
+										return this.selectDiv(i);})
+							}
 					</div>;
 	},
 	_back: function(e){
