@@ -20,8 +20,11 @@ class Api::GroupsController < ApplicationController
 	end
 
 	def create
-		@group = Group.new(group_params)
+		params = group_params
+		tag_ids = params.delete(:tag_ids).map(&:to_i)
+		@group = Group.new(params)
 		if @group.save
+			@group.tag_ids = tag_ids
 			GroupParticipant.create({group_id: @group.id, participant_id: @group.creator_id})
 			render :show, status: 200
 		else
@@ -50,6 +53,6 @@ class Api::GroupsController < ApplicationController
 	private
 	def group_params
 		params.require(:group)
-		.permit(:title, :description, :lat, :lng, :image_url, :creator_id, :city, :state)
+		.permit(:title, :description, :lat, :lng, :image_url, :creator_id, :city, :state, tag_ids: [])
 	end
 end

@@ -29,7 +29,7 @@ var ManageEvents = React.createClass({
 	},
 	redirect: function(group, id){
 		if (id){
-			HashHistory.push("groups/" + group.id + "/events/" + args[1]);
+			HashHistory.push("groups/" + group.id + "/events/" + id);
 		} else {
 			HashHistory.push("groups/" + group.id + "/home");
 		}

@@ -238,10 +238,13 @@
 }
 .group-form-container {
 	position: relative;
+	min-width: 540px;
+}
+#multiple-checkbox-div {
+		display: flex;
+	flex-direction: column;
 }
 #form-tag-checkbox {
-	display: flex;
-	flex-direction: row;
-	flex-wrap: wrap;
+
 
 }

@@ -13,29 +13,25 @@ module.exports = {
 		fieldObj[field] = e.target.value;
 		this.setState(fieldObj);
 	},
-	toggleCheckbox: function(tag, e){
-		e.preventDefault();
+	toggleSelect: function(box, e){
 		var tags = this.state.tags,
-				indexOfTag = tags.indexOf(tag.id);
-		if (indexOfTag > -1){
-			tags.splice(indexOfTag, 1);
-		} else {
-			tags.push(tag.id);
-		}
+				selectedId = e.target.value;
+		
+		tags[box] = selectedId;
 		this.setState({tags: tags});
 	},
 	moreTags: function() {
-		this.setState({numOfTags: this.state.numOfTags+ 1});
+		this.setState({numOfTags: this.state.numOfTags + 1});
 	},
 	isSelected: function(tag) {
 		return this.state.tags.indexOf(tag) > -1;
 	},
 	selectDiv: function(id) {
-		return (<select id="form-tag-checkbox" key={id}>
+		return (<select class="form-tag-checkbox" onChange={this.toggleSelect.bind(null, id)} key={id}>
+								<option value={null}></option>
 								{
 									this.state.allTags.map(function(tag){
-										return (<option key={tag.id} onChange={this.toggleCheckbox.bind(null, tag)}
-														 selected={this.isSelected(tag)} className="tags">
+										return (<option key={tag.id} value={tag.id}>
 														 {tag.name}</option>);
 									}.bind(this))
 								}
@@ -46,7 +42,7 @@ module.exports = {
 		return <div id="multiple-checkbox-div">
 							{
 								Array.from(Array(this.state.numOfTags), function(a,i){
-										return this.selectDiv(i);})
+										return this.selectDiv(i);}.bind(this))
 							}
 					</div>;
 	},

@@ -51,7 +51,8 @@ var NewGroupForm = React.createClass({
 															 title: this.state.title,
 															 image_url: this.state.image_url,
 															 description: this.state.description,
-															 creator_id: this.state.creator_id
+															 creator_id: this.state.creator_id,
+															 tag_ids: this.state.tags
 															});
 	},
 	_successInCreation: function(){
