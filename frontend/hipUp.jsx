@@ -129,10 +129,22 @@ var App = React.createClass({
 				</div>)
 		}
 	},
+	managePageStyle: function(){
+		if (this.props.location.pathname === "/user/events"){
+			return {
+							backgroundImage: "url(" + "/dog-board-mini.png" + ")", 
+							backgroundSize: "contain",
+							height: "200px",
+							width: 'auto',
+							position: "fixed",
+							backgroundRepeat: "repeat-x"
+						};
+		}
+	},
 	render: function() {
 		return (
 			<div>
-				<div class="page-container">
+				<div class="page-container" style={this.managePageStyle()}>
 						{this.props.children}
 				</div>
 					{this.userButtons()}

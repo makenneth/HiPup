@@ -2,6 +2,7 @@ class Api::UsersController < ApplicationController
 
 	def show
 		if current_user
+			@user = User.includes(:groups, joined_events: [:group, :event_users])
 			render :show
 		else
 			render json: nil

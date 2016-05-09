@@ -2,11 +2,11 @@ var React = require('react'),
 		CurrentUserState = require("../../mixin/currentUserState"),
 		HashHistory = require('react-router').hashHistory,
 		ClientActions = require('../../actions/clientActions'),
-		GroupStores = require('../../stores/groupStore'),
+		GroupStore = require('../../stores/groupStore'),
 		Autocomplete = require('../../mixin/autoComplete'),
 		UserStore = require('../../stores/userStore'),
 		GroupFormMixin = require('../../mixin/groupFormMixin'),
-		GroupStore = require('../../stores/groupStore');
+		TagStore = require('../../stores/tagStore');
 var NewGroupForm = React.createClass({
 	mixins: [CurrentUserState, Autocomplete, GroupFormMixin],
 	getInitialState: function() {
@@ -18,16 +18,27 @@ var NewGroupForm = React.createClass({
 			image_url: "",
 			creator_id: "",
 			city: "",
-			state: ""
+			state: "",
+			allTags: TagStore.all() || [],
+			tags: [],
+			numOfTags: 1
 		};
 	},
 	componentDidMount: function() {
 		this.gfListener = UserStore.addListener(this._userFetched);
-		this.groupStoreListener = GroupStores.addListener(this._successInCreation);
+		this.groupStoreListener = GroupStore.addListener(this._successInCreation);
+		if (!this.state.allTags.length){
+			this.tagStoreListener = TagStore.addListener(this._tagsFetched);
+			ClientActions.fetchTags();
+		}
 	},
 	componentWillUnmount: function() {
 		if (this.gfListener) this.gfListener.remove();
 		if (this.groupStoreListener) this.groupStoreListener.remove();
+		if (this.tagStoreListener) this.tagStoreListener.remove();
+	},
+	_tagsFetched: function(){
+		this.setState({allTags: TagStore.all()});
 	},
 	_handleSubmit: function(e){
 		e.preventDefault();

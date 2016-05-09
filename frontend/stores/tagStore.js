@@ -5,7 +5,6 @@ var Store = require('flux/utils').Store,
 
 var _tags = [];
 
-
 var _resetTags = function(tags){
 	_tags = tags;
 };

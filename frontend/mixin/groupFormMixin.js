@@ -13,6 +13,37 @@ module.exports = {
 		fieldObj[field] = e.target.value;
 		this.setState(fieldObj);
 	},
+	toggleCheckbox: function(tag, e){
+		e.preventDefault();
+		var tags = this.state.tags,
+				indexOfTag = tags.indexOf(tag.id);
+		if (indexOfTag > -1){
+			tags.splice(indexOfTag, 1);
+		} else {
+			tags.push(tag.id);
+		}
+		this.setState({tags: tags});
+	},
+	moreTags: function() {
+		this.setState({numOfTags: this.state.numOfTags+ 1});
+	},
+	selectDiv: function(id) {
+		return (<select id="form-tag-checkbox" key={id}>
+								{
+									this.state.allTags.map(function(tag){
+										return (<option key={tag.id} onChange={this.toggleCheckbox.bind(null, tag)}
+														 checked={this.state.tags.indexOf(tag) > -1} 
+														 className="tags">{tag.name}</option>);
+									}.bind(this))
+								}
+							</select>);
+		
+	},
+	multipleCheckBox: function(id){
+		return <div id="multiple-checkbox-div">
+							{Array.from(Array(this.state.numOfTags), ((a,i)=>this.selectDiv(i)))}
+					</div>;
+	},
 	_back: function(e){
 		if (e) e.preventDefault();
 		HashHistory.goBack();
@@ -50,6 +81,11 @@ module.exports = {
 											  	onChange={this.updateField.bind(null, "description")} 
 											  	id="description" rows="5" required/>
 							</div>
+							<div className="form-line">
+								<label for="tag">Tags</label>
+								{this.multipleCheckBox()}
+							</div>
+							<a onClick={this.moreTags} style={{alignSelf: 'flex-end'}}>Add More tags</a> 
 
 							<input className="create-group-button" type="submit" value="Create New Group" />
 						</form>
