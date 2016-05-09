@@ -27,13 +27,16 @@ module.exports = {
 	moreTags: function() {
 		this.setState({numOfTags: this.state.numOfTags+ 1});
 	},
+	isSelected: function(tag) {
+		return this.state.tags.indexOf(tag) > -1;
+	},
 	selectDiv: function(id) {
 		return (<select id="form-tag-checkbox" key={id}>
 								{
 									this.state.allTags.map(function(tag){
 										return (<option key={tag.id} onChange={this.toggleCheckbox.bind(null, tag)}
-														 checked={this.state.tags.indexOf(tag) > -1} 
-														 className="tags">{tag.name}</option>);
+														 selected={this.isSelected(tag)} className="tags">
+														 {tag.name}</option>);
 									}.bind(this))
 								}
 							</select>);
