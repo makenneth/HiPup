@@ -165,7 +165,7 @@ var EventShow = React.createClass({
 							groupEvent.status === "CANCEL" ? "Cancelled" : "On Schedule"}</p>
 								</div>
 								<div id="location">
-									<h4>{groupEvent.street} <a style={{font: "blue" }} href={"https://maps.google.com/?ll=" + groupEvent.lat + "," + groupEvent.lng}>(map)</a></h4>
+									<h4>{groupEvent.street}</h4>
 									<p>{groupEvent.city}, {groupEvent.state} {groupEvent.zip}</p>
 								</div>
 							</div>

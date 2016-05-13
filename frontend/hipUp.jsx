@@ -146,6 +146,9 @@ var App = React.createClass({
 			<div>
 				<div class="page-container" style={this.managePageStyle()}>
 						{this.props.children}
+						<div id="footer">
+							<div className="git-logo" style={{backgroundImage: "/git-logo.png"}}></div>
+						</div>
 				</div>
 					{this.userButtons()}
 				<div className="menu-icon" onClick={this.openNavModal}>&#9776;</div>

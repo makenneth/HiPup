@@ -40,11 +40,11 @@ var GroupEvents = React.createClass({
 			<div>
 				<div className="group-event-nav">
 						<li onClick={this.setTab.bind(null, 0)}
-								className={this.state.tabSelected === 0 ? "active-tab" : ""}>
+								className={this.state.tabSelected === 0 ? "active-tab" : "inactive-event-tab"}>
 								Upcoming Events ({upcomingEvents.length})
 						</li>
 						<li onClick={this.setTab.bind(null, 1)}
-								className={this.state.tabSelected === 1 ? "active-tab" : ""}>
+								className={this.state.tabSelected === 1 ? "active-tab" : "inactive-event-tab"}>
 								Past Events ({oldEvents.length})
 								</li>
 				</div>

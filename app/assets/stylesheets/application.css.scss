@@ -39,6 +39,23 @@ span, article, footer, time, small {
 .group-event-detail {
 	font-size: 18px;
 }
+.active-tab, .inactive-event-tab {
+	cursor: pointer;
+}
+.active-tab:hover, .inactive-event-tab:hover {
+	color: #666;
+}
+div .page-container #footer {
+	width: 100%;
+	height: 200px;
+	display: fixed;
+	bottom: 0;
+	.git-logo {
+		width: 40px;
+		height: 40px;
+	}
+}
+
 input {
 	border: 1px solid black;
 }

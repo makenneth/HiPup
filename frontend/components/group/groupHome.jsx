@@ -87,11 +87,7 @@ var GroupHome = React.createClass({
 							<ul>
 							{
 								group.tags.map(function(tag){
-									return (<li key={tag.id} tag={tag}>
-														<a onClick={this._showTag.bind(null, tag.id)}>
-															{tag.name}
-														</a>
-													</li>);
+									return (<li key={tag.id} tag={tag}>{tag.name}</li>);
 								}.bind(this))
 							}
 							</ul>
@@ -107,7 +103,6 @@ var GroupHome = React.createClass({
 					<GroupMembers group={this.props.group} groupId={this.props.params.groupId}/>
 				</div>
 			</div>
-
 		);
 	}
 
