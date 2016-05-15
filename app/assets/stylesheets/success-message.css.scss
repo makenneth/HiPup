@@ -1,0 +1,30 @@
+.success-enter {
+	opacity: 0.01;
+}
+.success-enter.success-enter-active {
+	opacity: 1;
+	transition: opacity 5s ease-in;
+}
+
+.success-leave {
+	opacity: 1;
+}
+.sucess-leave.success-leave-active {
+	opacity: 0.01;
+	transition: opacity 500ms ease-in;
+}
+#success-message {
+		display: flex;
+		flex-direction: column;
+		padding: 5px;
+		font-size: 28px;
+	  font-family: 'Dosis', sans-serif;
+	  color: white;
+	  text-align: center;
+	 .ok {
+	 	margin-top: 5%;
+	 	width: 100%;
+	 	border: 1px solid white;
+	 	border-radius: 5px;
+	 }
+}

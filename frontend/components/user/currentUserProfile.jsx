@@ -76,7 +76,7 @@ var CurrentUserProfile = React.createClass({
 				</div>
 				<div className="profile-edit-button">
 					<button className="change-password"
-								  onClick={this.openPasswordModal}>Change Password</button>
+								  onClick={this.openPasswordModal}>Update Password</button>
 				</div>
 				<Modal isOpen={this.state.passwordModalOpen}
 							 onRequestClose={this.state.closePasswordModal}

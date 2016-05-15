@@ -23,7 +23,7 @@
 ul, li, strong, main, button, i,
 section, img, div, h2, p, form,
 fieldset, label, input, textarea,
-span, article, footer, time, small {
+span, article, time, small {
   margin: 0;
   padding: 0;
   border: 0;
@@ -36,6 +36,7 @@ span, article, footer, time, small {
   box-sizing: inherit;
   background: transparent;
 }
+
 .group-event-detail {
 	font-size: 18px;
 }
@@ -43,19 +44,42 @@ span, article, footer, time, small {
 	cursor: pointer;
 }
 .active-tab:hover, .inactive-event-tab:hover {
-	color: #666;
+	color: #69f;
 }
-div .page-container #footer {
+footer {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
 	width: 100%;
-	height: 200px;
-	display: fixed;
-	bottom: 0;
-	.git-logo {
-		width: 40px;
-		height: 40px;
-	}
+	height: 100px;
+	display: absolute;
+	background-color: white;
 }
+.my-name {
+	font-size: 24px;
+	margin-right: 10px;
+	font-family: 'Roboto Slab', sans-serif;
+}
+.git-logo, .link-logo {
+	background-size: cover;
+	margin-right: 10px;
+	width: 60px;
+	height: 60px;
+}
+.git-logo {
+	background-image: url("/icons/github.png");
 
+}
+.git-logo:hover {
+	background-image: url("/icons/github-hover.png");
+}
+.link-logo {
+	background-image: url("/icons/linkedin.png");
+}
+.link-logo:hover {
+	background-image: url("/icons/linkedin-hover.png");
+}
 input {
 	border: 1px solid black;
 }
@@ -125,8 +149,11 @@ button {
 	height: 50px;
 	background-image: url('/calendar-icon.png');
 	background-size: cover;
+	cursor: pointer;
 }
-
+.calendar:hover {
+	opacity: 0.7;
+}
 .banner {
 	display: flex;
 	position: relative;
@@ -260,36 +287,7 @@ button {
 	border-radius: 5px;
 }
 
-.success-enter {
-	opacity: 0.01;
-}
-.success-enter.success-enter-active {
-	opacity: 1;
-	transition: opacity 5s ease-in;
-}
 
-.success-leave {
-	opacity: 1;
-}
-.sucess-leave.success-leave-active {
-	opacity: 0.01;
-	transition: opacity 500ms ease-in;
-}
-#success-message {
-		display: flex;
-		flex-direction: column;
-		padding: 5px;
-		font-size: 28px;
-	  font-family: 'Dosis', sans-serif;
-	  color: white;
-	  text-align: center;
-	 .ok {
-	 	margin-top: 5%;
-	 	width: 100%;
-	 	border: 1px solid white;
-	 	border-radius: 5px;
-	 }
-}
 .event-by-date {
 	color: white;
 }
