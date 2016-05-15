@@ -148,8 +148,8 @@ var App = React.createClass({
 						{this.props.children}
 						<footer>
 						  <div className="my-name">Kenneth Ma</div>
-							<div className="git-logo" href="https://github.com/makenneth"></div>
-							<div className="link-logo" href="https://www.linkedin.com/in/kenneth-ma-a813b3116"></div>
+							<a href="https://github.com/makenneth"><div className="git-logo"></div></a>
+							<a href="https://www.linkedin.com/in/kenneth-ma-a813b3116"><div className="link-logo"></div></a>
 						</footer>
 				</div>
 					{this.userButtons()}

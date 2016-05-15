@@ -24,7 +24,6 @@ var _setTimeZone = function(timezone){
 
 UserStore.setCurrentCoords = function(coords){
 	_currentLocation.coords = coords;
- //I should fire a post request to update the server's cookie in
 };
 
 UserStore.currentLocation = function(){
@@ -39,7 +38,7 @@ var _unsetCurrentUser = function(){
 	_errors = [];
 };
 var _setErrors = function(errors){
-	_errors = errors;
+	_errors = errors ? errors : [];
 };
 UserStore.__onDispatch = function(payload) {
 	switch (payload.actionType){
