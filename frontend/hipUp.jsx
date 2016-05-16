@@ -46,8 +46,9 @@ var App = React.createClass({
 		};
 	},
 	componentDidMount: function() {
-		this.posListener = navigator.geolocation.watchPosition(this.updateLatLng, this.handleLocationError);
+		this.posListener = navigator.geolocation.getCurrentPosition(this.updateLatLng, this.handleLocationError);
 	},
+
 	handleLocationError: function() {
 		UserServerActions.locationCalled();
 	},

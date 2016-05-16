@@ -15,7 +15,9 @@ class Group < ActiveRecord::Base
 	end
 
 	def self.distance_between(user_coord, miles)
-		Group.where(Geocoder::Calculations.distance_between(user_coord, [:lat, :lng]) < miles)
+		Group.includes(:tags).select do |group| 
+			Geocoder::Calculations.distance_between(user_coord, [group.lat, group.lng]) < miles.to_i
+	  end
 	end
 
 	def self.closest(user_coord)

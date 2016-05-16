@@ -22,6 +22,9 @@ module.exports = {
 	fetchSingleGroup: function(id, timezone){
 		ApiUtil.fetchSingleGroup(id, timezone);
 	},
+	fetchGroupsByLocation: function(miles, coords){
+		ApiUtil.fetchCustomGroups(miles, coords, "custom");
+	},
 	createGroup: function(group){
 		ApiUtil.createGroup(group);
 	},

@@ -19,7 +19,26 @@ module.exports = {
 			}
 		});
 	},
-
+	fetchAllGroups: function() {
+		$.ajax({
+			method: "GET",
+			url: "/api/groups",
+			success: function(groups){
+				ServerActions.receivedGroups(groups);
+			}
+		});
+	},
+	fetchCustomGroups: function(miles, coords, type){
+		$.ajax({
+			method: "GET",
+			url: "/api/groups",
+			data: {user_coord: [coords.latitude, coords.longitude], 
+							location_type: type, miles: miles},
+			success: function(groups){
+				ServerActions.receivedGroups(groups);
+			}
+		})
+	},
 	fetchSingleGroup: function(id, timezone) {
 		$.ajax({
 			method: "GET",

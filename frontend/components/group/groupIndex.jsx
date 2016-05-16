@@ -23,6 +23,7 @@ var GroupIndex = React.createClass({
 			searchString: "",
 			dateModalIsOpen: false,
 			searchBarOpen: false,
+			distanceSearchOpen: false,
 			tag: null,
 			miles: 0
 		};
@@ -79,11 +80,18 @@ var GroupIndex = React.createClass({
 	changeDistance: function(e){
 		this.setState({miles: e.target.value});
 	},
-	searchByDistance: function(){
+	searchByDistance: function(e){
+		e.preventDefault();
+		ClientActions.fetchGroupsByLocation(this.state.miles, UserStore.currentLocation().coords);
 	},
 	searchByDistanceIcon: function(){
-		return (<div className="searchByDistance">
-				Within <input type="number" value={this.state.miles} onChange={this.changeDistance} /> of your location</div>);
+		if (this.distanceSearchOpen){
+			return <div className="search-by-dist"></div>;
+		} else {
+			return (<div className="searchByDistance">
+					Within <input type="number" value={this.state.miles} onChange={this.changeDistance} /> of your location
+					<button onClick={this.searchByDistance}>Submit</button></div>);		
+		}
 	},
 	searchByTagDiv: function(){
 		if (this.state.tag){
@@ -111,6 +119,8 @@ var GroupIndex = React.createClass({
 			<div>
 				<div className="banner"><div className="logo">HiPup</div></div>
 				<div className="search-bar">
+						{this.searchByDistanceIcon()}
+						<div className="divider"></div>
 						{this.searchByTagDiv()}
 						<div className="divider"></div>
 					 {this.searchContainer()}
