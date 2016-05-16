@@ -34,16 +34,6 @@ class Api::UsersController < ApplicationController
 		end
 	end
 	
-	# def update_coordinate
-	# 	@user = current_user
-	# 	@user.current_lat = params[:user][:lat]
-	# 	@user.current_lng = params[:user][:lng]
-	# 	if @user.save
-	# 		render :shows
-	# 	else
-	# 		render json: @user.errors.full_messages, status: 422
-	# 	end
-	# end
 	private
 	def user_params
 		params.require(:user)

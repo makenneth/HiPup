@@ -146,11 +146,6 @@ var App = React.createClass({
 			<div>
 				<div class="page-container" style={this.managePageStyle()}>
 						{this.props.children}
-						<footer>
-						  <div className="my-name">Kenneth Ma</div>
-							<a href="https://github.com/makenneth"><div className="git-logo"></div></a>
-							<a href="https://www.linkedin.com/in/kenneth-ma-a813b3116"><div className="link-logo"></div></a>
-						</footer>
 				</div>
 					{this.userButtons()}
 				<div className="menu-icon" onClick={this.openNavModal}>&#9776;</div>

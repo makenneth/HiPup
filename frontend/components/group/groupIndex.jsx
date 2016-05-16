@@ -131,6 +131,11 @@ var GroupIndex = React.createClass({
 						})
 					}
 				</div>
+				<footer>
+				  <div className="my-name">Kenneth Ma</div>
+					<a href="https://github.com/makenneth"><div className="git-logo"></div></a>
+					<a href="https://www.linkedin.com/in/kenneth-ma-a813b3116"><div className="link-logo"></div></a>
+				</footer>
 			</div>
 		);
 	}
