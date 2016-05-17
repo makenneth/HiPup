@@ -13,7 +13,6 @@ var EventIndexByDate = React.createClass({
 	},
 	componentDidMount: function() {
 	  this.eventIndexListener = EventQueryStore.addListener(this._fetchedEvents);
-
 	  if (!this.state.groupEvents.length){
 		  ClientActions.fetchAllEventsByDate(UserStore.currentLocation().timeZone);
 	  }
@@ -34,7 +33,7 @@ var EventIndexByDate = React.createClass({
 	render: function() {
 		return (
 			<div className="event-by-date">
-			<div className="close-icon" onClick={this.props.closeModal}>&#10006;</div>
+				<div className="close-icon" onClick={this.props.closeModal}>&#10006;</div>
 				<h3>
 					Event By Date
 				</h3>

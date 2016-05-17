@@ -1,4 +1,5 @@
 var React = require('react'),
+		ReactDOM = require('react-dom'),
 		GroupStore = require('../../stores/groupStore'),
 		QueryGroupStore = require('../../stores/queryGroupStore'),
 		ClientActions = require('../../actions/clientActions'),
@@ -71,7 +72,6 @@ var GroupIndex = React.createClass({
 	openSearchBar: function(e){
 		this.setState({searchBarOpen: true});
 	},
-
 	changeDistance: function(e){
 		if (e.target.value === "--"){
 			this.setState({miles: "--", groups: GroupStore.all()})

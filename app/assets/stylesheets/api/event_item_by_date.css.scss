@@ -23,9 +23,9 @@
 }
 .event-by-date .close-icon {
 	background-color: transparent;
-	position: fixed;
-	top: 5px;
-	right: 10px;
+	position: static;
+	margin: 0 0 0 95%;
+
 }
 .event-by-date button {
 		width: 98%;

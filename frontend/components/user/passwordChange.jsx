@@ -46,7 +46,7 @@ var PasswordChange = React.createClass({
 		return (
 			<div className="password-modal">
 				<div className="close-icon" onClick={this.props.closeModal}>&#10006;</div>
-				<h3 >Update Password</h3>
+				<h3>Update Password</h3>
 				<div className="password-errors">
 					{
 						this.state.errors.map(function(error, i){
@@ -66,7 +66,7 @@ var PasswordChange = React.createClass({
 									onChange={this.setField.bind(null, "newPassword")}
 									required
 									pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[._!@#*&$-])[a-zA-Z0-9_!@#*&$.-]{8,}$" />
-					<label for="new-password-repeat">Repeat You Password</label>
+					<label for="new-password-repeat">Repeat Your Password</label>
 					<input title="Password doesn't match" id="new-password-repeat" type="password"
 								 value={this.state.newPasswordRepeat}
 								 onChange={this.setField.bind(null, "newPasswordRepeat")}

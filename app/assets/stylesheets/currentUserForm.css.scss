@@ -4,11 +4,14 @@
 	justify-content: center;
 	width: 80%;
 	margin: 0 auto;
+	font-family: 'Titillium Web', sans-serif;
+
 	.close-icon {
+		position: static;
 		width: 20px;
 		height: 20px;
-		top: 20px;
-		background-color: white;
+		margin-left: 97%;
+		background-color: transparent;
 		color: black;
 	}
 	.close-icon:hover {

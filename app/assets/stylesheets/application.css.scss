@@ -36,7 +36,9 @@ span, article, time, small {
   box-sizing: inherit;
   background: transparent;
 }
-
+.ReactModal__Body--open {
+  overflow: hidden;
+}
 .group-event-detail {
 	font-size: 18px;
 }
