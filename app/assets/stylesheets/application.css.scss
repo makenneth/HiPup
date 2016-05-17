@@ -219,7 +219,14 @@ button {
 		text-align: center;
 		color: white;
 		display: none;
-				text-shadow: 1px 1px black;
+		text-shadow: 1px 1px black;
+		flex-direction: row;
+		.hidden-tags-tags {
+			background-image: url("/tag-name.png");
+			background-size: cover;
+			width: 100px;
+			height: 60px;
+		}
 	}
 	.image-mask {
 		width: 100%;
@@ -254,7 +261,8 @@ button {
 		transition: 5s filter linear;
 	}
 	.group-index-item:hover #hidden-tags {
-		display: block;
+		display: flex;
+		justify-content: space-between;
 				text-shadow: 1px 1px black;
 	}
 #header {

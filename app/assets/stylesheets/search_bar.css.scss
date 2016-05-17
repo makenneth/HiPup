@@ -43,6 +43,7 @@
 	background-image: url("/search.png");
 	position: relative;
 }
+
 .search-by-tag, .search-by-dist, .search-icon-main {
 	height: 50px;
 	width: 50px;
@@ -56,7 +57,10 @@
 	opacity: 0.9;
 }
 .search-by-tag  {
-	background-image: url("/tag-icon.png");
+	background-image: url("/icons/tag-icon1.png");
+}
+.search-by-tag:hover  {
+	background-image: url("/icons/tag-icon2.png");
 }
 .search-by-dist {
 	background-image: url("/location-icon.png");
