@@ -17,7 +17,7 @@ module.exports = {
 	searchByDistanceIcon: function(){
 		if (this.state.distanceSearchOpen){
 			return (<div className="searchByDistance">
-					<div>{this.state.locationServiceError}</div>
+					<div style={{color: red}}>{this.state.locationServiceError}</div>
 					<div>Within  <select class="dist" value={this.state.miles} onChange={this.changeDistance}>
 						<option value={null}>--</option>
 						<option value={25}>25</option>
