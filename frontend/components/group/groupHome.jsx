@@ -1,11 +1,8 @@
 var React = require('react'),
-		GroupStore = require('../../stores/groupStore'),
 		HashHistory = require('react-router').hashHistory,
 		GroupEvents = require('./groupEvents'),
 		GroupMembers = require('./groupMembers'),
-		ClientActions = require('../../actions/clientActions'),
-		CurrentUserState = require('../../mixin/currentUserState');
-
+		ClientActions = require('../../actions/clientActions');
 
 var GroupHome = React.createClass({
 	getInitialState: function() {

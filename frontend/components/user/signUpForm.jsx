@@ -1,7 +1,6 @@
 var React = require('react'),
 		UserActions = require('../../actions/userActions'),
 		UserStore = require('../../stores/userStore'),
-		HashHistory = require('react-router').hashHistory,
 		Autocomplete = require('../../mixin/autoComplete');
 
 var SignUpForm = React.createClass({

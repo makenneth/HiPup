@@ -2,8 +2,6 @@ var React = require('react'),
 		CurrentUserStateMixin = require('../mixin/currentUserState'),
 		UserActions = require('../actions/userActions'),
 		UserStore = require('../stores/userStore'),
-		LogInForm = require('./user/logInForm'),
-		SignUpForm = require('./user/signUpForm'),
 		HashHistory = require('react-router').hashHistory;
 
 var Navbar = React.createClass({

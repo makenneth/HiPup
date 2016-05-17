@@ -1,5 +1,4 @@
 var React = require('react'),
-		HashHistory = require('react-router'),
 		GroupStore = require('../../stores/groupStore'),
 		ClientActions = require('../../actions/clientActions'),
 		GroupNav = require('./groupNav'),

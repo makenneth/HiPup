@@ -4,7 +4,6 @@ var React = require('react'),
 		EventMap = require('./map.jsx'),
 		CurrentUserState = require('../../mixin/currentUserState'),
 		UserStore = require('../../stores/userStore'),
-		HashHistory = require('react-router').hashHistory,
 		Modal = require('react-modal'),
 		Confirmation = require('../../mixin/confirmation'),
 		ConfirmationStyle = require('../../modal/confirmationStyle');

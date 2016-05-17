@@ -1,7 +1,6 @@
 var Store = require('flux/utils').Store,
 		AppDispatcher = require('../dispatcher/dispatcher'),
-		GroupEventStore = new Store(AppDispatcher),
-		GroupEventConstants = require('../constants/groupEventConstants');
+		GroupEventStore = new Store(AppDispatcher);
 
 var _groupEvents = {},
 		_lastGroupEvents = null;

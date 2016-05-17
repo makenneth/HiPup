@@ -117,8 +117,7 @@ var GroupNav = React.createClass({
 		}
 	},
 	render: function() {
-		var id = this.props.group.id,
-				title = this.props.group.title;
+		var id = this.props.group.id;
 		return (
 			<div>
 				<div style={{position: "relative"}}>

@@ -1,6 +1,5 @@
 var React = require('react'),
 		UserActions = require('../../actions/userActions'),
-		HashHistory = require('react-router').hashHistory,
 		UserStore = require('../../stores/userStore');
 
 var LogInForm = React.createClass({

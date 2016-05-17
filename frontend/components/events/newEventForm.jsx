@@ -7,7 +7,6 @@ var React = require('react'),
 var NewEventForm = React.createClass({
 	mixins: [CurrentUserState],
 	getInitialState: function() {
-		var d = new Date();
 		return {
 			title: "",
 			date: "",
@@ -43,7 +42,7 @@ var NewEventForm = React.createClass({
 		if (!places) return;
 		var address = places.adr_address;
 		var location = places.geometry.location;
-		var street, city, state, zip, lat, lng;
+		var street, city, state, zip;
 		street = address.match(/-address\">(.*?)</),
 		city = address.match(/locality\">(.*?)</),
 		state = address.match(/region\">(.*?)</),
