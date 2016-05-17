@@ -7,7 +7,6 @@ var _groups = {},
 		_lastEditedGroup = null;
 
 var _resetGroups = function(groups){
-	_groups = {};
 	groups.forEach(function(group){
 		_groups[group.id] = group;
 	});

@@ -21,6 +21,13 @@ module.exports = {
 			groups: groups
 		});
 	},
+	groupsDistanceFetched: function(groups, miles){
+		AppDispatcher.dispatch({
+			actionType: GroupConstants.GROUPS_DISTANCE_FETCHED,
+			groups: groups,
+			miles: miles
+		})
+	},
 	receivedGroup: function(group){
 		AppDispatcher.dispatch({
 			actionType: GroupConstants.RECEIVED_GROUP,

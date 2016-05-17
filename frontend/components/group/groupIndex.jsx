@@ -1,21 +1,23 @@
 var React = require('react'),
 		GroupStore = require('../../stores/groupStore'),
+		QueryGroupStore = require('../../stores/queryGroupStore'),
 		ClientActions = require('../../actions/clientActions'),
 		GroupIndexItem = require('./groupIndexItem'),
 		Search = require('../search/search'),
 		Modal = require('react-modal'),
 		SearchStyle = require('../../modal/searchStyle'),
-		TagIndex = require('../tag/tagIndex'),
 		ReactCSSTransitionGroup = require('react-addons-css-transition-group'),
 		EventIndexByDate = require('../events/eventIndexByDate'),
 		DateModalStyle = require('../../modal/dateModalStyle'),
 		CurrentUserState = require('../../mixin/currentUserState'),
-		UserStore = require("../../stores/userStore");
+		UserStore = require("../../stores/userStore"),
+		SearchMixin = require('../../mixin/searchMixin');
+
 
 var banner = "https://images.unsplash.com/photo-1443750200537-00fd518bdc82?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&w=1080&fit=max&s=ad7a9ff44b3026fcf49d80830ffb20ee";
 
 var GroupIndex = React.createClass({
-	mixins: [CurrentUserState],
+	mixins: [CurrentUserState, SearchMixin],
 	getInitialState: function() {
 		return {
 			groups: [],
@@ -25,7 +27,8 @@ var GroupIndex = React.createClass({
 			searchBarOpen: false,
 			distanceSearchOpen: false,
 			tag: null,
-			miles: 0
+			miles: 0,
+			locationServiceError: ""
 		};
 	},
 	selectTag: function(tag){
@@ -36,7 +39,11 @@ var GroupIndex = React.createClass({
 	},
 	componentDidMount: function() {
 		this.groupIndexListener = GroupStore.addListener(this._onLoad);
+		this.qgsListener = QueryGroupStore.addListener(this._fetchedLocationQuery);
 		ClientActions.fetchAllGroups();
+	},
+	_fetchedLocationQuery: function() {
+		this.setState({groups: QueryGroupStore.findGroups(this.state.miles)});
 	},
 	_onLoad: function() {
 		this.setState({groups: GroupStore.all()});
@@ -64,43 +71,42 @@ var GroupIndex = React.createClass({
 	openSearchBar: function(e){
 		this.setState({searchBarOpen: true});
 	},
-	searchContainer: function(){
-		if (this.state.searchBarOpen){
-			return (<div className="search-container-sm cf">
-			<img className="search-icon-sm" src="/search-icon-2.png"/>
-			<input id="search-box" type="text" onChange={this.setSearchString}
-						 value={this.state.searchString} placeholder="Type your search..."/>
-		 	</div>)	
-		} else {
-			return (
-				<div className="search-icon-main" onClick={this.openSearchBar}></div>
-				) 
-		}
-	},
+
 	changeDistance: function(e){
-		this.setState({miles: e.target.value});
+		if (e.target.value === "--"){
+			this.setState({miles: "--", groups: GroupStore.all()})
+			return;
+		}
+
+		var selectedMiles = +e.target.value;
+
+		this.setState({miles: selectedMiles});
+		this.fetchGroupsByLocation(selectedMiles);
 	},
-	searchByDistance: function(e){
-		e.preventDefault();
-		ClientActions.fetchGroupsByLocation(this.state.miles, UserStore.currentLocation().coords);
-	},
-	searchByDistanceIcon: function(){
-		if (this.distanceSearchOpen){
-			return <div className="search-by-dist"></div>;
+
+	fetchGroupsByLocation: function(miles){
+		var groups = QueryGroupStore.findGroups(miles);
+		if (groups){
+			this.setState({groups: groups});
 		} else {
-			return (<div className="searchByDistance">
-					Within <input type="number" value={this.state.miles} onChange={this.changeDistance} /> of your location
-					<button onClick={this.searchByDistance}>Submit</button></div>);		
+			var usersLocation = UserStore.currentLocation().coords;
+			if (usersLocation.latitude){
+				ClientActions.fetchGroupsByLocation(miles, usersLocation);
+			} else {
+				this._toggleLocationService();
+				setTimeout(this._toggleLocationService, 2000);		
+			}
 		}
 	},
-	searchByTagDiv: function(){
-		if (this.state.tag){
-			return (<div className="searching-by-tag">Searching By: {this.state.tag} <p onClick={this.cancelTag}>Cancel Search</p></div>);
+	_toggleLocationService: function(){
+		if (this.state.locationServiceError.length){
+			this.setState({locationServiceError: ""});
 		} else {
-		 return (<div className="search-by-tag" onClick={this.openTagSearchModal}>
-		 		<div className="tag-index"><TagIndex selectTag={this.selectTag} /></div>
-		 </div>);
+			this.setState({locationServiceError: "Location Service isn't available"});
 		}
+	},
+	openDistanceSearch: function(){
+		this.setState({distanceSearchOpen: true});
 	},
 	render: function() {
 		var searchCriteria = this.state.searchString.toLowerCase().trim();

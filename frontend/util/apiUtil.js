@@ -35,7 +35,8 @@ module.exports = {
 			data: {user_coord: [coords.latitude, coords.longitude], 
 							location_type: type, miles: miles},
 			success: function(groups){
-				ServerActions.receivedGroups(groups);
+				var miles = +groups.pop();
+				ServerActions.groupsDistanceFetched(groups, miles);
 			}
 		})
 	},

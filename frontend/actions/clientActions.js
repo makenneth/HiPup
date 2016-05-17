@@ -66,8 +66,7 @@ module.exports = {
 	},
 	rsvpEvent: function(userId, eventId){
 		ApiUtil.joinEvent(eventParticipantData(userId, eventId));
-
-	}, //modal on close, on open
+	},
 	changeRSVP: function(userId, eventId){
 		ApiUtil.leaveEvent(eventParticipantData(userId, eventId));
 	},
