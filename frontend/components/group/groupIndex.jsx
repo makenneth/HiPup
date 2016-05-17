@@ -53,6 +53,8 @@ var GroupIndex = React.createClass({
 		if (this.groupIndexListener){
 			this.groupIndexListener.remove();
 		}
+		$("#search-box").off("keyup");
+		$(".search-bar").off("click");
 	},
 	setSearchString: function(e) {
 		this.setState({searchString: e.target.value});

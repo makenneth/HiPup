@@ -48,6 +48,7 @@ var SignUpForm = React.createClass({
 					<div className="form-line cf">
 						<label for="name">My Name</label>
 						<input type="text" id="name"
+						autoFocus
 							value={this.state.name} onChange={this.updateField.bind(null, "name")}
 							required />
 					</div>

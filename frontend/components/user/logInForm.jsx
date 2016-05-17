@@ -67,8 +67,9 @@ var LogInForm = React.createClass({
 					<div className="form-line cf">
 						<label for="username">Username</label>
 						<input id="username" type="text"
+								autoFocus
 								value={this.state.username} onChange={this.updateUsername}
-								 required/>
+								 required />
 					</div>
 					<div className="form-line cf">
 						<label for="password">Password</label>

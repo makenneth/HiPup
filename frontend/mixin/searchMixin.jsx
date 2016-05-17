@@ -10,14 +10,16 @@ module.exports = {
 				scrollTop: $(this).offset().top
 			}, 'slow');
 		});		
-		// $(".search-container-sm").on("keyup", "#search-box", function(e){
-		// 	debugger;
-		// 	if (e.target.id === "search-box"){
-		// 		$("body").animate({
-		// 			scrollTop: $(this).offset().top
-		// 		}, 'slow');
-		// 	} 
-		// })
+
+	},
+	componentDidUpdate: function(prevProps, prevState) {
+		if(this.state.searchBarOpen){
+			$("#search-box").on("keyup", function(e){
+				$("body").animate({
+							scrollTop: $(this).offset().top
+						}, 'slow');	  
+			})
+		}
 	},
 	searchContainer: function(){
 		if (this.state.searchBarOpen){
