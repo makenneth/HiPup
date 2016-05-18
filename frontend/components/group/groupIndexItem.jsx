@@ -16,7 +16,13 @@ var GroupIndexItem = React.createClass({
 					 style={ { backgroundImage: 'url(' + imgUrl + ')', backgroundSize: "cover"} }>
 					 <div className="image-mask"></div>
 				<h4>{this.props.group.title}</h4>
-				<div id="hidden-tags">{tagTitles ? tagTitles.join(", ") : ""}</div>
+				<div id="hidden-tags">
+				 {
+					tagTitles.map(function(tag, index){
+						return <div className="hidden-tags-tags" key={index + tag}>{tag}</div>
+					})
+				 }
+				</div>
 			</div>
 		);
 	}

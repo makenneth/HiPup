@@ -28,6 +28,27 @@
 
 
 .menu-icon:hover, .close-icon:hover {
+	cursor: pointer;
 	background-color: white;
 	color: black;
+}
+.git-logo, .link-logo {
+	cursor: pointer;
+	background-size: cover;
+	margin-right: 10px;
+	width: 60px;
+	height: 60px;
+}
+.git-logo {
+	background-image: url("/icons/github.png");
+
+}
+.git-logo:hover {
+	background-image: url("/icons/github-hover.png");
+}
+.link-logo {
+	background-image: url("/icons/linkedin.png");
+}
+.link-logo:hover {
+	background-image: url("/icons/linkedin-hover.png");
 }
