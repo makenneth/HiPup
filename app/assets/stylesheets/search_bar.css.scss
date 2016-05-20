@@ -84,8 +84,6 @@
 	color: white;
 	padding: 5px;
 	position: relative;
-	bottom: -62px;
-	left: 10px;
 	border-radius: 5px;
 	border: 1px solid white;
 	display: flex;
@@ -93,6 +91,7 @@
 	flex-wrap: wrap;
 	flex-direction: row;
 	opacity: 1;
+	z-index: 5;
 	li {
 		font-family: 'Dosis', sans-serif;
 		text-align: center;

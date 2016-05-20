@@ -40,8 +40,23 @@ var GroupIndex = React.createClass({
 	},
 	componentDidMount: function() {
 		this.groupIndexListener = GroupStore.addListener(this._onLoad);
+		document.addEventListener("scroll", this.updateTagDiv);
 		this.qgsListener = QueryGroupStore.addListener(this._fetchedLocationQuery);
 		ClientActions.fetchAllGroups();
+	},
+	updateTagDiv: function(e) {
+	 	var tagList = document.getElementsByClassName("tag-list")[0];
+	 if (document.body.scrollTop < 300){
+	 	if (this.tagListStyle === "top") return;
+	 	this.tagListStyle = "top";
+	  tagList.style.bottom = "200px";
+	  tagList.style.left = "100px";
+	 } else {
+	 	if (this.tagListStyle === "bottom") return;
+	 	this.tagListStyle = "bottom";
+	 	tagList.style.bottom = "-62px";
+	 	tagList.style.left = "10px";
+	 }
 	},
 	_fetchedLocationQuery: function() {
 		this.setState({groups: QueryGroupStore.findGroups(this.state.miles)});
