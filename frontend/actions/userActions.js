@@ -16,10 +16,13 @@ module.exports = {
 	updateUser: function(user){
 		UserApiUtil.updateUser(user);
 	},
-	getCityAndState: function(lat, lng){
-		UserApiUtil.getCityAndState(lat, lng);
-	},
-	getTimeZone: function(lat, lng, timestamp){
-		UserApiUtil.getTimeZone(lat, lng, timestamp);
+	findLocationWithIp: function(ip){
+		UserApiUtil.findLocationWithIp(ip);
 	}
+	// getCityAndState: function(lat, lng){
+	// 	UserApiUtil.getCityAndState(lat, lng);
+	// },
+	// getTimeZone: function(lat, lng, timestamp){
+	// 	UserApiUtil.getTimeZone(lat, lng, timestamp);
+	// }
 };

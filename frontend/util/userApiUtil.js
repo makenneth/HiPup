@@ -53,37 +53,12 @@ module.exports = {
 			error: ServerActions.errorReceived
 		})
 	},
-	getCityAndState: function(lat, lng){
+	findLocationWithIp: function(ip){
 		$.ajax({
-			method: "GET",
-			url: "https://maps.googleapis.com/maps/api/geocode/json?latlng=" +
-						lat + "," + lng + "&sensor=true",
-			dataType: "json",
-			success: function(res){
-				var result = Array(2);
-				res.results[0].address_components.forEach(function(component){
-					if ((/locality/).test(component.types[0])){
-							result[0] = component.long_name;
-					} else if (component.types[0] === "administrative_area_level_1"){
-							result[1] = component.short_name;
-					}
-				});
-				UserServerActions.receivedCurrentLocation(result);
-			},
-			error: ServerActions.errorReceived
-		});
-	},
-	getTimeZone: function(lat, lng, timestamp){
-		var url = "https://maps.googleapis.com/maps/api/timezone/json?location=" +
-							lat + "," + lng  + "&timestamp=" + timestamp/1000 +
-							"&key=AIzaSyBFOZ-djLJNV334-1cZmM-nLvPM-gQaw50";
-		$.ajax({
-			method: "GET",
-			url: url,
+			url: "http://ip-api.com/json/" + ip,
 			success: function(data){
-				UserServerActions.receivedCurrentTimeZone(data.timeZoneId);
+				UserServerActions.foundLocation(data);
 			}
 		})
 	}
-
 }

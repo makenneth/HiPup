@@ -25,16 +25,10 @@ module.exports = {
 			errors: errors
 		});
 	},
-	receivedCurrentLocation: function(place) {
+	foundLocation: function(data){
 		AppDispatcher.dispatch({
-			actionType: "LOCATION_RETRIEVED",
-			place: place.join(", ")
-		})
-	},
-	receivedCurrentTimeZone: function(timezone) {
-		AppDispatcher.dispatch({
-			actionType: "TIMEZONE_RETRIEVED",
-			timezone: timezone
+			actionType: UserConstants.FOUND_LOCATION,
+			data: data
 		})
 	}
 };
