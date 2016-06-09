@@ -53,11 +53,6 @@ var EventShow = React.createClass({
 															description: this.state.description});
 		this.setState({editMode: false})
 	},
-	updateField: function(field, e){
-		var fieldObj = {};
-		fieldObj[field] = e.target.value;
-		this.setState(fieldObj);
-	},
 	editDescription: function(){
 		if (this.state.editMode){
 			return <div id="description">
@@ -71,6 +66,11 @@ var EventShow = React.createClass({
 				{this.state.groupEvent.description}
 			</div>);
 		}
+	},
+	updateField: function(field, e){
+		var fieldObj = {};
+		fieldObj[field] = e.target.value;
+		this.setState(fieldObj);
 	},
 	componentDidMount: function() {
 		this.esListener = GroupEventStore.addListener(this._fetchedEvent);
