@@ -18,7 +18,7 @@
 	flex-flow: wrap;
 	
 	.form-line {
-		width: 550px;
+		max-width: 550px;
 		margin-bottom: 10px;
 		font-size: 24px;
 		display: flex;
@@ -73,7 +73,6 @@
 		text-align: center;
 	}
 }
-
 .form-div h3 {
 	color: white;
 	text-align: center;
@@ -108,6 +107,16 @@
 	margin-top: 80px;
 	justify-content: space-around;
 
+}
+@media screen and (max-width: 490px){
+	.user-forms {
+		padding: 30px;
+		.form-line {font-size: 20px; }
+		label {width: 100px; }
+		input {width: 200px;}
+	}
+
+	.form-btn-div { margin-top: 60px; }
 }
 
 .group-form-container {

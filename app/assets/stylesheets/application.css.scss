@@ -96,13 +96,7 @@ button {
 	margin: 0 5px;
 }
 
-.nav-modal-enter {
-	opacity: 0;
-}
-.nav-modal-enter.nav-model-enter-active {
-	opacity: 1;
-	transition: opacity 0.5s ease-in;
-}
+
 .page-appear {
   opacity: 0.01;
 }
@@ -111,6 +105,17 @@ button {
   opacity: 1;
   transition: opacity .5s ease-in;
 }
+
+.forms-appear {
+  opacity: 0;
+}
+
+.forms-appear.forms-appear-active {
+  opacity: 1;
+  transition: all 0.5s ease-out;
+}
+
+
 .nav-list {
   max-width: 250px;
   min-width: 150px;

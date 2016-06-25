@@ -1,8 +1,9 @@
 var React = require('react'),
-    ReactDOM = require('react-dom');
+    ReactDOM = require('react-dom'),
+    Modal = require('react-modal');
+    
 
-var Modal = require('react-modal'),
-    UserActions = require('./actions/userActions'),
+var UserActions = require('./actions/userActions'),
     CurrentUserStateMixin = require('./mixin/currentUserState'),
     FrontPageModalHelper = require('./frontPageModalHelper'),
     ReverseGeoMixin = require('./mixin/reverseGeoMixin'),
@@ -92,6 +93,7 @@ var App = React.createClass({
         </div>
           {this.userButtons()}
           {this.menuIcon()}
+        <Navbar />
         <Modal isOpen={this.state.logInModalOpen}
                onRequestClose={this.closeLogInModal}
                style={FormStyle}>
@@ -101,11 +103,6 @@ var App = React.createClass({
                onRequestClose={this.closeSignUpModal}
                style={FormStyle}>
           <SignUpForm closeModal={this.closeSignUpModal}/>
-        </Modal>
-        <Modal isOpen={this.state.navModalOpen}
-              onRequestClose={this.closeNavModal}
-              style={NavStyle}>
-              <Navbar closeModal={this.closeNavModal} openLogInModal={this.openLogInModal}/>
         </Modal>
         <Modal isOpen={ this.state.searchModalOpen }
                onRequestClose={this.closeSearchModal}
@@ -118,5 +115,6 @@ var App = React.createClass({
     );
   }
 });
+
 
 module.exports = App;

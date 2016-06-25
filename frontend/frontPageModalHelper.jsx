@@ -4,7 +4,6 @@ module.exports = {
     return {
       logInModalOpen: false,
       signUpModalOpen: false,
-      navModalOpen: false,
       searchModalOpen: false,
     };
   },
@@ -22,12 +21,7 @@ module.exports = {
   closeSignUpModal: function() {
     this.setState({ signUpModalOpen: false });
   },
-  openNavModal: function() {
-    this.setState({ navModalOpen: true });
-  },
-  closeNavModal: function() {
-    this.setState({ navModalOpen: false});
-  },
+
   openSearchModal: function(e){
     this.setState({ searchModalOpen: true });
   },

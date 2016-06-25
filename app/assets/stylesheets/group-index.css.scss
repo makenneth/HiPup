@@ -1,8 +1,8 @@
 @mixin index-item-anim {
-	transition: all 1.0s ease-out 0.3s;
-	-moz-transition: all 1.0s ease-out 0.3s;
-	-webkit-transition: all 1.0s ease-out 0.3s;
-	-o-transition: all 1.0s ease-out 0.3s;
+	transition: all 0.3s ease-in;
+	-moz-transition: all 0.3s ease-in;
+	-webkit-transition: all 0.3s ease-in;
+	-o-transition: all 0.3s ease-in;
 }
 
 .group-index {
@@ -16,7 +16,7 @@
 }
 .group-index-body {
 	padding-top: 3%;
-	background-color: white;
+	background-color: black;
 }
 
 .group-index-item {
@@ -32,9 +32,9 @@
 	  font-weight: 700;
 	  color: white;
 	  border-radius: 4px;
-	  box-shadow: 2px 2px 0 #aaa;
 	}
 	#hidden-tags {
+	  transform: translateY(0px);
 		font-family: 'Dosis', sans-serif;
 		font-size: 16px;
 		text-align: center;
@@ -106,6 +106,8 @@
 		justify-content: flex-start;
 		text-shadow: 1px 1px black;
 		align-self: flex-end;
+		transform: translateY(-20px);
+		@include index-item-anim;
 	}
 
 @media only screen and (max-width: 1100px){
