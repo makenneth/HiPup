@@ -11,7 +11,7 @@
 	li {
 		border: 1px solid white;
 		background-color: black;
-		opacity: 0.8;
+		opacity: 0.9;
 		font-size: 1.5em;
 		padding: 5px 40px;
 		border-radius: 5px;
@@ -23,8 +23,18 @@
 		margin-left: -15px;
 	}
 	li:hover {
-		font: black;
+		transition: all 1s ease-out 0.2s;
+		-moz-transition: all 1s ease-out 0.2s;
+		-webkit-transition: all 1s ease-out 0.2s;
+		-o-transition: all 1s ease-out 0.2s;
 		background-color: white;
+	}
+	li a:hover {
+		transition: all 1s ease-out 0.2s;
+		-moz-transition: all 1s ease-out 0.2s;
+		-webkit-transition: all 1s ease-out 0.2s;
+		-o-transition: all 1s ease-out 0.2s;
+		color: black;
 	}
 }
 .user-text-button {

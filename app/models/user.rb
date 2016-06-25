@@ -29,11 +29,6 @@ class User < ActiveRecord::Base
 		user[0]
 	end
 
-	# def reset_session_token!
-	# 	self.session_token = SecureRandom.base64
-	# 	self.save!
-	# 	self.session_token
-	# end
 	def destroy_session_token!(session_token)
 		session = Session.find_by(user_id: self.id, session_token: session_token)
 		session.destroy! if session

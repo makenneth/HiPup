@@ -5,14 +5,14 @@ module.exports = {
 										    left              : 0,
 										    right             : 0,
 										    bottom            : 0,
-										   	opacity           : 0.9
+										   	opacity           : 1
 										    // ,
 										    // backgroundColor   : 'rgba(255, 255, 255, 0.75)'
 										  },
 										  content : {
 										    position                   : 'absolute',
 										    top                        : '0px',
-										    left                       : '0px',
+										    left											 : '0px',
 										    bottom                     : '0px',
 										    width                      : '15%',
 										    minWidth                   : "150px",

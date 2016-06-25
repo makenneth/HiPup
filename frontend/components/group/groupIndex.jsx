@@ -140,6 +140,7 @@ var GroupIndex = React.createClass({
 		});
 		return (
 			<div>
+				<img className="banner-img" src="https://goo.gl/5ux7v7" />
 				<div className="banner"><div className="logo">HiPup</div><span className="tagline">Playdates for pets</span></div>
 				<div className="search-bar">
 						{this.searchByDistanceIcon()}
@@ -157,12 +158,14 @@ var GroupIndex = React.createClass({
 							 style={DateModalStyle}>
 							<EventIndexByDate closeModal={this.closeDateModal} />
 				 </Modal>
-				<div className="group-index cf">
+				<div className="group-index-body">
+					<div className="group-index cf">
 					{
 						libraries.map(function(group){
 							return <GroupIndexItem group={group} key={group.id} />;
 						})
 					}
+					</div>
 				</div>
 				<footer>
 				  <div className="my-name">Kenneth Ma</div>

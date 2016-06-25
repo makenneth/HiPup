@@ -14,9 +14,9 @@
   -ms-background-position-y: center;
   background-position: center 65%;
   font-size: 40px;
-		font-family: 'Kaushan Script', cursive;
-		color: black;
-		text-shadow: 2px 2px #ccc;
+	font-family: 'Kaushan Script', cursive;
+	color: black;
+	text-shadow: 2px 2px #ccc;
   /* scale bg image proportionately */
   background-size: cover;
 	margin: 0 auto;
@@ -87,7 +87,15 @@
 		margin-right: 20px;
 	}
 }
+.nav-modal-anim-enter {
+	transition: all 1s ease-out 0.2s;
+	-webkit-transition: all 1s ease-out 0.2s;
+	-o-transition: all 1s ease-out 0.2s;
+	-moz-transition: all 1s ease-out 0.2s;
+}
 
+.nav-modal-anim-enter.nav-modal-enter-active {
+}
 .back-nav {
 	margin-left: 5%;
 	display: flex;
