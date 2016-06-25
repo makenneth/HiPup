@@ -140,8 +140,11 @@ var GroupIndex = React.createClass({
 		});
 		return (
 			<div>
-				<img className="banner-img" src="https://goo.gl/5ux7v7" />
-				<div className="banner"><div className="logo">HiPup</div><span className="tagline">Playdates for pets</span></div>
+				<div className="banner-img">
+				<div className="logo">HiPup</div><span className="tagline">Playdates for pets</span>
+				</div>
+				
+				<div className="banner"></div>
 				<div className="search-bar">
 						{this.searchByDistanceIcon()}
 						<div className="divider"></div>

@@ -37,14 +37,14 @@ var App = React.createClass({
   userButtons: function() {
     if ((/^\/\w*\/?$/).test(this.props.location.pathname)){
       if (this.state.currentUser){
-        return (<ul className="user-button cf">
+        return (<ul className="user-button">
           <li><a href="#/user/profile">
                 Welcome, {this.state.currentUser.name}!
               </a></li>
           <li><a href="#" onClick={this.logOut}>Log Out</a></li>
         </ul>);
       } else {
-        return (<ul className="user-button cf">
+        return (<ul className="user-button">
           <li onClick={this.openLogInModal}><a href="#">Log In</a></li>
           <li onClick={this.openSignUpModal}><a href="#">Sign Up</a></li>
         </ul>);
@@ -78,6 +78,12 @@ var App = React.createClass({
             };
     }
   },
+  menuIcon: function() {
+    if (this.props.location.pathname !== "/"){
+      return <div className="menu-icon" onClick={this.openNavModal}>&#9776;</div>
+    }
+    
+  },
   render: function() {
     return (
       <div>
@@ -85,7 +91,7 @@ var App = React.createClass({
             {this.props.children}
         </div>
           {this.userButtons()}
-        <div className="menu-icon" onClick={this.openNavModal}>&#9776;</div>
+          {this.menuIcon()}
         <Modal isOpen={this.state.logInModalOpen}
                onRequestClose={this.closeLogInModal}
                style={FormStyle}>

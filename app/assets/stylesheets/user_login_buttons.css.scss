@@ -1,40 +1,44 @@
+.user-button li {
+	margin-right: 20px;
+}
 .user-button  {
 	display: flex;
-	position: absolute;
-	font-family: 'Dosis', sans-serif;
+	position: fixed;
+	font-family: 'Yanone Kaffeesatz', sans-serif;
 	top: 30px;
-	right: 50px;
+	right: 20px;
 	width: 400px;
 	text-align: center;
-	justify-content: space-around;
-	align-items: center;
+	justify-content: flex-end;
+	a {
+		color: white;
+		font-weight: 400;
+	}
 	li {
-		border: 1px solid white;
-		background-color: black;
+		border: 3px solid white;
+		background-color: transparent;
 		opacity: 0.9;
 		font-size: 1.5em;
-		padding: 5px 40px;
-		border-radius: 5px;
+		padding: 5px 25px;
+		border-radius: 4px;
 	}
-	li a:first {
-		margin-right: -15px;
-	}
-	li a:last {
-		margin-left: -15px;
-	}
+
+
 	li:hover {
 		transition: all 1s ease-out 0.2s;
 		-moz-transition: all 1s ease-out 0.2s;
 		-webkit-transition: all 1s ease-out 0.2s;
 		-o-transition: all 1s ease-out 0.2s;
-		background-color: white;
+		border: 3px solid black;
+		color: black;
 	}
-	li a:hover {
+	li:hover a{
 		transition: all 1s ease-out 0.2s;
 		-moz-transition: all 1s ease-out 0.2s;
 		-webkit-transition: all 1s ease-out 0.2s;
 		-o-transition: all 1s ease-out 0.2s;
 		color: black;
+
 	}
 }
 .user-text-button {

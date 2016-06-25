@@ -15,7 +15,7 @@ var GroupIndexItem = React.createClass({
 			<div href="#" className="group-index-item" onClick={this.showDetail}
 					 style={ { backgroundImage: 'url(' + imgUrl + ')', backgroundSize: "cover"} }>
 					 <div className="image-mask"></div>
-				<h4>{this.props.group.title}</h4>
+				<h4>{this.props.group.title}<i class="fa fa-check" aria-hidden="true"></i></h4>
 				<div id="hidden-tags">
 				 {
 					tagTitles.map(function(tag, index){
