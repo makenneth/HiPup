@@ -15,7 +15,8 @@ var UserActions = require('./actions/userActions'),
     SearchStyle = require('./modal/searchStyle'),
     LogInForm = require('./components/user/logInForm'),
     SignUpForm = require('./components/user/signUpForm'),
-    Search = require('./components/search/search');
+    Search = require('./components/search/search'),
+    MainNav = require("./components/mainNav");
 
 
 var App = React.createClass({
@@ -91,8 +92,8 @@ var App = React.createClass({
         <div class="page-container" style={this.managePageStyle()}>
             {this.props.children}
         </div>
-          {this.userButtons()}
           {this.menuIcon()}
+          <MainNav userButtons={ this.userButtons }/>
         <Navbar />
         <Modal isOpen={this.state.logInModalOpen}
                onRequestClose={this.closeLogInModal}

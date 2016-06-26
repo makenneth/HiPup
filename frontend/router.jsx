@@ -15,8 +15,7 @@ var React = require('react'),
     ManageEvents = require('./components/user/manageEvents'),
     App = require('./app'),
     CurrentUserProfile = require('./components/user/currentUserProfile');
-    // <Route path="session/new" component={LogInForm} />
-    // <Route path="user/new" component={SignUpForm} />
+
 
 module.exports = function(){
   return <Router history={HashHistory}>

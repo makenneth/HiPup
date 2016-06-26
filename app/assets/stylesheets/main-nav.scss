@@ -1,13 +1,47 @@
+@mixin hovermenu{
+		transition: all 1s ease-out 0.2s;
+		-moz-transition: all 1s ease-out 0.2s;
+		-webkit-transition: all 1s ease-out 0.2s;
+		-o-transition: all 1s ease-out 0.2s;
+}
+.main-nav {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+	flex-wrap: nowrap;
+	position: fixed;
+	top: 0;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	width: 100%;
+	z-index: 1000;
+			@include hovermenu;
+	.nav-icons {
+		color: white;
+		display: flex;
+		font-size: 2.5em;
+		li:hover {
+			color: grey;
+			@include hovermenu;
+		}
+		li {
+			margin-left: 10px;
+			cursor: pointer;
+		}
+	}
+}
+.main-nav-solid {
+	background-color: black;
+	opacity: 0.9;	
+	@include hovermenu;
+}
 .user-button li {
 	margin-right: 20px;
 }
 .user-button  {
 	display: flex;
-	position: fixed;
 	font-family: 'Yanone Kaffeesatz', sans-serif;
-	top: 30px;
-	right: 20px;
-	width: 400px;
 	text-align: center;
 	justify-content: flex-end;
 	a {
@@ -25,19 +59,13 @@
 
 
 	li:hover {
-		transition: all 1s ease-out 0.2s;
-		-moz-transition: all 1s ease-out 0.2s;
-		-webkit-transition: all 1s ease-out 0.2s;
-		-o-transition: all 1s ease-out 0.2s;
-		border: 3px solid black;
-		color: black;
+		@include hovermenu;
+		border: 3px solid grey;
+		color: grey;
 	}
 	li:hover a{
-		transition: all 1s ease-out 0.2s;
-		-moz-transition: all 1s ease-out 0.2s;
-		-webkit-transition: all 1s ease-out 0.2s;
-		-o-transition: all 1s ease-out 0.2s;
-		color: black;
+		@include hovermenu;
+		color: grey;
 
 	}
 }

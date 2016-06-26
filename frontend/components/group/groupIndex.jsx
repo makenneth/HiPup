@@ -14,7 +14,6 @@ var React = require('react'),
 		UserStore = require("../../stores/userStore"),
 		SearchMixin = require('../../mixin/searchMixin');
 
-
 var banner = "https://images.unsplash.com/photo-1443750200537-00fd518bdc82?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&w=1080&fit=max&s=ad7a9ff44b3026fcf49d80830ffb20ee";
 
 var GroupIndex = React.createClass({
@@ -40,24 +39,24 @@ var GroupIndex = React.createClass({
 	},
 	componentDidMount: function() {
 		this.groupIndexListener = GroupStore.addListener(this._onLoad);
-		document.addEventListener("scroll", this.updateTagDiv);
+		// document.addEventListener("scroll", this.updateTagDiv);
 		this.qgsListener = QueryGroupStore.addListener(this._fetchedLocationQuery);
 		ClientActions.fetchAllGroups();
 	},
-	updateTagDiv: function(e) {
-	 	var tagList = document.getElementsByClassName("tag-list")[0];
-	 if (document.body.scrollTop < 300){
-	 	if (this.tagListStyle === "top") return;
-	 	this.tagListStyle = "top";
-	  tagList.style.bottom = "200px";
-	  tagList.style.left = "100px";
-	 } else {
-	 	if (this.tagListStyle === "bottom") return;
-	 	this.tagListStyle = "bottom";
-	 	tagList.style.bottom = "-62px";
-	 	tagList.style.left = "10px";
-	 }
-	},
+	// updateTagDiv: function(e) {
+	//  	var tagList = document.getElementsByClassName("tag-list")[0];
+	//  if (document.body.scrollTop < 300){
+	//  	if (this.tagListStyle === "top") return;
+	//  	this.tagListStyle = "top";
+	//   tagList.style.bottom = "200px";
+	//   tagList.style.left = "100px";
+	//  } else {
+	//  	if (this.tagListStyle === "bottom") return;
+	//  	this.tagListStyle = "bottom";
+	//  	tagList.style.bottom = "-62px";
+	//  	tagList.style.left = "10px";
+	//  }
+	// },
 	_fetchedLocationQuery: function() {
 		this.setState({groups: QueryGroupStore.findGroups(this.state.miles)});
 	},
@@ -139,22 +138,23 @@ var GroupIndex = React.createClass({
 			}
 		});
 		return (
+				// <div className="search-bar">
+				// 		{this.searchByDistanceIcon()}
+				// 		<div className="divider"></div>
+				// 		{this.searchByTagDiv()}
+				// 		<div className="divider"></div>
+				// 	 {this.searchContainer()}
+				// 		<div className="divider"></div>
+
+				// 	<div className="calendar" onClick={this.openDateModal} />
+				// </div>
+
 			<div>
 				<div className="banner-img">
 				<div className="logo">HiPup</div><span className="tagline">Playdates for pets</span>
 				</div>
 				
 				<div className="banner"></div>
-				<div className="search-bar">
-						{this.searchByDistanceIcon()}
-						<div className="divider"></div>
-						{this.searchByTagDiv()}
-						<div className="divider"></div>
-					 {this.searchContainer()}
-						<div className="divider"></div>
-
-					<div className="calendar" onClick={this.openDateModal} />
-				</div>
 
 				<Modal isOpen={ this.state.dateModalIsOpen }
 							 onRequestClose={this.closeDateModal}
