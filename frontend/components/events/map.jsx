@@ -16,8 +16,8 @@ var EventMap = React.createClass({
   error: function(err) {
   	console.log(err);
   },
-    onSuggestSelect: function(suggest) {
-    console.log(suggest);
+  onSuggestSelect: function(suggest) {
+    // console.log(suggest);
   },
 	render: function() {
     return (

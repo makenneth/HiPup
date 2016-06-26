@@ -47,10 +47,10 @@ var MainNav = React.createClass({
           <li ><FaLocationArrow />
           </li>
           <li className="search-icon"><FaSearch />
-            { this.props.searchTooltip()}
+            { this.props.searchTooltip() }
           </li>
           <li className="tag-icon"><FaTags />
-            <TagIndex selectTag={this.props.selectTag} />
+            { this.props.tagTooltip() }
           </li>
               
           <li onClick={this.props.openDateModal}><FaCalendar /></li>

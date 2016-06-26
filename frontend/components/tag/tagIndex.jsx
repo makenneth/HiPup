@@ -1,32 +1,24 @@
-var React = require('react'),
-		TagStore = require('../../stores/tagStore'),
-		ClientActions = require('../../actions/clientActions');
+var React = require('react');
 
 var TagIndex = React.createClass({
-	getInitialState: function() {
-		return {
-			tags: TagStore.all() || []
-		};
-	},
-	componentDidMount: function() {
-		this.tagIdxListener = TagStore.addListener(this._onReceive);
-		ClientActions.fetchTags();
-	},
-	componentWillUnmount: function() {
-		if (this.tagIdxListener){
-			this.tagIdxListener.remove();
-		}
-	},
-	_onReceive: function(){
-		this.setState({tags: TagStore.all()});
-	},
 	render: function() {
 		return (
 			<ul className="tag-list">
+				<li>
+					<button onClick={this.props.selectAllTags}>Select All</button>
+				</li>
+				<li>
+					<button onClick={this.props.deselectAllTags}>Clear All</button>
+				</li>
 			{
-				this.state.tags.map(function(tag){
-					return <li key={tag.id} onClick={this.props.selectTag.bind(null, tag.name)}><div>{tag.name}
-					<input type="checkbox" /></div></li>;
+				this.props.tags.map(function(tag){
+					return <li key={ tag.id }>
+					<div>{ tag.name }</div>
+						<input type="checkbox" 
+							onChange={ this.props.changeSelectedTags.bind(null, tag.id) }  
+							checked={ this.props.selectedTags[tag.id] }/>
+					
+				</li>;
 				}.bind(this))
 			}
 			</ul>

@@ -25,6 +25,14 @@
   height: 0;
   z-index: 1000;
 }
+.search-tooltip:before{
+	content: " ";
+	position: absolute;
+	background-color: transparent;
+	bottom: 99%;
+	width: 260px;
+	height: 10px;
+}
 .search-container-sm {
 	color: black;
 	  overflow: hidden;
@@ -80,6 +88,7 @@
 	background-color: black;
 	color: white;
 	padding: 5px;
+	padding-right: 10px;
 	margin-top: 5px;
 	position: absolute;
 	border-radius: 3px;
@@ -97,15 +106,16 @@
 		width: 40%;
 		border-radius: 5px;
 		display: flex;
-		flex-direction: row;
 		flex-wrap: nowrap;
+		white-space: nowrap;
 		justify-content: space-between;
+		align-items: center;
 	}
-	li:hover {
+/*	li:hover {
 		background-color: white;
 		color: black;
 		opacity: 0.8;
-	}
+	}*/
 }
 .tag-list:after {
   border-left: 20px solid transparent;
@@ -113,11 +123,19 @@
   border-bottom: 20px solid black;
   bottom: 99%;
   content: " ";
-  left: -0.3%;
+  left: -0.1%;
   position: absolute;
   width: 0;
   height: 0;
   z-index: 1000;
+}
+.tag-list:before {
+	position: absolute;
+	width: 350px;
+	bottom: 99%;
+	content: " ";
+	height: 25px;
+	background-color: transparent;
 }
 .tag-icon:hover .tag-list {
 	visibility: visible;
@@ -125,18 +143,22 @@
 	height: 300px;
 	@include showSearch;
 }
-
-.searching-by-tag {
-	font-size: 24px;
-	font-family: 'Dosis', sans-serif;
-	p {
-		font-size: 18px;
-		text-decoration: underline;
-		color: #0a79b6;
-		cursor: pointer;
-	}
-	p:hover {
-		color: #053c5b;
+.tag-icon input[type="checkbox"]{
+	padding: 10px;
+	font-size: 20px;
+	 -ms-transform: scale(2);
+  -moz-transform: scale(2);
+  -webkit-transform: scale(2);
+  -o-transform: scale(2);
+}
+.tag-list button {
+	font-size: 16px;
+	padding: 5px 10px;
+	background-color: grey;
+	border-radius: 4px;
+	&:hover {
+		color: black;
+		@include showSearch;
 	}
 }
 

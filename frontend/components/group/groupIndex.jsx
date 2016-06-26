@@ -5,41 +5,60 @@ var React = require('react'),
 		ClientActions = require('../../actions/clientActions'),
 		GroupIndexItem = require('./groupIndexItem'),
 		Modal = require('react-modal'),
+		TagIndex = require("../tag/tagIndex"),
 		SearchStyle = require('../../modal/searchStyle'),
 		ReactCSSTransitionGroup = require('react-addons-css-transition-group'),
 		EventIndexByDate = require('../events/eventIndexByDate'),
 		DateModalStyle = require('../../modal/dateModalStyle'),
 		CurrentUserState = require('../../mixin/currentUserState'),
 		UserStore = require("../../stores/userStore"),
+		TagStore = require("../../stores/tagStore"),
 		SearchMixin = require('../../mixin/searchMixin');		
+
 var banner = "https://images.unsplash.com/photo-1443750200537-00fd518bdc82?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&w=1080&fit=max&s=ad7a9ff44b3026fcf49d80830ffb20ee";
 
 var GroupIndex = React.createClass({
 	mixins: [CurrentUserState, SearchMixin],
 	getInitialState: function() {
 		return {
-			groups: [],
+			groups: GroupStore.all() || [],
 			tagSearchModalOpen: false,
 			searchString: "",
 			dateModalIsOpen: false,
 			searchBarOpen: false,
 			distanceSearchOpen: false,
-			tag: null,
+			tags: TagStore.all() || [],
+			selectedTags: {},
 			miles: 0,
 			locationServiceError: ""
 		};
 	},
-	selectTag: function(tag){
-		this.setState({tag: tag});
+	_changeSelectedTags: function(id){
+		var selectedTags = this.state.selectedTags;
+		selectedTags[id] = selectedTags[id] ? false : true;
+		this.setState({selectedTags: selectedTags});
 	},
-	cancelTag: function(){
-		this.setState({tag: null});
+	setAllTags: function(bool){
+		var selectedTags = this.state.selectedTags;
+		for (var key in selectedTags){
+			if (selectedTags.hasOwnProperty(key)){
+				selectedTags[key] = bool;
+			}
+		}
+		this.setState({selectedTags: selectedTags});
+	},
+	selectAllTags: function() {
+		this.setAllTags(true);
+	},
+	deselectAllTags: function() {
+		this.setAllTags(false);
 	},
 	componentDidMount: function() {
 		this.groupIndexListener = GroupStore.addListener(this._onLoad);
-		// document.addEventListener("scroll", this.updateTagDiv);
 		this.qgsListener = QueryGroupStore.addListener(this._fetchedLocationQuery);
-		ClientActions.fetchAllGroups();
+		this.tagIdxListener = TagStore.addListener(this._onReceiveTags);
+		if (!this.state.groups.length) ClientActions.fetchAllGroups();
+		if (!this.state.tags.length) ClientActions.fetchTags();
 	},
 	_fetchedLocationQuery: function() {
 		this.setState({groups: QueryGroupStore.findGroups(this.state.miles)});
@@ -47,30 +66,35 @@ var GroupIndex = React.createClass({
 	_onLoad: function() {
 		this.setState({groups: GroupStore.all()});
 	},
+	_onReceiveTags: function(){
+		var selectedTags = this.state.selectedTags,
+				tags = TagStore.all();
+
+		tags.forEach(function(tag){
+			selectedTags[tag.id] = true;
+		})
+
+		this.setState({
+			tags: tags,
+			selectedTags: selectedTags
+		});
+
+	},
 	componentWillUnmount: function() {
-		if (this.groupIndexListener){
-			this.groupIndexListener.remove();
-		}
-		$("#search-box").off("keyup");
-		$(".search-bar").off("click");
+		if (this.groupIndexListener) this.groupIndexListener.remove(); 
+		if (this.tagIdxListener) this.tagIdxListener.remove();
+		if (this.qgsListener) this.qgsListener.remove();
+		// $("#search-box").off("keyup");
+		// $(".search-bar").off("click");
 	},
 	setSearchString: function(e) {
 		this.setState({searchString: e.target.value});
-	},
-	openTagSearchModal: function(){
-		this.setState({ tagSearchModalOpen: true });
-	},
-	closeTagSearchModal: function() {
-		this.setState({ tagSearchModalOpen: false });
 	},
 	openDateModal: function() {
 		this.setState({ dateModalIsOpen: true });
 	},
 	closeDateModal: function() {
 		this.setState({dateModalIsOpen: false});
-	},
-	openSearchBar: function(e){
-		this.setState({searchBarOpen: true});
 	},
 	changeDistance: function(e){
 		if (e.target.value === "--"){
@@ -115,30 +139,35 @@ var GroupIndex = React.createClass({
 	           autoFocus value={this.state.searchString} placeholder="Find a pet event"/>
 	    </div></div>;
 	},
+	tagTooltip: function() {
+		return <TagIndex changeSelectedTags={this._changeSelectedTags}
+											tags={this.state.tags} 
+											selectedTags={this.state.selectedTags}
+											selectAllTags={this.selectAllTags}
+											deselectAllTags={this.deselectAllTags}/>
+	},
+
 	render: function() {
 		var searchCriteria = this.state.searchString.toLowerCase().trim();
 		var that = this;
+
 		var libraries = this.state.groups.filter(function(group){
-			if (that.state.tag){
 				return group.title.toLowerCase().match(searchCriteria) && 
-									group.tags.some(function(tag){ 
-										return tag.name === that.state.tag; 
-									});
-			} else {
-				return group.title.toLowerCase().match(searchCriteria);
-			}
+									group.tags.some(function(tag){
+										return that.state.selectedTags[tag.id];
+									})
 		});
 		return (
 			<div>
 				<div className="banner-img">
-				<div className="logo">HiPup</div><span className="tagline">Playdates for pets</span>
+					<div className="logo">HiPup</div><span className="tagline">Playdates for pets</span>
 				</div>
 				
 				<div className="banner"></div>
 				<MainNav userButtons={ this.props.userButtons }
 					openDateModal={this.openDateModal} 
-					selectTag={this.selectTag}
-					searchTooltip={this.searchTooltip}/>
+					searchTooltip={this.searchTooltip}
+					tagTooltip ={ this.tagTooltip } />
 				<Modal isOpen={ this.state.dateModalIsOpen }
 							 onRequestClose={this.closeDateModal}
 							 style={DateModalStyle}>
