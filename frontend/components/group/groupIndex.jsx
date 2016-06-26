@@ -12,8 +12,7 @@ var React = require('react'),
 		DateModalStyle = require('../../modal/dateModalStyle'),
 		CurrentUserState = require('../../mixin/currentUserState'),
 		UserStore = require("../../stores/userStore"),
-		SearchMixin = require('../../mixin/searchMixin');
-
+		SearchMixin = require('../../mixin/searchMixin');		
 var banner = "https://images.unsplash.com/photo-1443750200537-00fd518bdc82?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&w=1080&fit=max&s=ad7a9ff44b3026fcf49d80830ffb20ee";
 
 var GroupIndex = React.createClass({
@@ -155,7 +154,8 @@ var GroupIndex = React.createClass({
 				</div>
 				
 				<div className="banner"></div>
-
+				<MainNav userButtons={ this.props.userButtons }
+					openDateModal={this.openDateModal} selectTag={this.selectTag}/>
 				<Modal isOpen={ this.state.dateModalIsOpen }
 							 onRequestClose={this.closeDateModal}
 							 style={DateModalStyle}>
@@ -170,6 +170,7 @@ var GroupIndex = React.createClass({
 					}
 					</div>
 				</div>
+
 				<footer>
 				  <div className="my-name">Kenneth Ma</div>
 					<a href="https://github.com/makenneth"><div className="git-logo"></div></a>

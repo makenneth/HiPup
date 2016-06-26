@@ -50,12 +50,9 @@ module.exports = {
 		}
 	},
 	searchByTagDiv: function(){
-		if (this.state.tag){
-			return (<div className="searching-by-tag">Searching By: {this.state.tag} <p onClick={this.cancelTag}>Cancel Search</p></div>);
-		} else {
-		 return (<div className="search-by-tag" onClick={this.openTagSearchModal}>
-		 		<div className="tag-index"><TagIndex selectTag={this.selectTag} /></div>
-		 </div>);
-		}
+		return <div className="search-by-tag search-hidden">
+		 		
+		 </div>;
+		
 	},
 }

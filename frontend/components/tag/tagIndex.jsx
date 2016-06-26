@@ -22,11 +22,11 @@ var TagIndex = React.createClass({
 	},
 	render: function() {
 		return (
-			<ul className="tag-list" id="tag-list">
+			<ul className="tag-list">
 			{
 				this.state.tags.map(function(tag){
-					return <li key={tag.id} onClick={this.props.selectTag.bind(null,  tag.name)}>{tag.name}
-					</li>;
+					return <li key={tag.id} onClick={this.props.selectTag.bind(null, tag.name)}>{tag.name}
+					<input type="checkbox" /></li>;
 				}.bind(this))
 			}
 			</ul>

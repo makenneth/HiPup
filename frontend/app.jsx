@@ -11,7 +11,6 @@ var UserActions = require('./actions/userActions'),
     UserStore = require('./stores/userStore'),
     UserServerActions = require('./actions/userServerActions');
     FormStyle = require('./modal/formStyle'),
-    NavStyle= require('./modal/navStyle'),
     SearchStyle = require('./modal/searchStyle'),
     LogInForm = require('./components/user/logInForm'),
     SignUpForm = require('./components/user/signUpForm'),
@@ -21,6 +20,11 @@ var UserActions = require('./actions/userActions'),
 
 var App = React.createClass({
   mixins: [CurrentUserStateMixin, ReverseGeoMixin, FrontPageModalHelper],
+  getInitialState: function() {
+    return {
+      groups: []
+    };
+  },
   componentDidMount: function() {
     $.ajax({
       url: "https://api.ipify.org/",
@@ -90,10 +94,20 @@ var App = React.createClass({
     return (
       <div>
         <div class="page-container" style={this.managePageStyle()}>
-            {this.props.children}
+            {
+              React.Children.map(this.props.children, function(child) {
+                if (child.type.displayName === "GroupIndex"){
+                  return React.cloneElement(child, {
+                    userButtons: this.userButtons
+                  })
+                } else {
+                  return child;
+                }
+              }.bind(this))
+            }
         </div>
-          {this.menuIcon()}
-          <MainNav userButtons={ this.userButtons }/>
+        {this.menuIcon()}
+        
         <Navbar />
         <Modal isOpen={this.state.logInModalOpen}
                onRequestClose={this.closeLogInModal}

@@ -41,6 +41,9 @@ span, article, time, small {
 .ReactModal__Body--open {
   overflow: hidden;
 }
+.ReactModal__Overlay {
+  z-index: 11;
+}
 .group-event-detail {
 	font-size: 18px;
 }

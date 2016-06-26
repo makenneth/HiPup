@@ -15,14 +15,14 @@
 	padding-top: 10px;
 	padding-bottom: 10px;
 	width: 100%;
-	z-index: 1000;
-			@include hovermenu;
+	z-index: 10;
+	@include hovermenu;
 	.nav-icons {
 		color: white;
 		display: flex;
 		font-size: 2.5em;
 		li:hover {
-			color: grey;
+			color: #778899;
 			@include hovermenu;
 		}
 		li {
@@ -60,12 +60,12 @@
 
 	li:hover {
 		@include hovermenu;
-		border: 3px solid grey;
-		color: grey;
+		border: 3px solid #778899;
+		color: #778899;
 	}
 	li:hover a{
 		@include hovermenu;
-		color: grey;
+		color: #778899;
 
 	}
 }
