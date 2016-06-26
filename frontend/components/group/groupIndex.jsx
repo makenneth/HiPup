@@ -4,7 +4,6 @@ var React = require('react'),
 		QueryGroupStore = require('../../stores/queryGroupStore'),
 		ClientActions = require('../../actions/clientActions'),
 		GroupIndexItem = require('./groupIndexItem'),
-		Search = require('../search/search'),
 		Modal = require('react-modal'),
 		SearchStyle = require('../../modal/searchStyle'),
 		ReactCSSTransitionGroup = require('react-addons-css-transition-group'),
@@ -42,20 +41,6 @@ var GroupIndex = React.createClass({
 		this.qgsListener = QueryGroupStore.addListener(this._fetchedLocationQuery);
 		ClientActions.fetchAllGroups();
 	},
-	// updateTagDiv: function(e) {
-	//  	var tagList = document.getElementsByClassName("tag-list")[0];
-	//  if (document.body.scrollTop < 300){
-	//  	if (this.tagListStyle === "top") return;
-	//  	this.tagListStyle = "top";
-	//   tagList.style.bottom = "200px";
-	//   tagList.style.left = "100px";
-	//  } else {
-	//  	if (this.tagListStyle === "bottom") return;
-	//  	this.tagListStyle = "bottom";
-	//  	tagList.style.bottom = "-62px";
-	//  	tagList.style.left = "10px";
-	//  }
-	// },
 	_fetchedLocationQuery: function() {
 		this.setState({groups: QueryGroupStore.findGroups(this.state.miles)});
 	},
@@ -123,6 +108,13 @@ var GroupIndex = React.createClass({
 	openDistanceSearch: function(){
 		this.setState({distanceSearchOpen: true});
 	},
+	searchTooltip: function(){
+    return <div className="search-tooltip"><div className="search-container-sm cf">
+	    <img className="search-icon-sm" src="/search-icon-2.png"/>
+	    <input id="search-box" type="text" onChange={this.setSearchString}
+	           autoFocus value={this.state.searchString} placeholder="Find a pet event"/>
+	    </div></div>;
+	},
 	render: function() {
 		var searchCriteria = this.state.searchString.toLowerCase().trim();
 		var that = this;
@@ -137,17 +129,6 @@ var GroupIndex = React.createClass({
 			}
 		});
 		return (
-				// <div className="search-bar">
-				// 		{this.searchByDistanceIcon()}
-				// 		<div className="divider"></div>
-				// 		{this.searchByTagDiv()}
-				// 		<div className="divider"></div>
-				// 	 {this.searchContainer()}
-				// 		<div className="divider"></div>
-
-				// 	<div className="calendar" onClick={this.openDateModal} />
-				// </div>
-
 			<div>
 				<div className="banner-img">
 				<div className="logo">HiPup</div><span className="tagline">Playdates for pets</span>
@@ -155,7 +136,9 @@ var GroupIndex = React.createClass({
 				
 				<div className="banner"></div>
 				<MainNav userButtons={ this.props.userButtons }
-					openDateModal={this.openDateModal} selectTag={this.selectTag}/>
+					openDateModal={this.openDateModal} 
+					selectTag={this.selectTag}
+					searchTooltip={this.searchTooltip}/>
 				<Modal isOpen={ this.state.dateModalIsOpen }
 							 onRequestClose={this.closeDateModal}
 							 style={DateModalStyle}>

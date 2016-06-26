@@ -14,6 +14,11 @@ var MainNav = React.createClass({
   },
   componentDidMount: function() {
     this.changeToSolid();
+    var searchIcon = document.getElementsByClassName("search-icon")[0],
+        searchBar = document.getElementById("search-box");
+    searchIcon.addEventListener("mouseover", function(){
+      searchBar.focus();
+    });
   },
   changeToSolid: function(){
     $(window).scroll(function() {
@@ -35,18 +40,15 @@ var MainNav = React.createClass({
       }
     }.bind(this));
   },
-  location: function(){
-    console.log("!!");
-  },
-  openTag: function(){
-    return 
-  },
+
   render: function(){
     return <div className="main-nav">
         <ul className="nav-icons">
           <li ><FaLocationArrow />
           </li>
-          <a className="tooltips"><FaSearch /><span>Tooltip</span></a>
+          <li className="search-icon"><FaSearch />
+            { this.props.searchTooltip()}
+          </li>
           <li className="tag-icon"><FaTags />
             <TagIndex selectTag={this.props.selectTag} />
           </li>

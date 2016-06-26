@@ -14,18 +14,13 @@ var UserActions = require('./actions/userActions'),
     SearchStyle = require('./modal/searchStyle'),
     LogInForm = require('./components/user/logInForm'),
     SignUpForm = require('./components/user/signUpForm'),
-    Search = require('./components/search/search'),
     MainNav = require("./components/mainNav");
 
 
 var App = React.createClass({
   mixins: [CurrentUserStateMixin, ReverseGeoMixin, FrontPageModalHelper],
-  getInitialState: function() {
-    return {
-      groups: []
-    };
-  },
   componentDidMount: function() {
+    //add loading thing
     $.ajax({
       url: "https://api.ipify.org/",
       success: function(ip){
@@ -119,13 +114,7 @@ var App = React.createClass({
                style={FormStyle}>
           <SignUpForm closeModal={this.closeSignUpModal}/>
         </Modal>
-        <Modal isOpen={ this.state.searchModalOpen }
-               onRequestClose={this.closeSearchModal}
-               style={SearchStyle}>
-          <Search groups={ this.state.groups }
-                  searchString={ this.state.searchString }
-                  closeModal={this.closeSearchModal}/>
-        </Modal>
+
       </div>
     );
   }

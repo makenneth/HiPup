@@ -48,11 +48,5 @@ module.exports = {
 		} else {
 			return <div className="search-by-dist" onClick={this.openDistanceSearch}></div>;
 		}
-	},
-	searchByTagDiv: function(){
-		return <div className="search-by-tag search-hidden">
-		 		
-		 </div>;
-		
-	},
+	}
 }
