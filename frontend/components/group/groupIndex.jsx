@@ -150,7 +150,8 @@ var GroupIndex = React.createClass({
 						openDateModal={this.openDateModal} 
 						searchTooltip={this.searchTooltip}
 						tagTooltip ={ this.tagTooltip } 
-						locationTooltip={ this.locationTooltip } />
+						locationTooltip={ this.locationTooltip } 
+						currentUser={this.state.currentUser}/>
 	},
 	groupIndex: function(libraries) {
 		if (libraries.length){
@@ -163,8 +164,8 @@ var GroupIndex = React.createClass({
 						</div>
 		} else {
 			return <div className="group-index cf">
-				<h1>There are no events within
-			{ " " + this.state.miles + " miles of " + UserStore.currentLocation().place + " :(" }
+				<h1>There are no events matching your search criteria around
+			   { " " + UserStore.currentLocation().place + " :(" }
 				</h1>
 			</div>;
 		}

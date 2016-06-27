@@ -3,7 +3,9 @@ var React = require('react'),
     FaTags = require('react-icons/lib/fa/tags'),
     FaLocationArrow = require('react-icons/lib/fa/location-arrow'),
     FaCalendar = require('react-icons/lib/fa/calendar'),
-    TagIndex = require('./tag/tagIndex');
+    FaUser = require("react-icons/lib/fa/user"),
+    TagIndex = require('./tag/tagIndex'),
+    HashHistory = require('react-router').hashHistory;
 
 
 var MainNav = React.createClass({
@@ -40,7 +42,9 @@ var MainNav = React.createClass({
       }
     }.bind(this));
   },
-
+  link: function(url) {
+    HashHistory.push(url);
+  },
   render: function(){
     return <div className="main-nav">
         <ul className="nav-icons">
@@ -53,10 +57,16 @@ var MainNav = React.createClass({
           <li className="tag-icon"><FaTags />
             { this.props.tagTooltip() }
           </li>
-              
           <li onClick={this.props.openDateModal}><FaCalendar /></li>
+          {
+            this.props.currentUser ? 
+              <li className="tag-icon" onClick={this.link.bind(null, "/user/profile") }>
+                <FaUser />
+              </li> : " "
+
+          }
         </ul>
-        {this.props.userButtons()}
+        { this.props.userButtons() }
       </div>;
   }
 })
