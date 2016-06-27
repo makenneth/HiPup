@@ -7,11 +7,11 @@ It utilizes Ruby on Rails on the backend, a PostgreSQL database, and React.js wi
 Users are allowed to:
 
 * Securely create an account
-... can log in on multiple location at the same time
+... can log in from multiple locations at the same time
 * Join groups or start their own
 * Join events or Start/Cancel their own events
 * View other members' profile and see their group associations
-* Search Groups by title, tags, and proximity
+* Search Groups by titles, tags, and proximity
 * Browse All Upcoming events
 
 #### Front view
