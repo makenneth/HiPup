@@ -48,7 +48,6 @@ var Navbar = React.createClass({
 	},
 	render: function() {
 		return (
-			<div>
 				<nav className="nav-main">
 					<ul className="nav-list cf">
 						<li className={this.state.active === 0 ? "active" : ""}
@@ -61,7 +60,6 @@ var Navbar = React.createClass({
 						{this.buttonsForLoggedIn()}
 					</ul>
 				</nav>
-			</div>
 		);
 	}
 

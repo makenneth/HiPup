@@ -19,10 +19,5 @@ module.exports = {
 	findLocationWithIp: function(ip){
 		UserApiUtil.findLocationWithIp(ip);
 	}
-	// getCityAndState: function(lat, lng){
-	// 	UserApiUtil.getCityAndState(lat, lng);
-	// },
-	// getTimeZone: function(lat, lng, timestamp){
-	// 	UserApiUtil.getTimeZone(lat, lng, timestamp);
-	// }
+
 };

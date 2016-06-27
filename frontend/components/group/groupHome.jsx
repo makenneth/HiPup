@@ -11,6 +11,7 @@ var GroupHome = React.createClass({
 			description: ""
 		};
 	},
+
 	_showTag: function(id) {
 		HashHistory.push("tags/" + id);
 	},
@@ -61,6 +62,7 @@ var GroupHome = React.createClass({
 		var group = this.props.group;
 		return (
 			<div className="group-home">
+			
 					<div className="group-info">
 						<li className="address">{group.city + ", " + group.state}</li>
 						<li className="founded">Founded {group.created_at} </li>
@@ -91,10 +93,10 @@ var GroupHome = React.createClass({
 						</div>
 					</div>
 				<div className="group-info-container">
-					{this.description()}
-				<div className="event-container">
-					<GroupEvents group={this.props.group} groupId={this.props.params.groupId}/>
-				</div>
+						{this.description()}
+						<div className="event-container">
+							<GroupEvents group={this.props.group} groupId={this.props.params.groupId}/>
+						</div>
 				</div>
 				<div className="group-member-container">
 					<GroupMembers group={this.props.group} groupId={this.props.params.groupId}/>

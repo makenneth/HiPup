@@ -27,26 +27,62 @@ Users are allowed to:
 ![Event-page]
 
 ## Implementation
-### Group
-Upon user's visit to the page, I start to watch the user's position. So I can narrow the results that are better fit to the users' current location. I store the user's location temporarily in the user store, not only because I can return tailored results to users that are not logged in, I can also provide better results for registered users.
+### Multiple Sessions
+```ruby	
+	def self.find_by_session_token(session_token)
+		user = User.joins(:sessions).where("sessions.session_token = ?", session_token)
+		user[0]
+	end
 
-```javascript
-	componentDidMount: function() {
-		this.posListener = navigator.geolocation.watchPosition(this.recordLatLng);
-	},
-	recordLatLng: function(position){
-		UserStore.setCurrentCoords(position.coords);
-		UserActions.getTimeZone(lat, lng, position.timestamp);
-		UserActions.getCityAndState(lat, lng);
-	},
+	def destroy_session_token!(session_token)
+		session = Session.find_by(user_id: self.id, session_token: session_token)
+		session.destroy! if session
+	end
+
+	def log_in!(user)
+    @current_user = user
+    new_session = Session.create(user_id: @current_user.id, session_token: Session.generate_session_token)
+  	session[:session_token] = new_session.session_token
+  end
+
+  def log_out!
+  	current_user.destroy_session_token!(session[:session_token])
+  	@current_user = nil
+  	session[:session_token] = nil
+  end
+```
+### Group
+Upon user's visit HiPup, their locations are recorded by checking the approximate location from their IP address.
+
+```$.ajax({
+      url: "https://api.ipify.org/",
+      success: function(ip){
+        UserActions.findLocationWithIp(ip);
+      }
+
+    _setCurrentLocation = function(location){
+	  	currentLocation.coords.latitude = location.lat;
+	  	currentLocation.coords.longitude = location.lon;
+	  	currentLocation.place = [location.city, location.region].join(", ");
+	  	currentLocation.timeZone = location.timeZone;
+		}
 ```
 
-I then fetch groups according response from the navigator. Since I store the coordinates where users signed up with, if the navigator returns a error, I will narrow the results based on the users' original locality. If the user did not sign in, 
+Users now have the option to filter groups by their location, by tag, and/or by a simple dynamic name search.
 
-```ruby
-	def self.distance_between(user_coord, miles)
-		Group.where(Geocoder::Calculations.distance_between(user_coord, [:lat, :lng]) < miles)
-	end
+```javascript
+		var searchCriteria = this.state.searchString.toLowerCase().trim();
+		var libraries = this.state.groups.filter(function(group){
+			var titleIsMatched = group.title.toLowerCase().match(searchCriteria);
+			if (that.state.tag){
+				return titleIsMatched && 
+									group.tags.some(function(tag){ 
+										return tag.name === that.state.tag; 
+									});
+			} else {
+				return titleIsMatched;
+			}
+		}
 ```
 
 ### Events

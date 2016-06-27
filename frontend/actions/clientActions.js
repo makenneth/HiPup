@@ -16,8 +16,9 @@ var eventParticipantData = function(userId, eventId){
 						};
 };
 module.exports = {
-	fetchAllGroups: function(timezone){
-		ApiUtil.fetchAllGroups(timezone);
+	fetchAllGroups: function(coords){
+		if (!coords.latitude) return;
+		ApiUtil.fetchAllGroups(coords);
 	},
 	fetchSingleGroup: function(id, timezone){
 		ApiUtil.fetchSingleGroup(id, timezone);

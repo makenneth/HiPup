@@ -3,9 +3,7 @@ module.exports = {
   getInitialState: function() {
     return {
       logInModalOpen: false,
-      signUpModalOpen: false,
-      navModalOpen: false,
-      searchModalOpen: false,
+      signUpModalOpen: false
     };
   },
   openLogInModal: function() {
@@ -21,17 +19,5 @@ module.exports = {
   },
   closeSignUpModal: function() {
     this.setState({ signUpModalOpen: false });
-  },
-  openNavModal: function() {
-    this.setState({ navModalOpen: true });
-  },
-  closeNavModal: function() {
-    this.setState({ navModalOpen: false});
-  },
-  openSearchModal: function(e){
-    this.setState({ searchModalOpen: true });
-  },
-  closeSearchModal: function() {
-    this.setState({ searchModalOpen: false });
   }
 };

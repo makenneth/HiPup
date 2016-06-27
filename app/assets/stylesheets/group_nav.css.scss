@@ -14,9 +14,9 @@
   -ms-background-position-y: center;
   background-position: center 65%;
   font-size: 40px;
-		font-family: 'Kaushan Script', cursive;
-		color: black;
-		text-shadow: 2px 2px #ccc;
+	font-family: 'Kaushan Script', cursive;
+	color: black;
+	text-shadow: 2px 2px #ccc;
   /* scale bg image proportionately */
   background-size: cover;
 	margin: 0 auto;
@@ -59,11 +59,11 @@
 			flex-direction: row;
 			align-items: center;
 			color: white;
-				font-family:'Dosis', sans-serif;
-				font-weight: 700;
-				li:hover {
-					color: white;
-				}
+			font-family:'Dosis', sans-serif;
+			font-weight: 700;
+			li:hover {
+				color: white;
+			}
 }
 @media (min-width: 1244px){
 	.nav-div {
@@ -87,19 +87,29 @@
 		margin-right: 20px;
 	}
 }
+.nav-modal-anim-enter {
+	transition: all 1s ease-out 0.2s;
+	-webkit-transition: all 1s ease-out 0.2s;
+	-o-transition: all 1s ease-out 0.2s;
+	-moz-transition: all 1s ease-out 0.2s;
+}
 
 .back-nav {
 	margin-left: 5%;
 	display: flex;
 	flex-direction: row;
 }
-	.back-nav li {
-		font-size: 20px;
-		cursor: pointer;
-		margin-right: 20px;
-	}
-.back-nav li:hover {
+.back-nav li {
+	font-size: 20px;
+	cursor: pointer;
+	margin-right: 20px;
+}
+.back-nav li:hover, .join-group:hover, .leave-group:hover{
 	color: black;
+		transition: all 1s ease-out 0.2s;
+	-webkit-transition: all 1s ease-out 0.2s;
+	-o-transition: all 1s ease-out 0.2s;
+	-moz-transition: all 1s ease-out 0.2s;
 }
 .join-group, .leave-group {	
 	margin-right: 20px;
@@ -108,6 +118,3 @@
 
 }
 
-.join-group:hover, .leave-group:hover {
-	color: black;
-}

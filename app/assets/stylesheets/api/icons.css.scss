@@ -12,6 +12,35 @@
 	vertical-align: middle;
 	border-radius: 5px;
 }
+
+.menu-icon:hover {
+	opacity: 0;
+	transform: rotate(-180deg);
+		transition: all 0.5s ease-out 0.2s;
+	-webkit-transition: all 0.5s ease-out 0.2s;
+	-o-transition: all 0.5s ease-out 0.2s;
+	-moz-transition: all 0.5s ease-out 0.2s;
+}
+.menu-icon:hover + .nav-main {
+	transform: translateX(0px);
+}
+.nav-main {
+  width: 250px;
+  height: 100vw;
+  position: absolute;
+  top: 0;
+  background-color: white;
+  opacity: 0.9;
+  z-index: 9999;
+  transform: translateX(-300px);
+  transition: all 1s ease-out 0.5s;
+  -webkit-transition: all 1s ease-out 0.5s;
+  -o-transition: all 1s ease-out 0.5s;
+  -moz-transition: all 1s ease-out 0.5s;
+}
+.nav-main:hover {
+	transform: translateX(0px);
+}
 .close-icon {
 	right: 40px;
 	top: 40px;

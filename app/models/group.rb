@@ -20,11 +20,10 @@ class Group < ActiveRecord::Base
 	  end
 	end
 
-	def self.closest(user_coord)
-		Group.where(Geocoder::Calculations.distance_between(user_coord, [:lat, :lng]) < 25)
+	def self.groups_with_distance(user_coord)
+		@groups = Group.includes(:tags, :participants).map do |group|
+			group[:distance] = Geocoder::Calculations.distance_between(user_coord, [group.lat, group.lng])
+		end
 	end
 
-	def self.other(user_coord)
-		Group.where(Geocoder::Calculations.distance_between(user_coord, [:lat, :lng]) >= 25)
-	end
 end

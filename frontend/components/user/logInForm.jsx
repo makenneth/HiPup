@@ -1,6 +1,7 @@
 var React = require('react'),
 		UserActions = require('../../actions/userActions'),
-		UserStore = require('../../stores/userStore');
+		UserStore = require('../../stores/userStore'),
+		ReactCSSTransitionGroup = require('react-addons-css-transition-group');
 
 var LogInForm = React.createClass({
 	getInitialState: function() {
@@ -11,6 +12,10 @@ var LogInForm = React.createClass({
 	},
 	componentDidMount: function() {
 		UserStore.addListener(this._onLogIn);
+		setTimeout(function(){
+			this.refs["username"].focus()
+		}.bind(this), 100);
+		
 	},
 	_onLogIn: function() {
 		if (UserStore.currentUser()){
@@ -59,31 +64,35 @@ var LogInForm = React.createClass({
 		var isDisabled = this.state.password.length >= 8;
 
 		return (
-			<div className="form-div">
-				<div className="close-form" onClick={this.props.closeModal}>&#10006;</div>
-				<div className="log-in-errors">{UserStore.errors().join(", ")}</div>
-				<h3>Log In</h3>
-				<form className="user-forms" onSubmit={this.handleSubmit}>
-					<div className="form-line cf">
-						<label for="username">Username</label>
-						<input id="username" type="text"
-								autoFocus
-								value={this.state.username} onChange={this.updateUsername}
-								 required />
-					</div>
-					<div className="form-line cf">
-						<label for="password">Password</label>
-						<input id="password" type="password"
-										value={this.state.password} onChange={this.updatePassword}
-										required/>
-					</div>
-					<div className="form-btn-div cf">
-						<input type="submit" className="button-login" value="Log In" disabled={!isDisabled}/>
-						<button className="guest-login" onClick={this.guestLogin}>Guest Login</button>
-					</div>
-				</form>
-				<div className="redirect">Don't have an account yet? <a onClick={this.redirectToSignUp}>Sign Up</a></div>
-			</div>
+			<ReactCSSTransitionGroup transitionName="forms" 
+				transitionAppear={true} transitionAppearTimeout={500} 
+					transitionEnterTimeout={300} transitionLeaveTimeout={300}>
+				<div className="form-div">
+					<div className="close-form" onClick={this.props.closeModal}>&#10006;</div>
+					<div className="log-in-errors">{UserStore.errors().join(", ")}</div>
+					<h3>Log In</h3>
+					<form className="user-forms" onSubmit={this.handleSubmit}>
+						<div className="form-line cf">
+							<label for="username">Username</label>
+							<input id="username" type="text"
+									ref="username"
+									value={this.state.username} onChange={this.updateUsername}
+									 required />
+						</div>
+						<div className="form-line cf">
+							<label for="password">Password</label>
+							<input id="password" type="password"
+											value={this.state.password} onChange={this.updatePassword}
+											required/>
+						</div>
+						<div className="form-btn-div cf">
+							<input type="submit" className="button-login" value="Log In" disabled={!isDisabled}/>
+							<button className="guest-login" onClick={this.guestLogin}>Guest Login</button>
+						</div>
+					</form>
+					<div className="redirect">Don't have an account yet? <a onClick={this.redirectToSignUp}>Sign Up</a></div>
+				</div>
+			</ReactCSSTransitionGroup>
 		);
 	}
 
