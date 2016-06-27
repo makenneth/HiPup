@@ -44,7 +44,8 @@ var MainNav = React.createClass({
   render: function(){
     return <div className="main-nav">
         <ul className="nav-icons">
-          <li ><FaLocationArrow />
+          <li className="location-icon"><FaLocationArrow />
+            { this.props.locationTooltip() }
           </li>
           <li className="search-icon"><FaSearch />
             { this.props.searchTooltip() }

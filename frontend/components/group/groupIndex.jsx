@@ -29,7 +29,7 @@ var GroupIndex = React.createClass({
 			distanceSearchOpen: false,
 			tags: TagStore.all() || [],
 			selectedTags: {},
-			miles: 0,
+			miles: 25,
 			locationServiceError: ""
 		};
 	},
@@ -57,7 +57,11 @@ var GroupIndex = React.createClass({
 		this.groupIndexListener = GroupStore.addListener(this._onLoad);
 		this.qgsListener = QueryGroupStore.addListener(this._fetchedLocationQuery);
 		this.tagIdxListener = TagStore.addListener(this._onReceiveTags);
-		if (!this.state.groups.length) ClientActions.fetchAllGroups();
+		if (!this.state.groups.length){
+			ClientActions.fetchAllGroups();
+		} else {
+			this._onReceiveTags();
+		}
 		if (!this.state.tags.length) ClientActions.fetchTags();
 	},
 	_fetchedLocationQuery: function() {
@@ -97,15 +101,15 @@ var GroupIndex = React.createClass({
 		this.setState({dateModalIsOpen: false});
 	},
 	changeDistance: function(e){
-		if (e.target.value === "--"){
-			this.setState({miles: "--", groups: GroupStore.all()})
-			return;
-		}
+		// if (e.target.value === "--"){
+		// 	this.setState({miles: "--", groups: GroupStore.all()})
+		// 	return;
+		// }
 
 		var selectedMiles = +e.target.value;
 
 		this.setState({miles: selectedMiles});
-		this.fetchGroupsByLocation(selectedMiles);
+		// this.fetchGroupsByLocation(selectedMiles);
 	},
 
 	fetchGroupsByLocation: function(miles){
@@ -129,15 +133,20 @@ var GroupIndex = React.createClass({
 			this.setState({locationServiceError: "Location Service isn't available"});
 		}
 	},
-	openDistanceSearch: function(){
-		this.setState({distanceSearchOpen: true});
-	},
+
 	searchTooltip: function(){
     return <div className="search-tooltip"><div className="search-container-sm cf">
 	    <img className="search-icon-sm" src="/search-icon-2.png"/>
 	    <input id="search-box" type="text" onChange={this.setSearchString}
 	           autoFocus value={this.state.searchString} placeholder="Find a pet event"/>
 	    </div></div>;
+	},
+	locationTooltip: function() {
+		return <div className="location-tooltip">
+			<p>Search { this.state.miles } Miles</p>
+			<input id="distance-range"type="range" min="25"
+						 max="200" value={ this.state.miles } onChange={ this.changeDistance } />
+		</div>
 	},
 	tagTooltip: function() {
 		return <TagIndex changeSelectedTags={this._changeSelectedTags}
@@ -167,7 +176,8 @@ var GroupIndex = React.createClass({
 				<MainNav userButtons={ this.props.userButtons }
 					openDateModal={this.openDateModal} 
 					searchTooltip={this.searchTooltip}
-					tagTooltip ={ this.tagTooltip } />
+					tagTooltip ={ this.tagTooltip } 
+					locationTooltip={ this.locationTooltip } />
 				<Modal isOpen={ this.state.dateModalIsOpen }
 							 onRequestClose={this.closeDateModal}
 							 style={DateModalStyle}>

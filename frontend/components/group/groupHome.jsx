@@ -92,11 +92,10 @@ var GroupHome = React.createClass({
 						</div>
 					</div>
 				<div className="group-info-container">
-				<i class="fa fa-check" aria-hidden="true"></i>
-					{this.description()}
-				<div className="event-container">
-					<GroupEvents group={this.props.group} groupId={this.props.params.groupId}/>
-				</div>
+						{this.description()}
+						<div className="event-container">
+							<GroupEvents group={this.props.group} groupId={this.props.params.groupId}/>
+						</div>
 				</div>
 				<div className="group-member-container">
 					<GroupMembers group={this.props.group} groupId={this.props.params.groupId}/>

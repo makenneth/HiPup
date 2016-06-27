@@ -8,15 +8,14 @@ module.exports = {
 										    backgroundColor   : 'rgba(255, 255, 255, 0.75)'
 										  },
 										  content : {
-										    position                   : 'relative',
+										    position                   : 'absolute',
 										    margin 										 : "0 auto",
-										    top 											 : "40%",
-										    transform  								 : "translate(-5%, 40%)",
-										    WebkitTransofrm						 : "translate(-5%, 40%)",
+										    top	                       : "10vh",
 										    width									 		 : '80%',
 										    maxWidth: '600px',
 										    minWidth: '400px',
-										    height									   : '450px',
+										    // height									   : '450px',
+										    maxHeight                  : '80vh',
 										    border                     : '1px solid #ccc',
 										    opacity										 : '0.9',
 										    background                 : '#000',
@@ -26,3 +25,5 @@ module.exports = {
 										    padding                    : '40px'
 										  }
 										};
+	/*									    transform  								 : "translate(-5%, 20vh)",
+										    WebkitTransofrm						 : "translate(-5%, 20vh)",*/

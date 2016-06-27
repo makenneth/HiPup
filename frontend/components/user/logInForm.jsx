@@ -12,6 +12,10 @@ var LogInForm = React.createClass({
 	},
 	componentDidMount: function() {
 		UserStore.addListener(this._onLogIn);
+		setTimeout(function(){
+			this.refs["username"].focus()
+		}.bind(this), 100);
+		
 	},
 	_onLogIn: function() {
 		if (UserStore.currentUser()){
@@ -71,7 +75,7 @@ var LogInForm = React.createClass({
 						<div className="form-line cf">
 							<label for="username">Username</label>
 							<input id="username" type="text"
-									autoFocus
+									ref="username"
 									value={this.state.username} onChange={this.updateUsername}
 									 required />
 						</div>

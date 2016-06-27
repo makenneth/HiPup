@@ -3,8 +3,7 @@ module.exports = {
   getInitialState: function() {
     return {
       logInModalOpen: false,
-      signUpModalOpen: false,
-      searchModalOpen: false,
+      signUpModalOpen: false
     };
   },
   openLogInModal: function() {
@@ -20,12 +19,5 @@ module.exports = {
   },
   closeSignUpModal: function() {
     this.setState({ signUpModalOpen: false });
-  },
-
-  openSearchModal: function(e){
-    this.setState({ searchModalOpen: true });
-  },
-  closeSearchModal: function() {
-    this.setState({ searchModalOpen: false });
   }
 };

@@ -2,13 +2,11 @@ json.extract! group, :id, :title, :image_url, :lat, :lng, :creator_id, :city, :s
 json.created_at (Time.utc(*group.created_at).in_time_zone).strftime("%b %d, %Y")
 json.tags group.tags
 Time.zone = params[:time_zone]
+json.participants group.participants do |partic|
+	json.extract! partic, :id, :name, :image_url
+end
+
 unless simple
-	json.participants group.participants do |partic|
-		json.extract! partic, :id, :name, :image_url
-	end
-	json.images group.images do |image|
-		json.extract! image, :image_url, :id
-	end
 	json.description group.description
 	json.upcoming_events group.group_events.where("group_events.event_time > ? AND group_events.status = ?", Time.now, "SCHEDULED") do |event|
 		json.extract! event, :lat, :lng, :city, :state, :title, 

@@ -7,11 +7,10 @@
 
 
 .search-tooltip {
-		visibility: hidden;
-		position: absolute;
-		margin-top: 5px;
-		z-index: 15;
-		
+	visibility: hidden;
+	position: absolute;
+	margin-top: 5px;
+	z-index: 15;
 }
 .search-tooltip:after {
   border-left: 10px solid transparent;
@@ -67,19 +66,7 @@
 }
 
 
-.search-icon-main:hover, .search-by-dist:hover {
-	opacity: 0.5;
-}
-
-.searchByDistance {
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-	font-family: 'Dosis', sans-serif;
-	font-size: 18px;
-}
-
-.search-icon, .tag-icon {
+.search-icon, .tag-icon, .location-icon {
 	position: relative;
 }
 
@@ -87,11 +74,9 @@
 	visibility: hidden;
 	background-color: black;
 	color: white;
-	padding: 5px;
-	padding-right: 10px;
-	margin-top: 5px;
+	padding: 10px;
+	padding-right: 20px;
 	position: absolute;
-	border-radius: 3px;
 	display: flex;
 	justify-content: space-between;
 	flex-wrap: wrap;
@@ -111,17 +96,13 @@
 		justify-content: space-between;
 		align-items: center;
 	}
-/*	li:hover {
-		background-color: white;
-		color: black;
-		opacity: 0.8;
-	}*/
+
 }
 .tag-list:after {
   border-left: 20px solid transparent;
   border-right: 20px solid transparent;
   border-bottom: 20px solid black;
-  bottom: 99%;
+  bottom: 100%;
   content: " ";
   left: -0.1%;
   position: absolute;
@@ -131,7 +112,7 @@
 }
 .tag-list:before {
 	position: absolute;
-	width: 350px;
+	width: 360px;
 	bottom: 99%;
 	content: " ";
 	height: 25px;
@@ -139,17 +120,17 @@
 }
 .tag-icon:hover .tag-list {
 	visibility: visible;
-	width: 350px;
+	width: 360px;
 	height: 300px;
-	@include showSearch;
+	/*@include showSearch;*/
 }
 .tag-icon input[type="checkbox"]{
 	padding: 10px;
 	font-size: 20px;
-	 -ms-transform: scale(2);
-  -moz-transform: scale(2);
-  -webkit-transform: scale(2);
-  -o-transform: scale(2);
+	 -ms-transform: scale(1.5);
+  -moz-transform: scale(1.5);
+  -webkit-transform: scale(1.5);
+  -o-transform: scale(1.5);
 }
 .tag-list button {
 	font-size: 16px;
@@ -162,7 +143,44 @@
 	}
 }
 
-.search-hidden {
-	opacity: 0;
-	width: 0px;
+
+.location-tooltip {
+	visibility: hidden;
+	background-color: white;
+	z-index: 16;
+	position: absolute;
+	transform: translateY(15px);
+}
+.location-icon:hover .location-tooltip {
+	visibility: visible;
+	padding: 10px;
+	width: 200px;
+	p {
+		color: black;
+		font-size: 16px;
+	}
+	input {
+		width: 200px;
+
+	}
+}
+.location-tooltip:before {
+	content: " ";
+	background-color: transparent;
+	height: 15px;
+	width: 200px;
+	position: absolute;
+	bottom: 100%;
+}
+.location-tooltip:after {
+	content: " ";
+	position: absolute;
+	border-left: 15px solid transparent;
+	border-right: 15px solid transparent;
+	border-bottom: 15px solid white;
+	left: 0;
+	width: 0;
+	height: 0;
+	z-index: 16;
+	bottom: 100%;
 }

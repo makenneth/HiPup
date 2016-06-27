@@ -18,7 +18,7 @@
 @import url(https://fonts.googleapis.com/css?family=Kaushan+Script);
 @import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz:400,700);
  @import url(https://fonts.googleapis.com/css?family=PT+Sans+Narrow);
- @import url(https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300);
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,700);
 
  html, body, header, nav, h1, a,
 ul, li, strong, main, button, i,
@@ -37,7 +37,9 @@ span, article, time, small {
   box-sizing: inherit;
   background: transparent;
 }
-
+body {
+  min-width: 400px;
+}
 .ReactModal__Body--open {
   overflow: hidden;
 }
@@ -61,12 +63,14 @@ footer {
 	width: 100%;
 	height: 100px;
 	display: absolute;
-	background-color: white;
+	background-color: rgba(0, 0, 0, 0.8);
+
 }
 .my-name {
 	font-size: 24px;
 	margin-right: 10px;
 	font-family: 'Roboto Slab', sans-serif;
+  color: black;
 }
 #staricon {
   position: absolute;
@@ -110,11 +114,17 @@ button {
 }
 
 .forms-appear {
-  opacity: 0;
+  -ms-filter: blur(25px);
+  filter: blur(25px);
+  -webkit-filter: blur(25px);
+  -o-filter: blur(25px);
 }
 
 .forms-appear.forms-appear-active {
-  opacity: 1;
+    -ms-filter: blur(0px);
+  filter: blur(0px);
+  -webkit-filter: blur(0px);
+  -o-filter: blur(0px);
   transition: all 0.5s ease-out;
 }
 
@@ -164,8 +174,10 @@ button {
   -ms-background-position-y: bottom;
   background-position: center bottom;
   background-size: cover;
+  /*object-fit: cover;*/
   width: 100%;
-  height: 600px;
+  height: 100vh;
+  min-height: 62.583em;
   position: fixed;
   z-index: -5;
   display: flex;
@@ -193,6 +205,22 @@ button {
   }
 
 }
+@media screen and (max-height: 770px){
+  .banner-img {
+    width: 150%;
+    transform: scale(0.5);
+    transform: translateX(-16%);    
+    min-height: 20em;
+  }
+}
+@media screen and (max-height: 255px){
+  .banner-img {
+    width: 150%;
+    transform: scale(0.125);
+    transform: translateX(-16%);    
+    min-height: 2em;
+  }
+}
 .banner {
   position: relative;
   background-color: black;
@@ -202,7 +230,8 @@ button {
   -o-filter: blur(0.5px);
   -ms-filter: blur(0.5px);
   filter: blur(0.5px);
-  height: 600px;
+  height: 100vw;
+  min-height: 62.583em;
   width: 100%;
 
 }
