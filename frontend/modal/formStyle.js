@@ -15,6 +15,7 @@ module.exports = {
 										    maxWidth: '600px',
 										    minWidth: '400px',
 										    maxHeight                  : '80vh',
+										    maxHeight: '530px',
 										    border                     : '1px solid #ccc',
 										    opacity										 : '0.9',
 										    background                 : '#000',
