@@ -290,3 +290,40 @@ button {
 	display: block;
 	clear: both;
 }
+.faded {
+  opacity: 0.5;
+}
+.page-load {
+  position: absolute;
+  visibility: hidden;
+}
+.page-load-active {
+  visibility: visible;
+}
+.page-load-active div {
+  width: 20px;
+  height: 20px;
+  position: fixed;
+  top: 50%;
+  background-color: #3498db;
+  border-radius: 50%;
+  animation: move 4s infinite cubic-bezier(.2,.64,.81,.23);
+  z-index: 1000;
+}
+.page-load-active div:nth-child(2) {
+  background-color: #c0392b;
+  animation-delay: 150ms;
+}
+.page-load-active div:nth-child(3) {
+  background-color: #f1c40f;
+  animation-delay: 300ms;
+}
+.page-load-active div:nth-child(4) {
+  background-color: #27ae60;
+  animation-delay: 450ms;
+}
+@keyframes move {
+  0% {left: 0%;}
+  75% {left:100%;}
+  100% {left:100%;}
+}

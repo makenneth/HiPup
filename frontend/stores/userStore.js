@@ -20,6 +20,7 @@ _setCurrentLocation = function(location){
   _currentLocation.coords.longitude = location.lon;
   _currentLocation.place = [location.city, location.region].join(", ");
   _currentLocation.timeZone = location.timeZone;
+  UserStore.__emitChange();
 };
 
 UserStore.currentLocation = function(){

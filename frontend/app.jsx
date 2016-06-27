@@ -14,13 +14,13 @@ var UserActions = require('./actions/userActions'),
     SearchStyle = require('./modal/searchStyle'),
     LogInForm = require('./components/user/logInForm'),
     SignUpForm = require('./components/user/signUpForm'),
-    MainNav = require("./components/mainNav");
-
+    MainNav = require("./components/mainNav"),
+    FaSpinner = require('react-icons/lib/fa/spinner');
 
 var App = React.createClass({
   mixins: [CurrentUserStateMixin, ReverseGeoMixin, FrontPageModalHelper],
   componentDidMount: function() {
-    //add loading thing
+
     $.ajax({
       url: "https://api.ipify.org/",
       success: function(ip){
@@ -88,6 +88,12 @@ var App = React.createClass({
   render: function() {
     return (
       <div>
+        <div className="page-load">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
         <div class="page-container" style={this.managePageStyle()}>
             {
               React.Children.map(this.props.children, function(child) {
@@ -102,7 +108,6 @@ var App = React.createClass({
             }
         </div>
         {this.menuIcon()}
-        
         <Navbar />
         <Modal isOpen={this.state.logInModalOpen}
                onRequestClose={this.closeLogInModal}

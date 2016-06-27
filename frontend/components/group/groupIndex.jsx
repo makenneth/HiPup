@@ -21,7 +21,7 @@ var GroupIndex = React.createClass({
 	mixins: [CurrentUserState, SearchMixin],
 	getInitialState: function() {
 		return {
-			groups: GroupStore.all() || [],
+			groups: [],
 			tagSearchModalOpen: false,
 			searchString: "",
 			dateModalIsOpen: false,
@@ -54,21 +54,30 @@ var GroupIndex = React.createClass({
 		this.setAllTags(false);
 	},
 	componentDidMount: function() {
+		//also add a listener for location error
+		//if receive error, fetch all groups without locations
 		this.groupIndexListener = GroupStore.addListener(this._onLoad);
-		this.qgsListener = QueryGroupStore.addListener(this._fetchedLocationQuery);
 		this.tagIdxListener = TagStore.addListener(this._onReceiveTags);
-		if (!this.state.groups.length){
-			ClientActions.fetchAllGroups();
+
+		if (UserStore.currentLocation().coords.latitude){
+			if (!this.state.groups.length){
+				ClientActions.fetchAllGroups(UserStore.currentLocation().coords);
+			} else {
+				this._onReceiveTags();
+			}
 		} else {
-			this._onReceiveTags();
+			this.usStoreListener = UserStore.addListener(this._checkedUserLocation);
+			this._checkedUserLocation();
 		}
+		
 		if (!this.state.tags.length) ClientActions.fetchTags();
 	},
-	_fetchedLocationQuery: function() {
-		this.setState({groups: QueryGroupStore.findGroups(this.state.miles)});
+	_checkedUserLocation: function() {
+		ClientActions.fetchAllGroups(UserStore.currentLocation().coords);
 	},
+
 	_onLoad: function() {
-		this.setState({groups: GroupStore.all()});
+		this.setState({groups: GroupStore.findAllWithDistance(this.state.miles)});
 	},
 	_onReceiveTags: function(){
 		var selectedTags = this.state.selectedTags,
@@ -87,9 +96,7 @@ var GroupIndex = React.createClass({
 	componentWillUnmount: function() {
 		if (this.groupIndexListener) this.groupIndexListener.remove(); 
 		if (this.tagIdxListener) this.tagIdxListener.remove();
-		if (this.qgsListener) this.qgsListener.remove();
-		// $("#search-box").off("keyup");
-		// $(".search-bar").off("click");
+		if (this.usStoreListener) this.usStoreListener.remove();
 	},
 	setSearchString: function(e) {
 		this.setState({searchString: e.target.value});
@@ -101,31 +108,13 @@ var GroupIndex = React.createClass({
 		this.setState({dateModalIsOpen: false});
 	},
 	changeDistance: function(e){
-		// if (e.target.value === "--"){
-		// 	this.setState({miles: "--", groups: GroupStore.all()})
-		// 	return;
-		// }
-
 		var selectedMiles = +e.target.value;
-
-		this.setState({miles: selectedMiles});
-		// this.fetchGroupsByLocation(selectedMiles);
+		this.setState({
+			miles: selectedMiles,
+			groups: GroupStore.findAllWithDistance(selectedMiles)
+		});
 	},
 
-	fetchGroupsByLocation: function(miles){
-		var groups = QueryGroupStore.findGroups(miles);
-		if (groups){
-			this.setState({groups: groups});
-		} else {
-			var usersLocation = UserStore.currentLocation().coords;
-			if (usersLocation.latitude){
-				ClientActions.fetchGroupsByLocation(miles, usersLocation);
-			} else {
-				this._toggleLocationService();
-				setTimeout(this._toggleLocationService, 2000);		
-			}
-		}
-	},
 	_toggleLocationService: function(){
 		if (this.state.locationServiceError.length){
 			this.setState({locationServiceError: ""});
@@ -143,7 +132,7 @@ var GroupIndex = React.createClass({
 	},
 	locationTooltip: function() {
 		return <div className="location-tooltip">
-			<p>Search { this.state.miles } Miles</p>
+			<p>Searching within { this.state.miles } Miles</p>
 			<input id="distance-range"type="range" min="25"
 						 max="200" value={ this.state.miles } onChange={ this.changeDistance } />
 		</div>
@@ -155,7 +144,32 @@ var GroupIndex = React.createClass({
 											selectAllTags={this.selectAllTags}
 											deselectAllTags={this.deselectAllTags}/>
 	},
+	mainNav: function() {
+		if (this.props.location.pathname === "/")
+			return	<MainNav userButtons={ this.props.userButtons }
+						openDateModal={this.openDateModal} 
+						searchTooltip={this.searchTooltip}
+						tagTooltip ={ this.tagTooltip } 
+						locationTooltip={ this.locationTooltip } />
+	},
+	groupIndex: function(libraries) {
+		if (libraries.length){
+			return <div className="group-index cf">
+						{
+							libraries.map(function(group){
+							  return <GroupIndexItem group={group} key={group.id} />;
+						  })
+						}
+						</div>
+		} else {
+			return <div className="group-index cf">
+				<h1>There are no events within
+			{ " " + this.state.miles + " miles of " + UserStore.currentLocation().place + " :(" }
+				</h1>
+			</div>;
+		}
 
+	},
 	render: function() {
 		var searchCriteria = this.state.searchString.toLowerCase().trim();
 		var that = this;
@@ -171,26 +185,17 @@ var GroupIndex = React.createClass({
 				<div className="banner-img">
 					<div className="logo">HiPup</div><span className="tagline">Playdates for pets</span>
 				</div>
-				
 				<div className="banner"></div>
-				<MainNav userButtons={ this.props.userButtons }
-					openDateModal={this.openDateModal} 
-					searchTooltip={this.searchTooltip}
-					tagTooltip ={ this.tagTooltip } 
-					locationTooltip={ this.locationTooltip } />
+				{ this.mainNav() }
 				<Modal isOpen={ this.state.dateModalIsOpen }
 							 onRequestClose={this.closeDateModal}
 							 style={DateModalStyle}>
 							<EventIndexByDate closeModal={this.closeDateModal} />
 				 </Modal>
 				<div className="group-index-body">
-					<div className="group-index cf">
 					{
-						libraries.map(function(group){
-							return <GroupIndexItem group={group} key={group.id} />;
-						})
+						this.groupIndex(libraries)
 					}
-					</div>
 				</div>
 
 				<footer>

@@ -4,7 +4,8 @@ var AppDispatcher = require('../dispatcher/dispatcher'),
 		GroupConstants =  require('../constants/groupConstants');
 
 var _groups = {},
-		_lastEditedGroup = null;
+		_lastEditedGroup = null
+		cached = {};
 
 var _resetGroups = function(groups){
 	groups.forEach(function(group){
@@ -30,6 +31,18 @@ GroupStore.all = function(){
 		groups.push(_groups[id]);
 	}
 	return groups;
+};
+GroupStore.findAllWithDistance = function(distance) {
+	var groups = [];
+	if (!cached[distance]){
+		for (var id in _groups){
+			if (_groups[id].distance <= distance){
+				groups.push(_groups[id]);
+			}
+		}
+		cached[distance] = groups;
+	}
+	return cached[distance];
 };
 
 GroupStore.find = function(id){

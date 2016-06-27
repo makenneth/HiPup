@@ -19,27 +19,30 @@ module.exports = {
 			}
 		});
 	},
-	fetchAllGroups: function() {
+	fetchAllGroups: function(coords) {
 		$.ajax({
 			method: "GET",
 			url: "/api/groups",
+			data: { 
+				user_coord: [coords.latitude, coords.longitude]
+			},
 			success: function(groups){
 				ServerActions.receivedGroups(groups);
 			}
 		});
 	},
-	fetchCustomGroups: function(miles, coords, type){
-		$.ajax({
-			method: "GET",
-			url: "/api/groups",
-			data: {user_coord: [coords.latitude, coords.longitude], 
-							location_type: type, miles: miles},
-			success: function(groups){
-				var miles = +groups.pop();
-				ServerActions.groupsDistanceFetched(groups, miles);
-			}
-		})
-	},
+	// fetchCustomGroups: function(miles, coords, type){
+	// 	$.ajax({
+	// 		method: "GET",
+	// 		url: "/api/groups",
+	// 		data: {user_coord: [coords.latitude, coords.longitude], 
+	// 						location_type: type, miles: miles},
+	// 		success: function(groups){
+	// 			var miles = +groups.pop();
+	// 			ServerActions.groupsDistanceFetched(groups, miles);
+	// 		}
+	// 	})
+	// },
 	fetchSingleGroup: function(id, timezone) {
 		$.ajax({
 			method: "GET",

@@ -11,6 +11,7 @@ var GroupHome = React.createClass({
 			description: ""
 		};
 	},
+
 	_showTag: function(id) {
 		HashHistory.push("tags/" + id);
 	},
