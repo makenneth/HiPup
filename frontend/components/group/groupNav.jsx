@@ -7,7 +7,6 @@ var React = require('react'),
 		SuccessMessage = require('../../mixin/successMessage'),
 		ClientActions = require('../../actions/clientActions'),
 		HashHistory = require('react-router').hashHistory,
-		GroupStore = require('../../stores/groupStore'),
 		Confirmation = require('../../mixin/confirmation'),
 		ConfirmationStyle = require('../../modal/confirmationStyle');
 

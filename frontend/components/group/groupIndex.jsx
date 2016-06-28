@@ -1,24 +1,20 @@
 var React = require('react'),
-		ReactDOM = require('react-dom'),
 		GroupStore = require('../../stores/groupStore'),
-		QueryGroupStore = require('../../stores/queryGroupStore'),
 		ClientActions = require('../../actions/clientActions'),
 		GroupIndexItem = require('./groupIndexItem'),
 		Modal = require('react-modal'),
 		TagIndex = require("../tag/tagIndex"),
-		SearchStyle = require('../../modal/searchStyle'),
-		ReactCSSTransitionGroup = require('react-addons-css-transition-group'),
 		EventIndexByDate = require('../events/eventIndexByDate'),
 		DateModalStyle = require('../../modal/dateModalStyle'),
 		CurrentUserState = require('../../mixin/currentUserState'),
 		UserStore = require("../../stores/userStore"),
 		TagStore = require("../../stores/tagStore"),
-		SearchMixin = require('../../mixin/searchMixin');		
+		MainNav = require("../mainNav.jsx");		
 
 var banner = "https://images.unsplash.com/photo-1443750200537-00fd518bdc82?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&w=1080&fit=max&s=ad7a9ff44b3026fcf49d80830ffb20ee";
 
 var GroupIndex = React.createClass({
-	mixins: [CurrentUserState, SearchMixin],
+	mixins: [CurrentUserState],
 	getInitialState: function() {
 		return {
 			groups: [],

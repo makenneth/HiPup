@@ -29,6 +29,7 @@ var GroupIndexItem = React.createClass({
 						 }
 					</div>
 				</div>
+				 <div class="effeckt-overlay" id="effeckt-overlay"></div> 
 			</div>
 		);
 	}

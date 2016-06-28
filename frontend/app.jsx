@@ -9,7 +9,6 @@ var UserActions = require('./actions/userActions'),
     ReverseGeoMixin = require('./mixin/reverseGeoMixin'),
     Navbar = require('./components/navbar'),
     UserStore = require('./stores/userStore'),
-    UserServerActions = require('./actions/userServerActions');
     FormStyle = require('./modal/formStyle'),
     SearchStyle = require('./modal/searchStyle'),
     LogInForm = require('./components/user/logInForm'),

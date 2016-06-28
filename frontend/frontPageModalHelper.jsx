@@ -1,4 +1,3 @@
-var React = require('react');
 module.exports = {
   getInitialState: function() {
     return {

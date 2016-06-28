@@ -4,7 +4,6 @@ var React = require('react'),
     FaLocationArrow = require('react-icons/lib/fa/location-arrow'),
     FaCalendar = require('react-icons/lib/fa/calendar'),
     FaUser = require("react-icons/lib/fa/user"),
-    TagIndex = require('./tag/tagIndex'),
     HashHistory = require('react-router').hashHistory;
 
 
