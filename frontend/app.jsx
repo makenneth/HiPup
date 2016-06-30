@@ -2,7 +2,6 @@ var React = require('react'),
     ReactDOM = require('react-dom'),
     Modal = require('react-modal');
     
-
 var UserActions = require('./actions/userActions'),
     CurrentUserStateMixin = require('./mixin/currentUserState'),
     FrontPageModalHelper = require('./frontPageModalHelper'),
@@ -19,7 +18,6 @@ var UserActions = require('./actions/userActions'),
 var App = React.createClass({
   mixins: [CurrentUserStateMixin, ReverseGeoMixin, FrontPageModalHelper],
   componentDidMount: function() {
-
     $.ajax({
       url: "https://api.ipify.org/",
       success: function(ip){
@@ -33,6 +31,10 @@ var App = React.createClass({
   },
   logOut: function() {
     UserActions.logOut();
+  },
+  shouldComponentUpdate: function(nextProps, nextState) {
+    if (nextState.currentUser !== this.state.currentUser) return false;
+    return true;
   },
   userButtons: function() {
     if ((/^\/\w*\/?$/).test(this.props.location.pathname)){

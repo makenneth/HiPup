@@ -18,6 +18,14 @@
 	h1 {
 		width: 60%;
 		color: white;
+		p {
+			cursor: pointer;
+			text-decoration: underline;
+		}
+		p:hover {
+			@include index-item-anim;
+			color: blue;
+		}
 	}
 }
 

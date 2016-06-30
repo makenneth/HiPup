@@ -5,7 +5,6 @@ var GroupEventItem = React.createClass({
 	showEvent: function(){
 		HashHistory.push("groups/" + this.props.groupId + "/events/" + this.props.groupEvent.id);
 	},
-	//in RSVP also need
 	parseTime: function(){
 		var parsedTime = this.props.groupEvent.event_time;
 		if (!parsedTime) return [0, 0]

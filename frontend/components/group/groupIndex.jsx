@@ -17,15 +17,15 @@ var GroupIndex = React.createClass({
 	mixins: [CurrentUserState],
 	getInitialState: function() {
 		return {
-			groups: [],
+			groups: GroupStore.findAllWithDistance(25),
 			tagSearchModalOpen: false,
 			searchString: "",
 			dateModalIsOpen: false,
 			searchBarOpen: false,
 			distanceSearchOpen: false,
-			tags: TagStore.all() || [],
+			tags: [],
 			selectedTags: {},
-			miles: 25,
+			miles: 50,
 			locationServiceError: ""
 		};
 	},
@@ -50,8 +50,6 @@ var GroupIndex = React.createClass({
 		this.setAllTags(false);
 	},
 	componentDidMount: function() {
-		//also add a listener for location error
-		//if receive error, fetch all groups without locations
 		this.groupIndexListener = GroupStore.addListener(this._onLoad);
 		this.tagIdxListener = TagStore.addListener(this._onReceiveTags);
 
@@ -68,17 +66,19 @@ var GroupIndex = React.createClass({
 		
 		if (!this.state.tags.length) ClientActions.fetchTags();
 	},
+	componentWillReceiveProps: function(nextProps) {
+		this._onReceiveTags();
+	},
 	_checkedUserLocation: function() {
 		ClientActions.fetchAllGroups(UserStore.currentLocation().coords);
 	},
-
 	_onLoad: function() {
 		this.setState({groups: GroupStore.findAllWithDistance(this.state.miles)});
 	},
 	_onReceiveTags: function(){
 		var selectedTags = this.state.selectedTags,
 				tags = TagStore.all();
-
+		if (tags.length === 0) return;
 		tags.forEach(function(tag){
 			selectedTags[tag.id] = true;
 		})
@@ -130,7 +130,7 @@ var GroupIndex = React.createClass({
 		return <div className="location-tooltip">
 			<p>Searching within { this.state.miles } Miles</p>
 			<input id="distance-range"type="range" min="25"
-						 max="200" value={ this.state.miles } onChange={ this.changeDistance } />
+						 max="300" step="25" value={ this.state.miles } onChange={ this.changeDistance } />
 		</div>
 	},
 	tagTooltip: function() {
@@ -149,6 +149,11 @@ var GroupIndex = React.createClass({
 						locationTooltip={ this.locationTooltip } 
 						currentUser={this.state.currentUser}/>
 	},
+	showAll: function() {
+		this.setState({ 
+			groups: GroupStore.findAllWithDistance(5000)
+		});
+	},
 	groupIndex: function(libraries) {
 		if (libraries.length){
 			return <div className="group-index cf">
@@ -162,7 +167,9 @@ var GroupIndex = React.createClass({
 			return <div className="group-index cf">
 				<h1>There are no events matching your search criteria around
 			   { " " + UserStore.currentLocation().place + " :(" }
+			   <p onClick={this.showAll}>Show all</p>
 				</h1>
+				
 			</div>;
 		}
 

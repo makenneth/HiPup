@@ -10,7 +10,7 @@ var TagShow = React.createClass({
 	},
 	componentDidMount: function() {
 		this.tagShowListener = TagStore.addListener(this._receiveTag);
-		if (!this.state.tag.groups.length){ //just in case tags were not fetched
+		if (!this.state.tag.groups.length){ 
 			ClientActions.fetchTag(this.props.params.tagId);
 		}
 	},
