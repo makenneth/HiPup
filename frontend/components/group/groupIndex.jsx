@@ -9,7 +9,8 @@ var React = require('react'),
 		CurrentUserState = require('../../mixin/currentUserState'),
 		UserStore = require("../../stores/userStore"),
 		TagStore = require("../../stores/tagStore"),
-		MainNav = require("../mainNav.jsx");		
+		MainNav = require("../mainNav.jsx"),
+		FaAngleDown = require("react-icons/lib/fa/angle-down");
 
 var banner = "https://images.unsplash.com/photo-1443750200537-00fd518bdc82?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&w=1080&fit=max&s=ad7a9ff44b3026fcf49d80830ffb20ee";
 
@@ -65,6 +66,7 @@ var GroupIndex = React.createClass({
 		}
 		
 		if (!this.state.tags.length) ClientActions.fetchTags();
+		this.placeScrollDownDiv();
 	},
 	componentWillReceiveProps: function(nextProps) {
 		this._onReceiveTags();
@@ -174,6 +176,19 @@ var GroupIndex = React.createClass({
 		}
 
 	},
+	placeScrollDownDiv: function(){
+		var h = window.innerHeight,
+				w = window.innerWidth,
+				bottomPX = 50;
+		if (h <= 842) bottomPX += 948 - h;
+		if (w >= 1000) bottomPX += 100 + w - 1000; 
+		document.getElementsByClassName("scroll-down-div")[0].style.bottom = bottomPX + "px";
+	},
+	scrollDown: function(){
+		var h = window.innerHeight;
+
+		window.scrollTo(0, h);
+	},
 	render: function() {
 		var searchCriteria = this.state.searchString.toLowerCase().trim();
 		var that = this;
@@ -189,7 +204,12 @@ var GroupIndex = React.createClass({
 				<div className="banner-img">
 					<div className="logo">HiPup</div><span className="tagline">Playdates for pets</span>
 				</div>
-				<div className="banner"></div>
+				<div className="banner">
+					<div className="scroll-down-div" onClick={this.scrollDown}>
+						<div className="scroll-down"><FaAngleDown /></div>
+						<div className="scroll-down"><FaAngleDown /></div>
+					</div>
+				</div>
 				{ this.mainNav() }
 				<Modal isOpen={ this.state.dateModalIsOpen }
 							 onRequestClose={this.closeDateModal}

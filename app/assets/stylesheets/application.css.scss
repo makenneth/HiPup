@@ -1,14 +1,4 @@
 /*
- * This is a manifest file that'll be compiled into application.css, which will include all the files
- * listed below.
- *
- * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
- * or any plugin's vendor/assets/stylesheets directory can be referenced here using a relative path.
- *
- * You're free to add application-wide styles to this file and they'll appear at the bottom of the
- * compiled file so the styles you add here take precedence over styles defined in any styles
- * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
- * file per style scope.
  *= require font-awesome
  *= require_tree .
  *= require_self
@@ -233,7 +223,27 @@ button {
   height: 100vw;
   min-height: 62.583em;
   width: 100%;
-
+}
+.scroll-down-div {
+  position: absolute;
+  left: 50%;
+  cursor: pointer;
+}
+.scroll-down {
+  position: absolute;
+  font-size: 40px;
+  color: white;
+  animation: 4s ease-out 0s infinite normal none running alertScroll;
+  -webkit-animation: 4s ease-out 0s infinite normal none running alertScroll;
+  -moz-animation: 4s ease-out 0s infinite normal none running alertScroll;
+  -o-animation: 4s ease-out 0s infinite normal none running alertScroll;
+}
+.banner .scroll-down:nth-child(2) {
+  opacity: 0;
+  animation-delay: 2s;
+  -webkit-animation-delay: 2s;
+  -moz-animation-delay: 2s;
+  -o-animation-delay: 2s;
 }
 .group-detail {
 	width: 80%;
@@ -246,7 +256,14 @@ button {
 	position: relative;
 }
 
-
+@keyframes alertScroll {
+  0% {transform: translateY(0); opacity: 1;}
+  100% {transform: translateY(40px); opacity: 0.1;}
+}
+@-webkit-keyframes alertScroll {
+  0% {transform: translateY(0); opacity: 1;}
+  100% {transform: translateY(40px); opacity: 0.1;}
+}
 
 #header {
 	width: 100%;
