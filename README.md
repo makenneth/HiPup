@@ -1,4 +1,4 @@
-# HiPup
+# HiPup [Live Link](http://hipup.co)
 HiPup is a full-stack web application inspired by MeetUp. It is a platform where pets can find groups by similar interests. If the owner can, why can't they? 
 
 It utilizes Ruby on Rails on the backend, a PostgreSQL database, and React.js with a Flux architectural framework on the frontend.

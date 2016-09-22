@@ -17,13 +17,33 @@ var UserActions = require('./actions/userActions'),
 
 var App = React.createClass({
   mixins: [CurrentUserStateMixin, ReverseGeoMixin, FrontPageModalHelper],
+  getInitialState: function() {
+    console.log("gis");
+  },
+  getDefaultProps: function() {
+    console.log("gdp");
+  },
+  componentWillMount: function() {
+    console.log("cwm");
+  },
   componentDidMount: function() {
+    console.log("cdm")
     $.ajax({
       url: "https://api.ipify.org/",
       success: function(ip){
         UserActions.findLocationWithIp(ip);
       }
     })
+  },
+  componentWillReceiveProps: function(nextProps) {
+    console.log("cwrp")
+  },
+
+  componentWillUpdate: function(nextProps, nextState) {
+    console.log("cwu");
+  },
+  componentDidUpdate: function(prevProps, prevState) {
+    console.log("cdu");
   },
   redirectToSignUp: function(){
     this.setState({logInModalOpen: false,
@@ -33,8 +53,12 @@ var App = React.createClass({
     UserActions.logOut();
   },
   shouldComponentUpdate: function(nextProps, nextState) {
+    console.log("scu");
     if (nextState.currentUser !== this.state.currentUser) return false;
     return true;
+  },
+  componentWillUnmount: function() {
+    console.log("cwu");
   },
   userButtons: function() {
     if ((/^\/\w*\/?$/).test(this.props.location.pathname)){
@@ -87,6 +111,7 @@ var App = React.createClass({
     
   },
   render: function() {
+    console.log("render");
     return (
       <div>
         <div className="page-load">
