@@ -1,18 +1,13 @@
-var React = require('react'),
-		MemberStore = require('../../stores/memberStore'),
-		ClientActions = require('../../actions/clientActions'),
-		ReverseGeoMixin = require('../../mixin/reverseGeoMixin');
+const React = require('react');
+const MemberStore = require('../../stores/memberStore');
+const ClientActions = require('../../actions/clientActions');
+const ReverseGeoMixin = require('../../mixin/reverseGeoMixin');
 
-var MemberProfile = React.createClass({
+const MemberProfile = React.createClass({
 	mixins: [ReverseGeoMixin],
 	getInitialState: function() {
 		return {
-			member: {
-							 id: null,
-							 name: null,
-							 owner_name: null,
-							 image_url: null
-							}
+			member: {}
 		};
 	},
 	componentDidMount: function() {
@@ -25,11 +20,11 @@ var MemberProfile = React.createClass({
 		}
 	},
 	_updateUser: function() {
-		var member = MemberStore.find(this.props.userId);
-		this.setState({member: member});
+		const member = MemberStore.find(this.props.userId);
+		this.setState({ member });
 	},
 	render: function() {
-		var member = this.state.member;
+		const member = this.state.member;
 		return (
 			<div className="user-profile">
 			<div className="close-icon" onClick={this.props.closeModal}>&#10006;</div>

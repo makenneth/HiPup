@@ -1,8 +1,8 @@
-var React = require('react'),
-		MemberStore = require('../stores/memberStore'),
-		ClientActions = require('../actions/clientActions');
+const React = require('react');
+const MemberStore = require('../stores/memberStore');
+const ClientActions = require('../actions/clientActions');
 
-var MemberProfile = React.createClass({
+const MemberProfile = React.createClass({
 	getInitialState: function() {
 		return {
 			member: null
@@ -13,14 +13,13 @@ var MemberProfile = React.createClass({
 		ClientActions.fetchMember(this.props.params.userId);
 	},
 	_updateUser: function() {
-		this.setState({member: MemberStore.find(this.props.params.userId)});
+		this.setState({ member: MemberStore.find(this.props.params.userId) });
 	},
 	render: function() {
 		return (
 			<div />
 		);
 	}
-
 });
 
 module.exports = MemberProfile;

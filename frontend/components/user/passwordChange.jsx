@@ -1,9 +1,9 @@
-var React = require('react'),
-		UserStore = require('../../stores/userStore'),
-		ErrorStore = require('../../stores/errorStore'),
-		UserActions = require('../../actions/userActions');
+const React = require('react');
+const UserStore = require('../../stores/userStore');
+const ErrorStore = require('../../stores/errorStore');
+const UserActions = require('../../actions/userActions');
 
-var PasswordChange = React.createClass({
+const PasswordChange = React.createClass({
 	getInitialState: function() {
 		return {
 			newPassword: "",
@@ -25,9 +25,9 @@ var PasswordChange = React.createClass({
 		this.props.showSuccess();
 	},
 	_errorReceived: function() {
-		this.setState({errors: ErrorStore.getError()});
+		this.setState({ errors: ErrorStore.getError() });
 	},
-	setField: function(field, e){
+	setField: function(field, e) {
 		var fieldObj = {};
 		fieldObj[field] = e.target.value;
 		this.setState(fieldObj);
@@ -40,45 +40,55 @@ var PasswordChange = React.createClass({
 		});
 	},
 	render: function() {
-		var passwordConditions = "Minimum 8 characters in length\nContain at least one uppercase letter\n"
+		const passwordConditions = "Minimum 8 characters in length\nContain at least one uppercase letter\n"
 			+ "Contain at least one lowercase letter\nContain at least one number\n"
 			+ "Contain at least one special characters _!@#*&$.";
+
 		return (
 			<div className="password-modal">
 				<div className="close-icon" onClick={this.props.closeModal}>&#10006;</div>
 				<h3>Update Password</h3>
 				<div className="password-errors">
 					{
-						this.state.errors.map(function(error, i){
+						this.state.errors.map((error, i) => {
 							return <li key={"error" + i}>{error}</li>;
 						})
 					}
 				</div>
 				<form id="change-password" onSubmit={this.handleSubmit}>
 					<label for="old-password">Old Password</label>
-					<input id="old-password" type="password"
-								 value={this.state.oldPassword}
-								 onChange={this.setField.bind(null, "oldPassword")}
-								 required />
+					<input
+						id="old-password"
+						type="password"
+					  value={this.state.oldPassword}
+					  onChange={this.setField.bind(null, "oldPassword")}
+					  required
+					/>
 					<label for="new-password">New Password</label>
-					<input  title={passwordConditions} id="new-password" type="password"
-									value={this.state.newPassword}
-									onChange={this.setField.bind(null, "newPassword")}
-									required
-									pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[._!@#*&$-])[a-zA-Z0-9_!@#*&$.-]{8,}$" />
+					<input
+						title={passwordConditions}
+						id="new-password"
+						type="password"
+						value={this.state.newPassword}
+						onChange={this.setField.bind(null, "newPassword")}
+						required
+						pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[._!@#*&$-])[a-zA-Z0-9_!@#*&$.-]{8,}$"
+					/>
 					<label for="new-password-repeat">Repeat Your Password</label>
-					<input title="Password doesn't match" id="new-password-repeat" type="password"
-								 value={this.state.newPasswordRepeat}
-								 onChange={this.setField.bind(null, "newPasswordRepeat")}
-								 required
-								 pattern={this.state.newPassword} />
+					<input
+						title="Password doesn't match"
+						id="new-password-repeat"
+						type="password"
+					  value={this.state.newPasswordRepeat}
+			 		  onChange={this.setField.bind(null, "newPasswordRepeat")}
+			   		required
+						pattern={this.state.newPassword}
+					/>
 					<input type="submit" value="Change Password"/>
-					</form>
+				</form>
 			</div>
-
 		);
 	}
-
 });
 
 module.exports = PasswordChange;

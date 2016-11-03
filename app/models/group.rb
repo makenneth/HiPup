@@ -2,7 +2,7 @@ class Group < ActiveRecord::Base
 	validates :title, :description, :lat, :lng, :creator_id, presence: true
 	before_validation :ensure_image
 	belongs_to :user
-	has_many :group_participants #join table
+	has_many :group_participants
 	has_many :participants, through: :group_participants, source: :participant
 	has_many :images, as: :imageable
 	has_many :taggings
@@ -15,7 +15,10 @@ class Group < ActiveRecord::Base
 	end
 
 	def self.distance_between(user_coord, miles)
-		Group.includes(:tags).select do |group| 
+		t1 = Thread.new
+		t2 = Thread.new
+		groups = Group.eager_load(:tags)
+		.select do |group|
 			Geocoder::Calculations.distance_between(user_coord, [group.lat, group.lng]) < miles.to_i
 	  end
 	end

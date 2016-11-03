@@ -1,10 +1,11 @@
-var UserStore = require('../stores/userStore'),
-	  UserActions = require('../actions/userActions');
+const UserStore = require('../stores/userStore');
+const UserActions = require('../actions/userActions');
+
 module.exports = {
 	getInitialState: function() {
 		return {
 			currentUser: UserStore.currentUser(),
-			errors: [] 
+			errors: []
 		};
 	},
 	componentDidMount: function() {
@@ -16,13 +17,13 @@ module.exports = {
 	_updateUser: function() {
 		this.setState({
 			currentUser: UserStore.currentUser(),
-			errors: UserStore.errors()	
+			errors: UserStore.errors()
 		});
 	},
 	componentWillUnmount: function() {
 		if (this.cUListener){
 			this.cUListener.remove();
-		}	
+		}
 	}
 
 };

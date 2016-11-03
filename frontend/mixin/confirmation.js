@@ -1,7 +1,6 @@
-var React = require('react');
+const React = require('react');
 
-var Confirmation = React.createClass({
-
+const Confirmation = React.createClass({
 	render: function() {
 		return (
 			<div className="confirmation-alert">

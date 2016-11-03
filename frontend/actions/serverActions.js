@@ -1,117 +1,118 @@
-var AppDispatcher = require('../dispatcher/dispatcher'),
-		GroupConstants = require('../constants/groupConstants'),
-		MemberConstants = require('../constants/memberConstants'),
-		TagConstants = require('../constants/tagConstants'),
-		GroupEventConstants = require('../constants/groupEventConstants'),
-		UserConstants = require('../constants/userConstants'),
-		ErrorConstants = require('../constants/errorConstant'),
-		EventQueryConstants = require('../constants/eventQueryConstants');
+import { ERROR_RECEIVED, RECEIVED_GROUPS, GROUPS_DISTANCE_FETCHED,
+RECEIVED_GROUP, REMOVED_GROUP, MEMBER_FETCHED,
+RECEIVED_TAGS, RECEIVED_TAG,
+FETCHED_GROUP_EVENTS, TOGGLED_GROUP, TOGGLED_EVENT,
+FETCHED_SINGLE_EVENT, LOCATION_QUERY_FETCHED,
+TIME_QUERY_FETCHED } from "../constants/constants";
+
+const Dispatcher = require('../dispatcher/dispatcher');
+const dispatch = Dispatcher.dispatch;
 
 module.exports = {
-	errorReceived: function(error){
-		var errors = JSON.parse(error.responseText);
-		AppDispatcher.dispatch({
-			actionType: ErrorConstants.ERROR_RECEIVED,
-			error: errors
-		})
-	},
-	receivedGroups: function(groups){
-		AppDispatcher.dispatch({
-			actionType: GroupConstants.RECEIVED_GROUPS,
-			groups: groups
+	errorReceived: function(error) {
+		const errors = JSON.parse(error.responseText);
+		dispatch({
+			actionType: ERROR_RECEIVED,
+			error
 		});
 	},
-	groupsDistanceFetched: function(groups, miles){
-		AppDispatcher.dispatch({
-			actionType: GroupConstants.GROUPS_DISTANCE_FETCHED,
-			groups: groups,
-			miles: miles
-		})
-	},
-	receivedGroup: function(group){
-		AppDispatcher.dispatch({
-			actionType: GroupConstants.RECEIVED_GROUP,
-			group: group
+	receivedGroups: function(groups) {
+		dispatch({
+			actionType: RECEIVED_GROUPS,
+			groups
 		});
 	},
-	removedGroup: function(group){
-		AppDispatcher.dispatch({
-			actionType: GroupConstants.REMOVED_GROUP,
-			group: group
+	groupsDistanceFetched: function(groups, miles) {
+		dispatch({
+			actionType: GROUPS_DISTANCE_FETCHED,
+			groups,
+			miles
 		});
 	},
-	memberFetched: function(member){
-		AppDispatcher.dispatch({
-			actionType: MemberConstants.MEMBER_FETCHED,
-			member: member
+	receivedGroup: function(group) {
+		dispatch({
+			actionType: RECEIVED_GROUP,
+			group
 		});
 	},
-	fetchedTags: function(tags){
-		AppDispatcher.dispatch({
-			actionType: TagConstants.RECEIVED_TAGS,
-			tags: tags
+	removedGroup: function(group) {
+		dispatch({
+			actionType: REMOVED_GROUP,
+			group
 		});
 	},
-	fetchedTag: function(tag){
-		AppDispatcher.dispatch({
-			actionType: TagConstants.RECEIVED_TAG,
-			tag: tag
+	memberFetched: function(member) {
+		dispatch({
+			actionType: MEMBER_FETCHED,
+			member
 		});
 	},
-	createdTag: function(tag){
-		AppDispatcher.dispatch({
-			actionType: TagConstants.RECEIVED_TAG,
-			tag: tag
+	fetchedTags: function(tags) {
+		dispatch({
+			actionType: RECEIVED_TAGS,
+			tags
 		});
 	},
-	fetchedAllEvents: function(groupEvents){
-		AppDispatcher.dispatch({
-			actionType: GroupEventConstants.FETCHED_GROUP_EVENTS,
-			groupEvents: groupEvents
-		})
+	fetchedTag: function(tag) {
+		dispatch({
+			actionType: RECEIVED_TAG,
+			tag
+		});
+	},
+	createdTag: function(tag) {
+		dispatch({
+			actionType: RECEIVED_TAG,
+			tag
+		});
+	},
+	fetchedAllEvents: function(groupEvents) {
+		dispatch({
+			actionType: FETCHED_GROUP_EVENTS,
+			groupEvents
+		});
 	},
 
-	fetchedSingleEvent: function(groupEvent){
-		AppDispatcher.dispatch({
-			actionType: GroupEventConstants.FETCHED_SINGLE_EVENT,
-			groupEvent: groupEvent
-		})
+	fetchedSingleEvent: function(groupEvent) {
+		dispatch({
+			actionType: FETCHED_SINGLE_EVENT,
+			groupEvent
+		});
 	},
-	toggledGroup: function(currentUser){
-		AppDispatcher.dispatch({
-			actionType: UserConstants.TOGGLED_GROUP,
-			currentUser: currentUser
-		})
+	toggledGroup: function(currentUser) {
+		dispatch({
+			actionType: TOGGLED_GROUP,
+			currentUser
+		});
 	},
 
-	toggledEvent: function(currentUser){
-		AppDispatcher.dispatch({
-			actionType: UserConstants.TOGGLED_EVENT,
-			currentUser: currentUser
-		})
+	toggledEvent: function(currentUser) {
+		dispatch({
+			actionType: TOGGLED_EVENT,
+			currentUser
+		});
 	},
-	createdEvent: function(groupEvent){
-		AppDispatcher.dispatch({
-			actionType: GroupEventConstants.FETCHED_SINGLE_EVENT,
-			groupEvent: groupEvent
-		})
+	createdEvent: function(groupEvent) {
+		dispatch({
+			actionType: FETCHED_SINGLE_EVENT,
+			groupEvent
+		});
 	},
-	cancelledEvent: function(groupEvent){
-		AppDispatcher.dispatch({
-			actionType: GroupEventConstants.FETCHED_SINGLE_EVENT,
-			groupEvent: groupEvent
-		})
+	cancelledEvent: function(groupEvent) {
+		dispatch({
+			actionType: FETCHED_SINGLE_EVENT,
+			groupEvent
+		});
 	},
-	fetchedEventsByLocation: function(groupEvents){
-		AppDispatcher.dispatch({
-			actionType: EventQueryConstants.LOCATION_QUERY_FETCHED,
-			groupEvents: groupEvents
-		})
+	fetchedEventsByLocation: function(groupEvents) {
+		dispatch({
+			actionType: LOCATION_QUERY_FETCHED,
+			groupEvents
+		});
 	},
-	fetchedEventsByDate: function(groupEvents){
-		AppDispatcher.dispatch({
-			actionType: EventQueryConstants.TIME_QUERY_FETCHED,
-			groupEvents: groupEvents
-		})
+	fetchedEventsByDate: function(groupEvents) {
+		dispatch({
+			actionType: TIME_QUERY_FETCHED,
+			groupEvents
+		});
 	}
 };

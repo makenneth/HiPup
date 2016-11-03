@@ -1,6 +1,6 @@
-var React = require('react');
+const React = require('react');
 
-var TagIndex = React.createClass({
+const TagIndex = React.createClass({
 	render: function() {
 		return (
 			<ul className="tag-list">
@@ -11,20 +11,21 @@ var TagIndex = React.createClass({
 					<button onClick={this.props.deselectAllTags}>Clear All</button>
 				</li>
 			{
-				this.props.tags.map(function(tag){
-					return <li key={ tag.id }>
-					<div>{ tag.name }</div>
-						<input type="checkbox" 
-							onChange={ this.props.changeSelectedTags.bind(null, tag.id) }  
-							checked={ this.props.selectedTags[tag.id] }/>
-					
-				</li>;
-				}.bind(this))
+				this.props.tags.map((tag) => {
+					return (
+						<li key={ tag.id }>
+							<div>{ tag.name }</div>
+							<input
+								type="checkbox"
+								onChange={this.props.changeSelectedTags.bind(null, tag.id)}
+								checked={this.props.selectedTags[tag.id]}
+							/>
+					</li>);
+				})
 			}
 			</ul>
 		);
 	}
-
 });
 
 module.exports = TagIndex;

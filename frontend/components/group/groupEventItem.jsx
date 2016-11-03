@@ -1,18 +1,18 @@
-var React = require('react'),
-		HashHistory = require('react-router').hashHistory;
+const React = require('react');
+const HashHistory = require('react-router').hashHistory;
 
-var GroupEventItem = React.createClass({
-	showEvent: function(){
+const GroupEventItem = React.createClass({
+	showEvent: function() {
 		HashHistory.push("groups/" + this.props.groupId + "/events/" + this.props.groupEvent.id);
 	},
-	parseTime: function(){
-		var parsedTime = this.props.groupEvent.event_time;
-		if (!parsedTime) return [0, 0]
+	parseTime: function() {
+		const parsedTime = this.props.groupEvent.event_time;
+		if (!parsedTime) return [0, 0];
 		return this.props.groupEvent.event_time.split(" || ");
 	},
 	render: function() {
-		var groupEvent = this.props.groupEvent,
-				eventTime = this.parseTime();
+		const groupEvent = this.props.groupEvent;
+		const eventTime = this.parseTime();
 		return (
 			<div className="group-event-container">
 					<div className="group-event-title" onClick={this.showEvent}>
@@ -35,7 +35,6 @@ var GroupEventItem = React.createClass({
 			</div>
 		);
 	}
-
 });
 
 module.exports = GroupEventItem;

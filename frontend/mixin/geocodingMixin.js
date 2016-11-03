@@ -1,13 +1,11 @@
-
 module.exports = {
-
-	getCoords: function(city, state){
-		var city = city.replace("/\s/", "+"),
-				state = state.replace('/\s/', "+");
-		var url = "https://maps.googleapis.com/maps/api/geocode/json?" + 
-								"components=locality:" + city + "|administrative_area:" + 
-								state + "|country:us&key=AIzaSyDBLpIlf0l0YTDYqk8oNmHbiJldzeKMQKM";
-				that = this;
+	getCoords: function(city, state) {
+		let city = city.replace("/\s/", "+"),
+		let state = state.replace('/\s/', "+");
+		var url = "https://maps.googleapis.com/maps/api/geocode/json?" +
+			"components=locality:" + city + "|administrative_area:" +
+			state + "|country:us&key=AIzaSyDBLpIlf0l0YTDYqk8oNmHbiJldzeKMQKM";
+			that = this;
 		$.ajax({
 			method: "GET",
 			url: url,
@@ -20,5 +18,5 @@ module.exports = {
 		})
 	}
 
-	
+
 }

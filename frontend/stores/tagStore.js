@@ -1,39 +1,39 @@
-var Store = require('flux/utils').Store,
-		AppDispatcher = require('../dispatcher/dispatcher'),
-		TagStore = new Store(AppDispatcher),
-		TagConstants = require('../constants/tagConstants');
+import { RECEIVED_TAGS, RECEIVED_TAG } from '../constants/constants';
 
-var _tags = [];
+const Store = require('flux/utils').Store;
+const AppDispatcher = require('../dispatcher/dispatcher');
+const TagStore = new Store(AppDispatcher);
 
-var _resetTags = function(tags){
+let _tags = [];
+
+const _resetTags = (tags) => {
 	_tags = tags;
 };
 
-var _addTag = function(tag){
+const _addTag = (tag) => {
 	_tags.push(tag);
 };
 
-TagStore.all = function(){
+TagStore.all = function() {
 	return _tags;
 };
 
-TagStore.find = function(id){
-	var newId = parseInt(id);
-	for (var i = 0; i < _tags.length; i++) {
-		if (_tags[i].id === newId){
+TagStore.find = function(id) {
+	const newId = parseInt(id);
+	for (let i = 0; i < _tags.length; i++) {
+		if (_tags[i].id === newId) {
 			return _tags[i];
 		}
 	}
 };
-//fetch all tags in the beginning?
 
-TagStore.__onDispatch = function(payload){
-	switch (payload.actionType){
-		case TagConstants.RECEIVED_TAGS:
+TagStore.__onDispatch = function(payload) {
+	switch (payload.actionType) {
+		case RECEIVED_TAGS:
 			_resetTags(payload.tags);
 			TagStore.__emitChange();
 			break;
-		case TagConstants.RECEIVED_TAG:
+		case RECEIVED_TAG:
 			_addTag(payload.tag);
 			TagStore.__emitChange();
 			break;

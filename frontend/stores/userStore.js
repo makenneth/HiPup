@@ -1,21 +1,28 @@
-var Store = require("flux/utils").Store,
-    AppDispatcher = require("../dispatcher/dispatcher"),
-    UserStore = new Store(AppDispatcher),
-    UserConstants = require('../constants/userConstants');
+import { ERROR, LOGIN, LOGOUT,
+  TOGGLED_GROUP, TOGGLED_EVENT, FOUND_LOCATION } from '../constants/constants';
 
-var _currentUser = null,
-    _errors = [],
-    _currentLocation = {place: "", coords: {}, timeZone: "America/Los_Angeles"};
+const Store = require("flux/utils").Store;
+const AppDispatcher = require("../dispatcher/dispatcher");
+const UserStore = new Store(AppDispatcher);
 
-UserStore.currentUser = function(){
+let _currentUser = null;
+let _errors = [];
+
+const _currentLocation = {
+  place: "",
+  coords: {},
+  timeZone: "America/Los_Angeles"
+};
+
+UserStore.currentUser = function() {
   return _currentUser;
 };
 
-UserStore.errors = function(){
+UserStore.errors = function() {
   return _errors;
 };
 
-_setCurrentLocation = function(location){
+const _setCurrentLocation = (location) => {
   _currentLocation.coords.latitude = location.lat;
   _currentLocation.coords.longitude = location.lon;
   _currentLocation.place = [location.city, location.region].join(", ");
@@ -26,37 +33,37 @@ _setCurrentLocation = function(location){
 UserStore.currentLocation = function(){
   return _currentLocation;
 };
-var _setCurrentUser = function(user){
+const _setCurrentUser = (user) => {
   _currentUser = user;
   _errors = [];
 };
-var _unsetCurrentUser = function(){
+const _unsetCurrentUser = () => {
   _currentUser = null;
   _errors = [];
 };
-var _setErrors = function(errors){
+const _setErrors = (errors) => {
   _errors = errors ? errors : [];
 };
 UserStore.__onDispatch = function(payload) {
   switch (payload.actionType){
-    case UserConstants.ERROR:
+    case ERROR:
       _setErrors(payload.errors);
       UserStore.__emitChange();
       break;
-    case UserConstants.LOGIN:
+    case LOGIN:
       _setCurrentUser(payload.user);
       UserStore.__emitChange();
       break;
-    case UserConstants.LOGOUT:
+    case LOGOUT:
       _unsetCurrentUser();
       UserStore.__emitChange();
       break;
-    case UserConstants.TOGGLED_GROUP:
-    case UserConstants.TOGGLED_EVENT:
+    case TOGGLED_GROUP:
+    case TOGGLED_EVENT:
       _setCurrentUser(payload.currentUser);
-      UserStore.__emitChange(); 
+      UserStore.__emitChange();
       break;
-    case UserConstants.FOUND_LOCATION:
+    case FOUND_LOCATION:
       _setCurrentLocation(payload.data);
       UserStore.__emitChange();
       break;

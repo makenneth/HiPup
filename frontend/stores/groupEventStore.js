@@ -1,17 +1,17 @@
-var Store = require('flux/utils').Store,
-		AppDispatcher = require('../dispatcher/dispatcher'),
-		GroupEventStore = new Store(AppDispatcher);
+const Store = require('flux/utils').Store;
+const AppDispatcher = require('../dispatcher/dispatcher');
+const GroupEventStore = new Store(AppDispatcher);
 
-var _groupEvents = {},
-		_lastGroupEvents = null;
+const _groupEvents = {};
+let _lastGroupEvents = null;
 
-var _resetGroupEvents = function(groupEvents){
-	groupEvents.forEach(function(groupEvent){
+const _resetGroupEvents = (groupEvents) => {
+	groupEvents.forEach((groupEvent) => {
 		_groupEvents[groupEvent.id] = groupEvent;
 	});
 };
 
-var _setSingleEvent = function(singleEvent){
+const _setSingleEvent = (singleEvent) => {
 	_groupEvents[singleEvent.id] = singleEvent;
 	_lastGroupEvents = singleEvent;
 };
@@ -23,16 +23,8 @@ GroupEventStore.all = function(){
 GroupEventStore.last = function() {
 	return _lastGroupEvents.id;
 };
-GroupEventStore.find = function(id){
+GroupEventStore.find = function(id) {
 	return _groupEvents[id] || {
-		event_time: null,
-		lat: null,
-		lng: null,
-		city: null,
-		state: null,
-		title: null,
-		description: null,
-		group_id: null,
 		event_users: []
 	};
 };

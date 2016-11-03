@@ -1,8 +1,8 @@
-var UserServerActions = require("../actions/userServerActions"),
-		ServerActions = require('../actions/serverActions');
+const UserServerActions = require("../actions/userServerActions");
+const ServerActions = require('../actions/serverActions');
 
 module.exports = {
-	fetchCurrentUser: function(){
+	fetchCurrentUser: function() {
 		$.ajax({
 			method: "GET",
 			url: "/api/user",
@@ -10,53 +10,53 @@ module.exports = {
 			error: UserServerActions.handleErrors
 		});
 	},
-	signUp: function(user){
+	signUp: function(user) {
 		$.ajax({
 			method: "POST",
 			url: "/api/user",
-			data: {user: user},
+			data: { user },
 			success: UserServerActions.receiveCurrentUser,
 			error: UserServerActions.handleErrors
 		});
 	},
-	signIn: function(user){
+	signIn: function(user) {
 		$.ajax({
 			type: "POST",
 			url: "/api/session",
-			data: {user: user},
+			data: { user },
 			dataType: "json",
-			success: function(user){
+			success: (user) => {
 				UserServerActions.receiveCurrentUser(user);
 			},
 			error: UserServerActions.handleErrors
 		});
 	},
-	logOut: function(){
+	logOut: function() {
 		$.ajax({
 			url: "/api/session",
 			method: "DELETE",
 			dataType: "json",
-			success: function(data){
+			success: (data) => {
 				UserServerActions.removeCurrentUser();
 			},
 			error: UserServerActions.handleErrors
 		});
 	},
-	updateUser: function(data){
+	updateUser: function(user) {
 		$.ajax({
 			url: "/api/user",
 			method: "PATCH",
-			data: {user: data},
-			success: function(data){
+			data: { user },
+			success: (data) => {
 				UserServerActions.receiveCurrentUser(data);
 			},
 			error: ServerActions.errorReceived
 		})
 	},
-	findLocationWithIp: function(ip){
+	findLocationWithIp: function(ip) {
 		$.ajax({
 			url: "http://ip-api.com/json/" + ip,
-			success: function(data){
+			success: (data) => {
 				UserServerActions.foundLocation(data);
 			}
 		})

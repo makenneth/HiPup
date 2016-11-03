@@ -1,8 +1,8 @@
-var React = require('react'),
-		HashHistory = require('react-router').hashHistory;
+const React = require('react');
+const HashHistory = require('react-router').hashHistory;
 
-var EventItemByDate = React.createClass({
-	directToEvent: function(){
+const EventItemByDate = React.createClass({
+	directToEvent: function() {
 		HashHistory.push("groups/" + this.props.groupEvent.group.id + "/events/" + this.props.groupEvent.id);
 	},
 	render: function() {

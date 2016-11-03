@@ -5,9 +5,5 @@ class Api::TagsController < ApplicationController
 
   def show
   	@tag = Tag.includes(:groups).find(params[:id])
-  end	
-
-  def create
-  	
   end
 end

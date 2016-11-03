@@ -1,34 +1,35 @@
-var AppDispatcher = require("../dispatcher/dispatcher"),
-		UserConstants = require("../constants/userConstants");
+import { LOGIN, LOGOUT, ERROR, FOUND_LOCATION } from "../constants/constants";
+const Dispatcher = require('../dispatcher/dispatcher');
+const dispatch = Dispatcher.dispatch;
 
 module.exports = {
-	locationCalled: function(){
-		AppDispatcher.dispatch({
+	locationCalled: function() {
+		dispatch({
 			actionType: "LOCATION_CALLBACK_CALLED"
 		})
 	},
-	receiveCurrentUser: function (user){
-		AppDispatcher.dispatch({
-			actionType: UserConstants.LOGIN,
-			user: user
+	receiveCurrentUser: function(user) {
+		dispatch({
+			actionType: LOGIN,
+			user
 		});
 	},
-	removeCurrentUser: function (user){
-		AppDispatcher.dispatch({
-			actionType: UserConstants.LOGOUT
+	removeCurrentUser: function(user) {
+		dispatch({
+			actionType: LOGOUT
 		});
 	},
-	handleErrors: function (errorObject){
-		var errors = JSON.parse(errorObject.responseText);
-		AppDispatcher.dispatch({
-			actionType: UserConstants.ERROR,
-			errors: errors
+	handleErrors: function(errorObject) {
+		const errors = JSON.parse(errorObject.responseText);
+		dispatch({
+			actionType: ERROR,
+			errors
 		});
 	},
-	foundLocation: function(data){
-		AppDispatcher.dispatch({
-			actionType: UserConstants.FOUND_LOCATION,
-			data: data
-		})
+	foundLocation: function(data) {
+		dispatch({
+			actionType: FOUND_LOCATION,
+			data
+		});
 	}
 };

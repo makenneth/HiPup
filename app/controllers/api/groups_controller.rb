@@ -5,8 +5,8 @@ class Api::GroupsController < ApplicationController
 
 	def show
 		@group = Group
-								.includes(:participants, :images, :tags, :group_events)
-								.find(params[:id])
+			.includes(:participants, :images, :tags, :group_events)
+			.find(params[:id])
 	end
 
 	def create
@@ -39,7 +39,7 @@ class Api::GroupsController < ApplicationController
 			render json: ["Not found"], status: 404
 		end
 	end
-	
+
 	private
 	def group_params
 		params.require(:group)

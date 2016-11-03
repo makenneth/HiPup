@@ -1,16 +1,16 @@
-var React = require('react'),
-		CurrentUserState = require('../../mixin/currentUserState'),
-		NewEventForm = require('../events/newEventForm'),
-		EventFormStyle = require('../../modal/eventFormStyle'),
-		Modal = require('react-modal'),
-		SuccessModalStyle = require('../../modal/successModalStyle'),
-		SuccessMessage = require('../../mixin/successMessage'),
-		ClientActions = require('../../actions/clientActions'),
-		HashHistory = require('react-router').hashHistory,
-		Confirmation = require('../../mixin/confirmation'),
-		ConfirmationStyle = require('../../modal/confirmationStyle');
+const React = require('react');
+const CurrentUserState = require('../../mixin/currentUserState');
+const NewEventForm = require('../events/newEventForm');
+const EventFormStyle = require('../../modal/eventFormStyle');
+const Modal = require('react-modal');
+const SuccessModalStyle = require('../../modal/successModalStyle');
+const SuccessMessage = require('../../mixin/successMessage');
+const ClientActions = require('../../actions/clientActions');
+const HashHistory = require('react-router').hashHistory;
+const Confirmation = require('../../mixin/confirmation');
+const ConfirmationStyle = require('../../modal/confirmationStyle');
 
-var GroupNav = React.createClass({
+const GroupNav = React.createClass({
 	mixins: [CurrentUserState],
 	getInitialState: function() {
 		return {
@@ -23,81 +23,78 @@ var GroupNav = React.createClass({
 			title: ""
 		};
 	},
-	componentDidMount: function() {
-	},
+
 	adminNav: function() {
-		if (this.adminCheck()){
-			return (<ul className="admin-group-nav">
-								<li><a onClick={this.openModal}>Create Event</a></li>
-								<li><a onClick={this.deleteGroup}>Delete Group</a></li>
-							</ul>);
-		} else {
-			return "";
-		}
+		return (this.adminCheck() && <ul className="admin-group-nav">
+			<li><a onClick={this.openModal}>Create Event</a></li>
+			<li><a onClick={this.deleteGroup}>Delete Group</a></li>
+		</ul>);
 	},
 	deleteGroup: function(){
 		if (this.state.currentUser){
-			this.setState({confirmIsOpen: true});
+			this.setState({ confirmIsOpen: true });
 		}
 	},
-	backHome: function(){
+	backHome: function() {
 		HashHistory.push("/");
 	},
-	forSureDeleteGroup: function(){
+	forSureDeleteGroup: function() {
 		ClientActions.removeGroup(this.props.group.id);
 		this.closeConfirmModal();
 		HashHistory.push("/");
 	},
-	closeConfirmModal: function(){
-		this.setState({confirmIsOpen: false});
+	closeConfirmModal: function() {
+		this.setState({ confirmIsOpen: false });
 	},
 	openModal: function() {
-		this.setState({eventFormIsOpen: true});
+		this.setState({ eventFormIsOpen: true });
 	},
 	closeModal: function() {
-		this.setState({eventFormIsOpen: false});
+		this.setState({ eventFormIsOpen: false });
 	},
 	openSuccessModal: function(message) {
-		this.setState({successModalIsOpen: true, message: message});
+		this.setState({ successModalIsOpen: true, message: message });
 	},
 	closeSuccessModal: function() {
-		this.setState({successModalIsOpen: false, message: ""});
+		this.setState({ successModalIsOpen: false, message: "" });
 	},
 
-	showSuccessMessage: function(){
+	showSuccessMessage: function() {
 		this.closeEditModal();
 		this.openSuccessModal();
 	},
-	_setMessage: function(message){
+	_setMessage: function(message) {
 		this.state.message = message;
 	},
 	adminCheck: function() {
 		return this.state.currentUser && this.props.group.creator_id === this.state.currentUser.id;
 	},
-	startEditMode: function(){
-		this.setState({editMode: true, title: this.props.group.title})
+	startEditMode: function() {
+		this.setState({ editMode: true, title: this.props.group.title });
 	},
-	endEditMode: function(){
-		this.setState({editMode: false});
+	endEditMode: function() {
+		this.setState({ editMode: false });
 	},
-	saveChange: function(){
+	saveChange: function() {
 		ClientActions.updateGroup({
 				title: this.state.title
 			}, this.props.group.id);
 		this.endEditMode();
 	},
-	updateTitle: function(e){
+	updateTitle: function(e) {
 		e.preventDefault();
-		this.setState({title: e.target.value});
+		this.setState({
+			title: e.target.value
+		});
 	},
-	backToGroup: function(){
+	backToGroup: function() {
 		HashHistory.push(this.props.path.match(/(groups\/\d+)\/events/)[1] + "/home");
 	},
 	title: function() {
-		if (!this.adminCheck()){
-				return	(<div className="nav-div">
-						{this.props.group.title}
-					</div>);
+		if (!this.adminCheck()) {
+			return (<div className="nav-div">
+				{this.props.group.title}
+			</div>);
 		} else {
 			var titleBox, icon;
 			if (this.state.editMode){
@@ -108,30 +105,30 @@ var GroupNav = React.createClass({
 				icon = (<div className="edit" onClick={this.startEditMode}>✎</div>);
 			}
 			return (<div className="nav-div cf">
-									<div className="title-container">
-											{icon}
-											{titleBox}
-											</div>
-										</div>);
+				<div className="title-container">
+					{icon}
+					{titleBox}
+				</div>
+			</div>);
 		}
 	},
 	render: function() {
-		var id = this.props.group.id;
+		const id = this.props.group.id;
 		return (
 			<div>
-				<div style={{position: "relative"}}>
+				<div style={{ position: "relative" }}>
 					{this.title()}
 					<div className="group-nav-container">
-							<ul className="back-nav">
-								<li onClick={this.backHome}>Home</li>
+						<ul className="back-nav">
+							<li onClick={this.backHome}>Home</li>
 								{
-									(/\/events\/\d+/).test(this.props.path) ?
-									<li onClick={this.backToGroup}>Back To Group</li> : ""
+									(/\/events\/\d+/).test(this.props.path) &&
+										<li onClick={this.backToGroup}>Back To Group</li>
 								}
-							</ul>
-							{this.adminNav()}
-							{this.props.joinButtons}
-						</div>
+						</ul>
+						{this.adminNav()}
+						{this.props.joinButtons}
+					</div>
 				</div>
 				<Modal isOpen={this.state.eventFormIsOpen} style={EventFormStyle}
 							onRequestClose={this.closeModal}>
@@ -149,7 +146,6 @@ var GroupNav = React.createClass({
 			</div>
 		);
 	}
-
 });
 
 module.exports = GroupNav;

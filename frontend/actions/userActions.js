@@ -1,23 +1,22 @@
-var	UserApiUtil = require("../util/userApiUtil");
+const	UserApiUtil = require("../util/userApiUtil");
 
 module.exports = {
-	fetchCurrentUser: function (){
+	fetchCurrentUser: function() {
 		UserApiUtil.fetchCurrentUser();
 	},
-	signUp: function (user){
+	signUp: function(user) {
 		UserApiUtil.signUp(user);
 	},
-	signIn: function (user){
+	signIn: function(user) {
 		UserApiUtil.signIn(user);
 	},
-	logOut: function (){
+	logOut: function() {
 		UserApiUtil.logOut();
 	},
-	updateUser: function(user){
+	updateUser: function(user) {
 		UserApiUtil.updateUser(user);
 	},
-	findLocationWithIp: function(ip){
+	findLocationWithIp: function(ip) {
 		UserApiUtil.findLocationWithIp(ip);
 	}
-
 };

@@ -1,8 +1,8 @@
-var React = require('react'),
-		TagStore = require('../../stores/tagStore'),
-		ClientActions = require('../../actions/clientActions');
+const React = require('react');
+const TagStore = require('../../stores/tagStore');
+const ClientActions = require('../../actions/clientActions');
 
-var TagShow = React.createClass({
+const TagShow = React.createClass({
 	getInitialState: function() {
 		return {
 			tag: TagStore.find(this.props.params.tagId) || {groups: []}
@@ -10,7 +10,7 @@ var TagShow = React.createClass({
 	},
 	componentDidMount: function() {
 		this.tagShowListener = TagStore.addListener(this._receiveTag);
-		if (!this.state.tag.groups.length){ 
+		if (!this.state.tag.groups.length) {
 			ClientActions.fetchTag(this.props.params.tagId);
 		}
 	},
@@ -18,7 +18,7 @@ var TagShow = React.createClass({
 		this.setState({ tag: TagStore.find(this.props.params.tagId) })
 	},
 	componentWillUnmount: function() {
-		if (this.tagShowListener){
+		if (this.tagShowListener) {
 			this.tagShowListener.remove();
 		}
 	},
@@ -26,11 +26,11 @@ var TagShow = React.createClass({
 		return (
 			<div>
 				<ul className="tag-groups">
-				{
-					this.state.tag.groups.map(function(group){
-						return <li key={group.id}>{group.title}</li>;
-					})
-				}
+					{
+						this.state.tag.groups.map((group) => {
+							return <li key={group.id}>{group.title}</li>;
+						})
+					}
 				</ul>
 			</div>
 		);

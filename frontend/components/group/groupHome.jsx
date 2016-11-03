@@ -1,68 +1,74 @@
-var React = require('react'),
-		HashHistory = require('react-router').hashHistory,
-		GroupEvents = require('./groupEvents'),
-		GroupMembers = require('./groupMembers'),
-		ClientActions = require('../../actions/clientActions');
+const React = require('react');
+const HashHistory = require('react-router').hashHistory;
+const GroupEvents = require('./groupEvents');
+const GroupMembers = require('./groupMembers');
+const ClientActions = require('../../actions/clientActions');
 
-var GroupHome = React.createClass({
+const GroupHome = React.createClass({
 	getInitialState: function() {
 		return {
 			editMode: false,
 			description: ""
 		};
 	},
-
 	_showTag: function(id) {
 		HashHistory.push("tags/" + id);
 	},
-	pastMeetUp: function(){
-		return (<div>"No past meetups"</div>)
+	pastMeetUp: function() {
+		return (<div>"No past meetups"</div>);
 	},
-	startEditMode: function(){
-		this.setState({description: this.props.group.description, editMode: true});
+	startEditMode: function() {
+		this.setState({
+			description: this.props.group.description,
+			editMode: true
+		});
 	},
-	closeEditMode: function(){
-		this.setState({editMode: false});
+	closeEditMode: function() {
+		this.setState({ editMode: false });
 	},
-	saveEdit: function(){
+	saveEdit: function() {
 		ClientActions.updateGroup({
 			description: this.state.description
 		}, this.props.group.id);
 		this.closeEditMode();
 	},
-	description: function(){
-		var group = this.props.group;
-		if (!this.props.currentUser || this.props.currentUser.id !== group.creator_id){
+	description: function() {
+		const group = this.props.group;
+		if (!this.props.currentUser || this.props.currentUser.id !== group.creator_id) {
 			return (<div className="group-description">
-								<h2>Description: </h2>
-								<p>{group.description}</p>
-								</div>);
+				<h2>Description: </h2>
+				<p>{group.description}</p>
+			</div>);
 		} else {
-			var button, textbox;
-			if (this.state.editMode){
+			let button, textbox;
+			if (this.state.editMode) {
 				button = (<div className="edit" onClick={this.saveEdit}>✓</div>);
-				textbox = (<textarea id="group-descript-text" onChange={this.updateDescription} 
-												value={this.state.description} rows="5"/>);
+				textbox = (<textarea
+					id="group-descript-text"
+					onChange={this.updateDescription}
+					value={this.state.description}
+					rows="5"
+				/>);
 			} else {
 				button = (<div className="edit" onClick={this.startEditMode}>✎</div>);
 				textbox = (<p>{group.description}</p>);
 			}
 			return (
 				<div className="group-description">
-				{button}
-				<h2>Description: </h2>
-				{textbox}
-			</div>);
+					{button}
+					<h2>Description: </h2>
+					{textbox}
+				</div>
+			);
 		}
 	},
-	updateDescription: function(e){
-		this.setState({description: e.target.value});
+	updateDescription: function(e) {
+		this.setState({ description: e.target.value });
 	},
 	render: function() {
-		var group = this.props.group;
+		const group = this.props.group;
 		return (
 			<div className="group-home">
-			
 					<div className="group-info">
 						<li className="address">{group.city + ", " + group.state}</li>
 						<li className="founded">Founded {group.created_at} </li>
@@ -85,9 +91,9 @@ var GroupHome = React.createClass({
 							<h3>We're about:</h3>
 							<ul>
 							{
-								group.tags.map(function(tag){
+								group.tags.map((tag) => {
 									return (<li key={tag.id} tag={tag}>{tag.name}</li>);
-								}.bind(this))
+								})
 							}
 							</ul>
 						</div>
@@ -95,16 +101,15 @@ var GroupHome = React.createClass({
 				<div className="group-info-container">
 						{this.description()}
 						<div className="event-container">
-							<GroupEvents group={this.props.group} groupId={this.props.params.groupId}/>
+							<GroupEvents group={this.props.group} groupId={this.props.params.groupId} />
 						</div>
 				</div>
 				<div className="group-member-container">
-					<GroupMembers group={this.props.group} groupId={this.props.params.groupId}/>
+					<GroupMembers group={this.props.group} groupId={this.props.params.groupId} />
 				</div>
 			</div>
 		);
 	}
-
 });
 
 module.exports = GroupHome;

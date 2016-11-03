@@ -1,6 +1,6 @@
 module.exports = {
 	componentDidMount: function() {
-		var options = {
+		constoptions = {
       types: ['(regions)'],
       componentRestrictions: {country: "us"}
     };
@@ -11,14 +11,18 @@ module.exports = {
   	this.acListener = this.autocomplete.addListener('place_changed', this.fillInAddress);
 	},
 	fillInAddress: function(){
-    var place = this.autocomplete.getPlace();
-   	var city = place.adr_address.match(/locality\">(\w+\s?\w+)</),
+    const place = this.autocomplete.getPlace();
+   	let city = place.adr_address.match(/locality\">(\w+\s?\w+)</),
    			state = place.adr_address.match(/region\">(\w+)</),
    			location = place.geometry.location;
 		city = city ? city[1] : "";
-		state = state ? state[1] : ""; 
-   	this.setState({state: state, city: city, 
-   									lat: location.lat(), lng: location.lng()});
+		state = state ? state[1] : "";
+   	this.setState({
+      state: state,
+      city: city,
+		  lat: location.lat(),
+      lng: location.lng()
+    });
   },
   componentWillUnmount: function() {
   	if (this.acListener) this.acListener.remove();

@@ -1,10 +1,10 @@
-var React = require('react'),
-		EventQueryStore = require('../../stores/groupEventQuery'),
-		ClientActions = require('../../actions/clientActions'),
-		UserStore = require("../../stores/userStore"),
-		EventItemByDate = require('./eventItemByDate');
+const React = require('react');
+const EventQueryStore = require('../../stores/groupEventQuery');
+const ClientActions = require('../../actions/clientActions');
+const UserStore = require("../../stores/userStore");
+const EventItemByDate = require('./eventItemByDate');
 
-var EventIndexByDate = React.createClass({
+const EventIndexByDate = React.createClass({
 	getInitialState: function() {
 		return {
 			groupEvents: EventQueryStore.allByDate() || [],
@@ -13,7 +13,7 @@ var EventIndexByDate = React.createClass({
 	},
 	componentDidMount: function() {
 	  this.eventIndexListener = EventQueryStore.addListener(this._fetchedEvents);
-	  if (!this.state.groupEvents.length){
+	  if (!this.state.groupEvents.length) {
 		  ClientActions.fetchAllEventsByDate(UserStore.currentLocation().timeZone);
 	  }
 	},
@@ -21,10 +21,10 @@ var EventIndexByDate = React.createClass({
 		this.setState({page: this.state.page + 1});
 	},
 	_fetchedEvents: function() {
-		this.setState({groupEvents: EventQueryStore.allByDate()});
+		this.setState({ groupEvents: EventQueryStore.allByDate() });
 	},
 	showMoreButton: function() {
-		if (this.state.page > Math.ceil(this.state.groupEvents.length / 10)){
+		if (this.state.page > Math.ceil(this.state.groupEvents.length / 10)) {
 			return "";
 		} else {
 			return <button onClick={this.showMore}>Show More</button>;
@@ -39,7 +39,7 @@ var EventIndexByDate = React.createClass({
 				</h3>
 				<ul>
 					{
-						this.state.groupEvents.slice(0, (this.state.page) * 10).map(function(groupEvent){
+						this.state.groupEvents.slice(0, (this.state.page) * 10).map((groupEvent) => {
 							return <EventItemByDate key={groupEvent.id} groupEvent={groupEvent} />;
 						})
 					}
@@ -48,7 +48,6 @@ var EventIndexByDate = React.createClass({
 			</div>
 		);
 	}
-
 });
 
 module.exports = EventIndexByDate;

@@ -1,9 +1,9 @@
-var React = require('react'),
-		UserActions = require('../../actions/userActions'),
-		UserStore = require('../../stores/userStore'),
-		ReactCSSTransitionGroup = require('react-addons-css-transition-group');
+const React = require('react');
+const UserActions = require('../../actions/userActions');
+const UserStore = require('../../stores/userStore');
+const ReactCSSTransitionGroup = require('react-addons-css-transition-group');
 
-var LogInForm = React.createClass({
+const LogInForm = React.createClass({
 	getInitialState: function() {
 		return {
 			username: "",
@@ -12,13 +12,13 @@ var LogInForm = React.createClass({
 	},
 	componentDidMount: function() {
 		UserStore.addListener(this._onLogIn);
-		setTimeout(function(){
+		setTimeout(() => {
 			this.refs["username"].focus()
-		}.bind(this), 100);
-		
+		}, 100);
+
 	},
 	_onLogIn: function() {
-		if (UserStore.currentUser()){
+		if (UserStore.currentUser()) {
 			this.props.closeModal();
 		}
 	},
@@ -30,24 +30,26 @@ var LogInForm = React.createClass({
 		UserActions.signIn(this.state);
 	},
 	updateUsername: function(e) {
-		this.setState({username: e.target.value});
+		this.setState({ username: e.target.value });
 	},
 	updatePassword: function(e) {
-		this.setState({password: e.target.value});
+		this.setState({ password: e.target.value });
 	},
 	guestLogin: function(e) {
 		e.preventDefault();
-		this.setState({username: "", password: ""})
+		this.setState({ username: "", password: "" });
 		this.ghostFill();
 	},
-	ghostFill: function(){
-		var sampleUsername = "sampleuser", samplePassword = "password",
-				usernameCount = 0, passwordCount = 0;
-		var intervalKey = setInterval(function(){
+	ghostFill: function() {
+		const sampleUsername = "sampleuser";
+		const samplePassword = "password";
+		let usernameCount = 0;
+		let passwordCount = 0;
+		const intervalKey = setInterval(function(){
 			if (usernameCount < 10){
 				this.setState({
-						username: this.state.username + sampleUsername[usernameCount]
-					});
+					username: this.state.username + sampleUsername[usernameCount]
+				});
 				usernameCount++;
 			} else if (passwordCount < 8){
 				this.setState({
@@ -61,11 +63,11 @@ var LogInForm = React.createClass({
 		}.bind(this), 100)
 	},
 	render: function() {
-		var isDisabled = this.state.password.length >= 8;
+		const isDisabled = this.state.password.length >= 8;
 
 		return (
-			<ReactCSSTransitionGroup transitionName="forms" 
-				transitionAppear={true} transitionAppearTimeout={500} 
+			<ReactCSSTransitionGroup transitionName="forms"
+				transitionAppear={true} transitionAppearTimeout={500}
 					transitionEnterTimeout={300} transitionLeaveTimeout={300}>
 				<div className="form-div">
 					<div className="close-form" onClick={this.props.closeModal}>&#10006;</div>
@@ -95,7 +97,6 @@ var LogInForm = React.createClass({
 			</ReactCSSTransitionGroup>
 		);
 	}
-
 });
 
 module.exports = LogInForm;

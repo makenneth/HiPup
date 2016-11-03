@@ -1,20 +1,20 @@
-var ServerActions = require('../actions/serverActions');
+const ServerActions = require('../actions/serverActions');
 
 module.exports = {
 	fetchMember: function(id) {
 		$.ajax({
 			method: "GET",
 			url: "/api/show_users/" + id,
-			success: function(user){
+			success: (user) => {
 				ServerActions.memberFetched(user);
 			}
-		})
+		});
 	},
 	fetchAllGroups: function() {
 		$.ajax({
 			method: "GET",
 			url: "/api/groups",
-			success: function(groups){
+			success: (groups) => {
 				ServerActions.receivedGroups(groups);
 			}
 		});
@@ -23,10 +23,10 @@ module.exports = {
 		$.ajax({
 			method: "GET",
 			url: "/api/groups",
-			data: { 
+			data: {
 				user_coord: [coords.latitude, coords.longitude]
 			},
-			success: function(groups){
+			success: (groups) => {
 				ServerActions.receivedGroups(groups);
 			}
 		});
@@ -35,9 +35,9 @@ module.exports = {
 	// 	$.ajax({
 	// 		method: "GET",
 	// 		url: "/api/groups",
-	// 		data: {user_coord: [coords.latitude, coords.longitude], 
+	// 		data: {user_coord: [coords.latitude, coords.longitude],
 	// 						location_type: type, miles: miles},
-	// 		success: function(groups){
+	// 		success: (groups) => {
 	// 			var miles = +groups.pop();
 	// 			ServerActions.groupsDistanceFetched(groups, miles);
 	// 		}
@@ -48,7 +48,7 @@ module.exports = {
 			method: "GET",
 			url: "/api/groups/" + id,
 			data: {time_zone: timezone},
-			success: function(group) {
+			success: (group) =>  {
 				ServerActions.receivedGroup(group);
 			}
 		});
@@ -57,21 +57,21 @@ module.exports = {
 		$.ajax({
 			method: "DELETE",
 			url: "/api/groups/" + id,
-			success: function(group){
+			success: (group) => {
 				ServerActions.removedGroup(group);
 			}
-		})
+		});
 	},
 	updateGroup: function(group, id){
 		$.ajax({
 			method: "PATCH",
 			url: "/api/groups/" + id,
 			data: {group: group},
-			success: function(group){
+			success: (group) => {
 				ServerActions.receivedGroup(group);
 			},
 			error: ServerActions.errorReceived
-		})
+		});
 	},
 
 	createGroup: function(group){
@@ -80,7 +80,7 @@ module.exports = {
 			url: "/api/groups",
 			data: {group: group},
 			dataType: "json",
-			success: function(group){
+			success: (group) => {
 				ServerActions.receivedGroup(group);
 			},
 			error: ServerActions.errorReceived
@@ -91,18 +91,18 @@ module.exports = {
 		$.ajax({
 			method: "DELETE",
 			url: "/api/groups/" + id,
-			success: function(group){
+			success: (group) => {
 				ServerActions.removedGroup(group);
 			},
 			error: ServerActions.errorReceived
-		})
+		});
 	},
 
 	fetchTags: function(){
 		$.ajax({
 			method: "GET",
 			url: "/api/tags",
-			success:function(tags){
+			success: (tags) => {
 				ServerActions.fetchedTags(tags);
 			}
 		});
@@ -111,7 +111,7 @@ module.exports = {
 		$.ajax({
 			method: "GET",
 			url: "/api/tags/" + id,
-			success:function(tag){
+			success: (tag) => {
 				ServerActions.fetchedTag(tag);
 			}
 		});
@@ -123,7 +123,7 @@ module.exports = {
 			url: "/api/tags",
 			data: {tag: tag},
 			dataType: "json",
-			success:function(tag){
+			success: (tag) => {
 				ServerActions.createdTag(tag);
 			},
 			error: ServerActions.errorReceived
@@ -134,7 +134,7 @@ module.exports = {
 			method: "PATCH",
 			url: "/api/group_events/" + id,
 			data: {group_event: data},
-			success: function(groupEvent){
+			success: (groupEvent) => {
 				ServerActions.fetchedSingleEvent(groupEvent);
 			}
 		})
@@ -143,69 +143,69 @@ module.exports = {
 		$.ajax({
 			method: "GET",
 			url: "/api/group_events",
-			success: function(groupEvents){
+			success: (groupEvents) => {
 				ServerActions.fetchedAllEvents(groupEvents);
 			}
-		})
+		});
 	},
 	fetchSingleEvent: function(id, timeZone){
 		$.ajax({
 			method: "GET",
 			url: "/api/group_events/" + id,
 			data: {time_zone: timeZone},
-			success: function(groupEvent){
+			success: (groupEvent) => {
 				ServerActions.fetchedSingleEvent(groupEvent);
 			}
-		})
+		});
 	},
 	fetchAllEventsByDate: function(timezone){
 		$.ajax({
 			method: "GET",
 			url: "/api/group_events",
 			data: {query_type: "time", time_zone: timezone},
-			success: function(groupEvents){
+			success: (groupEvents) => {
 				ServerActions.fetchedEventsByDate(groupEvents);
 			}
-		})
+		});
 	},
-	fetchAllEventsByLocation: function(timezone){
+	fetchAllEventsByLocation: function(timezone) {
 		$.ajax({
 			method: "GET",
 			url: "/api/group_events",
 			data: {query_type: "location", time_zone: timezone},
-			success: function(groupEvents){
+			success: (groupEvents) => {
 				ServerActions.fetchedEventsByLocation(groupEvents);
 			}
-		})
+		});
 	},
-	joinGroup: function(data){
+	joinGroup: function(data) {
 		$.ajax({
 			method: "POST",
 			url: "/api/group_participants",
 			data: data,
-			success: function(currentUser){
+			success: (currentUser) => {
 				ServerActions.toggledGroup(currentUser);
 			},
 			error: ServerActions.errorReceived
-		})
+		});
 	},
-	leaveGroup: function(data){
+	leaveGroup: function(data) {
 		$.ajax({
 			method: "DELETE",
 			url: "/api/group_participants/leave",
 			data: data,
-			success: function(currentUser){
+			success: (currentUser) => {
 				ServerActions.toggledGroup(currentUser);
 			},
 			error: ServerActions.errorReceived
-		})
+		});
 	},
-	joinEvent: function(data){
+	joinEvent: function(data) {
 		$.ajax({
 			method: "POST",
 			url: "/api/event_users",
 			data: data,
-			success: function(currentUser){
+			success: (currentUser) => {
 				ServerActions.toggledEvent(currentUser);
 			},
 			error: ServerActions.errorReceived
@@ -217,7 +217,7 @@ module.exports = {
 			method: "DELETE",
 			url: "/api/event_users/leave",
 			data: data,
-			success: function(currentUser){
+			success: (currentUser) => {
 				ServerActions.toggledEvent(currentUser);
 			},
 			error: ServerActions.errorReceived
@@ -229,20 +229,20 @@ module.exports = {
 			method: "POST",
 			url: "/api/group_events",
 			data: {group_event: data},
-			success: function(event){
+			success: (event) => {
 				ServerActions.createdEvent(event);
 			},
 			error: ServerActions.errorReceived
 		})
 	},
-	cancelEvent: function(userId, groupId){
+	cancelEvent: function(userId, groupId) {
 		$.ajax({
 			method: "PATCH",
 			url: "/api/group_events/" + groupId + "/cancel",
 			data: {user_id: userId},
-			success: function(group){
+			success: (group) => {
 				ServerActions.cancelledEvent(group);
 			}
-		})
+		});
 	}
 };

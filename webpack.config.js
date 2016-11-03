@@ -10,19 +10,14 @@ module.exports = {
     devtoolFallbackModuleFilenameTemplate: '[resourcePath]?[hash]'
   },
   module: {
-    loaders: [
-      {
-        test: /\.jsx?$/,
-        exclude: /(node_modules|bower_components)/,
-        loader: 'babel',
-        query: {
-          presets: ["react"]
-        }
-      }
-    ]
+    loaders: [{
+      test: /\.jsx?$/,
+      exclude: /(node_modules|bower_components)/,
+      loader: 'babel'
+    }]
   },
-  devtool: 'source-maps',
+  devtool: 'inline-source-maps',
   resolve: {
-    extensions: ["", ".js", ".jsx" ]
+    extensions: ["", ".js", ".jsx"]
   }
 };

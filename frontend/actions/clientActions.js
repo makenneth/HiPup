@@ -1,83 +1,91 @@
-var ApiUtil = require('../util/apiUtil');
-var groupParticipantData = function(userId, groupId){
-		return {
-							group_participant: {
-								participant_id: userId,
-								group_id: groupId
-							}
-						};
+import { fetchAllGroups, fetchSingleGroup, fetchCustomGroups,
+	createGroup, updateGroup, removeGroup,
+	fetchMember, fetchTags, fetchTag,
+	createTag, fetchAllEvents, fetchSingleEvent,
+	editEvent, cancelEvent, joinGroup,
+	leaveGroup, joinEvent, leaveEvent,
+	createEvent, fetchAllEventsByDate, fetchAllEventsByLocation } from '../util/apiUtil';
+
+const groupParticipantData = (userId, groupId) => {
+	return {
+		group_participant: {
+			participant_id: userId,
+			group_id: groupId
+		}
+	};
 };
-var eventParticipantData = function(userId, eventId){
-		return {
-							event_user: {
-								user_id: userId,
-								event_id: eventId
-							}
-						};
+const eventParticipantData = (userId, eventId) => {
+	return {
+		event_user: {
+			user_id: userId,
+			event_id: eventId
+		}
+	};
 };
+
 module.exports = {
-	fetchAllGroups: function(coords){
+	fetchAllGroups: function(coords) {
 		if (!coords.latitude) return;
-		ApiUtil.fetchAllGroups(coords);
+		fetchAllGroups(coords);
 	},
-	fetchSingleGroup: function(id, timezone){
-		ApiUtil.fetchSingleGroup(id, timezone);
+	fetchSingleGroup: function(id, timezone) {
+		fetchSingleGroup(id, timezone);
 	},
 	fetchGroupsByLocation: function(miles, coords){
-		ApiUtil.fetchCustomGroups(miles, coords, "custom");
+		fetchCustomGroups(miles, coords, "custom");
 	},
 	createGroup: function(group){
-		ApiUtil.createGroup(group);
+		createGroup(group);
 	},
 	updateGroup: function(group, id){
-		ApiUtil.updateGroup(group, id);
+		updateGroup(group, id);
 	},
 	removeGroup: function(id){
-		ApiUtil.removeGroup(id);
+		removeGroup(id);
 	},
 	fetchMember: function(id){
-		ApiUtil.fetchMember(id);
+		fetchMember(id);
 	},
 	fetchTags: function(){
-		ApiUtil.fetchTags();
+		fetchTags();
 	},
 	fetchTag: function(id){
-		ApiUtil.fetchTag(id);
+		fetchTag(id);
 	},
 	createTag: function(tag){
-		ApiUtil.createTag(tag);
+		createTag(tag);
 	},
 	fetchAllEvents: function(timezone){
-		ApiUtil.fetchAllEvents(timezone);
+		fetchAllEvents(timezone);
 	},
 	fetchSingleEvent: function(id, timezone){
-		ApiUtil.fetchSingleEvent(id, timezone);
+		fetchSingleEvent(id, timezone);
 	},
 	editEvent: function(id, data){
-		ApiUtil.editEvent(id, data);
+		editEvent(id, data);
 	},
 	cancelEvent: function(userId, groupId){
-		ApiUtil.cancelEvent(userId, groupId);
+		cancelEvent(userId, groupId);
 	},
 	joinGroup: function(userId, groupId){
-		ApiUtil.joinGroup(groupParticipantData(userId, groupId));
+		joinGroup(groupParticipantData(userId, groupId));
 	},
 	leaveGroup: function(userId, groupId){
-		ApiUtil.leaveGroup(groupParticipantData(userId, groupId));
+		leaveGroup(groupParticipantData(userId, groupId));
 	},
 	rsvpEvent: function(userId, eventId){
-		ApiUtil.joinEvent(eventParticipantData(userId, eventId));
+		joinEvent(eventParticipantData(userId, eventId));
 	},
 	changeRSVP: function(userId, eventId){
-		ApiUtil.leaveEvent(eventParticipantData(userId, eventId));
+		leaveEvent(eventParticipantData(userId, eventId));
 	},
 	createEvent: function(data){
-		ApiUtil.createEvent(data);
+		createEvent(data);
 	},
 	fetchAllEventsByDate: function(timezone){
-		ApiUtil.fetchAllEventsByDate(timezone);
+		fetchAllEventsByDate(timezone);
 	},
 	fetchAllEventsByLocation: function(timezone){
-		ApiUtil.fetchAllEventsByLocation(timezone)
+		fetchAllEventsByLocation(timezone)
 	}
 }

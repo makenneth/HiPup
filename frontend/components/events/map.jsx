@@ -1,10 +1,13 @@
-var React = require('react');
+const React = require('react');
 
-var EventMap = React.createClass({
+const EventMap = React.createClass({
 	componentDidMount: function(){
-    var mapDOMNode = this.refs.map;
-    var mapOptions = {
-      center: {lat: +this.props.lat, lng: +this.props.lng},//get currentLocation
+    const mapDOMNode = this.refs.map;
+    const mapOptions = {
+      center: {
+        lat: +this.props.lat,
+        lng: +this.props.lng
+      },
       zoom: 13
     };
     this.map = new google.maps.Map(mapDOMNode, mapOptions);
@@ -17,7 +20,7 @@ var EventMap = React.createClass({
   	console.log(err);
   },
   onSuggestSelect: function(suggest) {
-    // console.log(suggest);
+    console.log(suggest);
   },
 	render: function() {
     return (
@@ -27,7 +30,6 @@ var EventMap = React.createClass({
 			</div>
 		);
 	}
-
 });
 
 module.exports = EventMap;

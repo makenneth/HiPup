@@ -1,13 +1,15 @@
-var React = require('react'),
-		CurrentUserState = require("../../mixin/currentUserState"),
-		HashHistory = require('react-router').hashHistory,
-		ClientActions = require('../../actions/clientActions'),
-		GroupStore = require('../../stores/groupStore'),
-		Autocomplete = require('../../mixin/autoComplete'),
-		UserStore = require('../../stores/userStore'),
-		GroupFormMixin = require('../../mixin/groupFormMixin'),
-		TagStore = require('../../stores/tagStore');
-var NewGroupForm = React.createClass({
+const React = require('react');
+const CurrentUserState = require("../../mixin/currentUserState");
+const router = require('react-router');
+const HashHistory = router.hashHistory;
+const ClientActions = require('../../actions/clientActions');
+const GroupStore = require('../../stores/groupStore');
+const Autocomplete = require('../../mixin/autoComplete');
+const UserStore = require('../../stores/userStore');
+const GroupFormMixin = require('../../mixin/groupFormMixin');
+const TagStore = require('../../stores/tagStore');
+
+const NewGroupForm = React.createClass({
 	mixins: [CurrentUserState, Autocomplete, GroupFormMixin],
 	getInitialState: function() {
 		return {
@@ -40,23 +42,23 @@ var NewGroupForm = React.createClass({
 	_tagsFetched: function(){
 		this.setState({allTags: TagStore.all()});
 	},
-	_handleSubmit: function(e){
+	_handleSubmit: function(e) {
 		e.preventDefault();
 		this.state.creator_id = this.state.currentUser.id;
 		ClientActions.createGroup({
-															 lat: this.state.lat,
-															 lng: this.state.lng,
-															 city: this.state.city,
-															 state: this.state.state,
-															 title: this.state.title,
-															 image_url: this.state.image_url,
-															 description: this.state.description,
-															 creator_id: this.state.creator_id,
-															 tag_ids: this.state.tags
-															});
+		  lat: this.state.lat,
+		  lng: this.state.lng,
+		  city: this.state.city,
+		  state: this.state.state,
+		  title: this.state.title,
+		  image_url: this.state.image_url,
+		  description: this.state.description,
+		  creator_id: this.state.creator_id,
+		  tag_ids: this.state.tags
+		});
 	},
-	_successInCreation: function(){
-		var groupId = GroupStore.last();
+	_successInCreation: function() {
+		const groupId = GroupStore.last();
 		HashHistory.push("groups/" + groupId + "/home");
 	},
 	render: function() {
@@ -68,7 +70,6 @@ var NewGroupForm = React.createClass({
 			</div>
 		);
 	}
-
 });
 
 module.exports = NewGroupForm;

@@ -20,18 +20,12 @@ module.exports = {
     })
   ],
   module: {
-    loaders: [
-      {
-        test: /\.jsx?$/,
-        exclude: /node_modules/,
-        loader: 'babel',
-        query: {
-          presets: ['react']
-        }
-      }
-    ]
+    loaders: [{
+      test: /\.jsx?$/,
+      exclude: /(node_modules|bower_components)/,
+      loader: 'babel'
+    }]
   },
-  devtool: 'source-map',
   resolve: {
     extensions: ["", ".js", ".jsx"]
   }
