@@ -1,10 +1,12 @@
-import { fetchAllGroups, fetchSingleGroup, fetchCustomGroups,
+import { fetchAllGroups, fetchSingleGroup,
+	fetchAllGroupsWithLocation, fetchCustomGroups,
 	createGroup, updateGroup, removeGroup,
 	fetchMember, fetchTags, fetchTag,
 	createTag, fetchAllEvents, fetchSingleEvent,
 	editEvent, cancelEvent, joinGroup,
 	leaveGroup, joinEvent, leaveEvent,
 	createEvent, fetchAllEventsByDate, fetchAllEventsByLocation } from '../util/apiUtil';
+import { fetchingGroup } from "./serverActions";
 
 const groupParticipantData = (userId, groupId) => {
 	return {
@@ -24,8 +26,15 @@ const eventParticipantData = (userId, eventId) => {
 };
 
 module.exports = {
-	fetchAllGroups: function(coords) {
+	startGroupLoading: function() {
+		fetchingGroup();
+	},
+	fetchAllGroupsWithLocation: function(coords) {
+		console.log(coords);
 		if (!coords.latitude) return;
+		fetchAllGroupsWithLocation(coords);
+	},
+	fetchAllGroups: function(coords) {
 		fetchAllGroups(coords);
 	},
 	fetchSingleGroup: function(id, timezone) {

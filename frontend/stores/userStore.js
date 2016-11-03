@@ -1,17 +1,20 @@
-import { ERROR, LOGIN, LOGOUT,
-  TOGGLED_GROUP, TOGGLED_EVENT, FOUND_LOCATION } from '../constants/constants';
+import { ERROR, LOGIN, LOGOUT, LOAD,
+  TOGGLED_GROUP, TOGGLED_EVENT} from '../constants/constants';
 
 const Store = require("flux/utils").Store;
 const AppDispatcher = require("../dispatcher/dispatcher");
 const UserStore = new Store(AppDispatcher);
 
 let _currentUser = null;
+let loading = false;
+let loaded = false;
 let _errors = [];
 
-const _currentLocation = {
-  place: "",
-  coords: {},
-  timeZone: "America/Los_Angeles"
+UserStore.hasLoaded = function() {
+  return loaded;
+};
+UserStore.isLoading = function() {
+  return loading;
 };
 
 UserStore.currentUser = function() {
@@ -22,21 +25,14 @@ UserStore.errors = function() {
   return _errors;
 };
 
-const _setCurrentLocation = (location) => {
-  _currentLocation.coords.latitude = location.lat;
-  _currentLocation.coords.longitude = location.lon;
-  _currentLocation.place = [location.city, location.region].join(", ");
-  _currentLocation.timeZone = location.timeZone;
-  UserStore.__emitChange();
-};
 
-UserStore.currentLocation = function(){
-  return _currentLocation;
-};
 const _setCurrentUser = (user) => {
+  loading = false;
+  loaded = true;
   _currentUser = user;
   _errors = [];
 };
+
 const _unsetCurrentUser = () => {
   _currentUser = null;
   _errors = [];
@@ -44,10 +40,15 @@ const _unsetCurrentUser = () => {
 const _setErrors = (errors) => {
   _errors = errors ? errors : [];
 };
+
 UserStore.__onDispatch = function(payload) {
   switch (payload.actionType){
     case ERROR:
       _setErrors(payload.errors);
+      UserStore.__emitChange();
+      break;
+    case LOAD:
+      loading = true;
       UserStore.__emitChange();
       break;
     case LOGIN:
@@ -63,11 +64,6 @@ UserStore.__onDispatch = function(payload) {
       _setCurrentUser(payload.currentUser);
       UserStore.__emitChange();
       break;
-    case FOUND_LOCATION:
-      _setCurrentLocation(payload.data);
-      UserStore.__emitChange();
-      break;
-
   }
 };
 

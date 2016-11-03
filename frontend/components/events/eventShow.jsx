@@ -86,7 +86,7 @@ const EventShow = React.createClass({
 		this.esListener = GroupEventStore.addListener(this._fetchedEvent);
 
 		if (!this.state.groupEvent.event_time) {
-			ClientActions.fetchSingleEvent(this.props.params.eventId, UserStore.currentLocation().timeZone);
+			ClientActions.fetchSingleEvent(this.props.params.eventId, LocationStore.currentLocation().timeZone);
 		}
 	},
 	toggleEventButton: function() {
@@ -113,13 +113,13 @@ const EventShow = React.createClass({
 	rsvpEvent: function() {
 		if (this.state.currentUser && !this._alreadyRSVP()) {
 			ClientActions.rsvpEvent(this.state.currentUser.id, this.state.groupEvent.id);
-			ClientActions.fetchSingleEvent(this.props.params.eventId, UserStore.currentLocation().timeZone);
+			ClientActions.fetchSingleEvent(this.props.params.eventId, LocationStore.currentLocation().timeZone);
 		}
 	},
 	changeRSVP: function() {
 		if (this.state.currentUser && this._alreadyRSVP()) {
 			ClientActions.changeRSVP(this.state.currentUser.id, this.state.groupEvent.id);
-			ClientActions.fetchSingleEvent(this.props.params.eventId, UserStore.currentLocation().timeZone);
+			ClientActions.fetchSingleEvent(this.props.params.eventId, LocationStore.currentLocation().timeZone);
 		}
 	},
 	_alreadyRSVP: function() {

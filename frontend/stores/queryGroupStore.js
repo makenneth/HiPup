@@ -1,7 +1,9 @@
 import { GROUPS_DISTANCE_FETCHED } from "../constants/constants";
+
 const AppDispatcher = require('../dispatcher/dispatcher');
 const Store = require('flux/utils').Store;
 const QueryGroupStore = new Store(AppDispatcher);
+
 const _queriedGroups = {};
 
 const _setGroups = (groups, miles) => {

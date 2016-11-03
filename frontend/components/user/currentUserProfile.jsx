@@ -76,7 +76,7 @@ const CurrentUserProfile = React.createClass({
 						</li>
 						<li>
 							<label>Current Location:</label>
-							<div>{UserStore.currentLocation().place}</div>
+							<div>{LocationStore.currentLocation().place}</div>
 						</li>
 						<li>
 							<label>Primary Location:</label>

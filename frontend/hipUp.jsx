@@ -1,12 +1,12 @@
-var Modal = require('react-modal'),
-    ReactCSSTransitionGroup = require('react-addons-css-transition-group');
+const Modal = require('react-modal');
+const ReactCSSTransitionGroup = require('react-addons-css-transition-group');
+const React = require('react');
+const ReactDOM = require('react-dom');
 
-var React = require('react'),
-    ReactDOM = require('react-dom'),
-    router = require('./router');
+const router = require('./router');
 
 
-document.addEventListener("DOMContentLoaded", function(){
+document.addEventListener("DOMContentLoaded", () => {
   Modal.setAppElement(document.body);
   ReactDOM.render(router(), document.getElementById("root"));
 });

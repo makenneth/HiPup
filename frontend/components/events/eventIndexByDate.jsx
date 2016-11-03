@@ -14,7 +14,7 @@ const EventIndexByDate = React.createClass({
 	componentDidMount: function() {
 	  this.eventIndexListener = EventQueryStore.addListener(this._fetchedEvents);
 	  if (!this.state.groupEvents.length) {
-		  ClientActions.fetchAllEventsByDate(UserStore.currentLocation().timeZone);
+		  ClientActions.fetchAllEventsByDate(LocationStore.currentLocation().timeZone);
 	  }
 	},
 	showMore: function() {

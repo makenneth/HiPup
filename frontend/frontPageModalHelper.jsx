@@ -6,8 +6,11 @@ module.exports = {
     };
   },
   openLogInModal: function() {
-    this.setState({ logInModalOpen: true,
-                    signUpModalOpen: false, navModalOpen: false });
+    this.setState({
+      logInModalOpen: true,
+      signUpModalOpen: false,
+      navModalOpen: false
+    });
   },
   closeLogInModal: function() {
     this.setState({ logInModalOpen: false });

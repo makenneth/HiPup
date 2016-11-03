@@ -6,8 +6,8 @@ const EventItemByDate = React.createClass({
 		HashHistory.push("groups/" + this.props.groupEvent.group.id + "/events/" + this.props.groupEvent.id);
 	},
 	render: function() {
-		var groupEvent = this.props.groupEvent;
-		var groupEventTime = groupEvent.event_time.split(" || ");
+		const groupEvent = this.props.groupEvent;
+		const groupEventTime = groupEvent.event_time.split(" || ");
 		return (
 			<li className="event-query-item" onClick={this.directToEvent}>
 					<div className="time">

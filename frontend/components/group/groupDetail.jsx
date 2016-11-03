@@ -29,7 +29,7 @@ var GroupDetail = React.createClass({
 	},
 	componentDidMount: function() {
 		this.groupListener = GroupStore.addListener(this._loadDetail);
-		ClientActions.fetchSingleGroup(this.props.params.groupId, UserStore.currentLocation().timeZone);
+		ClientActions.fetchSingleGroup(this.props.params.groupId, LocationStore.currentLocation().timeZone);
 	},
 	_loadDetail: function(){
 		this.setState({
@@ -40,12 +40,12 @@ var GroupDetail = React.createClass({
 		if (this.groupListener) this.groupListener.remove();
 	},
 	componentWillReceiveProps: function(nextProps) {
-		ClientActions.fetchSingleGroup(nextProps.params.groupId, UserStore.currentLocation().timeZone);
+		ClientActions.fetchSingleGroup(nextProps.params.groupId, LocationStore.currentLocation().timeZone);
 	},
 	joinGroup: function(callback) {
 		if (this.state.currentUser && !this.hasJoinedGroup()){
 			ClientActions.joinGroup(this.state.currentUser.id, this.state.group.id);
-			ClientActions.fetchSingleGroup(this.props.params.groupId, UserStore.currentLocation().timeZone);
+			ClientActions.fetchSingleGroup(this.props.params.groupId, LocationStore.currentLocation().timeZone);
 			if (Object.prototype.toString.call(callback) === '[object Array]') callback();
 		} else {
 			this.setState({logInIsOpen: true});
@@ -54,7 +54,7 @@ var GroupDetail = React.createClass({
 	leaveGroup: function() {
 		if (this.state.currentUser && this.hasJoinedGroup()){
 			ClientActions.leaveGroup(this.state.currentUser.id, this.state.group.id);
-			ClientActions.fetchSingleGroup(this.props.params.groupId, UserStore.currentLocation().timeZone);
+			ClientActions.fetchSingleGroup(this.props.params.groupId, LocationStore.currentLocation().timeZone);
 		}
 	},
 	_joinButtons: function(){
@@ -93,7 +93,7 @@ var GroupDetail = React.createClass({
 	},
 	render: function() {
 		var children = !this.props.children ? this.props.children :
-			React.cloneElement(this.props.children, { group: this.state.group, hasJoinedGroup: this.hasJoinedGroup, 
+			React.cloneElement(this.props.children, { group: this.state.group, hasJoinedGroup: this.hasJoinedGroup,
 																								joinGroup: this.joinGroup, currentUser: this.state.currentUser  } );
 
 		return (

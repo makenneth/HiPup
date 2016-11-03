@@ -1,24 +1,24 @@
-var React = require('react'),
-    ReactRouter = require('react-router'),
-    Route = ReactRouter.Route,
-    Router = ReactRouter.Router,
-    IndexRoute = ReactRouter.IndexRoute,
-    HashHistory = ReactRouter.hashHistory,
-    NewGroupForm = require('./components/group/newGroupForm'),
-    GroupDetail = require('./components/group/groupDetail'),
-    GroupIndex = require('./components/group/groupIndex'),
-    GroupHome = require('./components/group/groupHome'),
-    GroupMembers = require('./components/group/groupMembers'),
-    GroupEvents = require('./components/group/groupEvents'),
-    TagShow = require('./components/tag/tagShow'),
-    EventShow = require('./components/events/eventShow'),
-    ManageEvents = require('./components/user/manageEvents'),
-    App = require('./app'),
-    CurrentUserProfile = require('./components/user/currentUserProfile');
+const React = require('react');
+const ReactRouter = require('react-router');
+const NewGroupForm = require('./components/group/newGroupForm');
+const GroupDetail = require('./components/group/groupDetail');
+const GroupIndex = require('./components/group/groupIndex');
+const GroupHome = require('./components/group/groupHome');
+const GroupMembers = require('./components/group/groupMembers');
+const GroupEvents = require('./components/group/groupEvents');
+const TagShow = require('./components/tag/tagShow');
+const EventShow = require('./components/events/eventShow');
+const ManageEvents = require('./components/user/manageEvents');
+const App = require('./app');
+const CurrentUserProfile = require('./components/user/currentUserProfile');
 
+const Route = ReactRouter.Route;
+const Router = ReactRouter.Router;
+const IndexRoute = ReactRouter.IndexRoute;
+const HashHistory = ReactRouter.hashHistory;
 
-module.exports = function(){
-  return <Router history={HashHistory}>
+module.exports = () => {
+  return (<Router history={HashHistory}>
   <Route path="/" component={App}>
     <IndexRoute component={GroupIndex} />
     <Route path="groups" component={GroupIndex} />
@@ -31,5 +31,5 @@ module.exports = function(){
       <Route path="events/:eventId" component={EventShow} />
     </Route>
   </Route>
-</Router>;
+</Router>);
 }

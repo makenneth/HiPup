@@ -19,7 +19,16 @@ module.exports = {
 			}
 		});
 	},
-	fetchAllGroups: function(coords) {
+	fetchAllGroups: function() {
+		$.ajax({
+			method: "GET",
+			url: "/api/groups",
+			success: (groups) => {
+				ServerActions.receivedGroups(groups);
+			}
+		});
+	},
+	fetchAllGroupsWithLocation: function(coords) {
 		$.ajax({
 			method: "GET",
 			url: "/api/groups",

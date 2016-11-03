@@ -17,7 +17,7 @@ const GroupEditForm = React.createClass({
 		this.gfListener = UserStore.addListener(this._userFetched);
 		if (!this.state.title) {
 			this.groupStoreListener = GroupStores.addListener(this._fetchedGroup);
-			ClientActions.fetchSingleGroup(this.props.groupId, UserStore.currentLocation().timeZone);
+			ClientActions.fetchSingleGroup(this.props.groupId, LocationStore.currentLocation().timeZone);
 		} else {
 			this.groupStoreListener = GroupStores.addListener(this._successInUpdate);
 		}

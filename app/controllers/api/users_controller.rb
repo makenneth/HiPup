@@ -21,7 +21,7 @@ class Api::UsersController < ApplicationController
 
 	def update
 		@user = current_user
-		if !@user.is_password?(params[:user][:old_password])
+		unless @user.is_password?(params[:user][:old_password])
 			render json: ["Old password doesn't match record"], status: 422
 			return
 		end
@@ -33,7 +33,7 @@ class Api::UsersController < ApplicationController
 			render json: @user.errors.full_messages, status: 422
 		end
 	end
-	
+
 	private
 	def user_params
 		params.require(:user)

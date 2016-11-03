@@ -10,7 +10,8 @@ module.exports = {
 	},
 	componentDidMount: function() {
 		this.cUListener = UserStore.addListener(this._updateUser);
-		if (!this.state.currentUser){
+		if (!this.state.currentUser && !UserStore.isLoading() && !UserStore.hasLoaded()) {
+			UserActions.startLoading();
 			UserActions.fetchCurrentUser();
 		}
 	},

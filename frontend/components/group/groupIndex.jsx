@@ -8,6 +8,7 @@ const EventIndexByDate = require('../events/eventIndexByDate');
 const DateModalStyle = require('../../modal/dateModalStyle');
 const CurrentUserState = require('../../mixin/currentUserState');
 const UserStore = require("../../stores/userStore");
+const LocationStore = require("../../stores/locationStore");
 const TagStore = require("../../stores/tagStore");
 const MainNav = require("../mainNav.jsx");
 const FaAngleDown = require("react-icons/lib/fa/angle-down");
@@ -54,15 +55,15 @@ const GroupIndex = React.createClass({
 		this.groupIndexListener = GroupStore.addListener(this._onLoad);
 		this.tagIdxListener = TagStore.addListener(this._onReceiveTags);
 
-		if (UserStore.currentLocation().coords.latitude) {
-			if (!this.state.groups.length) {
-				ClientActions.fetchAllGroups(UserStore.currentLocation().coords);
+		if (LocationStore.currentLocation().coords.latitude) {
+			if (!this.state.groups.length && !GroupStore.loading() && !GroupStore.loaded()) {
+				ClientActions.startGroupLoading();
+				ClientActions.fetchAllGroups(LocationStore.currentLocation().coords);
 			} else {
 				this._onReceiveTags();
 			}
 		} else {
-			this.usStoreListener = UserStore.addListener(this._checkedUserLocation);
-			this._checkedUserLocation();
+			this.usStoreListener = LocationStore.addListener(this._checkedUserLocation);
 		}
 
 		if (!this.state.tags.length) ClientActions.fetchTags();
@@ -72,10 +73,23 @@ const GroupIndex = React.createClass({
 		this._onReceiveTags();
 	},
 	_checkedUserLocation: function() {
-		ClientActions.fetchAllGroups(UserStore.currentLocation().coords);
+		const location = LocationStore.currentLocation().coords;
+		const locationLoaded = LocationStore.hasLoaded();
+		const locationError = LocationStore.hasError();
+		if (!GroupStore.loading() && !GroupStore.loaded()
+			&& locationLoaded && !locationError) {
+			ClientActions.startGroupLoading();
+			ClientActions.fetchAllGroupsWithLocation(location);
+		}
+
+		if (locationLoaded && locationError) {
+			ClientActions.fetchAllGroups();
+		}
 	},
 	_onLoad: function() {
-		this.setState({ groups: GroupStore.findAllWithDistance(this.state.miles) });
+		this.setState({
+			groups: GroupStore.findAllWithDistance(this.state.miles)
+		});
 	},
 	_onReceiveTags: function() {
 		const selectedTags = this.state.selectedTags;
@@ -136,8 +150,19 @@ const GroupIndex = React.createClass({
 	locationTooltip: function() {
 		return (<div className="location-tooltip">
 			<p>Searching within { this.state.miles } Miles</p>
-			<input id="distance-range"type="range" min="25"
-						 max="300" step="25" value={ this.state.miles } onChange={ this.changeDistance } />
+			{
+				!LocationStore.hasError ?
+					(<input
+						id="distance-range"
+						type="range"
+						min="25"
+					  max="300"
+					  step="25"
+					  value={ this.state.miles }
+					  onChange={ this.changeDistance }
+				  />) : "Could not detect your location"
+
+			}
 		</div>);
 	},
 	tagTooltip: function() {
@@ -176,7 +201,7 @@ const GroupIndex = React.createClass({
 		} else {
 			return (<div className="group-index cf">
 				<h1>There are no events matching your search criteria around
-			   { " " + UserStore.currentLocation().place + " :(" }
+			   { " " + LocationStore.currentLocation().place + " :(" }
 			   <p onClick={this.showAll}>Show all</p>
 				</h1>
 			</div>);
@@ -202,9 +227,7 @@ const GroupIndex = React.createClass({
 		const libraries = this.state.groups.filter((group) => {
 			return (
 				group.title.toLowerCase().match(searchCriteria) &&
-					group.tags.some((tag) => {
-						return this.state.selectedTags[tag.id];
-					})
+					group.tags.some(tag => this.state.selectedTags[tag.id])
 			);
 		});
 		return (

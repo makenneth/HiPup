@@ -58,7 +58,10 @@ module.exports = {
 			url: "http://ip-api.com/json/" + ip,
 			success: (data) => {
 				UserServerActions.foundLocation(data);
-			}
+			},
+			error: () => {
+				UserServerActions.findLocationError(data);
+			},
 		})
 	}
 }

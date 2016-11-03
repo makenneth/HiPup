@@ -1,10 +1,10 @@
 # HiPup [Live Link](http://hipup.co)
-HiPup is a full-stack web application inspired by MeetUp. It is a platform where pets can find groups by similar interests. If the owner can, why can't they? 
+HiPup is a full-stack web application inspired by MeetUp. It is a platform where pets can find groups by similar interests. If the owner can, why can't they?
 
-It utilizes Ruby on Rails on the backend, a PostgreSQL database, and React.js with a Flux architectural framework on the frontend.
+It utilizes Ruby on Rails on the backend, a PostgreSQL database, and React with Flux on the frontend.
 
-## Features 
-Users are allowed to:
+## Features
+Users can:
 
 * Securely create an account
 ... can log in from multiple locations at the same time
@@ -28,7 +28,7 @@ Users are allowed to:
 
 ## Implementation
 ### Multiple Sessions
-```ruby	
+```ruby
 	def self.find_by_session_token(session_token)
 		user = User.joins(:sessions).where("sessions.session_token = ?", session_token)
 		user[0]
@@ -54,53 +54,32 @@ Users are allowed to:
 ### Group
 Upon user's visit HiPup, their locations are recorded by checking the approximate location from their IP address.
 
-```$.ajax({
-      url: "https://api.ipify.org/",
-      success: function(ip){
-        UserActions.findLocationWithIp(ip);
-      }
-
-    _setCurrentLocation = function(location){
-	  	currentLocation.coords.latitude = location.lat;
-	  	currentLocation.coords.longitude = location.lon;
-	  	currentLocation.place = [location.city, location.region].join(", ");
-	  	currentLocation.timeZone = location.timeZone;
-		}
+```javascript
+  $.ajax({
+    url: "https://api.ipify.org/",
+    success: (ip) => {
+      UserActions.findLocationWithIp(ip);
+    }
+  })
+  _setCurrentLocation = (location) => {
+    const { lat, lon, city, region, timeZone } = location;
+  	currentLocation.coords.latitude = lat;
+  	currentLocation.coords.longitude = lon;
+  	currentLocation.place = `#{city}, #{region}`;
+  	currentLocation.timeZone = timeZone;
+	}
 ```
 
-Users now have the option to filter groups by their location, by tag, and/or by a simple dynamic name search.
+Users now have the options to filter groups by their location, by tag, and/or by a simple dynamic name search.
 
 ```javascript
-		var searchCriteria = this.state.searchString.toLowerCase().trim();
-		var libraries = this.state.groups.filter(function(group){
-			var titleIsMatched = group.title.toLowerCase().match(searchCriteria);
-			if (that.state.tag){
-				return titleIsMatched && 
-									group.tags.some(function(tag){ 
-										return tag.name === that.state.tag; 
-									});
-			} else {
-				return titleIsMatched;
-			}
-		}
+    const libraries = this.state.groups.filter((group) => {
+      return (
+        group.title.toLowerCase().match(searchCriteria) &&
+          group.tags.some(tag => this.state.selectedTags[tag.id])
+      );
+    });
 ```
-
-### Events
-Events within a group are organized by time, whether the event's time has passed.			
-
-```ruby
-	json.upcoming_events group.group_events.where("group_events.event_time > ? AND group_events.status = ?", Time.now, "SCHEDULED") do |event|
-		json.extract! event, :lat, :lng, :city, :state, :title, 
-						:description, :group_id, :street, :zip, :id
-		json.event_time (Time.utc(*event.event_time).in_time_zone).strftime("%a %b %d || %I:%M %p")
-	end
-	json.old_events group.group_events.where("group_events.event_time <= ? OR group_events.status = ?", Time.now, "CANCEL") do |event|
-		json.extract! event, :lat, :lng, :city, :state, :title, 
-						:description, :group_id, :street, :zip, :id
-		json.event_time (Time.utc(*event.event_time).in_time_zone).strftime("%a %b %d || %I:%M %p")
-	end
-```
-
 
 ## Future Directions for HiPup
 - [ ] Direct Messaging / Friend requests

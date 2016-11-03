@@ -19,7 +19,7 @@ class Api::GroupEventsController < ApplicationController
 	end
 
 	def show
-			@group_event = GroupEvent.includes(:event_participants).find(params[:id])
+		@group_event = GroupEvent.includes(:event_participants).find(params[:id])
 	end
 
 	def update
@@ -39,13 +39,13 @@ class Api::GroupEventsController < ApplicationController
 		else
 			@group_event.status = "CANCEL"
 			@group_event.save
-			render :show	
+			render :show
 		end
 	end
 
 	private
 	def group_event_params
-		params.require(:group_event).permit(:lat, :lng, :street, :city, 
+		params.require(:group_event).permit(:lat, :lng, :street, :city,
 								:state, :zip, :title, :description, :date, :time, :group_id, :host_id)
 	end
 end

@@ -1,8 +1,13 @@
+import { loadUser } from "./serverActions";
+const UserServerActions = require("./userServerActions");
 const	UserApiUtil = require("../util/userApiUtil");
 
 module.exports = {
 	fetchCurrentUser: function() {
 		UserApiUtil.fetchCurrentUser();
+	},
+	startLoading: function() {
+		loadUser();
 	},
 	signUp: function(user) {
 		UserApiUtil.signUp(user);
@@ -18,5 +23,8 @@ module.exports = {
 	},
 	findLocationWithIp: function(ip) {
 		UserApiUtil.findLocationWithIp(ip);
+	},
+	loadLocation: function() {
+		UserServerActions.loadLocation();
 	}
 };

@@ -12,7 +12,9 @@ class Api::GroupsController < ApplicationController
 	def create
 		params = group_params
 		tag_ids = params.delete(:tag_ids).map(&:to_i)
+
 		@group = Group.new(params)
+
 		if @group.save
 			@group.tag_ids = tag_ids
 			GroupParticipant.create({group_id: @group.id, participant_id: @group.creator_id})

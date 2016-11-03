@@ -5,10 +5,7 @@
  */
 @import "font-awesome";
 @import "bootstrap";
-@import url(https://fonts.googleapis.com/css?family=Kaushan+Script);
-@import url(https://fonts.googleapis.com/css?family=Yanone+Kaffeesatz:400,700);
- @import url(https://fonts.googleapis.com/css?family=PT+Sans+Narrow);
-@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,700);
+@import url(https://fonts.googleapis.com/css?family=Kaushan+Script|Yanone+Kaffeesatz:400,700|PT+Sans+Narrow|Open+Sans:400,700);
 
  html, body, header, nav, h1, a,
 ul, li, strong, main, button, i,
@@ -199,7 +196,7 @@ button {
   .banner-img {
     width: 150%;
     transform: scale(0.5);
-    transform: translateX(-16%);    
+    transform: translateX(-16%);
     min-height: 20em;
   }
 }
@@ -207,7 +204,7 @@ button {
   .banner-img {
     width: 150%;
     transform: scale(0.125);
-    transform: translateX(-16%);    
+    transform: translateX(-16%);
     min-height: 2em;
   }
 }
@@ -258,13 +255,13 @@ button {
 
 @keyframes alertScroll {
   0% {
-    transform: translateY(0); 
-    -webkit-transform: translateY(0); 
+    transform: translateY(0);
+    -webkit-transform: translateY(0);
     -o-transform: translateY(0);
     opacity: 1;
   }
   100% {
-    transform: translateY(40px); 
+    transform: translateY(40px);
     -webkit-transform: translateY(40px);
     -o-transform: translateY(40px);
     opacity: 0.1;
@@ -272,13 +269,13 @@ button {
 }
 @-webkit-keyframes alertScroll {
   0% {
-    transform: translateY(0); 
-    -webkit-transform: translateY(0); 
+    transform: translateY(0);
+    -webkit-transform: translateY(0);
     -o-transform: translateY(0);
     opacity: 1;
   }
   100% {
-    transform: translateY(40px); 
+    transform: translateY(40px);
     -webkit-transform: translateY(40px);
     -o-transform: translateY(40px);
     opacity: 0.1;
