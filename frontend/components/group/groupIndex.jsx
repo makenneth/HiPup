@@ -57,7 +57,7 @@ const GroupIndex = React.createClass({
 
 		if (LocationStore.currentLocation().coords.latitude) {
 			if (!this.state.groups.length && !GroupStore.loading() && !GroupStore.loaded()) {
-				ClientActions.startGroupLoading();
+				// ClientActions.startGroupLoading();
 				ClientActions.fetchAllGroups(LocationStore.currentLocation().coords);
 			} else {
 				this._onReceiveTags();
@@ -78,7 +78,7 @@ const GroupIndex = React.createClass({
 		const locationError = LocationStore.hasError();
 		if (!GroupStore.loading() && !GroupStore.loaded()
 			&& locationLoaded && !locationError) {
-			ClientActions.startGroupLoading();
+			// ClientActions.startGroupLoading();
 			ClientActions.fetchAllGroupsWithLocation(location);
 		}
 

@@ -76,7 +76,7 @@ const App = React.createClass({
       </div>);
     }
   },
-  managePageStyle: function(){
+  managePageStyle: function() {
     if (this.props.location.pathname === "/user/events") {
       return {
         backgroundImage: "url(" + "/dog-board-mini.png" + ")",
@@ -88,14 +88,7 @@ const App = React.createClass({
       };
     }
   },
-  menuIcon: function() {
-    if (this.props.location.pathname !== "/"){
-      return <div className="menu-icon" onClick={this.openNavModal}>&#9776;</div>
-    }
-
-  },
   render: function() {
-    console.log("render");
     return (
       <div>
         <div className="page-load">
@@ -117,7 +110,10 @@ const App = React.createClass({
               })
             }
         </div>
-        {this.menuIcon()}
+        {
+          this.props.location.pathname !== "/" &&
+            <div className="menu-icon" onClick={this.openNavModal}>&#9776;</div>
+        }
         <Navbar />
         <Modal isOpen={this.state.logInModalOpen}
                onRequestClose={this.closeLogInModal}
