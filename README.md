@@ -54,21 +54,6 @@ Users can:
 ### Group
 Upon user's visit HiPup, their locations are recorded by checking the approximate location from their IP address.
 
-```javascript
-  $.ajax({
-    url: "https://api.ipify.org/",
-    success: (ip) => {
-      UserActions.findLocationWithIp(ip);
-    }
-  })
-  _setCurrentLocation = (location) => {
-    const { lat, lon, city, region, timeZone } = location;
-  	currentLocation.coords.latitude = lat;
-  	currentLocation.coords.longitude = lon;
-  	currentLocation.place = `#{city}, #{region}`;
-  	currentLocation.timeZone = timeZone;
-	}
-```
 
 Users now have the options to filter groups by their location, by tag, and/or by a simple dynamic name search.
 
