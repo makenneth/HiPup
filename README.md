@@ -54,7 +54,6 @@ Users can:
 ### Group
 Upon user's visit HiPup, their locations are recorded by checking the approximate location from their IP address.
 
-
 Users now have the options to filter groups by their location, by tag, and/or by a simple dynamic name search.
 
 ```javascript

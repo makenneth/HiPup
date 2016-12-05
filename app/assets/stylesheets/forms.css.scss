@@ -1,26 +1,25 @@
-@import url(https://fonts.googleapis.com/css?family=Lato:400,300italic);
 .redirect {
 	color: white;
 	font-family: 'Dosis', sans-serif;
 	text-align: center;
 	font-size: 16px;
 	a {
-		color: #3c69ff;	
+		color: #3c69ff;
 		cursor: pointer;
 	}
 
 }
 .user-forms {
-	padding: 50px;
+	padding: 20px;
 	display: flex;
 	justify-content: center;
 	flex-direction: column;
 	flex-flow: wrap;
-	
+
 	.form-line {
-		max-width: 550px;
+		max-width: 500px;
 		margin-bottom: 10px;
-		font-size: 24px;
+		font-size: 20px;
 		display: flex;
 
 		label {
@@ -34,7 +33,7 @@
 			padding: 5px;
 			background-color: white;
 			border-radius: 5px;
-			width: 240px;
+			width: 200px;
 		}
 		input:focus {
 			  border: solid 1px #707070;
@@ -42,6 +41,10 @@
 		}
 		input:focus:invalid {
 			  border: solid 1px #ff1414;
+			  box-shadow: 0 0 10px 5px #ff1414;
+		}
+		input .error-field {
+				border: solid 1px #ff1414;
 			  box-shadow: 0 0 10px 5px #ff1414;
 		}
 		input:focus:invalid:after {
@@ -76,7 +79,7 @@
 .form-div h3 {
 	color: white;
 	text-align: center;
-	font-size: 50px;
+	font-size: 36px;
 	font-family: 'Dosis', sans-serif;
 }
 .log-in-errors {
@@ -104,7 +107,7 @@
 
 .form-btn-div {
 	display: flex;
-	margin-top: 80px;
+	padding-top: 10px;
 	justify-content: space-around;
 
 }
@@ -210,7 +213,7 @@
 		border: 1px solid black;
 		border-radius: 3px;
 		padding: 5px;
-		align-self: center;	
+		align-self: center;
 	}
 	.submit-button {
 		margin-top: 20px;
@@ -252,8 +255,4 @@
 #multiple-checkbox-div {
 		display: flex;
 	flex-direction: column;
-}
-#form-tag-checkbox {
-
-
 }

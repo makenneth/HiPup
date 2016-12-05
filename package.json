@@ -27,6 +27,7 @@
   },
   "homepage": "https://github.com/makenneth/HiPup#readme",
   "dependencies": {
+    "axios": "^0.15.3",
     "babel-core": "^6.7.7",
     "babel-loader": "^6.2.7",
     "babel-plugin-add-module-exports": "^0.2.1",
@@ -36,16 +37,18 @@
     "babel-preset-react": "^6.16.0",
     "babel-preset-stage-0": "^6.16.0",
     "bootstrap": "^3.3.6",
-    "flux": "^2.1.1",
-    "react": "^15.0.2",
+    "react": "^15.4.1",
     "react-addons-css-transition-group": "^15.0.1",
     "react-date-picker": "^4.0.10",
-    "react-dom": "^15.0.1",
+    "react-dom": "^15.4.1",
     "react-easy-transition": "0.0.3",
     "react-geosuggest": "^1.22.0",
     "react-icons": "^2.1.0",
     "react-modal": "^1.2.1",
-    "react-router": "^2.3.0",
-    "webpack": "^1.13.0"
+    "react-redux": "^4.4.6",
+    "react-router": "^2.8.1",
+    "redux": "^3.6.0",
+    "redux-async-connect": "^1.0.0-rc4",
+    "webpack": "^1.13.3"
   }
 }

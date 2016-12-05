@@ -76,10 +76,11 @@ const LogInForm = React.createClass({
 					<form className="user-forms" onSubmit={this.handleSubmit}>
 						<div className="form-line cf">
 							<label for="username">Username</label>
-							<input id="username" type="text"
-									ref="username"
-									value={this.state.username} onChange={this.updateUsername}
-									 required />
+							<input
+								id="username" type="text"
+								ref="username" value={this.state.username}
+								onChange={this.updateUsername} required
+							/>
 						</div>
 						<div className="form-line cf">
 							<label for="password">Password</label>

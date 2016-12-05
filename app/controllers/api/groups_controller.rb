@@ -1,6 +1,6 @@
 class Api::GroupsController < ApplicationController
 	def index
-		@groups = Group.includes(:tags, :participants)
+		@groups = Group.includes(:tags, :participants).limit(10)
 	end
 
 	def show

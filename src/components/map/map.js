@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 export default class Map extends Component {
-	componentDidMount() {
+  componentDidMount() {
     const mapDOMNode = this.refs.map;
     const mapOptions = {
       center: {
@@ -11,15 +11,15 @@ export default class Map extends Component {
     };
     this.map = new google.maps.Map(mapDOMNode, mapOptions);
     new google.maps.Marker({
-    	position: new google.maps.LatLng(+this.props.lat, +this.props.lng)
+      position: new google.maps.LatLng(+this.props.lat, +this.props.lng)
     }).setMap(this.map);
   }
-	render() {
+  render() {
     return (
       <div>
-				<div className="map" ref="map">
-				</div>
-			</div>
-		);
-	}
+        <div className="map" ref="map">
+        </div>
+      </div>
+    );
+  }
 };

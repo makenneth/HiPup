@@ -7,7 +7,6 @@ end
 json.created_at (Time.utc(*group.created_at).in_time_zone).strftime("%b %d, %Y")
 json.tags group.tags
 
-p params[:time_zone]
 Time.zone = params[:time_zone]
 json.participants group.participants do |partic|
 	json.extract! partic, :id, :name, :image_url
