@@ -1,14 +1,28 @@
 import React, { Component } from "react";
-const Modal = require('react-modal');
+import { asyncConnect } from "redux-async-connect";
+import { connect } from "react-redux";
+import Modal from 'react-modal';
+import { loadAuth, logOut } from "redux/modules/auth";
+import { Navbar, LogInForm, SignUpForm } from 'components';
 
-const Navbar = require('./components/navbar');
-const UserStore = require('./stores/userStore');
 const FormStyle = require('./modal/formStyle');
 const SearchStyle = require('./modal/searchStyle');
-const LogInForm = require('./components/user/logInForm');
-const SignUpForm = require('./components/user/signUpForm');
 const MainNav = require("./components/mainNav");
 
+@asyncConnect([
+  {
+    promise: ({ store }) => {
+      let promise;
+
+      if (!isAuthLoaded(store.getState())) {
+        promise = dispatch(loadAuth());
+      }
+
+      return promise;
+    }
+  }
+])
+@connect(({ auth: user }) => ({ user }), { logOut })
 export default class Main extends Component {
   redirectToSignUp() {
     this.setState({
@@ -16,15 +30,13 @@ export default class Main extends Component {
       signUpModalOpen: true
     });
   }
-  logOut() {
-    UserActions.logOut();
-  }
+
   shouldComponentUpdate(nextProps, nextState) {
     if (nextState.currentUser !== this.state.currentUser) {
       return false;
     }
     return true;
-  },
+  }
   userButtons() {
     if ((/^\/\w*\/?$/).test(this.props.location.pathname)) {
       if (this.state.currentUser){
@@ -34,7 +46,7 @@ export default class Main extends Component {
               Welcome, {this.state.currentUser.name}!
             </a>
           </li>
-          <li><a href="#" onClick={this.logOut}>Log Out</a></li>
+          <li><a href="#" onClick={this.props.logOut}>Log Out</a></li>
         </ul>);
       } else {
         return (<ul className="user-button">

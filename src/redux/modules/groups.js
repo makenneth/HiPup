@@ -1,6 +1,9 @@
 import axios from "axios";
 
+const SET_RANGE = "hp/groups/SET_RANGE";
+
 const initialState = () => {
+  miles: 0,
   loading: false,
   loaded: false,
   groups: [],
@@ -9,6 +12,11 @@ const initialState = () => {
 
 export default (state = initialState, action) => {
   switch (action.type) {
+    case SET_RANGE:
+      return {
+        ...state,
+        miles: action.payload
+      };
     case FETCH_GROUPS:
       return {
         ...state,
@@ -33,9 +41,20 @@ export default (state = initialState, action) => {
   }
 };
 
-export const fetchAllGroups = () => {
+export const fetchGroups = () => {
   return {
     types: [FETCH_GROUPS, FETCHED_GROUPS, FETCH_GROUP_ERROR],
     promise: axios.get("/api/groups")
+  };
+};
+
+export const isLoaded = (state) => {
+  return state.groups.loaded;
+};
+
+export const setRange = (range) => {
+  return {
+    type: SET_RANGE,
+    payload: range
   };
 };
