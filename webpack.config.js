@@ -2,7 +2,7 @@ var path = require("path");
 
 module.exports = {
   context: __dirname,
-  entry: "./frontend/hipUp.jsx",
+  entry: "./src/app.js",
   output: {
     path: path.join(__dirname, 'app', 'assets', 'javascripts'),
     filename: "bundle.js",
@@ -10,14 +10,20 @@ module.exports = {
     devtoolFallbackModuleFilenameTemplate: '[resourcePath]?[hash]'
   },
   module: {
-    loaders: [{
-      test: /\.jsx?$/,
-      exclude: /node_modules/,
-      loader: 'babel'
-    }]
+    loaders: [
+      {
+        test: /\.jsx?$/,
+        exclude: /node_modules/,
+        loader: "babel"
+      }
+    ]
   },
-  devtool: 'inline-source-maps',
   resolve: {
+    modulesDirectories: [
+      "src",
+      "node_modules"
+    ],
     extensions: ["", ".js", ".jsx"]
-  }
+  },
+  devtool: 'inline-source-maps'
 };
