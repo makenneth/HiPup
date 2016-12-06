@@ -1,21 +1,21 @@
-const React = require('react');
-const FaSearch = require('react-icons/lib/fa/search');
-const FaTags = require('react-icons/lib/fa/tags');
-const FaLocationArrow = require('react-icons/lib/fa/location-arrow');
-const FaCalendar = require('react-icons/lib/fa/calendar');
-const FaUser = require("react-icons/lib/fa/user");
-const { HashHistory } = require('react-router').hashHistory;
+import React, { Component } from 'react';
+import FaSearch from 'react-icons/lib/fa/search';
+import FaTags from 'react-icons/lib/fa/tags';
+import FaLocationArrow from 'react-icons/lib/fa/location-arrow';
+import FaCalendar from 'react-icons/lib/fa/calendar';
+import FaUser from 'react-icons/lib/fa/user';
+import { hashHistory } from 'react-router';
 
-const MainNav = React.createClass({
-  componentDidMount: function() {
+export default class MainNav extends Component {
+  componentDidMount() {
     this.changeToSolid();
     const searchIcon = document.getElementsByClassName("search-icon")[0];
     const searchBar = document.getElementById("search-box");
     searchIcon.addEventListener("mouseover", () => {
       searchBar.focus();
     });
-  },
-  changeToSolid: function() {
+  }
+  changeToSolid() {
     $(window).scroll(() => {
       const height = $(window).scrollTop();
       if (height > 490) {
@@ -24,8 +24,8 @@ const MainNav = React.createClass({
         this.changeToTransparent();
       }
     });
-  },
-  changeToTransparent: function() {
+  }
+  changeToTransparent() {
     $(window).scroll(() => {
       const height = $(window).scrollTop();
       if (height < 490){
@@ -34,36 +34,34 @@ const MainNav = React.createClass({
         this.changeToSolid();
       }
     });
-  },
-  link: function(url) {
-    HashHistory.push(url);
-  },
-  render: function() {
+  }
+  link(url) {
+    hashHistory.push(url);
+  }
+  render() {
     return <div className="main-nav">
       <ul className="nav-icons">
         <li className="location-icon">
           <FaLocationArrow />
-          { this.props.locationTooltip() }
+          {this.props.locationTooltip()}
         </li>
         <li className="search-icon">
           <FaSearch />
-          { this.props.searchTooltip() }
+          {this.props.searchTooltip()}
         </li>
         <li className="tag-icon">
           <FaTags />
-          { this.props.tagTooltip() }
+          {this.props.tagTooltip()}
         </li>
         <li onClick={this.props.openDateModal}><FaCalendar /></li>
         {
           this.props.currentUser &&
-            <li className="tag-icon" onClick={this.link.bind(null, "/user/profile") }>
+            <li className="tag-icon" onClick={() => hashHistory.push("/user/profile")}>
               <FaUser />
             </li>
         }
       </ul>
-      { this.props.userButtons() }
+      {this.props.userButtons()}
     </div>;
   }
-});
-
-module.exports = MainNav;
+};

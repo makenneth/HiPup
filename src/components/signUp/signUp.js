@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-const ReactCSSTransitionGroup = require('react-addons-css-transition-group');
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 export default class SignUpForm extends Component {
   constructor(props) {
@@ -17,9 +17,6 @@ export default class SignUpForm extends Component {
       error: null
     };
   }
-  // _onLogIn() {
-  //   this.props.closeModal();
-  // }
   componentDidMount() {
     const options = {
       types: ['(regions)'],
@@ -30,7 +27,7 @@ export default class SignUpForm extends Component {
       options
     );
     this.acListener = this.autocomplete.addListener('place_changed', this.fillInAddress);
-  },
+  }
   fillInAddress = () => {
     const place = this.autocomplete.getPlace();
     let city = place.adr_address.match(/locality\">(\w+\s?\w+)</);
@@ -87,12 +84,15 @@ export default class SignUpForm extends Component {
   }
   handleSubmit(e) {
     e.preventDefault();
-    const error = this.validate();
+    const err = this.validate();
 
-    if (error) {
-      this.setState({ error });
+    if (err) {
+      this.setState({ error: err });
     } else {
-      this.props.signUp(this.state);
+      const { error, ...others } = this.state
+      this.props.signUp(others).then(() => {
+        this.props.closeModal();
+      });
     }
   }
 
@@ -181,4 +181,4 @@ export default class SignUpForm extends Component {
       </ReactCSSTransitionGroup>
     );
   }
-};
+}

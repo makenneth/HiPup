@@ -32,9 +32,11 @@ export default class UserProfile extends Component {
     this.closePasswordModal();
     this.openSuccessModal();
   }
+
   openSuccessModal() {
     this.setState({ successIsOpen: true });
   }
+
   closeSuccessModal() {
     this.setState({ successIsOpen: false });
   }

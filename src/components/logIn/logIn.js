@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { logIn } from "redux/modules/auth";
-const ReactCSSTransitionGroup = require('react-addons-css-transition-group');
+import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 export default class LogInForm extends Component {
   constructor(props) {
@@ -15,19 +15,15 @@ export default class LogInForm extends Component {
       this.refs["username"].focus()
     }, 100);
   }
-  // _onLogIn: function() {
-  //   if (UserStore.currentUser()) {
-  //     this.props.closeModal();
-  //   }
-  // },
-  // redirectToSignUp: function() {
-  //   this.props.redirectToSignUp();
-  // },
+
   handleSubmit(event) {
     if (event) {
       event.preventDefault();
     }
-    this.props.logIn(this.state);
+
+    this.props.logIn(this.state).then(() => {
+      this.props.closeModal;
+    });
   }
 
   guestLogin(e) {

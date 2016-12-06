@@ -4,9 +4,15 @@ import { HashHistory } from "react-router";
 import { logOut } from "redux/modules/auth";
 import { setTab } from "redux/modules/navbar";
 
-@connect(({ navbar, auth: { user } }) => ({ active: navbar.active, user }), { setTab, logOut })
+@connect(({ auth: { user } }) => ({ user }), { logOut })
 export default class Navbar extends Component {
-  setTab(tab, url) {
+  constructor(props) {
+    super(props);
+    this.state = {
+      active: 0
+    };
+  }
+  setTab = (tab, url) => {
     this.setState({ active: tab });
     HashHistory.push(url);
     this.props.closeModal();
@@ -16,7 +22,7 @@ export default class Navbar extends Component {
     this.props.openLogInModal();
   }
   buttonsForLoggedIn() {
-    const active = this.props.active;
+    const active = this.state.active;
     return (this.props.user && <ul className="nav-list-user">
       <li
         className={active === 2 ? "active" : ""}
@@ -38,13 +44,14 @@ export default class Navbar extends Component {
       </li>
       <li className="log-out" onClick={this.props.logOut}>Log Out</li>
     </ul>);
-  },
-  render: function() {
+  }
+
+  render() {
     return (
       <nav className="nav-main">
         <ul className="nav-list cf">
           <li
-            className={this.props.active === 0 ? "active" : ""}
+            className={this.state.active === 0 ? "active" : ""}
             onClick={this.setTab.bind(null, 0, "/")}
           >Home</li>
           {
@@ -56,4 +63,4 @@ export default class Navbar extends Component {
       </nav>
     );
   }
-});
+};

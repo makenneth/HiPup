@@ -3,6 +3,7 @@ import { asyncConnect } from "redux-async-connect";
 import { connect } from "react-redux";
 import Modal from 'react-modal';
 import { loadAuth, logOut } from "redux/modules/auth";
+import { openLogIn, openSignUp, closeLogIn, closeSignUp } from "redux/modules/form";
 import { Navbar, LogInForm, SignUpForm } from 'components';
 
 const FormStyle = require('./modal/formStyle');
@@ -22,15 +23,9 @@ const MainNav = require("./components/mainNav");
     }
   }
 ])
-@connect(({ auth: user }) => ({ user }), { logOut })
+@connect(({ auth: user }) => ({ user }),
+  { logOut, openSignUp, openLogIn, closeSignUp, closeLogIn })
 export default class Main extends Component {
-  redirectToSignUp() {
-    this.setState({
-      logInModalOpen: false,
-      signUpModalOpen: true
-    });
-  }
-
   shouldComponentUpdate(nextProps, nextState) {
     if (nextState.currentUser !== this.state.currentUser) {
       return false;
@@ -38,12 +33,13 @@ export default class Main extends Component {
     return true;
   }
   userButtons() {
+    const user = this.state.currentUser;
     if ((/^\/\w*\/?$/).test(this.props.location.pathname)) {
-      if (this.state.currentUser){
+      if (user){
         return (<ul className="user-button">
           <li>
             <a href="#/user/profile">
-              Welcome, {this.state.currentUser.name}!
+              Welcome, {user.name}!
             </a>
           </li>
           <li><a href="#" onClick={this.props.logOut}>Log Out</a></li>
@@ -55,7 +51,7 @@ export default class Main extends Component {
         </ul>);
       }
     } else {
-      const buttonDiv = !this.state.currentUser ?
+      const buttonDiv = !user ?
         (<ul className="user-profile-login-text">
           <li onClick={this.openLogInModal}><a href="#">Log In</a></li>
           <li onClick={this.openSignUpModal}><a href="#">Sign Up</a></li>
@@ -64,8 +60,8 @@ export default class Main extends Component {
           <li><a href="#/user/profile">Profile</a></li>
           <li><a href="#" onClick={this.logOut}>Log Out</a></li>
         </ul>);
-      const img = this.state.currentUser ? this.state.currentUser.image_url : "/dogpaw.gif";
-      const color = this.state.currentUser ? "black" : "white";
+      const img = user ? user.image_url : "/dogpaw.gif";
+      const color = user ? "black" : "white";
       return (<div className="user-text-button">
         <div className="user-text" style={{backgroundImage: "url(" +  img + ")", backgroundStyle: "cover",  backgroundColor: color}}>
           {buttonDiv}
@@ -115,17 +111,22 @@ export default class Main extends Component {
             <div className="menu-icon" onClick={this.openNavModal}>&#9776;</div>
         }
         <Navbar />
-        <Modal isOpen={this.state.logInModalOpen}
+        <Modal
+          isOpen={this.state.logInModalOpen}
           onRequestClose={this.closeLogInModal}
-          style={FormStyle}>
-          <LogInForm closeModal={this.closeLogInModal}
-            redirectToSignUp={this.redirectToSignUp}
+          style={FormStyle}
+        >
+          <LogInForm
+            closeModal={this.closeLogIn}
+            redirectToSignUp={this.openSignUp}
           />
         </Modal>
-        <Modal isOpen={this.state.signUpModalOpen}
+        <Modal
+          isOpen={this.state.signUpModalOpen}
           onRequestClose={this.closeSignUpModal}
-          style={FormStyle}>
-          <SignUpForm closeModal={this.closeSignUpModal} />
+          style={FormStyle}
+        >
+          <SignUpForm closeModal={this.closeSignUp} />
         </Modal>
       </div>
     );
