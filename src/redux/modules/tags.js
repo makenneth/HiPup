@@ -35,7 +35,7 @@ export default (state = initialState, action) => {
         ...state,
         selected: {
           ...state.selected,
-          action.payload: true
+          [action.payload]: true
         }
       };
     case CHANGE_ALL_TAGS:
@@ -79,7 +79,7 @@ export const changeAllTags = (bool) => {
 
 export const fetchTags = () => {
   return {
-    type: [LOAD_TAGS, FETCHED_TAGS, FETCH_TAGS_ERROR]
+    type: [LOAD_TAGS, FETCHED_TAGS, FETCH_TAGS_ERROR],
     promise: axios.get("/api/tags")
   };
 };

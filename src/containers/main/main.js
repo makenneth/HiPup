@@ -2,24 +2,27 @@ import React, { Component } from "react";
 import { asyncConnect } from "redux-async-connect";
 import { connect } from "react-redux";
 import Modal from 'react-modal';
-import { loadAuth, logOut } from "redux/modules/auth";
+import { loadAuth, logOut, isLoaded as isAuthLoaded } from "redux/modules/auth";
+import { loadLocation, isLoaded as isLocationLoaded } from "redux/modules/geolocation";
 import { openLogIn, openSignUp, closeLogIn, closeSignUp } from "redux/modules/form";
-import { Navbar, LogInForm, SignUpForm } from 'components';
+import { Navbar, LogInForm, SignUpForm, MainNav } from 'components';
 
-const FormStyle = require('./modal/formStyle');
-const SearchStyle = require('./modal/searchStyle');
-const MainNav = require("./components/mainNav");
+import FormStyle from './formStyle';
+import SearchStyle from './searchStyle';
 
 @asyncConnect([
   {
     promise: ({ store }) => {
-      let promise;
+      let promises = [];
 
       if (!isAuthLoaded(store.getState())) {
-        promise = dispatch(loadAuth());
+        promises.push(dispatch(loadAuth()));
+      }
+      if (!isLocationLoaded(store.getState())) {
+        promises.push(dispatch(loadLocation()));
       }
 
-      return promise;
+      return Promise.all(promises);
     }
   }
 ])
@@ -46,15 +49,15 @@ export default class Main extends Component {
         </ul>);
       } else {
         return (<ul className="user-button">
-          <li onClick={this.openLogInModal}><a href="#">Log In</a></li>
-          <li onClick={this.openSignUpModal}><a href="#">Sign Up</a></li>
+          <li onClick={this.openLogIn}><a href="#">Log In</a></li>
+          <li onClick={this.openSignUp}><a href="#">Sign Up</a></li>
         </ul>);
       }
     } else {
       const buttonDiv = !user ?
         (<ul className="user-profile-login-text">
-          <li onClick={this.openLogInModal}><a href="#">Log In</a></li>
-          <li onClick={this.openSignUpModal}><a href="#">Sign Up</a></li>
+          <li onClick={this.openLogIn}><a href="#">Log In</a></li>
+          <li onClick={this.openSignUp}><a href="#">Sign Up</a></li>
         </ul>) :
         (<ul className="user-profile-logout-text">
           <li><a href="#/user/profile">Profile</a></li>
@@ -110,7 +113,7 @@ export default class Main extends Component {
           this.props.location.pathname !== "/" &&
             <div className="menu-icon" onClick={this.openNavModal}>&#9776;</div>
         }
-        <Navbar />
+        <Navbar user={this.props.user} logOut={this.props.logOut}/>
         <Modal
           isOpen={this.state.logInModalOpen}
           onRequestClose={this.closeLogInModal}
@@ -131,4 +134,4 @@ export default class Main extends Component {
       </div>
     );
   }
-});
+};

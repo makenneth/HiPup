@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import { hashHistory } from 'react-router';
 import { connect } from "react-redux";
-import GroupEvents from './groupEvents';
-import GroupMembers from './groupMembers';
+import { GroupEvents, GroupMemebrs } from 'components';
 
 @connect(() => ({}), { updateGroup })
 export default class GroupHome extends Component {

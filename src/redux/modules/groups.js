@@ -2,11 +2,11 @@ import axios from "axios";
 
 const SET_RANGE = "hp/groups/SET_RANGE";
 
-const initialState = () => {
-  miles: 0,
+const initialState = {
   loading: false,
   loaded: false,
   groups: [],
+  groupQuery: {},
   error: null
 };
 

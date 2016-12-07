@@ -1,37 +1,23 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { GroupIndexItem, TagIndex } from "components";
-// import { asyncConnect } from "redux-async-connect";
+import { EventIndexByDate } from "containers";
+import { GroupIndexItem, TagIndex, MainNav } from "components";
 import { fetchGroups, setRange } from "redux/modules/groups";
 import { fetchTags, changeAllTags, toggleTag } from "redux/modules/tags";
-const Modal = require('react-modal');
-// const TagIndex = require("../tag/tagIndex");
-// const EventIndexByDate = require('../events/eventIndexByDate');
-// const DateModalStyle = require('../../modal/dateModalStyle');
-// const MainNav = require("../mainNav.jsx");
-const FaAngleDown = require("react-icons/lib/fa/angle-down");
+import Modal from 'react-modal';
+import DateModalStyle from './dateModalStyle';
+import FaAngleDown from "react-icons/lib/fa/angle-down";
 
 const banner = "https://images.unsplash.com/photo-1443750200537-00fd518bdc82?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&w=1080&fit=max&s=ad7a9ff44b3026fcf49d80830ffb20ee";
 
-//async connect fetch all groups within 25;
-// @asyncConnect([
-//   {
-//     promise: ({ store }) => {
-//       let promises = [];
-//       if (!areGroupsLoaded) {
-//         promises.push(store.dispatch(fetchGroups));
-//       }
-
-//       return Promise.all(promises);
-//     }
-//   }
-// ])
 @connect(
-  ({ groups, tags, auth: { user } }) => ({
+  ({ groups, tags, geolocation, auth: { user } }) => ({
     groups: groups.groups,
     groupsLoaded: groups.loaded,
     tags: tags.tags,
     selected: tags.selected,
+    geolocation: geolocation.location,
+    locationError: geolocation.error,
     user
   }),
   ({
@@ -52,14 +38,16 @@ export default class GroupIndex extends Component {
       searchBarOpen: false,
       distanceSearchOpen: false,
       selectedTags: {},
-      miles: 50,
-      locationServiceError: ""
+      miles: 50
     };
   }
   componentDidMount() {
-    if (!groupsLoaded) {
-      //pass in coords
-      this.props.fetchAllGroups();
+    if (!this.props.groupsLoaded) {
+      if (this.props.locationError) {
+        this.props.fetchAllGroups();
+      } else {
+        this.props.fetchAllGroups();
+      }
     }
 
     if (!tagsLoaded) {
@@ -67,49 +55,15 @@ export default class GroupIndex extends Component {
     }
     this.placeScrollDownDiv();
   }
-  // _checkedUserLocation() {
-    // const location = LocationStore.currentLocation().coords;
-    // const locationLoaded = LocationStore.hasLoaded();
-    // const locationError = LocationStore.hasError();
-    // if (!GroupStore.loading() && !GroupStore.loaded()
-    //   && locationLoaded && !locationError) {
-    //   // ClientActions.startGroupLoading();
-    //   ClientActions.fetchAllGroupsWithLocation(location);
-    // }
-
-    // if (locationLoaded && locationError) {
-    //   ClientActions.fetchAllGroups();
-    // }
-  // }
-  // _onLoad() {
-  //   this.setState({
-  //     groups: GroupStore.findAllWithDistance(this.state.miles)
-  //   });
-  // }
-  setSearchString(e) {
+  setSearchString = (e) => {
     this.setState({ searchString: e.target.value });
   }
-  openDateModal() {
+  openDateModal = () => {
     this.setState({ dateModalIsOpen: true });
   }
-  closeDateModal() {
+  closeDateModal = () => {
     this.setState({ dateModalIsOpen: false });
   }
-  changeDistance(e) {
-    const selectedMiles = +e.target.value;
-    this.setState({
-      miles: selectedMiles,
-      groups: GroupStore.findAllWithDistance(selectedMiles)
-    });
-  }
-  _toggleLocationService() {
-    if (this.state.locationServiceError.length) {
-      this.setState({ locationServiceError: "" });
-    } else {
-      this.setState({ locationServiceError: "Location Service isn't available" });
-    }
-  }
-
   searchTooltip() {
     return (<div className="search-tooltip">
       <div className="search-container-sm cf">
@@ -129,7 +83,7 @@ export default class GroupIndex extends Component {
     return (<div className="location-tooltip">
       <p>Searching within {this.state.miles} Miles</p>
       {
-        !LocationStore.hasError ?
+        !this.props.locationError ?
           (<input
             id="distance-range"
             type="range"
@@ -137,9 +91,8 @@ export default class GroupIndex extends Component {
             max="300"
             step="25"
             value={this.state.miles}
-            onChange={this.changeDistance}
+            onChange={(e) => this.setState({ miles: e.target.value })}
           />) : "Could not detect your location"
-
       }
     </div>);
   }
@@ -162,10 +115,8 @@ export default class GroupIndex extends Component {
         currentUser={this.props.user}
       />)
   }
-  showAll() {
-    this.setState({
-      groups: GroupStore.findAllWithDistance(5000)
-    });
+  showAll = () => {
+    this.setState({ miles: Infinity })
   }
   groupIndex(libraries) {
     if (libraries.length) {
@@ -175,7 +126,7 @@ export default class GroupIndex extends Component {
     } else {
       return (<div className="group-index cf">
         <h1>There are no events matching your search criteria around
-         { " " + LocationStore.currentLocation().place + " :(" }
+         { " " + this.props.geolocation.place + " :(" }
          <p onClick={this.showAll}>Show all</p>
         </h1>
       </div>);
@@ -190,6 +141,7 @@ export default class GroupIndex extends Component {
     if (w >= 1000) bottomPX += 100 + w - 1000;
     document.getElementsByClassName("scroll-down-div")[0].style.bottom = bottomPX + "px";
   }
+
   scrollDown = () => {
     const h = window.innerHeight;
 
@@ -200,6 +152,7 @@ export default class GroupIndex extends Component {
 
     const libraries = this.props.groups.filter((group) => {
       return (
+        (group.distance === Infinity || group.distance <= this.state.miles) &&
         group.title.toLowerCase().match(searchCriteria) &&
           group.tags.some(tag => this.props.selected[tag.id])
       );
@@ -222,7 +175,7 @@ export default class GroupIndex extends Component {
           onRequestClose={this.closeDateModal}
           style={DateModalStyle}>
           <EventIndexByDate closeModal={this.closeDateModal} />
-         </Modal>
+        </Modal>
         <div className="group-index-body">
           {this.groupIndex(libraries)}
         </div>

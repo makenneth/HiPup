@@ -1,10 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { HashHistory } from "react-router";
-import { logOut } from "redux/modules/auth";
-import { setTab } from "redux/modules/navbar";
+import { hashHistory } from "react-router";
 
-@connect(({ auth: { user } }) => ({ user }), { logOut })
 export default class Navbar extends Component {
   constructor(props) {
     super(props);
@@ -14,7 +11,7 @@ export default class Navbar extends Component {
   }
   setTab = (tab, url) => {
     this.setState({ active: tab });
-    HashHistory.push(url);
+    hashHistory.push(url);
     this.props.closeModal();
   }
   openLogInModal(){

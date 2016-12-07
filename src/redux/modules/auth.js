@@ -60,7 +60,7 @@ export const loadAuth = () => {
   };
 };
 
-export const isAuthLoaded = (state) => {
+export const isLoaded = (state) => {
   return state.loaded;
 };
 

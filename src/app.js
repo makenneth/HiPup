@@ -12,7 +12,6 @@ if (process.env.NODE_ENV !== "production") {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  fetchLocation();
   render(<Provider store={store}>
     <Router
       history={browserHistory}
