@@ -10,19 +10,24 @@ export default class LogInForm extends Component {
   };
 
   componentDidMount() {
+    document.getElementsByTagName('body')[0].className = 'modal-open';
     setTimeout(() => {
       this.refs["username"].focus()
     }, 100);
   }
 
-  handleSubmit(event) {
+  componentWillUnmount() {
+    document.getElementsByTagName('body')[0].className = '';
+  }
+  handleSubmit = (event) => {
     if (event) {
       event.preventDefault();
     }
-
-    this.props.logIn(this.state).then(() => {
-      this.props.closeModal;
-    });
+    if (!this.state.usernameError && !this.state.passwordError) {
+      this.props.logIn(this.state).then(() => {
+        this.props.closeModal;
+      });
+    }
   }
 
   validateUsername = () => this.setState({ usernameError: this.state.username.length === 0 })

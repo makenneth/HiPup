@@ -80,14 +80,13 @@ export default class Main extends Component {
               />
             </div>)
         }
+        {
+          this.props.signupOpen &&
+            (<div className="overlay">
+              <SignUpForm closeModal={this.props.closeSignUp} />
+            </div>)
+        }
       </div>
     );
   }
 };
-      // <Modal
-      //   isOpen={this.props.signupOpen}
-      //   onRequestClose={this.closeSignUpModal}
-      //   style={FormStyle}
-      // >
-      //   <SignUpForm closeModal={this.closeSignUp} />
-      // </Modal>

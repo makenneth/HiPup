@@ -26,6 +26,10 @@ span, article, time, small {
 
 body {
   min-width: 400px;
+  &.modal-open {
+    overflow: hidden;
+    position: fixed;
+  }
 }
 
 .overlay {
