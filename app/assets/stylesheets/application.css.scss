@@ -6,7 +6,7 @@
 @import "bootstrap";
 @import url(https://fonts.googleapis.com/css?family=Kaushan+Script|Yanone+Kaffeesatz:400,700|PT+Sans+Narrow|Open+Sans:400,700|Lato:400,300italic|Roboto+Slab:400,700|Titillium+Web:400,700);
 
- html, body, header, nav, h1, a,
+html, body, header, nav, h1, a,
 ul, li, strong, main, button, i,
 section, img, div, h2, p, form,
 fieldset, label, input, textarea,
@@ -23,15 +23,22 @@ span, article, time, small {
   box-sizing: inherit;
   background: transparent;
 }
+
 body {
   min-width: 400px;
 }
-.ReactModal__Body--open {
-  overflow: hidden;
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    background-color: rgba(255, 255, 255, 0.75);
+    z-index: 9999;
 }
-.ReactModal__Overlay {
-  z-index: 11;
-}
+
 .group-event-detail {
 	font-size: 18px;
 }
@@ -359,4 +366,7 @@ button {
   0% {left: 0%;}
   75% {left:100%;}
   100% {left:100%;}
+}
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px white inset;
 }

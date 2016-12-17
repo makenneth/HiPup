@@ -68,17 +68,17 @@ export default class MainNav extends Component {
           </li>
           <li><a onClick={this.props.logOut}>Log Out</a></li>
         </ul>);
-      } else {
-        return (<ul className="user-button">
-          <li onClick={this.openLogIn}><a>Log In</a></li>
-          <li onClick={this.openSignUp}><a>Sign Up</a></li>
-        </ul>);
       }
+
+      return (<ul className="user-button">
+        <li onClick={this.props.openLogIn}><a>Log In</a></li>
+        <li onClick={this.props.openSignUp}><a>Sign Up</a></li>
+      </ul>);
     } else {
       const buttonDiv = !this.props.user ?
         (<ul className="user-profile-login-text">
-          <li onClick={this.openLogIn}><a>Log In</a></li>
-          <li onClick={this.openSignUp}><a>Sign Up</a></li>
+          <li onClick={this.props.openLogIn}><a>Log In</a></li>
+          <li onClick={this.props.openSignUp}><a>Sign Up</a></li>
         </ul>) :
         (<ul className="user-profile-logout-text">
           <li><Link to="#/user/profile">Profile</Link></li>

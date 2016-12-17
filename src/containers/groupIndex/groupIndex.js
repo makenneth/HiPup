@@ -167,7 +167,7 @@ export default class GroupIndex extends Component {
           <a href="https://www.linkedin.com/in/kenneth-ma-a813b3116"><div className="link-logo"></div></a>
         </footer>
         {
-          this.state.dateModalOpen && (<div className="overlay">
+          this.state.dateModalOpen && (<div className="modal">
             <EventIndexByDate closeModal={this.closeDateModal} />
           </div>)
         }

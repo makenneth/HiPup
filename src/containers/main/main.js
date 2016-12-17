@@ -6,8 +6,7 @@ import { loadAuth, logOut, isLoaded as isAuthLoaded } from "redux/modules/auth";
 import { loadLocation, isLoaded as isLocationLoaded } from "redux/modules/geolocation";
 import { openLogIn, openSignUp, closeLogIn, closeSignUp } from "redux/modules/form";
 import { Navbar, LogInForm, SignUpForm, MainNav } from 'components';
-import FormStyle from './formStyle';
-import SearchStyle from './searchStyle';
+import './formStyle.less'
 
 @asyncConnect([
   {
@@ -29,12 +28,6 @@ import SearchStyle from './searchStyle';
   ({ auth: { user }, form }) => ({ user, loginOpen: form.login, signupOpen: form.signup }),
   { logOut, openSignUp, openLogIn, closeSignUp, closeLogIn })
 export default class Main extends Component {
-  shouldComponentUpdate(nextProps, nextState) {
-    if (nextState.currentUser !== this.state.currentUser) {
-      return false;
-    }
-    return true;
-  }
   managePageStyle() {
     if (this.props.location.pathname === "/user/events") {
       return {
@@ -78,24 +71,23 @@ export default class Main extends Component {
             <div className="menu-icon" onClick={this.openNavModal}>&#9776;</div>
         }
         <Navbar user={this.props.user} logOut={this.props.logOut} />
+        {
+          this.props.loginOpen &&
+            (<div className="overlay">
+              <LogInForm
+                closeModal={this.props.closeLogIn}
+                redirectToSignUp={this.props.openSignUp}
+              />
+            </div>)
+        }
       </div>
     );
   }
 };
-        // <Modal
-        //   isOpen={this.props.loginOpen}
-        //   onRequestClose={this.closeLogInModal}
-        //   style={FormStyle}
-        // >
-        //   <LogInForm
-        //     closeModal={this.closeLogIn}
-        //     redirectToSignUp={this.openSignUp}
-        //   />
-        // </Modal>
-        // <Modal
-        //   isOpen={this.props.signupOpen}
-        //   onRequestClose={this.closeSignUpModal}
-        //   style={FormStyle}
-        // >
-        //   <SignUpForm closeModal={this.closeSignUp} />
-        // </Modal>
+      // <Modal
+      //   isOpen={this.props.signupOpen}
+      //   onRequestClose={this.closeSignUpModal}
+      //   style={FormStyle}
+      // >
+      //   <SignUpForm closeModal={this.closeSignUp} />
+      // </Modal>
