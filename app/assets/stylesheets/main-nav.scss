@@ -1,12 +1,11 @@
-@mixin hovermenu{
-		transition: all 1s ease-out 0.2s;
-		-moz-transition: all 1s ease-out 0.2s;
-		-webkit-transition: all 1s ease-out 0.2s;
-		-o-transition: all 1s ease-out 0.2s;
+@mixin hovermenu {
+	transition: all 1s ease-out 0.2s;
+	-moz-transition: all 1s ease-out 0.2s;
+	-webkit-transition: all 1s ease-out 0.2s;
+	-o-transition: all 1s ease-out 0.2s;
 }
 .main-nav {
 	display: flex;
-	flex-direction: row;
 	justify-content: space-between;
 	align-items: center;
 	flex-wrap: nowrap;
@@ -33,21 +32,25 @@
 }
 .main-nav-solid {
 	background-color: black;
-	opacity: 0.9;	
+	opacity: 0.9;
 	@include hovermenu;
 }
+
 .user-button li {
 	margin-right: 20px;
 }
+
 .user-button  {
 	display: flex;
 	font-family: 'Yanone Kaffeesatz', sans-serif;
 	text-align: center;
 	justify-content: flex-end;
+
 	a {
 		color: white;
 		font-weight: 400;
 	}
+
 	li {
 		border: 3px solid white;
 		background-color: transparent;
@@ -57,23 +60,25 @@
 		border-radius: 4px;
 	}
 
-
 	li:hover {
 		@include hovermenu;
 		border: 3px solid #778899;
 		color: #778899;
+		cursor: pointer;
 	}
-	li:hover a{
+
+	li:hover a {
 		@include hovermenu;
 		color: #778899;
-
 	}
 }
+
 .user-text-button {
 	position: absolute;
 	top: 40px;
 	right: 40px;
 }
+
 .user-text {
 	position: relative;
 	cursor: pointer;
@@ -105,16 +110,20 @@
 	box-shadow: 1px 1px 1px #999;
 	width: 100%;
 	overflow: hidden;
+
 	li {
 		padding: 5px;
 	}
+
 	a {
 		color: white;
 	}
+
 	li:hover {
 		background-color: #666;
 		color: black;
 	}
+
 	li:first-child {
 		border-bottom: 1px solid white;
 	}

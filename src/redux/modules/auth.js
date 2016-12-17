@@ -1,5 +1,5 @@
 import axios from "axios";
-import { getCSRF } from "helpers";
+import { csrfHeader } from "helpers";
 
 const LOAD_AUTH = "mp/auth/LOAD_AUTH";
 const LOAD_AUTH_ERROR = "mp/auth/LOAD_AUTH_ERROR";
@@ -39,10 +39,9 @@ export default (state = initialState, action) => {
         loaded: true,
         error: typeof action.payload === "object" ? "Something went wrong" : action.payload
       };
-    case LOGOUT_LOAD:
+    case LOGOUT_SUCCESS:
       return {
         ...state,
-        loaded: false,
         club: {}
       };
     default:
@@ -69,9 +68,7 @@ export const logIn = (user) => {
     method: "POST",
     url: "/api/session/new",
     data: { user },
-    headers: {
-      "X-CSRF-TOKEN": getCSRF()
-    }
+    headers: csrfHeader()
   });
 
   return {
@@ -85,9 +82,7 @@ export const signUp = (user) => {
     method: "POST",
     url: "/api/user/new",
     data: { user },
-    headers: {
-      "X-CSRF-TOKEN": getCSRF()
-    }
+    headers: csrfHeader()
   });
 
   return {
@@ -98,7 +93,7 @@ export const signUp = (user) => {
 
 export const logOut = () => {
   return {
-    types: [LOGOUT_LOAD, LOGOUT_SUCCESS, LOGOUT_FAIL],
+    types: ["NOT NEEDED", LOGOUT_SUCCESS, LOGOUT_FAIL],
     promise: axios.delete("/session")
   };
 };

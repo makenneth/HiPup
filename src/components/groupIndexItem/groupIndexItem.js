@@ -32,7 +32,7 @@ export default class GroupIndexItem extends Component {
             }
           </div>
         </div>
-        <div class="effeckt-overlay" id="effeckt-overlay"></div>
+        <div className="effeckt-overlay" id="effeckt-overlay"></div>
       </div>
     );
   }

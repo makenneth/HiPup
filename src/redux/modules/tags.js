@@ -16,11 +16,12 @@ const initialState = {
 }
 
 export default (state = initialState, action) => {
+  console.log(action);
   switch (action.type) {
     case LOAD_TAGS:
       return {
         ...state,
-        loading: true
+        loading: true,
       };
     case FETCHED_TAGS:
       const tags = action.payload;
@@ -28,27 +29,27 @@ export default (state = initialState, action) => {
         loaded: true,
         loading: false,
         tags,
-        selected: setAllTags(tags, true)
+        selected: setAllTags(tags, true),
       };
     case TOGGLE_TAG:
       return {
         ...state,
         selected: {
           ...state.selected,
-          [action.payload]: true
-        }
+          [action.payload]: !state.selected[action.payload],
+        },
       };
     case CHANGE_ALL_TAGS:
       return {
         ...state,
-        selected: setAllTags(action.payload)
+        selected: setAllTags(state.tags, action.payload),
       };
     case FETCH_TAGS_ERROR:
       return {
         ...state,
         loaded: true,
         loading: false,
-        error: aciton.payload
+        error: aciton.payload,
       };
     default:
       return state;
@@ -79,12 +80,13 @@ export const changeAllTags = (bool) => {
 
 export const fetchTags = () => {
   return {
-    type: [LOAD_TAGS, FETCHED_TAGS, FETCH_TAGS_ERROR],
+    types: [LOAD_TAGS, FETCHED_TAGS, FETCH_TAGS_ERROR],
     promise: axios.get("/api/tags")
   };
 };
 
 export const selectTag = (tag) => {
+  console.log('+ selecting tag', tag)
   return {
     type: SELECT_TAG,
     payload: tag

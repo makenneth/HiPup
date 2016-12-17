@@ -3,12 +3,13 @@
 	font-family: 'Dosis', sans-serif;
 	text-align: center;
 	font-size: 16px;
+
 	a {
 		color: #3c69ff;
 		cursor: pointer;
 	}
-
 }
+
 .user-forms {
 	padding: 20px;
 	display: flex;
@@ -35,28 +36,34 @@
 			border-radius: 5px;
 			width: 200px;
 		}
+
 		input:focus {
 			  border: solid 1px #707070;
 			  box-shadow: 0 0 10px 5px #969696;
 		}
+
 		input:focus:invalid {
 			  border: solid 1px #ff1414;
 			  box-shadow: 0 0 10px 5px #ff1414;
 		}
+
 		input .error-field {
 				border: solid 1px #ff1414;
 			  box-shadow: 0 0 10px 5px #ff1414;
 		}
+
 		input:focus:invalid:after {
 			content: "*";
 			color: red;
 			font-size: 24px;
 		}
+
 		input:focus:valid {
 			border: solid 1px #14ff14;
 			box-shadow: 0 0 10px 5px #14ff14;
 		}
 	}
+
 	.guest-login, .button-create, .button-login  {
 		background-color: orange;
 		color: white;
@@ -76,18 +83,21 @@
 		text-align: center;
 	}
 }
+
 .form-div h3 {
 	color: white;
 	text-align: center;
 	font-size: 36px;
 	font-family: 'Dosis', sans-serif;
 }
+
 .log-in-errors {
 	color: red;
 	font-family: 'Dosis', sans-serif;
 	font-size: 20px;
 	text-indent: 20px;
 }
+
 .close-form {
 	position: absolute;
 	top: 25px;

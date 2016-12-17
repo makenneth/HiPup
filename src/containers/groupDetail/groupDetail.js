@@ -2,34 +2,33 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { asyncConnect } from "redux-async-connect";
 import GroupNav from './groupNav';
-import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
+// import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 import LogInForm from '../user/logInForm';
 import SignUpForm from '../user/signUpForm';
 import FormStyle from '../../modal/formStyle';
-import Modal from 'react-modal';
+// import Modal from 'react-modal';
 
 @connect(({ auth: { user }, location }) => { user, location }, { fetchSingleGroup })
 export default class GroupDetail extends Component {
-  constructor(props) {
-    super(props);
+  state = {
+    group: {
+      title: undefined,
+      description: undefined,
+      tags: [],
+      old_events: [],
+      upcoming_events: [],
+      participants: [],
+    }
+  };
 
-    this.state = {
-      group: {
-        title: undefined,
-        description: undefined,
-        tags: [],
-        old_events: [],
-        upcoming_events: [],
-        participants: [],
-      }
-    };
-  }
   componentDidMount() {
     this.props.fetchSingleGroup(this.props.params.groupId, this.props.location.timeZone);
   }
+
   componentWillReceiveProps(nextProps) {
     this.props.fetchSingleGroup(nextProps.params.groupId, this.props.location.timeZone);
   }
+
   joinGroup = (callback) => {
     if (this.props.user && !this.hasJoinedGroup()) {
       ClientActions.joinGroup(this.state.currentUser.id, this.state.group.id);
@@ -39,12 +38,14 @@ export default class GroupDetail extends Component {
       this.setState({ logInIsOpen: true });
     }
   }
+
   leaveGroup = () => {
     if (this.state.currentUser && this.hasJoinedGroup()) {
       ClientActions.leaveGroup(this.state.currentUser.id, this.state.group.id);
       ClientActions.fetchSingleGroup(this.props.params.groupId, LocationStore.currentLocation().timeZone);
     }
   }
+
   _joinButtons() {
     if ((/events\/\d+$/).test(this.props.location.pathname)) return "";
     if (!this.state.currentUser || !this.hasJoinedGroup()) {//should be in user store
@@ -53,6 +54,7 @@ export default class GroupDetail extends Component {
       return <ul className="leave-group" onClick={this.leaveGroup}>Leave Group</ul>
     }
   }
+
   hasJoinedGroup() {
     if (!this.state.currentUser) return false;
     var groups = this.state.currentUser.groups;
@@ -63,20 +65,17 @@ export default class GroupDetail extends Component {
     }
     return false;
   }
+
   render() {
     var children = !this.props.children ? this.props.children :
       React.cloneElement(this.props.children, { group: this.state.group, hasJoinedGroup: this.hasJoinedGroup,
                                                 joinGroup: this.joinGroup, currentUser: this.state.currentUser  } );
 
     return (
-      <ReactCSSTransitionGroup transitionName="page"
-              transitionAppear={true} transitionAppearTimeout={500}
-                transitionEnterTimeout={300} transitionLeaveTimeout={300}>
-        <div class="group-parent-div">
-          <GroupNav group={this.state.group} joinButtons={this._joinButtons()} path={this.props.location.pathname}/>
-            {children}
-        </div>
-      </ReactCSSTransitionGroup>
+      <div className="group-parent-div">
+        <GroupNav group={this.state.group} joinButtons={this._joinButtons()} path={this.props.location.pathname}/>
+          {children}
+      </div>
     );
   }
 };

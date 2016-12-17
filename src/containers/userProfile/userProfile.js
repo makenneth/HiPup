@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { HashHistory } from "react-router";
-const Modal = require('react-modal');
+// const Modal = require('react-modal');
 const PasswordChange = require('./passwordChange');
 const PasswordFormStyle = require('../../modal/passwordFormStyle');
 const SuccessMessage = require('../../mixin/successMessage');
@@ -94,6 +94,10 @@ export default class UserProfile extends Component {
             Update Password
           </button>
         </div>
+      </div>
+    );
+  }
+};
         <Modal
           isOpen={this.state.passwordModalOpen}
           onRequestClose={this.state.closePasswordModal}
@@ -115,7 +119,3 @@ export default class UserProfile extends Component {
               message={this.state.message}
             />
           </Modal>
-      </div>
-    );
-  }
-});

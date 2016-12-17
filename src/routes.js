@@ -3,15 +3,7 @@ import { Route, IndexRoute } from "react-router";
 import { Main, GroupIndex } from "containers";
 import { isAuthLoaded, loadAuth } from "redux/modules/auth";
 
-export default ({ getState, dispatch }) => {
-  const checkLogIn = (nextState, replace, callback) => {
-    if (isAuthLoaded(getState().auth)) {
-      checkAuth();
-    } else {
-      dispatch(loadAuth()).then(checkAuth);
-    }
-  };
-
+export default () => {
   return (
     <Route path="/" component={Main}>
       <IndexRoute component={GroupIndex} />

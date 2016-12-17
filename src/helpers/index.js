@@ -1,1 +1,1 @@
-export getCSRF from "./csrf/csrf";
+export csrfHeader from "./csrf/csrf";

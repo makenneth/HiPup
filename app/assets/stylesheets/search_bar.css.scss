@@ -11,7 +11,9 @@
 	position: absolute;
 	margin-top: 5px;
 	z-index: 15;
+	box-shadow: 1px 2px 2px #E0E0E0;
 }
+
 .search-tooltip:after {
   border-left: 10px solid transparent;
   border-right: 10px solid transparent;
@@ -24,6 +26,7 @@
   height: 0;
   z-index: 1000;
 }
+
 .search-tooltip:before{
 	content: " ";
 	position: absolute;
@@ -32,34 +35,37 @@
 	width: 260px;
 	height: 10px;
 }
+
 .search-container-sm {
 	color: black;
-	  overflow: hidden;
-		/*border: 2px solid #aaa;	*/
-		border-radius: 4px;
-		background-color: white;
+  overflow: hidden;
+	border-radius: 4px;
+	background-color: white;
+	height: 30px;
+	padding: 5px;
+
+	input {
+		width: 200px;
+		color: black;
+		float: left;
 		height: 30px;
-		input {
-			width: 200px;
-			color: black;
-			float: left;
-			height: 30px;
-			border: none;
-			font-size: 18px;
-			z-index: 1001;
-		}
-
-		.search-icon-sm {
-			background-color: white;
-			position: relative;
-			top: -5px;
-			color: black;
-			height: 40px;
-			width: 40px;
-			float: left;
-		}
-
+		border: none;
+		font-size: 18px;
+		z-index: 1001;
 	}
+
+	.search-icon-sm {
+		background-color: white;
+		position: relative;
+		top: -5px;
+		color: black;
+		height: 40px;
+		width: 40px;
+		float: left;
+	}
+
+}
+
 .search-icon:hover .search-tooltip{
 	width: 260px;
 	visibility: visible;
@@ -72,7 +78,7 @@
 
 .tag-list {
 	visibility: hidden;
-	background-color: black;
+	background-color: rgba(0, 0, 0, 0.95);
 	color: white;
 	padding: 10px;
 	padding-right: 20px;
@@ -81,9 +87,9 @@
 	justify-content: space-between;
 	flex-wrap: wrap;
 	flex-direction: row;
-	opacity: 0.9;
 	z-index: 11;
 	transform: translateY(15px);
+	box-shadow: 1px 2px 2px black;
 	li {
 		font-family: 'Dosis', sans-serif;
 		text-align: center;
@@ -150,7 +156,9 @@
 	z-index: 16;
 	position: absolute;
 	transform: translateY(15px);
+	box-shadow: 1px 2px 2px #E0E0E0;
 }
+
 .location-icon:hover .location-tooltip {
 	visibility: visible;
 	padding: 10px;
@@ -164,6 +172,7 @@
 
 	}
 }
+
 .location-tooltip:before {
 	content: " ";
 	background-color: transparent;
@@ -172,6 +181,7 @@
 	position: absolute;
 	bottom: 100%;
 }
+
 .location-tooltip:after {
 	content: " ";
 	position: absolute;

@@ -1,7 +1,9 @@
 import axios from "axios";
 
 const SET_RANGE = "hp/groups/SET_RANGE";
-
+const FETCH_GROUPS = "hp/groups/FETCH_GROUPS";
+const FETCHED_GROUPS = "hp/groups/FETCHED_GROUPS";
+const FETCH_GROUP_ERROR = "hp/groups/FETCH_GROUP_ERROR";
 const initialState = {
   loading: false,
   loaded: false,

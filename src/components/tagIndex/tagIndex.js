@@ -9,19 +9,19 @@ const TagIndex = (props) => {
       <li>
         <button onClick={() => props.changeAllTags(false)}>Clear All</button>
       </li>
-    {
-      props.tags.map((tag) => {
-        return (
-          <li key={tag.id}>
-            <div>{tag.name}</div>
-            <input
-              type="checkbox"
-              onChange={() => props.toggleTag(tag.id)}
-              checked={props.selected[tag.id]}
-            />
-        </li>);
-      })
-    }
+      {
+        props.tags.map((tag) => {
+          return (
+            <li key={tag.id}>
+              <div>{tag.name}</div>
+              <input
+                type="checkbox"
+                onChange={() => props.toggleTag(tag.id)}
+                checked={props.selected[tag.id]}
+              />
+          </li>);
+        })
+      }
     </ul>
   );
 };

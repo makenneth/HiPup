@@ -53,7 +53,7 @@ export default class NewGroupForm extends Component {
     return this.state.tags.indexOf(tag) > -1;
   }
   selectDiv(id) {
-    return (<select class="form-tag-checkbox" onChange={this.toggleSelect.bind(null, id)} key={id}>
+    return (<select className="form-tag-checkbox" onChange={this.toggleSelect.bind(null, id)} key={id}>
       <option value={null}></option>
       {
         this.state.allTags.map((tag) => {

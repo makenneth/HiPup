@@ -1,4 +1,3 @@
-@import url(https://fonts.googleapis.com/css?family=Titillium+Web:400,700);
 .group-detail {
 	min-width: 500px;
 }
@@ -166,28 +165,30 @@
 			border-bottom: 5px solid black;
 			margin-bottom: 10px;
 		}
-				#title {
+
+		#title {
 			font-size: 24px;
 		}
-			button {
-					padding: 5px 10px;
-					color: white;
-					border-radius: 4px;
-					font-size: 16px;
-					cursor: pointer;
-					align-self: center;
-			}
-	.join {
-		background-color: #30690E;
-	}
-	.leave {
-		background-color: #791710;
-	}
-	.join:hover {
-		background-color: #BFE4A9;
-	}
-	.leave:hover {
-		background-color: #DB7D76;
-	}
+
+		button {
+				padding: 5px 10px;
+				color: white;
+				border-radius: 4px;
+				font-size: 16px;
+				cursor: pointer;
+				align-self: center;
+		}
+		.join {
+			background-color: #30690E;
+		}
+		.leave {
+			background-color: #791710;
+		}
+		.join:hover {
+			background-color: #BFE4A9;
+		}
+		.leave:hover {
+			background-color: #DB7D76;
+		}
 	}
 }

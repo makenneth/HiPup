@@ -1,3 +1,5 @@
+import axios from "axios";
+
 const FETCHING_LOCATION = "hp/location/FETCHING_LOCATION";
 const FETCHED_LOCATION = "hp/location/FETCHED_LOCATION";
 const FETCHED_FAILED = "hp/location/FETCHED_FAILED";
@@ -37,5 +39,5 @@ export const loadLocation = () => {
 };
 
 export const isLoaded = (state) => {
-  return state.location.loaded;
+  return state.geolocation.loaded;
 };
