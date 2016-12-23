@@ -145,20 +145,13 @@
 		text-align: center;
 		text-shadow: 1px 1px black;
 	}
-/*	.group-index-item:hover {
-		/*opacity: 0.9;*/
-/*		justify-content: space-between;
-		@include index-item-anim;*/
-	/*}*/
+
 
 	.group-index-card:hover .back-side {
 		display: flex;
 		flex-direction: column;
-		/*transform: translateY(-20px);*/
 		transform: rotateX(0deg);
-		/*-webkit-transform: translateY(-20px);*/
 		-webkit-transform: rotateX(0deg);
-		/*-moz-transform: translateY(-20px);*/
 		-moz-transform: rotateX(0deg);
 		@include index-item-anim;
 		opacity: 0.9;

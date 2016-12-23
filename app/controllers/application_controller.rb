@@ -4,7 +4,14 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   def current_user
+    return nil unless session[:session_token]
+
   	@current_user ||= User.find_by_session_token(session[:session_token])
+
+    if params[:geolocation] && cookies[:geolocation] != params[:geolocation]
+      cookies[:geolocation] = params[:geolocation]
+    end
+    return @current_user
   end
 
   def log_in!(user)
@@ -23,6 +30,18 @@ class ApplicationController < ActionController::Base
   def current_user_info
     return nil unless current_user
     User.includes(:joined_groups, :joined_events).find(current_user.id)
+  end
+
+  def get_geolocation
+    location = cookies[:geolocation]
+    if location
+      l = JSON.parse(location)
+      return [l["lat"], l["lng"]]
+    end
+
+    if current_user
+      return [current_user.lat, current_user.lng]
+    end
   end
   helper_method :current_user, :current_user_info
 end

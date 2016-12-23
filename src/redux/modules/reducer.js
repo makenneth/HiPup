@@ -1,12 +1,13 @@
-import { combineReducers } from "redux";
-import { reducer as reduxAsyncConnect } from "redux-async-connect";
-import geolocation from "./geolocation";
-import auth from "./auth";
-import form from "./form";
-import groupEvents from "./groupEvents";
-import groups from "./groups";
-import success from "./success";
-import tags from "./tags";
+import { combineReducers } from 'redux';
+import { reducer as reduxAsyncConnect } from 'redux-async-connect';
+import geolocation from './geolocation';
+import auth from './auth';
+import form from './form';
+import groupEvents from './groupEvents';
+import groups from './groups';
+import success from './success';
+import tags from './tags';
+import query from './query';
 
 export default combineReducers({
   reduxAsyncConnect,
@@ -16,5 +17,6 @@ export default combineReducers({
   groups,
   groupEvents,
   success,
-  tags
+  tags,
+  query,
 });

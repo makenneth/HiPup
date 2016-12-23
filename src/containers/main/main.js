@@ -16,16 +16,20 @@ import './formStyle.less'
       if (!isAuthLoaded(store.getState())) {
         promises.push(store.dispatch(loadAuth()));
       }
-      if (!isLocationLoaded(store.getState())) {
-        promises.push(store.dispatch(loadLocation()));
-      }
+      // if (!isLocationLoaded(store.getState())) {
+      //   promises.push(store.dispatch(loadLocation()));
+      // }
 
       return Promise.all(promises);
     }
   }
 ])
 @connect(
-  ({ auth: { user }, form }) => ({ user, loginOpen: form.login, signupOpen: form.signup }),
+  ({ auth, form }) => ({
+    user: auth.get('user'),
+    loginOpen: form.get('login'),
+    signupOpen: form.get('signup')
+  }),
   { logOut, openSignUp, openLogIn, closeSignUp, closeLogIn })
 export default class Main extends Component {
   managePageStyle() {

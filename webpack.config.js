@@ -1,11 +1,11 @@
-var path = require("path");
+var path = require('path');
 
 module.exports = {
   context: __dirname,
-  entry: "./src/app.js",
+  entry: ['babel-polyfill', 'whatwg-fetch', './src/app.js'],
   output: {
     path: path.join(__dirname, 'app', 'assets', 'javascripts'),
-    filename: "bundle.js",
+    filename: 'bundle.js',
     devtoolModuleFilenameTemplate: '[resourcePath]',
     devtoolFallbackModuleFilenameTemplate: '[resourcePath]?[hash]'
   },
@@ -14,7 +14,7 @@ module.exports = {
       {
         test: /\.jsx?$/,
         exclude: /node_modules/,
-        loader: "babel"
+        loader: 'babel'
       },
       {
         test: /\.less$/,
@@ -24,10 +24,10 @@ module.exports = {
   },
   resolve: {
     modulesDirectories: [
-      "src",
-      "node_modules"
+      'src',
+      'node_modules'
     ],
-    extensions: ["", ".js", ".jsx"]
+    extensions: ['', '.js', '.jsx']
   },
   devtool: 'inline-source-maps'
 };

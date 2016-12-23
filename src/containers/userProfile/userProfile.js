@@ -7,7 +7,9 @@ const PasswordFormStyle = require('../../modal/passwordFormStyle');
 const SuccessMessage = require('../../mixin/successMessage');
 const SuccessModalStyle = require("../../modal/successModalStyle");
 
-@connect(({ auth: { user }, location }) => ({ user, location }))
+@connect(({ auth, geolocation }) =>
+  ({ user: auth.get('user'), geolocation: geolocation.get('location') })
+)
 export default class UserProfile extends Component {
   constructor(props) {
     super(props);

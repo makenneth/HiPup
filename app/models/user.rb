@@ -1,17 +1,17 @@
 class User < ActiveRecord::Base
 	before_validation :ensure_image
-	validates :username, :email, :name, :password_digest, 
-									:lat, :lng, :owner_name, 
+	validates :username, :email, :name, :password_digest,
+									:lat, :lng, :owner_name,
 									:city, :state, presence: true
 	validates :password, length: {minimum: 8, allow_nil: true}
 	validates :username, :email, uniqueness: true
 
-	has_many :groups, 
-		foreign_key: :creator_id, 
+	has_many :groups,
+		foreign_key: :creator_id,
 		class_name: :Group
-	has_many :group_participants, 
-		foreign_key: :participant_id, 
-		primary_key: :id, 
+	has_many :group_participants,
+		foreign_key: :participant_id,
+		primary_key: :id,
 		class_name: :GroupParticipant
 	has_many :joined_groups, through: :group_participants, source: :group
 	has_many :event_users, foreign_key: :user_id, class_name: :EventUser
@@ -41,6 +41,10 @@ class User < ActiveRecord::Base
 
 	def is_password?(password)
 		BCrypt::Password.new(self.password_digest).is_password?(password)
+	end
+
+	def should_update_location?(location)
+		self.lat != location[:lat] && self.lng != location[:lng]
 	end
 
 	def ensure_image

@@ -131,12 +131,33 @@
 	/*@include showSearch;*/
 }
 .tag-icon input[type="checkbox"]{
-	padding: 10px;
-	font-size: 20px;
-	 -ms-transform: scale(1.5);
-  -moz-transform: scale(1.5);
-  -webkit-transform: scale(1.5);
-  -o-transform: scale(1.5);
+	/*padding: 10px;*/
+	/*font-size: 20px;*/
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	&:focus {
+		outline: none;
+		box-shadow: none;
+	}
+	&:checked:after {
+		content: "\f00c";
+		font-family: "FontAwesome";
+		font-size: 14px;
+		color: green;
+		background-color: white;
+		padding: 1px;
+		cursor: pointer;
+	}
+	&:after {
+		content: " ";
+		cursor: pointer;
+		border: 1px solid #E0E0E0;
+		font-size: 12px;
+		padding: 0.5px 8px 0px 8px;
+		/*width: 5px;*/
+		/*height: 5px;*/
+		background-color: white;
+	}
 }
 .tag-list button {
 	font-size: 16px;

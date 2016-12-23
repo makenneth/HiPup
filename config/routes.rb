@@ -7,9 +7,9 @@ Rails.application.routes.draw do
     end
     resource :session, only: [:create, :destroy]
     resources :groups, except: [:new, :edit]
-    resources :show_users, only: [:show] 
+    resources :show_users, only: [:show]
     resources :tags, only: [:show, :create, :index]
-    resources :group_events, except: [:new, :edit, :delete] do 
+    resources :group_events, except: [:new, :edit, :delete] do
       patch :cancel, on: :member
     end
     resources :group_participants, only: [:create] do
@@ -19,5 +19,6 @@ Rails.application.routes.draw do
     resources :event_users, only: [:create] do
       delete :leave, on: :collection
     end
+    resources :locations, only: [:create]
   end
 end

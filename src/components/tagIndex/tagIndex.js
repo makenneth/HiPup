@@ -12,12 +12,12 @@ const TagIndex = (props) => {
       {
         props.tags.map((tag) => {
           return (
-            <li key={tag.id}>
-              <div>{tag.name}</div>
+            <li key={tag.get('id')}>
+              <div>{tag.get('name')}</div>
               <input
                 type="checkbox"
-                onChange={() => props.toggleTag(tag.id)}
-                checked={props.selected[tag.id]}
+                onChange={() => props.toggleTag(tag.get('id'))}
+                checked={props.selected.get(tag.get('id'))}
               />
           </li>);
         })

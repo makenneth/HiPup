@@ -1,6 +1,7 @@
 class Api::GroupsController < ApplicationController
 	def index
-		@groups = Group.includes(:tags, :participants).limit(10)
+		@groups = Group.includes(:tags, :participants).limit(20)
+		@location = get_geolocation
 	end
 
 	def show

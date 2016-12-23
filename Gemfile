@@ -1,11 +1,11 @@
 source 'https://rubygems.org'
-ruby "2.3.1", engine: "jruby", engine_version: "9.1.5.0"
+ruby "2.3.1"
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.5.1'
 gem 'puma'
 # Use postgresql as the database for Active Record
-gem 'activerecord-jdbcpostgresql-adapter'
+gem 'pg'
 gem 'geocoder'
 # Use SCSS for stylesheets
 gem 'font-awesome-rails'
@@ -36,6 +36,7 @@ end
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'pry-rails'
+  gem 'byebug'
 end
 
 # group :development do

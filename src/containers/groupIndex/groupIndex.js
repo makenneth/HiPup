@@ -11,14 +11,16 @@ import './dateModalStyle.less';
 const banner = 'https://images.unsplash.com/photo-1443750200537-00fd518bdc82?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&w=1080&fit=max&s=ad7a9ff44b3026fcf49d80830ffb20ee';
 
 @connect(
-  ({ groups, tags, geolocation, auth: { user } }) => ({
-    groups: groups.groups,
-    groupsLoaded: groups.loaded,
-    tagsLoaded: tags.loaded,
-    selected: tags.selected,
-    geolocation: geolocation.location,
-    locationError: geolocation.error,
-    user,
+  ({ groups, tags, geolocation, auth, query }) => ({
+    groups: groups.get('groups'),
+    groupsLoaded: groups.get('loaded'),
+    tagsLoaded: tags.get('loaded'),
+    selected: query.get('tags'),
+    searchString: query.get('searchString'),
+    range: query.get('range'),
+    hasLocation: query.get('location'),
+    geolocation: geolocation.get('location'),
+    user: auth.get('user'),
   }),
   ({
     setRange,
@@ -28,9 +30,7 @@ const banner = 'https://images.unsplash.com/photo-1443750200537-00fd518bdc82?ixl
 )
 export default class GroupIndex extends Component {
   state = {
-    searchString: '',
     dateModalOpen: false,
-    miles: 50,
   };
 
   componentDidMount() {
@@ -51,44 +51,6 @@ export default class GroupIndex extends Component {
   openDateModal = () => this.setState({ dateModalOpen: true })
   closeDateModal = () => this.setState({ dateModalOpen: false })
 
-  handleSearchStringChange = (ev) => {
-    this.setState({ searchString: ev.target.value })
-  }
-
-  searchTooltip = () => {
-    return (<div className="search-tooltip">
-      <div className="search-container-sm cf">
-        <img className="search-icon-sm" src="/search-icon-2.png"/>
-        <input
-          id="search-box"
-          type="text"
-          autoFocus
-          onChange={this.handleSearchStringChange.bind(this)}
-          value={this.state.searchString}
-          placeholder="Find a pet event"
-        />
-      </div>
-    </div>);
-  }
-
-  locationTooltip = () => {
-    return (<div className="location-tooltip">
-      <p>Searching within {this.state.miles} Miles</p>
-      {
-        !this.props.locationError ?
-          (<input
-            id="distance-range"
-            type="range"
-            min="25"
-            max="300"
-            step="25"
-            value={this.state.miles}
-            onChange={(e) => this.setState({ miles: e.target.value })}
-          />) : 'Could not detect your location'
-      }
-    </div>);
-  }
-
   mainNav() {
     return (this.props.location.pathname === '/' &&
       <MainNav
@@ -105,14 +67,14 @@ export default class GroupIndex extends Component {
   }
 
   groupIndex(libraries) {
-    if (libraries.length) {
+    if (libraries.size) {
       return (<div className="group-index cf">
-        {libraries.map(group => <GroupIndexItem group={group} key={group.id} />)}
+        {libraries.map(group => <GroupIndexItem group={group} key={group.get('id')} />)}
       </div>);
     } else {
       return (<div className="group-index cf">
         <h1>There are no events matching your search criteria around
-         {` ${this.props.geolocation.place} :(`}
+         {` ${this.props.geolocation.get('place')} :(`}
          <p onClick={this.showAll}>Show all</p>
         </h1>
       </div>);
@@ -135,15 +97,21 @@ export default class GroupIndex extends Component {
   }
 
   render() {
-    const searchCriteria = this.state.searchString.toLowerCase().trim();
-    console.log('+ searchString', searchCriteria);
-    const libraries = this.props.groups.filter((group) => {
-      return (group.distance === Infinity ||
-        group.distance <= this.state.miles &&
-        group.title.toLowerCase().match(searchCriteria) &&
-        group.tags.some(tag => this.props.selected[tag.id])
-      );
-    });
+    const searchCriteria = new RegExp(this.props.searchString.toLowerCase().trim(), 'i');
+    // console.log('+ searchString', searchCriteria);
+    let libraries = [];
+    if (!this.props.hasLocation) {
+      libraries = this.props.groups;
+    } else {
+      libraries = this.props.groups.filter((group) => {
+        return (
+          (this.props.range === Infinity || group.get('distance') <= this.props.range) &&
+          searchCriteria.test(group.get('title')) &&
+          group.get('tags').some(tag => this.props.selected.get(tag.get('id')))
+        );
+      });
+    }
+
     return (
       <div>
         <div className="banner-img">
@@ -167,7 +135,7 @@ export default class GroupIndex extends Component {
           <a href="https://www.linkedin.com/in/kenneth-ma-a813b3116"><div className="link-logo"></div></a>
         </footer>
         {
-          this.state.dateModalOpen && (<div className="modal">
+          this.state.dateModalOpen && (<div className="overlay">
             <EventIndexByDate closeModal={this.closeDateModal} />
           </div>)
         }

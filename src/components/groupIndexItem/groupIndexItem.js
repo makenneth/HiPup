@@ -1,29 +1,29 @@
 import React, { Component } from "react";
-import { HashHistory } from "react-router";
+import { browserHistory } from "react-router";
 
 export default class GroupIndexItem extends Component {
   showDetail = () => {
-    HashHistory.push("groups/" + this.props.group.id + "/home");
+    browserHistory.push(`groups/${this.props.group.get('id')}/home`);
   }
   render() {
     const group = this.props.group;
-    const tagTitles = group.tags.map(tag => tag.name);
+    const tagTitles = group.get('tags').map(tag => tag.get('name'));
     return (
       <div className="group-index-card" onClick={this.showDetail}>
         <div
           href="#"
           className="group-index-item front-side"
           style={{
-            backgroundImage: 'url(' + group.image_url + ')',
-            backgroundSize: "cover"
+            backgroundImage: `url(${group.get('image_url')})`,
+            backgroundSize: 'cover'
           }}
         >
           <div className="image-mask"></div>
-          <h4>{group.title}</h4>
+          <h4>{group.get('title')}</h4>
         </div>
         <div className="back-side">
-          <p>We have { group.participants.length } members!</p>
-          <p>Location: { group.city + ", " + group.state }</p>
+          <p>We have { group.get('participants').length } members!</p>
+          <p>Location: { `${group.get('city')}, ${group.get('state')}` }</p>
           <div id="hidden-tags">
             {
               tagTitles.map((tag, index) => {

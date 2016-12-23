@@ -1,7 +1,9 @@
 json.extract! group, :id, :title, :image_url, :lat, :lng, :creator_id, :city, :state
+if @location
+	json.distance Geocoder::Calculations.distance_between(@location, [group.lat, group.lng])
+end
 
-json.distance Geocoder::Calculations.distance_between(params[:user_coord], [group.lat, group.lng])
-json.created_at (Time.utc(*group.created_at).in_time_zone).strftime("%b %d, %Y")
+json.created_at (Time.utc(*group.created_at))
 json.tags group.tags
 
 Time.zone = params[:time_zone]

@@ -1,49 +1,40 @@
-import axios from "axios";
-import { csrfHeader } from "helpers";
+import Immutable, { fromJS } from 'immutable';
+import { Request } from 'helpers';
 
-const LOAD_AUTH = "mp/auth/LOAD_AUTH";
-const LOAD_AUTH_ERROR = "mp/auth/LOAD_AUTH_ERROR";
-const LOAD_AUTH_SUCCESS = "mp/auth/LOAD_AUTH_SUCCESS";
-const LOGOUT_SUCCESS = "mp/auth/LOGOUT_SUCCESS";
-const LOGOUT_FAIL = "mp/auth/LOGOUT_FAIL";
+const LOAD_AUTH = 'mp/auth/LOAD_AUTH';
+const LOAD_AUTH_ERROR = 'mp/auth/LOAD_AUTH_ERROR';
+export const LOAD_AUTH_SUCCESS = 'mp/auth/LOAD_AUTH_SUCCESS';
+const LOGOUT_SUCCESS = 'mp/auth/LOGOUT_SUCCESS';
+const LOGOUT_FAIL = 'mp/auth/LOGOUT_FAIL';
 
-const initialState = {
+const initialState = fromJS({
   club: {},
   error: null,
   loading: false,
   loaded: false
-};
+});
 
 export default (state = initialState, action) => {
   switch (action.type) {
     case LOAD_AUTH:
-      return {
-        ...state,
+      return state.merge({
         loading: true,
-      };
-    case LOAD_AUTH_SUCCESS: {
-      const club = {
-        ...action.payload
-      };
-      return {
-        ...state,
-        club,
-        loading: false,
-        loaded: true
-      };
-    }
-    case LOAD_AUTH_ERROR:
-      return {
-        ...state,
+        loaded: false,
+      });
+    case LOAD_AUTH_SUCCESS:
+      return state.merge({
+        club: action.payload,
         loading: false,
         loaded: true,
-        error: typeof action.payload === "object" ? "Something went wrong" : action.payload
-      };
+      });
+    case LOAD_AUTH_ERROR:
+      return state.merge({
+        loading: false,
+        loaded: true,
+        error: typeof action.payload === 'object' ? 'Something went wrong' : action.payload,
+      });
     case LOGOUT_SUCCESS:
-      return {
-        ...state,
-        club: {}
-      };
+      return state.set('club', Immutable.Map());
     default:
       return state;
   }
@@ -51,11 +42,9 @@ export default (state = initialState, action) => {
 
 
 export const loadAuth = () => {
-  const promise = axios.get("/api/user");
-
   return {
     types: [LOAD_AUTH, LOAD_AUTH_SUCCESS, LOAD_AUTH_ERROR],
-    promise
+    promise: new Request('/api/user').send(),
   };
 };
 
@@ -64,37 +53,23 @@ export const isLoaded = (state) => {
 };
 
 export const logIn = (user) => {
-  const promise = axios({
-    method: "POST",
-    url: "/api/session/new",
-    data: { user },
-    headers: csrfHeader()
-  });
-
   return {
     types: [LOAD_AUTH, LOAD_AUTH_SUCCESS, LOAD_AUTH_ERROR],
-    promise
+    promise: new Request('/api/session/new', 'POST', user).send(),
   };
 };
 
 export const signUp = (user) => {
-  const promise = axios({
-    method: "POST",
-    url: "/api/user/new",
-    data: { user },
-    headers: csrfHeader()
-  });
-
   return {
     types: [LOAD_AUTH, LOAD_AUTH_SUCCESS, LOAD_AUTH_ERROR],
-    promise
+    promise: new Request('/api/user/new', 'POST', user).send(),
   };
 };
 
 export const logOut = () => {
   return {
     types: ["NOT NEEDED", LOGOUT_SUCCESS, LOGOUT_FAIL],
-    promise: axios.delete("/session")
+    promise: new Request('/session', 'DELETE').send(),
   };
 };
 

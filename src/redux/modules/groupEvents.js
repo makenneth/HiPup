@@ -1,42 +1,41 @@
-import axios from "axios";
+import axios from 'axios';
+import { fromJS } from 'immutable';
+import { Request } from 'helpers';
 
 const FETCH = 'hp/groupsEvents/FETCH';
 const FETCH_SUCCESS = 'hp/groupsEvents/FETCH_SUCCESS';
 const FETCH_FAIL = 'hp/groupsEvents/FETCH_FAIL';
 
-const initialState = {
+const initialState = fromJS({
   groupEvents: [],
   error: null,
   endReached: false,
-  loading: false
-};
+  loading: false,
+});
 
 export default (state = initialState, action) => {
   switch (action.type) {
     case FETCH:
-      return {
-        ...state,
-        loading: true
-      };
+      return state.set('loading', true);
     case FETCH_SUCCESS: {
       const events = action.payload;
       let endReached = false;
       if (events.length < 10) {
         endReached = true;
       }
-      return {
-        ...state,
+
+      //can you do spread operator on list?
+      return state.merge({
         endReached,
         loading: false,
-        groupEvents: [...state.groupEvents, ...events]
-      };
+        groupEvents: [...state.groupEvents, ...events],
+      });
     }
     case FETCH_FAIL:
-      return {
-        ...state,
+      return state.merge({
         loading: false,
-        error: action.payload
-      }
+        error: action.payload,
+      });
     default:
       return state;
   }
@@ -45,7 +44,7 @@ export default (state = initialState, action) => {
 export const fetchGroupEvents = (start, end) => {
   return {
     types: [FETCH, FETCH_SUCCESS, FETCH_FAIL],
-    promise: axios.get(`/api/group_events?query=time&start=${start}&end=${end}`)
+    promise: new Request(`/api/group_events?query=time&start=${start}&end=${end}`).send(),
   };
 };
 

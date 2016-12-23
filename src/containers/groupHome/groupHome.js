@@ -1,38 +1,41 @@
 import React, { Component } from 'react';
-import { hashHistory } from 'react-router';
+import { browserHistory } from 'react-router';
 import { connect } from "react-redux";
 import { GroupEvents, GroupMemebrs } from 'components';
 
 @connect(() => ({}), { updateGroup })
 export default class GroupHome extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      editMode: false,
-      description: ""
-    };
-  }
+  state = {
+    editMode: false,
+    description: '',
+  };
+
   _showTag = (id) => {
-    hashHistory.push("tags/" + id);
+    browserHistory.push(`tags/${id}`);
   }
+
   pastMeetUp() {
-    return (<div>"No past meetups"</div>);
+    return (<div>No past meetups</div>);
   }
+
   startEditMode() {
     this.setState({
       description: this.props.group.description,
       editMode: true
     });
   }
+
   closeEditMode() {
     this.setState({ editMode: false });
   }
+
   saveEdit = () => {
     this.props.updateGroup({
       description: this.state.description
     }, this.props.group.id);
     this.closeEditMode();
   }
+
   description() {
     const group = this.props.group;
     if (!this.props.currentUser || this.props.currentUser.id !== group.creator_id) {
@@ -63,9 +66,11 @@ export default class GroupHome extends Component {
       );
     }
   }
+
   updateDescription = (e) => {
     this.setState({ description: e.target.value });
   }
+
   render() {
     const group = this.props.group;
     return (

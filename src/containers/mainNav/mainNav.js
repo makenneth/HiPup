@@ -4,25 +4,37 @@ import { hashHistory } from 'react-router';
 import { TagIndex } from 'components';
 import { openLogIn, openSignUp } from 'redux/modules/form';
 import { logOut } from 'redux/modules/auth';
-import { changeAllTags, toggleTag } from 'redux/modules/tags';
 import FaSearch from 'react-icons/lib/fa/search';
 import FaTags from 'react-icons/lib/fa/tags';
 import FaLocationArrow from 'react-icons/lib/fa/location-arrow';
 import FaCalendar from 'react-icons/lib/fa/calendar';
 import FaUser from 'react-icons/lib/fa/user';
+import {
+  toggleTag,
+  changeRange,
+  changeSearchString,
+  clearSearchString,
+  changeAllTags,
+} from 'redux/modules/query';
 
 @connect(
-  ({ tags }) => ({
-    tags: tags.tags,
-    tagsLoaded: tags.loaded,
-    selected: tags.selected,
+  ({ tags, query, geolocation }) => ({
+    tags: tags.get('tags'),
+    selected: query.get('tags'),
+    range: query.get('range'),
+    searchString: query.get('searchString'),
+    locationError: geolocation.get('error'),
+    hasLocation: query.get('location'),
   }),
   {
     openLogIn,
     openSignUp,
     logOut,
     changeAllTags,
-    toggleTag
+    toggleTag,
+    changeSearchString,
+    clearSearchString,
+    changeRange,
   }
 )
 export default class MainNav extends Component {
@@ -103,11 +115,37 @@ export default class MainNav extends Component {
       <ul className="nav-icons">
         <li className="location-icon">
           <FaLocationArrow />
-          {this.props.locationTooltip()}
+          <div className="location-tooltip">
+            <p>Searching within {this.props.range} Miles</p>
+            {
+              this.props.hasLocation ?
+                (<input
+                  id="distance-range"
+                  type="range"
+                  min="25"
+                  max="300"
+                  step="25"
+                  value={this.props.range}
+                  onChange={ev => this.props.changeRange(ev.target.value)}
+                />) : <p>'Could not detect your location'</p>
+            }
+          </div>
         </li>
         <li className="search-icon">
           <FaSearch />
-          {this.props.searchTooltip()}
+          <div className="search-tooltip">
+            <div className="search-container-sm cf">
+              <img className="search-icon-sm" src="/search-icon-2.png"/>
+              <input
+                id="search-box"
+                type="text"
+                autoFocus
+                onChange={ev => this.props.changeSearchString(ev.target.value)}
+                value={this.props.searchString}
+                placeholder="Find a pet event"
+              />
+            </div>
+          </div>
         </li>
         <li className="tag-icon">
           <FaTags />

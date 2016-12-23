@@ -2,13 +2,15 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { asyncConnect } from "redux-async-connect";
 import GroupNav from './groupNav';
-// import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
-import LogInForm from '../user/logInForm';
-import SignUpForm from '../user/signUpForm';
-import FormStyle from '../../modal/formStyle';
-// import Modal from 'react-modal';
+// import LogInForm from '../user/logInForm';
+// import SignUpForm from '../user/signUpForm';
+// import FormStyle from '../../modal/formStyle';
+import { fetchSingleGroup } from 'redux/modules/groups';
 
-@connect(({ auth: { user }, location }) => { user, location }, { fetchSingleGroup })
+@connect(({ auth, geolocation }) => {
+  user: auth.get('user'),
+  location: geolocation.get('location')
+}, { fetchSingleGroup })
 export default class GroupDetail extends Component {
   state = {
     group: {
@@ -21,17 +23,19 @@ export default class GroupDetail extends Component {
     }
   };
 
-  componentDidMount() {
-    this.props.fetchSingleGroup(this.props.params.groupId, this.props.location.timeZone);
-  }
+  // componentDidMount() {
+  //   this.props.fetchSingleGroup(this.props.params.groupId, this.props.location.timeZone);
+  // }
 
   componentWillReceiveProps(nextProps) {
-    this.props.fetchSingleGroup(nextProps.params.groupId, this.props.location.timeZone);
+    if (this.props.params.groupId !== nextProps.params.groupId) {
+      this.props.fetchSingleGroup(nextProps.params.groupId);
+    }
   }
 
   joinGroup = (callback) => {
     if (this.props.user && !this.hasJoinedGroup()) {
-      ClientActions.joinGroup(this.state.currentUser.id, this.state.group.id);
+      ClientActions.joinGroup(this.props.user.id, this.state.group.id);
       ClientActions.fetchSingleGroup(this.props.params.groupId, LocationStore.currentLocation().timeZone);
       if (Object.prototype.toString.call(callback) === '[object Array]') callback();
     } else {
@@ -40,15 +44,15 @@ export default class GroupDetail extends Component {
   }
 
   leaveGroup = () => {
-    if (this.state.currentUser && this.hasJoinedGroup()) {
-      ClientActions.leaveGroup(this.state.currentUser.id, this.state.group.id);
+    if (this.props.user && this.hasJoinedGroup()) {
+      ClientActions.leaveGroup(this.props.user.id, this.state.group.id);
       ClientActions.fetchSingleGroup(this.props.params.groupId, LocationStore.currentLocation().timeZone);
     }
   }
 
   _joinButtons() {
-    if ((/events\/\d+$/).test(this.props.location.pathname)) return "";
-    if (!this.state.currentUser || !this.hasJoinedGroup()) {//should be in user store
+    if ((/events\/\d+$/).test(this.props.location.pathname)) return '';
+    if (!this.props.user || !this.hasJoinedGroup()) {//should be in user store
       return <ul className="join-group" onClick={this.joinGroup}>Join Group</ul>
     } else {
       return <ul className="leave-group" onClick={this.leaveGroup}>Leave Group</ul>
@@ -56,14 +60,7 @@ export default class GroupDetail extends Component {
   }
 
   hasJoinedGroup() {
-    if (!this.state.currentUser) return false;
-    var groups = this.state.currentUser.groups;
-    for (var i = 0; i < groups.length; i++) {
-      if (groups[i].id === this.state.group.id){
-        return true;
-      }
-    }
-    return false;
+    return this.props.user && !!this.props.user.groups.find(group => this.props.selected.id === group.id);
   }
 
   render() {

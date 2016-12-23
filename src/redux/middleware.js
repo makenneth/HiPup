@@ -10,20 +10,29 @@ export default ({ dispatch, getState }) => next => action => {
 
   const [REQUEST, SUCCESS, FAILURE] = types;
   next({ ...rest, type: REQUEST });
-  promise.then((payload) => {
-    next({ ...rest, payload: payload.data, type: SUCCESS });
+  promise.then((res) => {
+    return res.json().then((data) => {
+      if (res.status >= 400) {
+        return Promise.reject(data);
+      } else {
+        return Promise.resolve(data);
+      }
+    });
+  }).then((payload) => {
+    next({ ...rest, payload: payload, type: SUCCESS });
   }, (error) => {
-    if (error.response) {
-      next({ ...rest, payload: error.response.data, type: FAILURE });
+    console.log(error);
+    if (Array.isArray(error)) {
+      next({ ...rest, payload: error[0], type: FAILURE });
     } else {
-      console.log(error);
+      // console.log(error);
       next({ ...rest, payload: "Something went wrong...", type: FAILURE });
     }
   }).catch((error) => {
-    if (error.response) {
-      next({ ...rest, payload: error.response.data, type: FAILURE });
+    console.log(error);
+    if (Array.isArray(error)) {
+      next({ ...rest, payload: error[0], type: FAILURE });
     } else {
-      console.log(error);
       next({ ...rest, payload: "Something went wrong...", type: FAILURE });
     }
   });

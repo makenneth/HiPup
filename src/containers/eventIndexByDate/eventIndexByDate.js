@@ -16,8 +16,8 @@ import { asyncConnect } from "redux-async-connect";
 }])
 @connect(
   ({ groupEvents }) => ({
-    groupEvents: groupEvents.groupEvents,
-    endReached: groupEvents.endReached
+    groupEvents: groupEvents.get('groupEvents'),
+    endReached: groupEvents.get('endReached'),
   }),
   { fetchGroupEvents })
 export default class EventIndexByDate extends Component {
