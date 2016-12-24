@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import GroupEventItem from './groupEventItem';
+import GroupEventItem from './GroupEventItem';
 
 export default class GroupEvents extends Component {
   state = {
@@ -60,6 +60,4 @@ export default class GroupEvents extends Component {
       </div>
     );
   }
-});
-
-module.exports = GroupEvents;
+};
