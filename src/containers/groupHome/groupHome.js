@@ -3,93 +3,89 @@ import { browserHistory } from 'react-router';
 import { connect } from "react-redux";
 import { GroupEvents, GroupMemebrs } from 'components';
 
-@connect(() => ({}), { updateGroup })
+@connect(({ group }) => ({ group }), {})
 export default class GroupHome extends Component {
-  state = {
-    editMode: false,
-    description: '',
-  };
+  // state = {
+  //   editMode: false,
+  //   description: '',
+  // };
 
-  _showTag = (id) => {
-    browserHistory.push(`tags/${id}`);
-  }
+  // _showTag = (id) => {
+  //   browserHistory.push(`tags/${id}`);
+  // }
 
-  pastMeetUp() {
-    return (<div>No past meetups</div>);
-  }
+  // startEditMode() {
+  //   this.setState({
+  //     description: this.props.group.description,
+  //     editMode: true
+  //   });
+  // }
 
-  startEditMode() {
-    this.setState({
-      description: this.props.group.description,
-      editMode: true
-    });
-  }
+  // closeEditMode() {
+  //   this.setState({ editMode: false });
+  // }
 
-  closeEditMode() {
-    this.setState({ editMode: false });
-  }
-
-  saveEdit = () => {
-    this.props.updateGroup({
-      description: this.state.description
-    }, this.props.group.id);
-    this.closeEditMode();
-  }
+  // saveEdit = () => {
+  //   this.props.updateGroup({
+  //     description: this.state.description
+  //   }, this.props.group.id);
+  //   this.closeEditMode();
+  // }
 
   description() {
     const group = this.props.group;
-    if (!this.props.currentUser || this.props.currentUser.id !== group.creator_id) {
+    // if (!this.props.currentUser || this.props.currentUser.id !== group.creator_id) {
       return (<div className="group-description">
         <h2>Description: </h2>
-        <p>{group.description}</p>
+        <p>{group.get('description')}</p>
       </div>);
-    } else {
-      let button, textbox;
-      if (this.state.editMode) {
-        button = (<div className="edit" onClick={this.saveEdit}>✓</div>);
-        textbox = (<textarea
-          id="group-descript-text"
-          onChange={this.updateDescription}
-          value={this.state.description}
-          rows="5"
-        />);
-      } else {
-        button = (<div className="edit" onClick={this.startEditMode}>✎</div>);
-        textbox = (<p>{group.description}</p>);
-      }
-      return (
-        <div className="group-description">
-          {button}
-          <h2>Description: </h2>
-          {textbox}
-        </div>
-      );
-    }
+    // } else {
+    //   let button, textbox;
+    //   if (this.state.editMode) {
+    //     button = (<div className="edit" onClick={this.saveEdit}>✓</div>);
+    //     textbox = (<textarea
+    //       id="group-descript-text"
+    //       onChange={this.updateDescription}
+    //       value={this.state.description}
+    //       rows="5"
+    //     />);
+    //   } else {
+    //     button = (<div className="edit" onClick={this.startEditMode}>✎</div>);
+    //     textbox = (<p>{group.description}</p>);
+    //   }
+    //   return (
+    //     <div className="group-description">
+    //       {button}
+    //       <h2>Description: </h2>
+    //       {textbox}
+    //     </div>
+    //   );
+    // }
   }
 
-  updateDescription = (e) => {
-    this.setState({ description: e.target.value });
-  }
+  // updateDescription = (e) => {
+  //   this.setState({ description: e.target.value });
+  // }
 
   render() {
     const group = this.props.group;
     return (
       <div className="group-home">
           <div className="group-info">
-            <li className="address">{group.city + ", " + group.state}</li>
-            <li className="founded">Founded {group.created_at} </li>
-            <li className="stats"><div>Members </div><div>{group.participants.length}</div></li>
+            <li className="address">{group.get('city') + ", " + group.get('state')}</li>
+            <li className="founded">Founded {group.get('created_at')} </li>
+            <li className="stats"><div>Members </div><div>{group.get('participants').size}</div></li>
             {
-              group.upcoming_events.length ?
+              group.get('upcoming_events').size ?
                 <li className="stats">
-                  <div>Upcoming Meetups: </div><div>{group.upcoming_events.length}</div></li>
+                  <div>Upcoming Meetups: </div><div>{group.get('upcoming_events').size}</div></li>
                   :
                 <li><div>No upcoming meetups</div></li>
             }
             {
-              group.old_events.length ?
+              group.get('old_events').size ?
                 (<li className="stats">
-                  <div>Past Meetups: </div><div>{group.old_events.length}</div>
+                  <div>Past Meetups: </div><div>{group.get('old_events').size}</div>
                 </li>) :
                 <li><div>No past meetups</div></li>
             }
@@ -97,8 +93,8 @@ export default class GroupHome extends Component {
               <h3>We're about:</h3>
               <ul>
               {
-                group.tags.map((tag) => {
-                  return (<li key={tag.id} tag={tag}>{tag.name}</li>);
+                group.get('tags').map((tag) => {
+                  return (<li key={tag.get('id')} tag={tag}>{tag.get('name')}</li>);
                 })
               }
               </ul>
@@ -107,11 +103,11 @@ export default class GroupHome extends Component {
         <div className="group-info-container">
             {this.description()}
             <div className="event-container">
-              <GroupEvents group={this.props.group} groupId={this.props.params.groupId} />
+              <GroupEvents group={group} groupId={this.props.params.groupId} />
             </div>
         </div>
         <div className="group-member-container">
-          <GroupMembers group={this.props.group} groupId={this.props.params.groupId} />
+          <GroupMembers group={group} groupId={this.props.params.groupId} />
         </div>
       </div>
     );

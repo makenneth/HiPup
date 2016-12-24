@@ -5,57 +5,38 @@ import GroupNav from './groupNav';
 // import LogInForm from '../user/logInForm';
 // import SignUpForm from '../user/signUpForm';
 // import FormStyle from '../../modal/formStyle';
-import { fetchSingleGroup } from 'redux/modules/groups';
+import { fetchGroup, joinGroup } from 'redux/modules/groups';
+import { openLogIn } from 'redux/modules/form';
 
 @connect(({ auth, geolocation }) => {
   user: auth.get('user'),
   location: geolocation.get('location')
-}, { fetchSingleGroup })
+}, { fetchGroup, joinGroup, openLogIn })
 export default class GroupDetail extends Component {
-  state = {
-    group: {
-      title: undefined,
-      description: undefined,
-      tags: [],
-      old_events: [],
-      upcoming_events: [],
-      participants: [],
-    }
-  };
-
   // componentDidMount() {
-  //   this.props.fetchSingleGroup(this.props.params.groupId, this.props.location.timeZone);
+  //   this.props.fetchGroup(this.props.params.groupId, this.props.location.timeZone);
   // }
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.params.groupId !== nextProps.params.groupId) {
-      this.props.fetchSingleGroup(nextProps.params.groupId);
-    }
+    // if (this.props.params.groupId !== nextProps.params.groupId) {
+    //   this.props.fetchGroup(nextProps.params.groupId);
+    // }
   }
 
   joinGroup = (callback) => {
     if (this.props.user && !this.hasJoinedGroup()) {
-      ClientActions.joinGroup(this.props.user.id, this.state.group.id);
-      ClientActions.fetchSingleGroup(this.props.params.groupId, LocationStore.currentLocation().timeZone);
-      if (Object.prototype.toString.call(callback) === '[object Array]') callback();
+      this.props.joinGroup(this.props.group.id);
+      // this.props.fetchGroup(this.props.params.groupId, LocationStore.currentLocation().timeZone);
+      if ({}.toString.call(callback) === '[object Array]') callback();
     } else {
-      this.setState({ logInIsOpen: true });
+      this.props.openLogIn();
     }
   }
 
   leaveGroup = () => {
     if (this.props.user && this.hasJoinedGroup()) {
-      ClientActions.leaveGroup(this.props.user.id, this.state.group.id);
-      ClientActions.fetchSingleGroup(this.props.params.groupId, LocationStore.currentLocation().timeZone);
-    }
-  }
-
-  _joinButtons() {
-    if ((/events\/\d+$/).test(this.props.location.pathname)) return '';
-    if (!this.props.user || !this.hasJoinedGroup()) {//should be in user store
-      return <ul className="join-group" onClick={this.joinGroup}>Join Group</ul>
-    } else {
-      return <ul className="leave-group" onClick={this.leaveGroup}>Leave Group</ul>
+      this.props.leaveGroup(this.props.group.id);
+      // this.props.fetchGroup(this.props.params.groupId, LocationStore.currentLocation().timeZone);
     }
   }
 
@@ -64,14 +45,15 @@ export default class GroupDetail extends Component {
   }
 
   render() {
-    var children = !this.props.children ? this.props.children :
-      React.cloneElement(this.props.children, { group: this.state.group, hasJoinedGroup: this.hasJoinedGroup,
-                                                joinGroup: this.joinGroup, currentUser: this.state.currentUser  } );
-
     return (
       <div className="group-parent-div">
-        <GroupNav group={this.state.group} joinButtons={this._joinButtons()} path={this.props.location.pathname}/>
-          {children}
+        <GroupNav
+          group={this.props.group}
+          joinGroup={this.joinGroup}
+          leaveGroup={this.leaveGroup}
+          path={this.props.location.pathname}
+        />
+        {this.props.children}
       </div>
     );
   }

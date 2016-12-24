@@ -116,8 +116,18 @@ export default class GroupNav from Component {
     }
   }
 
+  joinButton() {
+    if ((/events\/\d+$/).test(this.props.path)) return '';
+    if (!this.props.user || !this.hasJoinedGroup()) {//should be in user store
+      return <ul className="join-group" onClick={this.props.joinGroup}>Join Group</ul>
+    } else {
+      return <ul className="leave-group" onClick={this.props.leaveGroup}>Leave Group</ul>
+    }
+  }
+
   render() {
     const id = this.props.group.id;
+
     return (
       <div>
         <div style={{ position: 'relative' }}>
@@ -131,7 +141,7 @@ export default class GroupNav from Component {
                 }
             </ul>
             {this.adminNav()}
-            {this.props.joinButtons}
+            {this.joinButton}
           </div>
         </div>
       </div>

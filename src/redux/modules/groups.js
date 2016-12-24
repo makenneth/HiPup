@@ -1,11 +1,10 @@
-import axios from 'axios';
 import { fromJS } from 'immutable';
 import { Request } from 'helpers';
 
 const SET_RANGE = 'hp/groups/SET_RANGE';
 const FETCH_GROUPS = 'hp/groups/FETCH_GROUPS';
 export const FETCHED_GROUPS = 'hp/groups/FETCHED_GROUPS';
-const FETCH_GROUP_ERROR = 'hp/groups/FETCH_GROUP_ERROR';
+const FETCH_GROUPS_ERROR = 'hp/groups/FETCH_GROUPS_ERROR';
 
 const initialState = fromJS({
   loading: false,
@@ -25,7 +24,7 @@ export default (state = initialState, action) => {
         loaded: true
       });
     }
-    case FETCH_GROUP_ERROR:
+    case FETCH_GROUPS_ERROR:
       return state.merge({
         error: action.payload,
         loading: false,
@@ -38,7 +37,7 @@ export default (state = initialState, action) => {
 
 export const fetchGroups = () => {
   return {
-    types: [FETCH_GROUPS, FETCHED_GROUPS, FETCH_GROUP_ERROR],
+    types: [FETCH_GROUPS, FETCHED_GROUPS, FETCH_GROUPS_ERROR],
     promise: new Request('/api/groups').send(),
   };
 };

@@ -8,7 +8,7 @@ class Api::EventUsersController < ApplicationController
 		end
 	end
 
-	def leave
+	def destroy
 		event_user = EventUser.find_by(event_users_params)
 		if event_user.destroy
 			render "api/users/show", status: 200
