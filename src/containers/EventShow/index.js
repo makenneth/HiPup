@@ -1,28 +1,26 @@
-const React = require('react');
+import React, { Component } from 'react';
 const EventMap = require('./map');
 
-const EventShow = React.createClass({
-  mixins: [CurrentUserState],
-  getInitialState: function() {
-    return {
-      groupEvent: GroupEventStore.find(this.props.params.eventId),
-      distance: 0,
-      logInIsOpen: false,
-      signUpIsOpen: false,
-      confirmIsOpen: false,
-      editMode: false,
-      title: "",
-      description: ""
-    };
-  },
-  startEditMode: function() {
+export default class EventShow extends Component {
+  state = {
+    distance: 0,
+    logInIsOpen: false,
+    signUpIsOpen: false,
+    confirmIsOpen: false,
+    editMode: false,
+    title: "",
+    description: ""
+  };
+
+  startEditMode() {
     this.setState({
       editMode: true,
       title: this.state.groupEvent.title,
       description: this.state.groupEvent.description
     });
-  },
-  editButton: function() {
+  }
+
+  editButton() {
     if (!this.state.currentUser || this.state.currentUser.id !== this.state.groupEvent.host_id){
       return ""
     } else {
@@ -30,11 +28,13 @@ const EventShow = React.createClass({
         (<div className="edit" onClick={this.saveEdit}>✓</div>) :
         (<div className="edit" onClick={this.startEditMode}>✎</div>);
     }
-  },
-  endEditMode: function() {
+  }
+
+  endEditMode() {
     this.setState({ editMode: false });
-  },
-  editTitle: function() {
+  }
+
+  editTitle() {
     let content = <h3>{this.state.groupEvent.title}</h3>;
     if (this.state.editMode) {
       content = (<input type="text"
@@ -45,16 +45,18 @@ const EventShow = React.createClass({
     return (<div id="header">
       {content}
     </div>);
-  },
-  saveEdit: function() {
+  }
+
+  saveEdit = () => {
     ClientActions.editEvent(
       this.state.groupEvent.id, {
         title: this.state.title,
         description: this.state.description
     });
     this.setState({ editMode: false })
-  },
-  editDescription: function() {
+  }
+
+  editDescription() {
     if (this.state.editMode) {
       return (<div id="description">
         <h3>Description: </h3>
@@ -69,20 +71,23 @@ const EventShow = React.createClass({
         {this.state.groupEvent.description}
       </div>);
     }
-  },
-  updateField: function(field, e) {
+  }
+
+  updateField = (field, e) => {
     const fieldObj = {};
     fieldObj[field] = e.target.value;
     this.setState(fieldObj);
-  },
-  componentDidMount: function() {
+  }
+
+  componentDidMount() {
     this.esListener = GroupEventStore.addListener(this._fetchedEvent);
 
     if (!this.state.groupEvent.event_time) {
       ClientActions.fetchSingleEvent(this.props.params.eventId, LocationStore.currentLocation().timeZone);
     }
-  },
-  toggleEventButton: function() {
+  }
+
+  toggleEventButton() {
     if (!this._alreadyRSVP()) {
       if (!this.state.currentUser) {
         return <button onClick={this.joinAndRsvpEvent} className="join">Sign In</button>;
@@ -95,27 +100,31 @@ const EventShow = React.createClass({
     } else {
       return <button onClick={this.changeRSVP} className="leave">Change RSVP</button>;
     }
-  },
-  joinAndRsvpEvent: function() {
+  }
+
+  joinAndRsvpEvent = () => {
     if (this.state.currentUser) {
       this.props.joinGroup(this.rsvpEvent());
     } else {
       this.props.joinGroup();
     }
-  },
-  rsvpEvent: function() {
+  }
+
+  rsvpEvent = () => {
     if (this.state.currentUser && !this._alreadyRSVP()) {
       ClientActions.rsvpEvent(this.state.currentUser.id, this.state.groupEvent.id);
       ClientActions.fetchSingleEvent(this.props.params.eventId, LocationStore.currentLocation().timeZone);
     }
-  },
-  changeRSVP: function() {
+  }
+
+  changeRSVP = () => {
     if (this.state.currentUser && this._alreadyRSVP()) {
       ClientActions.changeRSVP(this.state.currentUser.id, this.state.groupEvent.id);
       ClientActions.fetchSingleEvent(this.props.params.eventId, LocationStore.currentLocation().timeZone);
     }
-  },
-  _alreadyRSVP: function() {
+  }
+
+  _alreadyRSVP() {
     if (!this.state.currentUser) return false;
     const groupEvents = this.state.currentUser.joinedEvents;
     for (let i = 0; i < groupEvents.length; i++) {
@@ -124,31 +133,34 @@ const EventShow = React.createClass({
       }
     }
     return false;
-  },
-  _fetchedEvent: function() {
+  }
+
+  _fetchedEvent = () => {
     this.setState({
       groupEvent: GroupEventStore.find(this.props.params.eventId)
     })
-  },
-  parseTime: function() {
+  }
+
+  parseTime() {
     const parsingTime = this.state.groupEvent.event_time;
     if (!parsingTime) return [0, 0];
     return parsingTime.split(" || ");
-  },
-  componentWillUnmount: function() {
-    if (this.esListener) this.esListener.remove();
-  },
-  cancelEvent: function() {
-    if (this.state.currentUser) this.setState({confirmIsOpen: true});
-  },
-  forSureCancelEvent: function() {
+  }
+
+  cancelEvent = () => {
+    if (this.state.currentUser) this.setState({ confirmIsOpen: true });
+  }
+
+  confirmCancelEvent = () => {
     ClientActions.cancelEvent(this.state.currentUser.id, this.state.groupEvent.id);
     this.closeConfirmModal();
-  },
-  closeConfirmModal: function() {
+  }
+
+  closeConfirmModal = () => {
     this.setState({ confirmIsOpen: false });
-  },
-  render: function() {
+  }
+
+  render() {
     const groupEvent = this.state.groupEvent;
     const eventTime = this.parseTime();
     const user = this.state.currentUser || { id: "" };

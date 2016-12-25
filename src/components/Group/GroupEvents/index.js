@@ -20,11 +20,11 @@ export default class GroupEvents extends Component {
         <div className="group-event-nav">
           <li onClick={() => this.setTab(0)}
               className={this.state.tabSelected === 0 ? "active-tab" : "inactive-event-tab"}>
-              Upcoming Events ({upcomingEvents.length})
+              Upcoming Events ({upcomingEvents.size})
           </li>
           <li onClick={() => this.setTab(1)}
               className={this.state.tabSelected === 1 ? "active-tab" : "inactive-event-tab"}>
-              Past Events ({oldEvents.length})
+              Past Events ({oldEvents.size})
           </li>
         </div>
         <div className="browsing-events">
@@ -34,7 +34,7 @@ export default class GroupEvents extends Component {
                 {
                   upcomingEvents.map((upcomingEvent) => {
                     return (<GroupEventItem
-                      key={upcomingEvent.id}
+                      key={upcomingEvent.get('id')}
                       groupEvent={upcomingEvent}
                       groupId={this.props.groupId}
                     />);
@@ -48,7 +48,7 @@ export default class GroupEvents extends Component {
                 {
                   oldEvents.map((oldEvent) => {
                     return (<GroupEventItem
-                      key={oldEvent.id}
+                      key={oldEvent.get('id')}
                       groupEvent={oldEvent}
                       groupId={this.props.groupId}
                     />);

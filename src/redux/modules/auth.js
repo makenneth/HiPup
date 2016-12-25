@@ -1,5 +1,6 @@
 import Immutable, { fromJS } from 'immutable';
 import { Request } from 'helpers';
+import { JOINED_GROUP, LEFT_GROUP } from './group';
 
 const LOAD_AUTH = 'mp/auth/LOAD_AUTH';
 const LOAD_AUTH_ERROR = 'mp/auth/LOAD_AUTH_ERROR';
@@ -16,6 +17,8 @@ const initialState = fromJS({
 
 export default (state = initialState, action) => {
   switch (action.type) {
+    case JOINED_GROUP:
+      return state.updateIn(['club', 'groups']);
     case LOAD_AUTH:
       return state.merge({
         loading: true,

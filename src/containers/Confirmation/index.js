@@ -10,6 +10,11 @@ import './styles.less';
   }),
   { closeConfirm })
 export default class Confirmation extends Component {
+  handleConfirm = () => {
+    this.props.closeConfirm();
+    this.props.callback();
+  }
+
   render() {
     if (!this.props.isOpen) {
       return (<div></div>);
@@ -21,7 +26,7 @@ export default class Confirmation extends Component {
           <div className="confirmation-alert">
             <h2>Are you sure?</h2>
             <div className="button-div">
-              <button onClick={this.props.callback}>Yes</button>
+              <button onClick={this.handleConfirm}>Yes</button>
               <button onClick={this.props.closeConfirm}>No</button>
             </div>
           </div>

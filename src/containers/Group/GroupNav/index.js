@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
+import { removeGroup } from 'redux/modules/group';
+import { openConfirm } from 'redux/modules/confirmation';
 
-@connect(() => ({}), { removeGroup })
+@connect(() => ({}), { removeGroup, openConfirm })
 export default class GroupNav from Component {
   state = {
     eventFormIsOpen: false,
@@ -21,18 +23,13 @@ export default class GroupNav from Component {
 
   deleteGroup = () => {
     if (this.props.user) {
-      this.setState({ confirmIsOpen: true });
+      this.props.openConfirm(this.confirmDeleteGroup);
     }
   }
 
   confirmDeleteGroup = () => {
     this.props.removeGroup(this.props.group.get('id'));
-    // this.closeConfirmModal();
     browserHistory.push("/");
-  }
-
-  closeConfirmModal = () => {
-    this.setState({ confirmIsOpen: false });
   }
 
   openModal() {
@@ -43,25 +40,12 @@ export default class GroupNav from Component {
     this.setState({ eventFormIsOpen: false });
   }
 
-  // openSuccessModal(message) {
-  //   this.setState({ successModalIsOpen: true, message: message });
-  // }
-
-  // closeSuccessModal() {
-  //   this.setState({ successModalIsOpen: false, message: "" });
-  // },
-
-  // showSuccessMessage() {
-  //   this.closeEditModal();
-  //   this.openSuccessModal();
-  // }
-
   _setMessage(message) {
     this.state.message = message;
   }
 
   adminCheck() {
-    return this.state.currentUser && this.props.group.creator_id === this.state.currentUser.id;
+    return this.props.user && this.props.group.get('creatorId') === this.props.user.get('id');
   }
 
   // startEditMode = () => {
@@ -89,26 +73,26 @@ export default class GroupNav from Component {
   }
 
   title() {
-    if (!this.adminCheck()) {
-      return (<div className="nav-div">
-        {this.props.group.title}
-      </div>);
-    } else {
-      var titleBox, icon;
-      if (this.state.editMode){
-        titleBox = <input type="text" value={this.state.title} onChange={this.updateTitle}/> ;
-        icon = (<div className="edit" onClick={this.saveChange}>✓</div>);
-      } else {
-        titleBox = this.props.group.title;
-        icon = (<div className="edit" onClick={this.startEditMode}>✎</div>);
-      }
-      return (<div className="nav-div cf">
-        <div className="title-container">
-          {icon}
-          {titleBox}
-        </div>
-      </div>);
-    }
+    // if (!this.adminCheck()) {
+    return (<div className="nav-div">
+      {this.props.group.title}
+    </div>);
+    // } else {
+    //   var titleBox, icon;
+    //   if (this.state.editMode){
+    //     titleBox = <input type="text" value={this.state.title} onChange={this.updateTitle}/> ;
+    //     icon = (<div className="edit" onClick={this.saveChange}>✓</div>);
+    //   } else {
+    //     titleBox = this.props.group.title;
+    //     icon = (<div className="edit" onClick={this.startEditMode}>✎</div>);
+    //   }
+    //   return (<div className="nav-div cf">
+    //     <div className="title-container">
+    //       {icon}
+    //       {titleBox}
+    //     </div>
+    //   </div>);
+    // }
   }
 
   joinButton() {
@@ -121,8 +105,6 @@ export default class GroupNav from Component {
   }
 
   render() {
-    const id = this.props.group.get('id');
-
     return (
       <div>
         <div style={{ position: 'relative' }}>
@@ -147,12 +129,4 @@ export default class GroupNav from Component {
               onRequestClose={this.closeModal}>
           <NewEventForm closeModal={this.closeModal} groupId={id}/>
         </Modal>
-        <Modal isOpen={this.state.successModalIsOpen} style={SuccessModalStyle}
-                onRequestClose={this.closeSuccessModal}>
-          <SuccessMessage message={this.state.message}
-                  closeModal={this.closeSuccessModal} />
-        </Modal>
-        <Modal isOpen={this.state.confirmIsOpen} style={ConfirmationStyle}
-              onRequestClose={this.closeConfirmModal}>
-              <Confirmation confirm={this.forSureDeleteGroup} deny={this.closeConfirmModal}/>
-        </Modal> */
+*/

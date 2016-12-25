@@ -28,7 +28,6 @@ export default class GroupDetail extends Component {
   joinGroup = (callback) => {
     if (this.props.user && !this.hasJoinedGroup()) {
       this.props.joinGroup(this.props.group.get('id'));
-      // this.props.fetchGroup(this.props.params.groupId, LocationStore.currentLocation().timeZone);
       if ({}.toString.call(callback) === '[object Array]') callback();
     } else {
       this.props.openLogIn();

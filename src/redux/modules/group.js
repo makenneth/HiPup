@@ -5,8 +5,8 @@ const SET_RANGE = 'hp/group/SET_RANGE';
 const FETCH_GROUP = 'hp/group/FETCH_GROUPS';
 const FETCHED_GROUP = 'hp/group/FETCHED_GROUPS';
 const FETCH_GROUP_ERROR = 'hp/group/FETCH_GROUP_ERROR';
-const JOINED_GROUP = 'hp/group/JOINED_GROUP';
-const LEFT_GROUP = 'hp/group/LEFT_GROUP';
+export const JOINED_GROUP = 'hp/group/JOINED_GROUP';
+export const LEFT_GROUP = 'hp/group/LEFT_GROUP';
 const initialState = fromJS({
   loading: false,
   loaded: false,
@@ -27,8 +27,11 @@ export default (state = initialState, action) => {
       };
     }
     case LEFT_GROUP:
+      const partIndex = state.getIn(['group', 'participants'])
+        .findIndex(participant => participant.get('id') === action.payload.id);
+      return state.updateIn(['group', 'participants'], arr => arr.delete(partIndex));
     case JOINED_GROUP:
-      return state.set('group', action.payload);
+      return state.updateIn(['group', 'participants'], arr => arr.push(fromJS(action.payload)));
     case FETCH_GROUP_ERROR:
       return state.merge({
         error: action.payload,
@@ -55,15 +58,22 @@ export const joinGroup = (groupId) => {
   };
 
   return {
-    types: ["TO BE ADDED", JOINED_GROUP, "TO BE ADDED"],
+    types: ['TO BE ADDED', JOINED_GROUP, 'TO BE ADDED'],
     promise: new Request('/api/group_participants', 'POST', data).send(),
   };
 };
 
 export const leaveGroup = (groupId) => {
   return {
-    types: ["TO BE ADDED", JOINED_GROUP, "TO BE ADDED"],
+    types: ['TO BE ADDED', JOINED_GROUP, 'TO BE ADDED'],
     promise: new Request(`/api/group_participants/${groupId}`, 'DELETE').send(),
+  };
+};
+
+export const removeGroup = (groupId) => {
+  return {
+    types: ['TO BE ADDED', REMOVED_GROUP, 'TO BE ADDED'],
+    promise: new Request(`/api/group/${groupId}`, 'DELETE').send(),
   };
 };
 

@@ -7,7 +7,12 @@ class Api::GroupParticipantsController < ApplicationController
 			group_id: params[:group_participant][:group_id]
 		)
 		if group_participant.save
-			render 'api/users/show', status: 200
+			data = {
+				id: @user.id,
+				name: @user.name,
+				imageUrl: @user.image_url
+			}
+			render json: data, status: 200
 		else
 			render json: group_participant.errors.full_messages, status: 422
 		end
@@ -19,7 +24,12 @@ class Api::GroupParticipantsController < ApplicationController
 			group_id: params[:id]
 		)
 		if group_participant.destroy
-			render 'api/users/show', status: 200
+			data = {
+				id: @user.id,
+				name: @user.name,
+				imageUrl: @user.image_url
+			}
+			render json: data, status: 200
 		else
 			render json: ["Unable to delete"], status: 404
 		end
