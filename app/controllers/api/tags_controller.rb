@@ -1,7 +1,12 @@
 class Api::TagsController < ApplicationController
   def index
-    #caaacccccche
-  	@tags = Tag.includes(:groups)
+    tags = $redis.get('tags')
+    unless tags
+    	@tags = Tag.includes(:groups)
+      $redis.set('tags', @tags.to_json)
+    else
+      @tags = JSON.parse(tags)
+    end
   end
 
   def show

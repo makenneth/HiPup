@@ -6,22 +6,34 @@ class ApplicationController < ActionController::Base
   def current_user
     return nil unless session[:session_token]
 
-  	@current_user ||= User.find_by_session_token(session[:session_token])
+    unless @current_user
+      user = $redis.get("user:#{session[:session_token]}")
+
+      if user
+        @current_user = JSON.parse(user)
+      else
+        @current_user = User.find_by_session_token(session[:session_token])
+        $redis.set("user:#{session[:session_token]}", @current_user)
+      end
+    end
 
     if params[:geolocation] && cookies[:geolocation] != params[:geolocation]
       cookies[:geolocation] = params[:geolocation]
     end
-    return @current_user
+
+    @current_user
   end
 
   def log_in!(user)
     @current_user = user
     new_session = Session.create(user_id: @current_user.id, session_token: Session.generate_session_token)
   	session[:session_token] = new_session.session_token
+    $redis.set("user:#{session[:session_token]}", @current_user)
   end
 
   def log_out!
   	current_user.destroy_session_token!(session[:session_token])
+    $redis.del("user:#{session[:session_token]}")
   	@current_user = nil
   	session[:session_token] = nil
   end
@@ -39,9 +51,7 @@ class ApplicationController < ActionController::Base
       return [l["lat"], l["lng"]]
     end
 
-    if current_user
-      return [current_user.lat, current_user.lng]
-    end
+    return [current_user.lat, current_user.lng] if current_user
   end
   helper_method :current_user, :current_user_info
 end
