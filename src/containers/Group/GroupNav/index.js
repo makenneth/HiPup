@@ -2,20 +2,15 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
 
-@connect(({ auth: { user } }) => ({ user }), { })
+@connect(() => ({}), { removeGroup })
 export default class GroupNav from Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      eventFormIsOpen: false,
-      editFormIsOpen: false,
-      successModalIsOpen: false,
-      message: '',
-      confirmIsOpen: false,
-      editMode: false,
-      title: '',
-    };
-  }
+  state = {
+    eventFormIsOpen: false,
+    editFormIsOpen: false,
+    // message: '',
+    // editMode: false,
+    // title: '',
+  };
 
   adminNav() {
     return (this.adminCheck() && <ul className="admin-group-nav">
@@ -24,19 +19,19 @@ export default class GroupNav from Component {
     </ul>);
   }
 
-  deleteGroup() {
-    if (this.state.currentUser){
+  deleteGroup = () => {
+    if (this.props.user) {
       this.setState({ confirmIsOpen: true });
     }
   }
 
-  forSureDeleteGroup() {
-    ClientActions.removeGroup(this.props.group.id);
-    this.closeConfirmModal();
-    HashHistory.push("/");
+  confirmDeleteGroup = () => {
+    this.props.removeGroup(this.props.group.get('id'));
+    // this.closeConfirmModal();
+    browserHistory.push("/");
   }
 
-  closeConfirmModal() {
+  closeConfirmModal = () => {
     this.setState({ confirmIsOpen: false });
   }
 
@@ -48,18 +43,18 @@ export default class GroupNav from Component {
     this.setState({ eventFormIsOpen: false });
   }
 
-  openSuccessModal(message) {
-    this.setState({ successModalIsOpen: true, message: message });
-  }
+  // openSuccessModal(message) {
+  //   this.setState({ successModalIsOpen: true, message: message });
+  // }
 
-  closeSuccessModal() {
-    this.setState({ successModalIsOpen: false, message: "" });
-  },
+  // closeSuccessModal() {
+  //   this.setState({ successModalIsOpen: false, message: "" });
+  // },
 
-  showSuccessMessage() {
-    this.closeEditModal();
-    this.openSuccessModal();
-  }
+  // showSuccessMessage() {
+  //   this.closeEditModal();
+  //   this.openSuccessModal();
+  // }
 
   _setMessage(message) {
     this.state.message = message;
@@ -69,25 +64,25 @@ export default class GroupNav from Component {
     return this.state.currentUser && this.props.group.creator_id === this.state.currentUser.id;
   }
 
-  startEditMode = () => {
-    this.setState({ editMode: true, title: this.props.group.title });
-  }
+  // startEditMode = () => {
+  //   this.setState({ editMode: true, title: this.props.group.title });
+  // }
 
-  endEditMode = () => {
-    this.setState({ editMode: false });
-  }
+  // endEditMode = () => {
+  //   this.setState({ editMode: false });
+  // }
 
-  saveChange = () => {
-    ClientActions.updateGroup({
-        title: this.state.title
-      }, this.props.group.id);
-    this.endEditMode();
-  }
+  // saveChange = () => {
+  //   ClientActions.updateGroup({
+  //       title: this.state.title
+  //     }, this.props.group.id);
+  //   this.endEditMode();
+  // }
 
-  updateTitle = (ev) => {
-    ev.preventDefault();
-    this.setState({ title: ev.target.value });
-  }
+  // updateTitle = (ev) => {
+  //   ev.preventDefault();
+  //   this.setState({ title: ev.target.value });
+  // }
 
   backToGroup = () => {
     browserHistory.push(this.props.path.match(/(groups\/\d+)\/events/)[1] + "/home");
@@ -126,7 +121,7 @@ export default class GroupNav from Component {
   }
 
   render() {
-    const id = this.props.group.id;
+    const id = this.props.group.get('id');
 
     return (
       <div>
@@ -141,7 +136,7 @@ export default class GroupNav from Component {
                 }
             </ul>
             {this.adminNav()}
-            {this.joinButton}
+            {this.joinButton()}
           </div>
         </div>
       </div>

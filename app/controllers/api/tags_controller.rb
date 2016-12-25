@@ -1,5 +1,6 @@
 class Api::TagsController < ApplicationController
   def index
+    #caaacccccche
   	@tags = Tag.includes(:groups)
   end
 

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { browserHistory } from 'react-router';
 import { connect } from "react-redux";
-import { GroupEvents, GroupMemebrs } from 'components';
+import { GroupEvents, GroupMembers } from 'components';
 
-@connect(({ group }) => ({ group }), {})
+@connect(({ group: { selected } }) => ({ group }), {})
 export default class GroupHome extends Component {
   // state = {
   //   editMode: false,
@@ -35,7 +35,7 @@ export default class GroupHome extends Component {
   description() {
     const group = this.props.group;
     // if (!this.props.currentUser || this.props.currentUser.id !== group.creator_id) {
-      return (<div className="group-description">
+      return (group && <div className="group-description">
         <h2>Description: </h2>
         <p>{group.get('description')}</p>
       </div>);
@@ -72,18 +72,18 @@ export default class GroupHome extends Component {
     return (
       <div className="group-home">
           <div className="group-info">
-            <li className="address">{group.get('city') + ", " + group.get('state')}</li>
-            <li className="founded">Founded {group.get('created_at')} </li>
-            <li className="stats"><div>Members </div><div>{group.get('participants').size}</div></li>
+            <li className="address">{group && group.get('city') + ", " + group.get('state')}</li>
+            <li className="founded">Founded {group && group.get('created_at')} </li>
+            <li className="stats"><div>Members </div><div>{group && group.get('participants').size}</div></li>
             {
-              group.get('upcoming_events').size ?
+              group && group.get('upcoming_events').size ?
                 <li className="stats">
                   <div>Upcoming Meetups: </div><div>{group.get('upcoming_events').size}</div></li>
                   :
                 <li><div>No upcoming meetups</div></li>
             }
             {
-              group.get('old_events').size ?
+              group && group.get('old_events').size ?
                 (<li className="stats">
                   <div>Past Meetups: </div><div>{group.get('old_events').size}</div>
                 </li>) :
@@ -93,7 +93,7 @@ export default class GroupHome extends Component {
               <h3>We're about:</h3>
               <ul>
               {
-                group.get('tags').map((tag) => {
+                group && group.get('tags').map((tag) => {
                   return (<li key={tag.get('id')} tag={tag}>{tag.get('name')}</li>);
                 })
               }
@@ -103,11 +103,11 @@ export default class GroupHome extends Component {
         <div className="group-info-container">
             {this.description()}
             <div className="event-container">
-              <GroupEvents group={group} groupId={this.props.params.groupId} />
+              {group && <GroupEvents group={group} groupId={this.props.params.groupId} />}
             </div>
         </div>
         <div className="group-member-container">
-          <GroupMembers group={group} groupId={this.props.params.groupId} />
+          { group && <GroupMembers group={group} groupId={this.props.params.groupId} />}
         </div>
       </div>
     );

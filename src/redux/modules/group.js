@@ -19,11 +19,12 @@ export default (state = initialState, action) => {
     case FETCH_GROUP:
       return state.set('loading', true);
     case FETCHED_GROUP: {
-      return state.merge({
+      return {
         group: action.payload,
         loading: false,
         loaded: true,
-      });
+        cached: state.get('cached').set(action.payload.id, action.payload),
+      };
     }
     case LEFT_GROUP:
     case JOINED_GROUP:
@@ -42,7 +43,7 @@ export default (state = initialState, action) => {
 export const fetchGroup = (id) => {
   return {
     types: [FETCH_GROUP, FETCHED_GROUP, FETCH_GROUP_ERROR],
-    promise: new Request('/api/groups').send(),
+    promise: new Request(`/api/groups/${id}`).send(),
   };
 };
 

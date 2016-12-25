@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { asyncConnect } from "redux-async-connect";
 import { fetchMember } from "redux/modules/members";
 
-const ReverseGeoMixin = require('../../mixin/reverseGeoMixin');
+// const ReverseGeoMixin = require('../../mixin/reverseGeoMixin');
 
 @connect(() => ({ }), { fetchMember })
 export default class MemberProfile extends Component {

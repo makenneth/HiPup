@@ -2,30 +2,32 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { asyncConnect } from "redux-async-connect";
 import GroupNav from './groupNav';
-// import LogInForm from '../user/logInForm';
-// import SignUpForm from '../user/signUpForm';
-// import FormStyle from '../../modal/formStyle';
-import { fetchGroup, joinGroup } from 'redux/modules/groups';
+import { fetchGroup, joinGroup, isLoaded } from 'redux/modules/groups';
 import { openLogIn } from 'redux/modules/form';
 
-@connect(({ auth, geolocation }) => {
+@connect(({ auth, geolocation, group }) => {
   user: auth.get('user'),
   location: geolocation.get('location')
-}, { fetchGroup, joinGroup, openLogIn })
+  group: group,
+}, { fetchGroup, joinGroup, openLogIn, isLoaded })
 export default class GroupDetail extends Component {
-  // componentDidMount() {
-  //   this.props.fetchGroup(this.props.params.groupId, this.props.location.timeZone);
-  // }
+  componentWillMount() {
+    if (!this.props.isLoaded(this.props.group, this.props.params.groupId)) {
+      this.props.fetchGroup(this.props.params.groupId);
+    }
+  }
 
   componentWillReceiveProps(nextProps) {
-    // if (this.props.params.groupId !== nextProps.params.groupId) {
-    //   this.props.fetchGroup(nextProps.params.groupId);
-    // }
+    if (this.props.params.groupId !== nextProps.params.groupId) {
+      if (!this.props.isLoaded(this.props.group, this.props.params.groupId)) {
+        this.props.fetchGroup(nextProps.params.groupId);
+      }
+    }
   }
 
   joinGroup = (callback) => {
     if (this.props.user && !this.hasJoinedGroup()) {
-      this.props.joinGroup(this.props.group.id);
+      this.props.joinGroup(this.props.group.get('id'));
       // this.props.fetchGroup(this.props.params.groupId, LocationStore.currentLocation().timeZone);
       if ({}.toString.call(callback) === '[object Array]') callback();
     } else {
@@ -35,13 +37,13 @@ export default class GroupDetail extends Component {
 
   leaveGroup = () => {
     if (this.props.user && this.hasJoinedGroup()) {
-      this.props.leaveGroup(this.props.group.id);
-      // this.props.fetchGroup(this.props.params.groupId, LocationStore.currentLocation().timeZone);
+      this.props.leaveGroup(this.props.group.get('id'));
     }
   }
 
   hasJoinedGroup() {
-    return this.props.user && !!this.props.user.groups.find(group => this.props.selected.id === group.id);
+    return this.props.user &&
+      !!this.props.user.groups.find(group => this.props.selected.get('id') === group.get('id'));
   }
 
   render() {
@@ -52,6 +54,7 @@ export default class GroupDetail extends Component {
           joinGroup={this.joinGroup}
           leaveGroup={this.leaveGroup}
           path={this.props.location.pathname}
+          user={this.props.user}
         />
         {this.props.children}
       </div>

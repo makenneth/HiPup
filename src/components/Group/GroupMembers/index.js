@@ -48,16 +48,16 @@ export default class GroupMembers extends Component {
             this.participantSample(8).map((participant) => {
               return (
                 <li
-                  onClick={() => this.openModal(participant.id)}
-                  key={participant.id }
+                  onClick={() => this.openModal(participant.get('id'))}
+                  key={participant.get('id') }
                 >
                   <div
                     className="mini-pic"
                     style={{
-                      backgroundImage: `url(${participant.image_url})`,
+                      backgroundImage: `url(${participant.get('image_url')})`,
                       backgroundSize: `cover`
                     }} />
-                  <div className="mini-pic-name">{participant.name}</div>
+                  <div className="mini-pic-name">{participant.get('name')}</div>
                 </li>
               );
             })
