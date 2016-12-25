@@ -12,10 +12,10 @@ export default (state = initialState, action) => {
     case OPEN_MODAL:
       return state.merge({
         open: true,
-        message: action.payload
+        message: action.payload,
       });
     case CLOSE_MODAL:
-      return fromJS({ open: false });
+      return initialState;
     default:
       return state;
   }

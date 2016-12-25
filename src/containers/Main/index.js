@@ -1,11 +1,17 @@
 import React, { Component } from "react";
 import { asyncConnect } from "redux-async-connect";
 import { connect } from "react-redux";
-// import Modal from 'react-modal';
 import { loadAuth, logOut, isLoaded as isAuthLoaded } from "redux/modules/auth";
 import { loadLocation, isLoaded as isLocationLoaded } from "redux/modules/geolocation";
 import { openLogIn, openSignUp, closeLogIn, closeSignUp } from "redux/modules/form";
-import { Navbar, LogInForm, SignUpForm, MainNav } from 'components';
+import {
+  Navbar,
+  LogInForm,
+  SignUpForm,
+  MainNav,
+  Confirmation,
+  SuccessMessage
+} from 'components';
 import './formStyle.less'
 
 @asyncConnect([
@@ -44,6 +50,7 @@ export default class Main extends Component {
       };
     }
   }
+
   loader() {
     return (<div className="page-load">
       <div></div>
@@ -51,6 +58,13 @@ export default class Main extends Component {
       <div></div>
       <div></div>
     </div>);
+  }
+
+  confirmation() {
+    return this.props.confirmOpen &&
+      (<div className="overlay">
+        <Confirmation />
+      </div>);
   }
 
   render() {
@@ -90,6 +104,7 @@ export default class Main extends Component {
               <SignUpForm closeModal={this.props.closeSignUp} />
             </div>)
         }
+        <Confirmation />
       </div>
     );
   }
