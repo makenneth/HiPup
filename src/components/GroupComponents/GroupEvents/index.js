@@ -11,9 +11,7 @@ export default class GroupEvents extends Component {
   }
 
   render() {
-    const now = new Date();
-    const oldEvents = this.props.group.events.filter(ev => new Date(ev.eventTime) < now);
-    const upcomingEvents = this.props.group.events.filter(ev => new Date(ev.eventTime) >= now);
+    const { oldEvents, upcomingEvents } = this.props;
 
     return (
       <div>

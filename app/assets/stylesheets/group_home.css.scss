@@ -1,5 +1,5 @@
 .group-parent-div {
-	background-image: url('/background-image.jpg');
+	/*background-image: url('/background-image.jpg');*/
 	background-size: cover;
 	width: 100%;
 }
@@ -42,7 +42,7 @@
 		li {
 			min-width: 150px;
 			list-style-type: none;
-			
+
 		}
 		.stats {
 			display:flex;
@@ -130,7 +130,7 @@
 		flex-wrap: wrap;
 		justify-content: space-between;
 		width: 95%;
-		.group-info-container {order: 1; 
+		.group-info-container {order: 1;
 			.group-description {width: 96%;}
 			.event-container {width: 96%;}
 		}

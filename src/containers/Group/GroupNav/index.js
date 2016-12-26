@@ -45,7 +45,8 @@ export default class GroupNav extends Component {
   }
 
   adminCheck() {
-    return this.props.user && this.props.group.get('creatorId') === this.props.user.get('id');
+    return this.props.user && this.props.group &&
+      this.props.group.get('creatorId') === this.props.user.get('id');
   }
 
   // startEditMode = () => {
@@ -75,7 +76,7 @@ export default class GroupNav extends Component {
   title() {
     // if (!this.adminCheck()) {
     return (<div className="nav-div">
-      {this.props.group.title}
+      {this.props.group && this.props.group.get('title')}
     </div>);
     // } else {
     //   var titleBox, icon;

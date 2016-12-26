@@ -17,6 +17,7 @@ export default combineReducers({
   form,
   auth,
   groups,
+  group,
   groupEvents,
   success,
   confirmation,

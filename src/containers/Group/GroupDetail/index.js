@@ -9,17 +9,17 @@ import { openLogIn } from 'redux/modules/form';
   user: auth.get('user'),
   location: geolocation.get('location'),
   group: group,
-}), { fetchGroup, joinGroup, openLogIn, isLoaded })
+}), { fetchGroup, joinGroup, openLogIn })
 export default class GroupDetail extends Component {
   componentWillMount() {
-    if (!this.props.isLoaded(this.props.group, this.props.params.groupId)) {
+    if (!isLoaded(this.props.group, this.props.params.groupId)) {
       this.props.fetchGroup(this.props.params.groupId);
     }
   }
 
   componentWillReceiveProps(nextProps) {
     if (this.props.params.groupId !== nextProps.params.groupId) {
-      if (!this.props.isLoaded(this.props.group, this.props.params.groupId)) {
+      if (!isLoaded(this.props.group, this.props.params.groupId)) {
         this.props.fetchGroup(nextProps.params.groupId);
       }
     }
@@ -28,7 +28,7 @@ export default class GroupDetail extends Component {
   joinGroup = (callback) => {
     if (this.props.user && !this.hasJoinedGroup()) {
       this.props.joinGroup(this.props.group.get('id'));
-      if ({}.toString.call(callback) === '[object Array]') callback();
+      // if ({}.toString.call(callback) === '[object Array]') callback();
     } else {
       this.props.openLogIn();
     }
@@ -36,20 +36,21 @@ export default class GroupDetail extends Component {
 
   leaveGroup = () => {
     if (this.props.user && this.hasJoinedGroup()) {
-      this.props.leaveGroup(this.props.group.get('id'));
+      this.props.leaveGroup(this.props.group.getIn(['group', 'id']));
     }
   }
 
   hasJoinedGroup() {
-    return this.props.user &&
-      !!this.props.user.groups.find(group => this.props.selected.get('id') === group.get('id'));
+    return this.props.group && this.props.user &&
+      !!this.props.user.groups
+        .find(group => this.props.group.getIn(['group', 'id']) === group.get('id'));
   }
 
   render() {
     return (
       <div className="group-parent-div">
         <GroupNav
-          group={this.props.group}
+          group={this.props.group && this.props.group.get('group')}
           joinGroup={this.joinGroup}
           leaveGroup={this.leaveGroup}
           path={this.props.location.pathname}

@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { browserHistory } from 'react-router';
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 import { GroupEvents, GroupMembers } from 'components';
+import Immutable from 'immutable';
 
-@connect(({ group: { selected } }) => ({ group }), {})
+@connect(({ group }) => ({ group: group.get('group') }), {})
 export default class GroupHome extends Component {
   // state = {
   //   editMode: false,
@@ -31,7 +32,6 @@ export default class GroupHome extends Component {
   //   }, this.props.group.id);
   //   this.closeEditMode();
   // }
-
   description() {
     const group = this.props.group;
     // if (!this.props.currentUser || this.props.currentUser.id !== group.creator_id) {
@@ -68,24 +68,27 @@ export default class GroupHome extends Component {
   // }
 
   render() {
+    const now = new Date();
     const group = this.props.group;
+    const oldEvents = group && this.props.group.get('groupEvents').filter(ev => new Date(ev.eventTime) < now);
+    const upcomingEvents = group && this.props.group.get('groupEvents').filter(ev => new Date(ev.eventTime) >= now);
     return (
       <div className="group-home">
           <div className="group-info">
             <li className="address">{group && group.get('city') + ", " + group.get('state')}</li>
-            <li className="founded">Founded {group && group.get('created_at')} </li>
+            <li className="founded">Founded {group && group.get('createdAt')} </li>
             <li className="stats"><div>Members </div><div>{group && group.get('participants').size}</div></li>
             {
-              group && group.get('upcoming_events').size ?
+              upcomingEvents && upcomingEvents.size ?
                 <li className="stats">
-                  <div>Upcoming Meetups: </div><div>{group.get('upcoming_events').size}</div></li>
+                  <div>Upcoming Meetups: </div><div>{upcomingEvents.size}</div></li>
                   :
                 <li><div>No upcoming meetups</div></li>
             }
             {
-              group && group.get('old_events').size ?
+              oldEvents && oldEvents.size ?
                 (<li className="stats">
-                  <div>Past Meetups: </div><div>{group.get('old_events').size}</div>
+                  <div>Past Meetups: </div><div>{oldEvents.size}</div>
                 </li>) :
                 <li><div>No past meetups</div></li>
             }
@@ -103,7 +106,14 @@ export default class GroupHome extends Component {
         <div className="group-info-container">
             {this.description()}
             <div className="event-container">
-              {group && <GroupEvents group={group} groupId={this.props.params.groupId} />}
+              {
+                group && <GroupEvents
+                  oldEvents={oldEvents || new Immutable.List()}
+                  upcomingEvents={upcomingEvents || new Immutable.List()}
+                  group={group}
+                  groupId={this.props.params.groupId}
+                />
+              }
             </div>
         </div>
         <div className="group-member-container">

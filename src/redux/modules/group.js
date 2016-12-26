@@ -2,8 +2,8 @@ import { fromJS } from 'immutable';
 import { Request } from 'helpers';
 
 const SET_RANGE = 'hp/group/SET_RANGE';
-const FETCH_GROUP = 'hp/group/FETCH_GROUPS';
-const FETCHED_GROUP = 'hp/group/FETCHED_GROUPS';
+const FETCH_GROUP = 'hp/group/FETCH_GROUP';
+const FETCHED_GROUP = 'hp/group/FETCHED_GROUP';
 const FETCH_GROUP_ERROR = 'hp/group/FETCH_GROUP_ERROR';
 export const JOINED_GROUP = 'hp/group/JOINED_GROUP';
 export const LEFT_GROUP = 'hp/group/LEFT_GROUP';
@@ -15,21 +15,23 @@ const initialState = fromJS({
 });
 
 export default (state = initialState, action) => {
+  console.log(action);
   switch (action.type) {
     case FETCH_GROUP:
       return state.set('loading', true);
     case FETCHED_GROUP: {
-      return {
+      return state.merge({
         group: action.payload,
         loading: false,
         loaded: true,
         cached: state.get('cached').set(action.payload.id, action.payload),
-      };
+      });
     }
-    case LEFT_GROUP:
+    case LEFT_GROUP: {
       const partIndex = state.getIn(['group', 'participants'])
         .findIndex(participant => participant.get('id') === action.payload.id);
       return state.updateIn(['group', 'participants'], arr => arr.delete(partIndex));
+    }
     case JOINED_GROUP:
       return state.updateIn(['group', 'participants'], arr => arr.push(fromJS(action.payload)));
     case FETCH_GROUP_ERROR:
@@ -78,5 +80,6 @@ export const removeGroup = (groupId) => {
 };
 
 export const isLoaded = (state, id) => {
-  return state.group.get('id') === id || state.cached.get('id');
+  return state.get('group') &&
+    (state.getIn(['group', 'id']) === id || state.getIn(['cached', 'id']));
 };
