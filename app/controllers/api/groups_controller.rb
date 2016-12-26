@@ -5,9 +5,17 @@ class Api::GroupsController < ApplicationController
 	end
 
 	def show
-		@group = Group
-			.includes(:participants, :images, :tags, :group_events)
-			.find(params[:id])
+		group_json = $redis.get("group:#{params[:id]}")
+
+		#should expire
+		unless group_json
+			@group = Group
+				.includes(:participants, :images, :tags, :group_events)
+				.find(params[:id])
+			group_json = render_to_string(formats: 'json')
+		end
+
+		render json: group_json, status: 200
 	end
 
 	def create
@@ -28,6 +36,7 @@ class Api::GroupsController < ApplicationController
 	def update
 		@group = Group.find(params[:id])
 		if @group.update(group_params)
+			$redis.set("group:#{params[:id]}", @group)
 			render :show, status: 200
 		else
 			render json: @group.errors.full_messages, status:422
@@ -37,6 +46,7 @@ class Api::GroupsController < ApplicationController
 	def destroy
 		@group = Group.find(params[:id])
 		if @group.destroy
+			$redis.del("group:#{params[:id]}")
 			render json: @group, status: 200
 		else
 			render json: ["Not found"], status: 404

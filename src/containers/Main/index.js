@@ -1,16 +1,16 @@
-import React, { Component } from "react";
-import { asyncConnect } from "redux-async-connect";
-import { connect } from "react-redux";
-import { loadAuth, logOut, isLoaded as isAuthLoaded } from "redux/modules/auth";
-import { loadLocation, isLoaded as isLocationLoaded } from "redux/modules/geolocation";
-import { openLogIn, openSignUp, closeLogIn, closeSignUp } from "redux/modules/form";
+import React, { Component } from 'react';
+import { asyncConnect } from 'redux-async-connect';
+import { connect } from 'react-redux';
+import { loadAuth, logOut, isLoaded as isAuthLoaded } from 'redux/modules/auth';
+import { loadLocation, isLoaded as isLocationLoaded } from 'redux/modules/geolocation';
+import { openLogIn, openSignUp, closeLogIn, closeSignUp } from 'redux/modules/form';
+import Confirmation from '../Confirmation';
+import SuccessMessage from '../SuccessMessage';
 import {
   Navbar,
   LogInForm,
   SignUpForm,
   MainNav,
-  Confirmation,
-  SuccessMessage
 } from 'components';
 import './formStyle.less'
 
@@ -39,14 +39,14 @@ import './formStyle.less'
   { logOut, openSignUp, openLogIn, closeSignUp, closeLogIn })
 export default class Main extends Component {
   managePageStyle() {
-    if (this.props.location.pathname === "/user/events") {
+    if (this.props.location.pathname === '/user/events') {
       return {
-        backgroundImage: "url(" + "/dog-board-mini.png" + ")",
-        backgroundSize: "contain",
-        height: "200px",
+        backgroundImage: 'url(/dog-board-mini.png)',
+        backgroundSize: 'contain',
+        height: '200px',
         width: 'auto',
-        position: "fixed",
-        backgroundRepeat: "repeat-x"
+        position: 'fixed',
+        backgroundRepeat: 'repeat-x'
       };
     }
   }
@@ -72,20 +72,10 @@ export default class Main extends Component {
       <div>
         {this.loader()}
         <div className="page-container" style={this.managePageStyle()}>
-            {
-              React.Children.map(this.props.children, (child) => {
-                if (child.type.displayName === "GroupIndex") {
-                  return React.cloneElement(child, {
-                    userButtons: this.userButtons
-                  })
-                } else {
-                  return child;
-                }
-              })
-            }
+          {this.props.children}
         </div>
         {
-          this.props.location.pathname !== "/" &&
+          this.props.location.pathname !== '/' &&
             <div className="menu-icon" onClick={this.openNavModal}>&#9776;</div>
         }
         <Navbar user={this.props.user} logOut={this.props.logOut} />

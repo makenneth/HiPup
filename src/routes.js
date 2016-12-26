@@ -1,6 +1,6 @@
-import React from "react";
-import { Route, IndexRoute } from "react-router";
-import { Main, GroupIndex } from "containers";
+import React from 'react';
+import { Route, IndexRoute } from 'react-router';
+import { Main, GroupIndex, GroupHome, GroupDetail } from 'containers';
 // import { isAuthLoaded, loadAuth } from "redux/modules/auth";
 
 export default () => {
@@ -9,12 +9,12 @@ export default () => {
       <IndexRoute component={GroupIndex} />
       <Route path="groups" component={GroupIndex} />
       <Route path="groups/:groupId" component={GroupDetail}>
-        <Route path="home" component={GroupHome}/>
-        <Route path="events/:eventId" component={EventShow} />
+        <IndexRoute component={GroupHome} />
       </Route>
     </Route>
   );
 };
+        // <Route path="events/:eventId" component={EventShow} />
       // <Route path="user/profile" component={UserProfile} />
       // <Route path="user/events" component={ManageEvents} />
       // <Route path="tags/:tagId" component={TagShow} />

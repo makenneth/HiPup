@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { EventIndexByDate, MainNav } from 'containers';
 import { GroupIndexItem } from 'components';
-import { fetchGroups, setRange } from 'redux/modules/groups';
+import { fetchGroups } from 'redux/modules/groups';
+import { clearAllFilters } from 'redux/modules/query';
 import { fetchTags } from 'redux/modules/tags';
 import FaAngleDown from 'react-icons/lib/fa/angle-down';
 
@@ -23,7 +24,7 @@ const banner = 'https://images.unsplash.com/photo-1443750200537-00fd518bdc82?ixl
     user: auth.get('user'),
   }),
   ({
-    setRange,
+    clearAllFilters,
     fetchGroups,
     fetchTags,
   })
@@ -63,7 +64,7 @@ export default class GroupIndex extends Component {
   }
 
   showAll = () => {
-    this.setState({ miles: Infinity })
+    this.props.clearAllFilters();
   }
 
   groupIndex(libraries) {
@@ -72,9 +73,10 @@ export default class GroupIndex extends Component {
         {libraries.map(group => <GroupIndexItem group={group} key={group.get('id')} />)}
       </div>);
     } else {
+      const place = this.props.geolocation.get('place');
       return (<div className="group-index cf">
         <h1>There are no events matching your search criteria around
-         {` ${this.props.geolocation.get('place')} :(`}
+         {` ${place.get('city')}, ${place.get('state')} :(`}
          <p onClick={this.showAll}>Show all</p>
         </h1>
       </div>);
@@ -98,7 +100,7 @@ export default class GroupIndex extends Component {
 
   render() {
     const searchCriteria = new RegExp(this.props.searchString.toLowerCase().trim(), 'i');
-    // console.log('+ searchString', searchCriteria);
+
     let libraries = [];
     if (!this.props.hasLocation) {
       libraries = this.props.groups;

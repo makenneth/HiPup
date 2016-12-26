@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import GroupEventItem from './GroupEventItem';
+import GroupEventItem from '../GroupEventItem';
 
 export default class GroupEvents extends Component {
   state = {

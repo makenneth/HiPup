@@ -7,7 +7,7 @@ const CHANGE_ALL_TAGS = 'hp/query/CHANGE_ALL_TAGS';
 const CHANGE_RANGE = 'hp/query/CHANGE_RANGE';
 const CHANGE_SEARCH_STRING = 'hp/query/CHANGE_SEARCH_STRING';
 const CLEAR_SEARCH_STRING = 'hp/query/CLEAR_SEARCH_STRING';
-
+const CLEAR_FILTERS = 'hp/query/CLEAR_FILTERS';
 const initialState = fromJS({
   searchString: '',
   range: 50,
@@ -38,6 +38,12 @@ export default (state = initialState, action) => {
       return state.set('searchString', action.payload);
     case CLEAR_SEARCH_STRING:
       return state.set('searchString', '');
+    case CLEAR_FILTERS:
+      return state.merge({
+        searchString: '',
+        range: Infinity,
+        tags: state.get('tags').map(() => true),
+      })
     default:
       return state;
   }
@@ -66,7 +72,7 @@ export const changeSearchString = (str) => {
 
 export const clearSearchString = () => {
   return {
-    type: CLEAR_SEARCH_STRING,
+    type: CLEAR_SEARCH_STRING
   };
 };
 
@@ -74,5 +80,11 @@ export const changeAllTags = (bool) => {
   return {
     type: CHANGE_ALL_TAGS,
     payload: bool,
+  };
+};
+
+export const clearAllFilters = () => {
+  return {
+    type: CLEAR_FILTERS
   };
 };

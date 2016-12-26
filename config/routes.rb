@@ -17,4 +17,6 @@ Rails.application.routes.draw do
     resources :event_users, only: [:create, :destroy]
     resources :locations, only: [:create]
   end
+
+    match "*pages" => "static_pages#root", via: [:get]
 end

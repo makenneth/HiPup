@@ -12,6 +12,7 @@ class Api::GroupParticipantsController < ApplicationController
 				name: @user.name,
 				imageUrl: @user.image_url
 			}
+			$redis.del("group:#{group_participant.group_id}")
 			render json: data, status: 200
 		else
 			render json: group_participant.errors.full_messages, status: 422
@@ -29,6 +30,7 @@ class Api::GroupParticipantsController < ApplicationController
 				name: @user.name,
 				imageUrl: @user.image_url
 			}
+			$redis.del("group:#{group_participant.group_id}")
 			render json: data, status: 200
 		else
 			render json: ["Unable to delete"], status: 404

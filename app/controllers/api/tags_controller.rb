@@ -1,12 +1,13 @@
 class Api::TagsController < ApplicationController
   def index
-    tags = $redis.get('tags')
-    unless tags
+    tags_json = $redis.get('tags')
+    unless tags_json
     	@tags = Tag.includes(:groups)
-      $redis.set('tags', @tags.to_json)
-    else
-      @tags = JSON.parse(tags)
+      tags_json = render_to_string(formats: 'json')
+      $redis.set('tags', tags_json)
     end
+
+    render json: tags_json, status: 200
   end
 
   def show

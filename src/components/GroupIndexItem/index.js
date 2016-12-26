@@ -3,7 +3,7 @@ import { browserHistory } from "react-router";
 
 export default class GroupIndexItem extends Component {
   showDetail = () => {
-    browserHistory.push(`groups/${this.props.group.get('id')}/home`);
+    browserHistory.push(`groups/${this.props.group.get('id')}`);
   }
   render() {
     const group = this.props.group;
@@ -14,7 +14,7 @@ export default class GroupIndexItem extends Component {
           href="#"
           className="group-index-item front-side"
           style={{
-            backgroundImage: `url(${group.get('image_url')})`,
+            backgroundImage: `url(${group.get('imageUrl')})`,
             backgroundSize: 'cover'
           }}
         >
@@ -22,7 +22,7 @@ export default class GroupIndexItem extends Component {
           <h4>{group.get('title')}</h4>
         </div>
         <div className="back-side">
-          <p>We have { group.get('participants').length } members!</p>
+          <p>We have { group.get('participants').size } members!</p>
           <p>Location: { `${group.get('city')}, ${group.get('state')}` }</p>
           <div id="hidden-tags">
             {

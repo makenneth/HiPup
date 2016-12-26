@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import CurrentUserState from "../../mixin/currentUserState";
 import { hashHistory } from 'react-router';
-import Autocomplete from '../../mixin/autoComplete';
-import GroupFormMixin from '../../mixin/groupFormMixin';
+// import Autocomplete from '../../mixin/autoComplete';
+// import GroupFormMixin from '../../mixin/groupFormMixin';
 
 @connect(
   ({ auth: { user }, tags }) => ({

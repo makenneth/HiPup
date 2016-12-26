@@ -1,3 +1,4 @@
 export * from './Splash';
 export * from './Auth';
-export * from './Group';
+export * from './GroupComponents';
+export GroupIndexItem from './GroupIndexItem';

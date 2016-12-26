@@ -1,12 +1,8 @@
 class Api::GroupEventsController < ApplicationController
 	def index
-		#filter by time
-		# if params[:query] == "time"
-		@group_events = GroupEvent.includes(:group).where("event_time > ?", Time.now).order(:event_time).limit(params[:end] - params[:start]).offset(params[:start])
-		p @group_events
-		# elsif params[:query_type] == "location"
-			#lat lng within 25miles
-		end
+		@group_events = GroupEvent.includes(:group)
+			.where("event_time > ?", Time.now).order(:event_time)
+			.limit(params[:end] - params[:start]).offset(params[:start])
 	end
 
 	def create

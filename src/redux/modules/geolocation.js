@@ -5,6 +5,7 @@ import { Request } from 'helpers';
 const FETCHING_LOCATION = 'hp/location/FETCHING_LOCATION';
 const FETCHED_LOCATION = 'hp/location/FETCHED_LOCATION';
 const SET_LOCATION = 'hp/location/SET_LOCATION';
+const SET_CITY_NAME = 'hp/location/SET_CITY_NAME';
 const FETCHED_FAILED = 'hp/location/FETCHED_FAILED';
 
 const intialState = fromJS({
@@ -12,7 +13,10 @@ const intialState = fromJS({
   loaded: false,
   accurate: false,
   location: {
-    place: null,
+    place: {
+      city: null,
+      state: null,
+    },
     coords: {
       lat: null,
       lng: null,
@@ -22,11 +26,14 @@ const intialState = fromJS({
 });
 
 export default (state = intialState, action) => {
+  // console.log('+ action', action);
   switch (action.type) {
     case LOAD_AUTH_SUCCESS: {
       if (!state.get('accurate')) {
         return state.setIn(['location', 'coords'], action.payload);
       }
+
+      return state;
     }
     case FETCHING_LOCATION:
       return state.set('loading', true);
@@ -44,6 +51,26 @@ export default (state = intialState, action) => {
         loaded: true,
         error: action.payload
       });
+    case SET_CITY_NAME: {
+      let city = null;
+      let stateName = null;
+      Array.isArray(action.payload.results) &&
+        action.payload.results[0].address_components.forEach((data) => {
+          if (data.types[0] === 'locality') {
+            city = data.long_name;
+          } else if (data.types[0] === 'administrative_area_level_1') {
+            stateName = data.short_name;
+          }
+        });
+      return state.mergeDeep({
+        location: {
+          place: {
+            city: city,
+            state: stateName,
+          }
+        }
+      });
+    }
     default:
       return state;
   }
@@ -73,12 +100,11 @@ const getLocation = () => {
   });
 };
 
-const updateGeolocation = (result) => {
-  console.log(result);
+const updateGeolocation = (coords) => {
   const data = {
     coords: {
-      lat: result.coords.latitude,
-      lng: result.coords.longitude,
+      lat: coords.latitude,
+      lng: coords.longitude,
     },
   };
   return new Request('/api/locations', 'POST', data).send();
@@ -86,19 +112,17 @@ const updateGeolocation = (result) => {
 
 export const updateLocation = ({ dispatch }) => {
   return getLocation()
-    .then(updateGeolocation)
-    .then((res) => {
-      return new Promise((resolve, reject) => {
-        debugger;
-        res.json().then((data) => {
-          if (res.status >= 400) {
-            return Promise.reject(data);
-          } else {
-            return Promise.resolve(data);
-          }
-        });
-      });
+    .then(({ coords }) => {
+      dispatch(getCityName(coords));
+      dispatch(setLocation(coords));
+      return updateGeolocation(coords);
     })
-    .then(coords => dispatch(setLocation(coords)))
     .catch(err => console.log(err));
+};
+
+export const getCityName = ({ latitude, longitude }) => {
+  return {
+    types: ['NOT USED', SET_CITY_NAME, 'NOT USED'],
+    promise: new Request(`http://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&sensor=true`).send(),
+  };
 };

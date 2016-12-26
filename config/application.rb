@@ -22,8 +22,8 @@ module HipUp
 
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.action_dispatch.default_headers = {
-    'X-Frame-Options' => 'ALLOWALL'
-}   
+        'X-Frame-Options' => 'SAMEORIGIN'
+    }
     config.cache_store = :memory_store
     config.active_record.raise_in_transactional_callbacks = true
   end

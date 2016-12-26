@@ -2,12 +2,10 @@ var path = require('path');
 
 module.exports = {
   context: __dirname,
-  entry: ['babel-polyfill', 'whatwg-fetch', './src/app.js'],
+  entry: ['./src/app.js'],
   output: {
     path: path.join(__dirname, 'app', 'assets', 'javascripts'),
-    filename: 'bundle.js',
-    devtoolModuleFilenameTemplate: '[resourcePath]',
-    devtoolFallbackModuleFilenameTemplate: '[resourcePath]?[hash]'
+    filename: 'bundle.js'
   },
   module: {
     loaders: [
@@ -27,6 +25,7 @@ module.exports = {
       'src',
       'node_modules'
     ],
+    mainFiles: ['index'],
     extensions: ['', '.js', '.jsx']
   },
   devtool: 'inline-source-maps'

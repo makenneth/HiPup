@@ -5,7 +5,7 @@ import { removeGroup } from 'redux/modules/group';
 import { openConfirm } from 'redux/modules/confirmation';
 
 @connect(() => ({}), { removeGroup, openConfirm })
-export default class GroupNav from Component {
+export default class GroupNav extends Component {
   state = {
     eventFormIsOpen: false,
     editFormIsOpen: false,

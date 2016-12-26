@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import MemberProfile from './MemberProfile';
+import MemberProfile from '../MemberProfile';
 
 import './profile.less';
 

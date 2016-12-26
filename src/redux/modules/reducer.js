@@ -5,7 +5,9 @@ import auth from './auth';
 import form from './form';
 import groupEvents from './groupEvents';
 import groups from './groups';
+import group from './group';
 import success from './success';
+import confirmation from './confirmation';
 import tags from './tags';
 import query from './query';
 
@@ -17,6 +19,7 @@ export default combineReducers({
   groups,
   groupEvents,
   success,
+  confirmation,
   tags,
   query,
 });
