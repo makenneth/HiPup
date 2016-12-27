@@ -3,6 +3,7 @@ import { browserHistory } from 'react-router';
 import { connect } from 'react-redux';
 import { GroupEvents, GroupMembers } from 'components';
 import Immutable from 'immutable';
+import moment from 'moment';
 
 @connect(({ group }) => ({ group: group.get('group') }), {})
 export default class GroupHome extends Component {
@@ -36,7 +37,7 @@ export default class GroupHome extends Component {
     const group = this.props.group;
     // if (!this.props.currentUser || this.props.currentUser.id !== group.creator_id) {
       return (group && <div className="group-description">
-        <h2>Description: </h2>
+        <h3>Description: </h3>
         <p>{group.get('description')}</p>
       </div>);
     // } else {
@@ -70,13 +71,13 @@ export default class GroupHome extends Component {
   render() {
     const now = new Date();
     const group = this.props.group;
-    const oldEvents = group && this.props.group.get('groupEvents').filter(ev => new Date(ev.eventTime) < now);
-    const upcomingEvents = group && this.props.group.get('groupEvents').filter(ev => new Date(ev.eventTime) >= now);
+    const oldEvents = group && this.props.group.get('groupEvents').filter(ev => new Date(ev.get('eventTime')) < now);
+    const upcomingEvents = group && this.props.group.get('groupEvents').filter(ev => new Date(ev.get('eventTime')) >= now);
     return (
       <div className="group-home">
           <div className="group-info">
             <li className="address">{group && group.get('city') + ", " + group.get('state')}</li>
-            <li className="founded">Founded {group && group.get('createdAt')} </li>
+            <li className="founded">Founded: {group && moment(group.get('createdAt')).format('MMMM D, YYYY')} </li>
             <li className="stats"><div>Members </div><div>{group && group.get('participants').size}</div></li>
             {
               upcomingEvents && upcomingEvents.size ?
@@ -97,7 +98,7 @@ export default class GroupHome extends Component {
               <ul>
               {
                 group && group.get('tags').map((tag) => {
-                  return (<li key={tag.get('id')} tag={tag}>{tag.get('name')}</li>);
+                  return (<li key={tag.get('id')}>{tag.get('name')}</li>);
                 })
               }
               </ul>

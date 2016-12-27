@@ -5,15 +5,16 @@ class ApplicationController < ActionController::Base
 
   def current_user
     return nil unless session[:session_token]
-
+    # $redis.del("user:#{session[:session_token]}")
     unless @current_user
       user = $redis.get("user:#{session[:session_token]}")
-
       if user
-        @current_user = JSON.parse(user)
+        @current_user = User.new(JSON.parse(user))
       else
         @current_user = User.find_by_session_token(session[:session_token])
-        $redis.set("user:#{session[:session_token]}", @current_user)
+        if @current_user
+          $redis.set("user:#{session[:session_token]}", @current_user.to_json)
+        end
       end
     end
 
@@ -34,7 +35,6 @@ class ApplicationController < ActionController::Base
   def log_out!
   	current_user.destroy_session_token!(session[:session_token])
     $redis.del("user:#{session[:session_token]}")
-  	@current_user = nil
   	session[:session_token] = nil
   end
 

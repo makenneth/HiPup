@@ -17,7 +17,7 @@ export default class GroupMembers extends Component {
     this.setState({ modalIsOpen: false });
   }
 
-  participantSample = (size) => {
+  participantSample(size) {
     const sample = [];
     const participants = this.props.group.get('participants');
     const groupSize = participants.size;
@@ -32,10 +32,9 @@ export default class GroupMembers extends Component {
       while (used[sampleIdx]) {
         sampleIdx = Math.floor(Math.random() * groupSize);
       }
-      sample.push(participants[sampleIdx]);
+      sample.push(participants.get(sampleIdx));
       used[sampleIdx] = true;
     }
-
     return sample;
   }
 
@@ -54,7 +53,7 @@ export default class GroupMembers extends Component {
                   <div
                     className="mini-pic"
                     style={{
-                      backgroundImage: `url(${participant.get('image_url')})`,
+                      backgroundImage: `url(${participant.get('imageUrl')})`,
                       backgroundSize: `cover`
                     }} />
                   <div className="mini-pic-name">{participant.get('name')}</div>

@@ -11,9 +11,9 @@ export default class GroupEventItem extends Component {
     const groupEvent = this.props.groupEvent;
     return (
       <div className="group-event-container">
-          <div className="group-event-title" onClick={this.showEvent}>
-            {groupEvent.get('title')}
-          </div>
+        <div className="group-event-title" onClick={this.showEvent}>
+          {groupEvent.get('title')}
+        </div>
         <div className="group-event-detail">
           <div className="event-detail-left">
             <p className="location">{groupEvent.get('city')}, {groupEvent.get('state')}</p>

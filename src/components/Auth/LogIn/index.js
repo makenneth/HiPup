@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { logIn } from 'redux/modules/auth';
 
 export default class LogInForm extends Component {
   state = {
@@ -19,21 +18,40 @@ export default class LogInForm extends Component {
   componentWillUnmount() {
     document.getElementsByTagName('body')[0].className = '';
   }
+
+  validate() {
+    return this.validateUsername() && this.validatePassword();
+  }
+
   handleSubmit = (event) => {
     if (event) {
       event.preventDefault();
     }
-    if (!this.state.usernameError && !this.state.passwordError) {
-      this.props.logIn(this.state).then(() => {
-        this.props.closeModal;
+    if (this.validate()) {
+      const data = {
+        user: {
+          username: this.state.username,
+          password: this.state.password,
+        }
+      };
+      this.props.logIn(data).then(() => {
+        this.props.closeModal();
       });
     }
   }
 
-  validateUsername = () => this.setState({ usernameError: this.state.username.length === 0 })
-  validatePassword = () => this.setState({ passwordError: this.state.password.length === 0 })
+  validateUsername = () => {
+    const hasError = this.state.username.length === 0;
+    this.setState({ usernameError: hasError });
+    return !hasError;
+  }
+  validatePassword = () => {
+    const hasError = this.state.password.length === 0;
+    this.setState({ passwordError: hasError });
+    return !hasError;
+  }
 
-  guestLogin(ev) {
+  guestLogin = (ev) => {
     ev.preventDefault();
     this.setState({ username: "", password: "" });
     this.ghostFill();

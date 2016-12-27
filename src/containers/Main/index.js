@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { asyncConnect } from 'redux-async-connect';
 import { connect } from 'react-redux';
-import { loadAuth, logOut, isLoaded as isAuthLoaded } from 'redux/modules/auth';
+import { loadAuth, logOut, isLoaded as isAuthLoaded, logIn, signUp } from 'redux/modules/auth';
 import { loadLocation, isLoaded as isLocationLoaded } from 'redux/modules/geolocation';
 import { openLogIn, openSignUp, closeLogIn, closeSignUp } from 'redux/modules/form';
 import Confirmation from '../Confirmation';
@@ -36,7 +36,7 @@ import './formStyle.less'
     loginOpen: form.get('login'),
     signupOpen: form.get('signup')
   }),
-  { logOut, openSignUp, openLogIn, closeSignUp, closeLogIn })
+  { logOut, openSignUp, openLogIn, closeSignUp, closeLogIn, signUp, logIn })
 export default class Main extends Component {
   managePageStyle() {
     if (this.props.location.pathname === '/user/events') {
@@ -85,13 +85,14 @@ export default class Main extends Component {
               <LogInForm
                 closeModal={this.props.closeLogIn}
                 redirectToSignUp={this.props.openSignUp}
+                logIn={this.props.logIn}
               />
             </div>)
         }
         {
           this.props.signupOpen &&
             (<div className="overlay">
-              <SignUpForm closeModal={this.props.closeSignUp} />
+              <SignUpForm closeModal={this.props.closeSignUp} signUp={this.props.signUp} />
             </div>)
         }
         <Confirmation />

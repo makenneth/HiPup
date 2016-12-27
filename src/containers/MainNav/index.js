@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { hashHistory } from 'react-router';
+import { hashHistory, Link } from 'react-router';
 import { TagIndex } from 'components';
 import { openLogIn, openSignUp } from 'redux/modules/form';
 import { logOut } from 'redux/modules/auth';
@@ -18,7 +18,8 @@ import {
 } from 'redux/modules/query';
 
 @connect(
-  ({ tags, query, geolocation }) => ({
+  ({ tags, query, geolocation, auth }) => ({
+    user: auth.get('user'),
     tags: tags.get('tags'),
     selected: query.get('tags'),
     range: query.get('range'),
@@ -74,8 +75,8 @@ export default class MainNav extends Component {
       if (this.props.user){
         return (<ul className="user-button">
           <li>
-            <Link to="#/user/profile">
-              Welcome, {this.props.user.name}!
+            <Link to="/user/profile">
+              Welcome, {this.props.user.get('name')}!
             </Link>
           </li>
           <li><a onClick={this.props.logOut}>Log Out</a></li>
@@ -96,7 +97,7 @@ export default class MainNav extends Component {
           <li><Link to="#/user/profile">Profile</Link></li>
           <li><a onClick={this.props.logOut}>Log Out</a></li>
         </ul>);
-      const img = this.props.user ? this.props.user.image_url : '/dogpaw.gif';
+      const img = this.props.user ? this.props.user.get('imageUrl') : '/dogpaw.gif';
       const color = this.props.user ? 'black' : 'white';
       return (<div className="user-text-button">
         <div className="user-text" style={{backgroundImage: `url(${img})`, backgroundStyle: 'cover',  backgroundColor: color}}>
