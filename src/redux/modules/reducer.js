@@ -10,6 +10,7 @@ import success from './success';
 import confirmation from './confirmation';
 import tags from './tags';
 import query from './query';
+import common from './common';
 
 export default combineReducers({
   reduxAsyncConnect,
@@ -22,5 +23,6 @@ export default combineReducers({
   success,
   confirmation,
   tags,
+  common,
   query,
 });

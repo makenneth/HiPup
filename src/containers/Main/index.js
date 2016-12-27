@@ -31,10 +31,11 @@ import './formStyle.less'
   }
 ])
 @connect(
-  ({ auth, form }) => ({
+  ({ auth, form, common }) => ({
     user: auth.get('user'),
     loginOpen: form.get('login'),
-    signupOpen: form.get('signup')
+    signupOpen: form.get('signup'),
+    isLoading: common.get('isLoading'),
   }),
   { logOut, openSignUp, openLogIn, closeSignUp, closeLogIn, signUp, logIn })
 export default class Main extends Component {
@@ -52,7 +53,7 @@ export default class Main extends Component {
   }
 
   loader() {
-    return (<div className="page-load">
+    return (this.props.isLoading && <div className="page-load">
       <div></div>
       <div></div>
       <div></div>
@@ -70,7 +71,7 @@ export default class Main extends Component {
   render() {
     return (
       <div>
-        {this.loader()}
+        {this.loader()}2
         <div className="page-container" style={this.managePageStyle()}>
           {this.props.children}
         </div>

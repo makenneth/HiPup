@@ -5,7 +5,6 @@ class ApplicationController < ActionController::Base
 
   def current_user
     return nil unless session[:session_token]
-    # $redis.del("user:#{session[:session_token]}")
     unless @current_user
       user = $redis.get("user:#{session[:session_token]}")
       if user
