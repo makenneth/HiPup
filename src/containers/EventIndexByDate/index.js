@@ -1,21 +1,11 @@
 import React, { Component } from 'react';
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 import { EventItemByDate } from 'components';
 import { fetchGroupEvents, isLoaded } from 'redux/modules/groupEvents';
-import { asyncConnect } from "redux-async-connect";
 
-@asyncConnect([{
-  promise: ({ store }) => {
-    let promise;
-
-    if (!isLoaded(store.getState())) {
-      promise = store.dispatch(fetchGroupEvents(0, 20));
-    }
-    return promise;
-  }
-}])
 @connect(
   ({ groupEvents }) => ({
+    isLoaded: groupEvents.get('isLoaded'),
     groupEvents: groupEvents.get('groupEvents'),
     endReached: groupEvents.get('endReached'),
   }),
@@ -28,15 +18,21 @@ export default class EventIndexByDate extends Component {
     };
   }
 
+  componentDidMount() {
+    if (!this.props.isLoaded) {
+      this.props.fetchGroupEvents(0, 20);
+    }
+  }
+
   showMore = () => {
     this.setState({ page: this.state.page + 1 });
     if (!this.props.endReached) {
-      this.fetchGroupEvents(this.state.page * 10, this.state.page * 10 + 10);
+      this.props.fetchGroupEvents(this.state.page * 10, this.state.page * 10 + 10);
     }
   }
   showMoreButton() {
-    if (this.state.page > Math.ceil(this.props.groupEvents.length / 10)) {
-      return "";
+    if (this.props.endReached) {
+      return '';
     } else {
       return <button onClick={this.showMore}>Show More</button>;
     }
@@ -52,7 +48,7 @@ export default class EventIndexByDate extends Component {
           {
             this.props.groupEvents.slice(0, (this.state.page) * 10).map((groupEvent) => {
               return <EventItemByDate
-                key={groupEvent.id}
+                key={groupEvent.get('id')}
                 groupEvent={groupEvent}
               />;
             })

@@ -334,7 +334,14 @@ button {
 }
 
 .page-load {
-  visibility: visible;
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  opacity: 0.8;
+  z-index: 99;
+  background-color: rgba(0, 0, 0, 0.8);
 }
 .page-load div {
   width: 30px;

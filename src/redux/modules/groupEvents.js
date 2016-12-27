@@ -10,6 +10,7 @@ const initialState = fromJS({
   error: null,
   endReached: false,
   loading: false,
+  loaded: false,
 });
 
 export default (state = initialState, action) => {
@@ -17,22 +18,23 @@ export default (state = initialState, action) => {
     case FETCH:
       return state.set('loading', true);
     case FETCH_SUCCESS: {
-      const events = action.payload;
+      const events = action.payload.groupEvents.map(groupEvent => fromJS(groupEvent));
       let endReached = false;
       if (events.length < 10) {
         endReached = true;
       }
-
       //can you do spread operator on list?
       return state.merge({
         endReached,
         loading: false,
-        groupEvents: [...state.groupEvents, ...events],
+        loaded: true,
+        groupEvents: state.get('groupEvents').push(...events),
       });
     }
     case FETCH_FAIL:
       return state.merge({
         loading: false,
+        loaded: true,
         error: action.payload,
       });
     default:
@@ -48,5 +50,9 @@ export const fetchGroupEvents = (start, end) => {
 };
 
 export const areAllFetched = (state) => {
-  return state.groupEvents.ended;
+  return state.get('endReached');
+};
+
+export const isLoaded = (state) => {
+  return state.get('loaded');
 };

@@ -35,7 +35,7 @@ import './formStyle.less'
     user: auth.get('user'),
     loginOpen: form.get('login'),
     signupOpen: form.get('signup'),
-    isLoading: common.get('isLoading'),
+    loadCount: common.get('loadCount'),
   }),
   { logOut, openSignUp, openLogIn, closeSignUp, closeLogIn, signUp, logIn })
 export default class Main extends Component {
@@ -53,7 +53,7 @@ export default class Main extends Component {
   }
 
   loader() {
-    return (this.props.isLoading && <div className="page-load">
+    return (this.props.loadCount > 0 && <div className="page-load">
       <div></div>
       <div></div>
       <div></div>
@@ -71,7 +71,7 @@ export default class Main extends Component {
   render() {
     return (
       <div>
-        {this.loader()}2
+        {this.loader()}
         <div className="page-container" style={this.managePageStyle()}>
           {this.props.children}
         </div>

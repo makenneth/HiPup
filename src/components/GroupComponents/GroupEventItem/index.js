@@ -4,11 +4,12 @@ import moment from 'moment';
 
 export default class GroupEventItem extends Component {
   showEvent = () => {
-    browserHistory.push(`groups/${this.props.groupId}/events/${this.props.groupEvent.id}`);
+    browserHistory.push(`groups/${this.props.groupId}/events/${this.props.groupEvent.get('id')}`);
   }
 
   render() {
     const groupEvent = this.props.groupEvent;
+    console.log(groupEvent);
     return (
       <div className="group-event-container">
         <div className="group-event-title" onClick={this.showEvent}>

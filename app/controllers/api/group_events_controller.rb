@@ -2,8 +2,7 @@ class Api::GroupEventsController < ApplicationController
 	def index
 		@group_events = GroupEvent.includes(:group)
 			.where("event_time > ?", Time.now).order(:event_time)
-			.limit(params[:end] - params[:start]).offset(params[:start])
-		p @group_events
+			.limit(params[:end].to_i - params[:start].to_i).offset(params[:start])
 	end
 
 	def create
