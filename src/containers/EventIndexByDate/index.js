@@ -11,12 +11,9 @@ import { fetchGroupEvents, isLoaded } from 'redux/modules/groupEvents';
   }),
   { fetchGroupEvents })
 export default class EventIndexByDate extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      page: 1
-    };
-  }
+  state = {
+    page: 1
+  };
 
   componentDidMount() {
     if (!this.props.isLoaded) {
@@ -41,9 +38,7 @@ export default class EventIndexByDate extends Component {
     return (
       <div className="event-by-date">
         <div className="close-icon" onClick={this.props.closeModal}>&#10006;</div>
-        <h3>
-          Event By Date
-        </h3>
+        <h3>Event By Date</h3>
         <ul>
           {
             this.props.groupEvents.slice(0, (this.state.page) * 10).map((groupEvent) => {

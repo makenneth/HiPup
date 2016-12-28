@@ -11,7 +11,6 @@ export default ({ dispatch, getState }) => next => action => {
   }
 
   const [REQUEST, SUCCESS, FAILURE] = types;
-  dispatch(startLoad());
   next({ ...rest, type: REQUEST });
   promise.then((res) => {
     return res.json().then((data) => {
@@ -22,11 +21,9 @@ export default ({ dispatch, getState }) => next => action => {
       }
     });
   }).then((payload) => {
-    dispatch(endLoad());
     next({ ...rest, payload: payload, type: SUCCESS });
   }, (error) => {
     console.log(error);
-    dispatch(endLoad());
     if (Array.isArray(error)) {
       next({ ...rest, payload: error[0], type: FAILURE });
     } else {

@@ -98,7 +98,7 @@ export default class GroupNav extends Component {
 
   joinButton() {
     if ((/events\/\d+$/).test(this.props.path)) return '';
-    if (!this.props.user || !this.hasJoinedGroup()) {//should be in user store
+    if (!this.props.user || !this.props.hasJoinedGroup()) {//should be in user store
       return <ul className="join-group" onClick={this.props.joinGroup}>Join Group</ul>
     } else {
       return <ul className="leave-group" onClick={this.props.leaveGroup}>Leave Group</ul>

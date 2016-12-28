@@ -18,7 +18,7 @@ const initialState = fromJS({
 export default (state = initialState, action) => {
   switch (action.type) {
     case JOINED_GROUP:
-      return state.updateIn(['user', 'groups']);
+      return state.updateIn(['user', 'groups'], arr => arr.push(fromJS(action.payload.group)));
     case LOAD_AUTH:
       return state.merge({
         loading: true,

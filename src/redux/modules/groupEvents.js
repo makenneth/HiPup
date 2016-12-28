@@ -1,9 +1,9 @@
 import { fromJS } from 'immutable';
 import { Request } from 'helpers';
 
-const FETCH = 'hp/groupsEvents/FETCH';
-const FETCH_SUCCESS = 'hp/groupsEvents/FETCH_SUCCESS';
-const FETCH_FAIL = 'hp/groupsEvents/FETCH_FAIL';
+export const FETCH_EVENTS = 'hp/groupEvents/FETCH';
+export const FETCH_EVENTS_SUCCESS = 'hp/groupEvents/FETCH_SUCCESS';
+export const FETCH_EVENTS_FAIL = 'hp/groupEvents/FETCH_FAIL';
 
 const initialState = fromJS({
   groupEvents: [],
@@ -15,15 +15,14 @@ const initialState = fromJS({
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case FETCH:
+    case FETCH_EVENTS:
       return state.set('loading', true);
-    case FETCH_SUCCESS: {
+    case FETCH_EVENTS_SUCCESS: {
       const events = action.payload.groupEvents.map(groupEvent => fromJS(groupEvent));
       let endReached = false;
       if (events.length < 10) {
         endReached = true;
       }
-      //can you do spread operator on list?
       return state.merge({
         endReached,
         loading: false,
@@ -31,7 +30,7 @@ export default (state = initialState, action) => {
         groupEvents: state.get('groupEvents').push(...events),
       });
     }
-    case FETCH_FAIL:
+    case FETCH_EVENTS_FAIL:
       return state.merge({
         loading: false,
         loaded: true,

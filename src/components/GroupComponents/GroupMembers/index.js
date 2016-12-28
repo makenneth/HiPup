@@ -34,6 +34,10 @@ export default class GroupMembers extends Component {
       }
       sample.push(participants.get(sampleIdx));
       used[sampleIdx] = true;
+
+      if (sample.length >= groupSize) {
+        break;
+      }
     }
     return sample;
   }
@@ -48,7 +52,7 @@ export default class GroupMembers extends Component {
               return (
                 <li
                   onClick={() => this.openModal(participant.get('id'))}
-                  key={participant.get('id') }
+                  key={participant.get('id')}
                 >
                   <div
                     className="mini-pic"

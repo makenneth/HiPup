@@ -9,7 +9,6 @@ export default class GroupEventItem extends Component {
 
   render() {
     const groupEvent = this.props.groupEvent;
-    console.log(groupEvent);
     return (
       <div className="group-event-container">
         <div className="group-event-title" onClick={this.showEvent}>

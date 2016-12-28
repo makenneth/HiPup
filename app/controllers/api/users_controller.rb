@@ -1,7 +1,7 @@
 class Api::UsersController < ApplicationController
 	def show
-		if current_user
-			@user = User.includes(:groups, joined_events: [:group, :event_users]).find(current_user.id)
+		@user = User.includes(:groups, joined_events: [:group, :event_users]).find_by_session_token(session[:session_token])
+		if @user
 			render :show
 		else
 			render json: ["Not Logged In"], status: 404

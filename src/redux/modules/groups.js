@@ -2,9 +2,9 @@ import { fromJS } from 'immutable';
 import { Request } from 'helpers';
 
 const SET_RANGE = 'hp/groups/SET_RANGE';
-const FETCH_GROUPS = 'hp/groups/FETCH_GROUPS';
-export const FETCHED_GROUPS = 'hp/groups/FETCHED_GROUPS';
-const FETCH_GROUPS_ERROR = 'hp/groups/FETCH_GROUPS_ERROR';
+export const FETCH_GROUPS = 'hp/groups/FETCH_GROUPS';
+export const FETCH_GROUPS_SUCCESS = 'hp/groups/FETCH_GROUPS_SUCCESS';
+export const FETCH_GROUPS_ERROR = 'hp/groups/FETCH_GROUPS_ERROR';
 
 const initialState = fromJS({
   loading: false,
@@ -17,7 +17,7 @@ export default (state = initialState, action) => {
   switch (action.type) {
     case FETCH_GROUPS:
       return state.set('loading', true);
-    case FETCHED_GROUPS: {
+    case FETCH_GROUPS_SUCCESS: {
       return state.merge({
         groups: action.payload,
         loading: false,
@@ -37,7 +37,7 @@ export default (state = initialState, action) => {
 
 export const fetchGroups = () => {
   return {
-    types: [FETCH_GROUPS, FETCHED_GROUPS, FETCH_GROUPS_ERROR],
+    types: [FETCH_GROUPS, FETCH_GROUPS_SUCCESS, FETCH_GROUPS_ERROR],
     promise: new Request('/api/groups').send(),
   };
 };
