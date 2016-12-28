@@ -29,7 +29,7 @@ export default (state = initialState, action) => {
     }
     case LEFT_GROUP: {
       const partIndex = state.getIn(['group', 'participants'])
-        .findIndex(participant => participant.get('id') === action.payload.id);
+        .findIndex(participant => participant.get('id') === action.payload.userId);
       return state.updateIn(['group', 'participants'], arr => arr.delete(partIndex));
     }
     case JOINED_GROUP:
@@ -66,7 +66,7 @@ export const joinGroup = (groupId) => {
 
 export const leaveGroup = (groupId) => {
   return {
-    types: ['TO BE ADDED', JOINED_GROUP, 'TO BE ADDED'],
+    types: ['TO BE ADDED', LEFT_GROUP, 'TO BE ADDED'],
     promise: new Request(`/api/group_participants/${groupId}`, 'DELETE').send(),
   };
 };

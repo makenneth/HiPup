@@ -27,7 +27,6 @@ export default (state = initialState, action) => {
       });
     }
     case RSVP_CHANGED: {
-      //
       return state.setIn(['groupEvent', 'event_users'], );
     }
     case FETCH_FAIL:

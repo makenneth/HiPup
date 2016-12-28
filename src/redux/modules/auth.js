@@ -19,6 +19,9 @@ export default (state = initialState, action) => {
   switch (action.type) {
     case JOINED_GROUP:
       return state.updateIn(['user', 'groups'], arr => arr.push(fromJS(action.payload.group)));
+    case LEFT_GROUP:
+      const delIdx = state.getIn(['user', 'groups']).findIndex(g => g.id === action.payload.groupId);
+      return state.updateIn(['user', 'groups'], arr => arr.delete(delIdx));
     case LOAD_AUTH:
       return state.merge({
         loading: true,

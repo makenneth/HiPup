@@ -30,10 +30,10 @@ class Api::GroupParticipantsController < ApplicationController
 			group_id: params[:id]
 		)
 		if group_participant.destroy
+			group = Group.find_by(id: group_participant.group_id)
 			data = {
-				id: @user.id,
-				name: @user.name,
-				imageUrl: @user.image_url
+				userId: @user.id,
+				groupId: params[:id]
 			}
 			$redis.del("group:#{group_participant.group_id}")
 			render json: data, status: 200

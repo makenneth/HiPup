@@ -2,14 +2,14 @@ import React, { Component } from 'react';
 import { connect } from "react-redux";
 import { asyncConnect } from "redux-async-connect";
 import GroupNav from '../GroupNav';
-import { fetchGroup, joinGroup, isLoaded } from 'redux/modules/group';
+import { fetchGroup, joinGroup, leaveGroup, isLoaded } from 'redux/modules/group';
 import { openLogIn } from 'redux/modules/form';
 
 @connect(({ auth, geolocation, group }) => ({
   user: auth.get('user'),
   location: geolocation.get('location'),
   group: group,
-}), { fetchGroup, joinGroup, openLogIn })
+}), { fetchGroup, joinGroup, leaveGroup, openLogIn })
 export default class GroupDetail extends Component {
   componentWillMount() {
     if (!isLoaded(this.props.group, this.props.params.groupId)) {
