@@ -49,3 +49,7 @@ export const selectTag = (tag) => {
     payload: tag
   };
 };
+
+export const isLoading = (state) => {
+  return state.get('loaded') && state.get('loading');
+};
