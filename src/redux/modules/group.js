@@ -16,7 +16,6 @@ const initialState = fromJS({
 });
 
 export default (state = initialState, action) => {
-  console.log(action);
   switch (action.type) {
     case FETCH_GROUP:
       return state.set('loading', true);

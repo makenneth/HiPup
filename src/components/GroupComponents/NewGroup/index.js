@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { asyncConnect } from 'redux-async-connect';
 import { browserHistory } from 'react-router';
 import { fetchTags, isLoading } from 'redux/modules/tags';
+import { startLoad, endLoad } from 'redux/modules/common';
 import { createGroup } from 'redux/modules/groups';
 import Immutable from 'immutable';
 
@@ -25,7 +26,7 @@ import Immutable from 'immutable';
     user: auth.get('user'),
     group: group.get('group'),
   }),
-  { createGroup, fetchTags })
+  { createGroup, fetchTags, startLoad, endLoad })
 export default class NewGroupForm extends Component {
   //TODO: Add uploader for images
   constructor(props) {
@@ -36,10 +37,14 @@ export default class NewGroupForm extends Component {
       lng: null,
       title: '',
       description: '',
-      imageUrl: '',
       city: '',
       state: '',
       numOfTags: 1,
+      image: Immutable.fromJS({
+        file_contents: '',
+        filename: '',
+        content_type: '',
+      }),
       tags: new Immutable.List(),
       errors: new Immutable.Map(),
     };
@@ -74,7 +79,6 @@ export default class NewGroupForm extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    debugger;
     if ((!this.props.group && nextProps.group) ||
       (this.props.group && (this.props.group.hashCode !== nextProps.group.hashCode))) {
       browserHistory.push(`/groups/${nextProps.group.get('id')}`);
@@ -115,6 +119,29 @@ export default class NewGroupForm extends Component {
       city,
       errors,
     });
+  }
+
+  updateFile = (ev) => {
+    const file = ev.target.files[0];
+    if (file && /.jpg|.jpeg|.png|.gif/.test(file.type)) {
+      const reader = new FileReader();
+      this.props.startLoad();
+      reader.onload = (upload) => {
+        this.setState({
+          image: this.state.image.merge({
+            file_contents: upload.target.result,
+            filename: file.name,
+            content_type: file.type,
+          })
+        });
+        this.props.endLoad();
+      };
+      reader.readAsDataURL(file);
+    } else {
+      this.setState({
+        errors: this.state.errors.set('image', 'The type of the file is not suppored.')
+      });
+    }
   }
 
   updateField = (field, e) => {
@@ -203,7 +230,7 @@ export default class NewGroupForm extends Component {
         city: this.state.city,
         state: this.state.state,
         title: this.state.title,
-        image_url: this.state.imageUrl,
+        image: this.state.image,
         description: this.state.description,
         creator_id: this.props.user.get('id'),
         tag_ids: this.state.tags
@@ -232,14 +259,17 @@ export default class NewGroupForm extends Component {
               <p className="hint">{errors.get('title')}</p>
             </div>
             <div className="form-line">
-              <label htmlFor="image">Image Url</label>
+              <label htmlFor="image">Image</label>
               <input
-                type="url"
+                type="file"
                 id="image"
-                className={errors.get('imageUrl') ? 'error-field' : ''}
-                value={this.state.imageUrl}
-                onChange={this.updateField.bind(null, 'imageUrl')}
+                className={errors.get('image') ? 'error-field' : ''}
+                onChange={this.updateFile}
               />
+              {
+                this.state.image.get('filename') === '' ||
+                  <img src={this.state.image.get('dataUri')} height="50" />
+              }
             </div>
             <div className="form-line">
               <label htmlFor="autocomplete">Primary city</label>

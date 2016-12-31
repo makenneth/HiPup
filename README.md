@@ -7,6 +7,7 @@ HiPup utilizes two server, Ruby on Rails serves as the main API server, and Node
 - Front End: React/Redux with ImmutableJS
 - Back End: Ruby on Rails (Puma), NodeJS
 - Data Storage: PostgreSQL, Redis
+- Hosted on Amazon EC2 with images hosted on S3
 
 ## Features
 Users can:
