@@ -1,10 +1,11 @@
 import { fromJS } from 'immutable';
 import { Request } from 'helpers';
+import { CREATE_GROUP_SUCCESS } from './groups';
 
 const SET_RANGE = 'hp/group/SET_RANGE';
 export const FETCH_GROUP = 'hp/group/FETCH_GROUP';
 export const FETCH_GROUP_SUCCESS = 'hp/group/FETCH_GROUP_SUCCESS';
-export const FETCH_GROUP_ERROR = 'hp/group/FETCH_GROUP_ERROR';
+export const FETCH_GROUP_FAIL = 'hp/group/FETCH_GROUP_FAIL';
 export const JOINED_GROUP = 'hp/group/JOINED_GROUP';
 export const LEFT_GROUP = 'hp/group/LEFT_GROUP';
 const initialState = fromJS({
@@ -19,6 +20,7 @@ export default (state = initialState, action) => {
   switch (action.type) {
     case FETCH_GROUP:
       return state.set('loading', true);
+    case CREATE_GROUP_SUCCESS:
     case FETCH_GROUP_SUCCESS: {
       return state.merge({
         group: action.payload,
@@ -34,7 +36,7 @@ export default (state = initialState, action) => {
     }
     case JOINED_GROUP:
       return state.updateIn(['group', 'participants'], arr => arr.push(fromJS(action.payload.user)));
-    case FETCH_GROUP_ERROR:
+    case FETCH_GROUP_FAIL:
       return state.merge({
         error: action.payload,
         loading: false,
@@ -47,7 +49,7 @@ export default (state = initialState, action) => {
 
 export const fetchGroup = (id) => {
   return {
-    types: [FETCH_GROUP, FETCH_GROUP_SUCCESS, FETCH_GROUP_ERROR],
+    types: [FETCH_GROUP, FETCH_GROUP_SUCCESS, FETCH_GROUP_FAIL],
     promise: new Request(`/api/groups/${id}`).send(),
   };
 };

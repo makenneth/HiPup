@@ -18,16 +18,16 @@ import Immutable from 'immutable';
   }
 }])
 @connect(
-  ({ auth: { user }, tags }) => ({
+  ({ auth, tags, group }) => ({
     allTags: tags.get('tags'),
-    loaded: tags.loaded,
-    loading: tags.loading,
-    user
+    loaded: tags.get('loaded'),
+    loading: tags.get('loading'),
+    user: auth.get('user'),
+    group: group.get('group'),
   }),
   { createGroup, fetchTags })
 export default class NewGroupForm extends Component {
   //TODO: Add uploader for images
-  //TODO: validate in handle submit
   constructor(props) {
     super(props);
 
@@ -45,32 +45,40 @@ export default class NewGroupForm extends Component {
     };
 
     this.validConditions = {
-      title: this.state.title.length > 0,
-      description: this.state.description.length > 0,
-      city: this.state.city.length > 0,
-      state: this.state.state.length > 0,
+      title: 'this.state.title.length > 0',
+      city: 'this.state.city.length > 0',
+      state: 'this.state.state.length > 0',
+      description: 'this.state.description.length > 0',
     };
 
     this.errorMessages = {
       title: 'Title cannot be empty',
-      description: 'Description cannot be empty',
       city: 'City cannot be empty',
       state: 'State cannot be empty',
+      description: 'Description cannot be empty',
     };
   }
 
   componentDidMount() {
     const options = {
       types: ['(regions)'],
-      componentRestrictions: {country: "us"}
+      componentRestrictions: { country: 'us' },
     };
 
     this.autocomplete = new google.maps.places.Autocomplete(
-      document.getElementById("autocomplete"),
+      document.getElementById('autocomplete'),
       options
     );
 
     this.acListener = this.autocomplete.addListener('place_changed', this.fillInAddress);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    debugger;
+    if ((!this.props.group && nextProps.group) ||
+      (this.props.group && (this.props.group.hashCode !== nextProps.group.hashCode))) {
+      browserHistory.push(`/groups/${nextProps.group.get('id')}`);
+    }
   }
 
   componentWillUnmount() {
@@ -116,7 +124,7 @@ export default class NewGroupForm extends Component {
   }
 
   validateField = (field) => {
-    const isValid = this.validConditions[field];
+    const isValid = eval(this.validConditions[field]);
 
     if (!isValid) {
       this.setState({
@@ -173,12 +181,10 @@ export default class NewGroupForm extends Component {
   }
 
   validateForm = () => {
-    // const err = new Immutable.Map();
-
     for (const field in this.validConditions) {
       if (!eval(this.validConditions[field])) {
         this.setState({
-          error: this.state.errors.set(field, this.errorMessages[field])
+          errors: this.state.errors.set(field, this.errorMessages[field])
         });
 
         return false;
@@ -199,17 +205,14 @@ export default class NewGroupForm extends Component {
         title: this.state.title,
         image_url: this.state.imageUrl,
         description: this.state.description,
-        creator_id: this.props.user.id,
+        creator_id: this.props.user.get('id'),
         tag_ids: this.state.tags
-      }).then((group) => {
-        //this will produce error for sure
-        browserHistory.push(`groups/${group.id}`);
       });
     }
   }
   render() {
     const errors = this.state.errors;
-    console.log(errors);
+
     return (
       <div className="group-form-container">
         <div className="paw-print"></div>
@@ -281,7 +284,7 @@ export default class NewGroupForm extends Component {
 
             <input className="create-group-button" type="submit" value="Create New Group" />
           </form>
-          <div className="back-button" onClick={() => browserHistory.push("/")}></div>
+          <div className="back-button" onClick={() => browserHistory.push('/')}></div>
         </div>
       </div>
     );

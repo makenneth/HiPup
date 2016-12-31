@@ -7,7 +7,6 @@ class Api::GroupsController < ApplicationController
 	def show
 		group_json = $redis.get("group:#{params[:id]}")
 
-		#should expire
 		unless group_json
 			@group = Group
 				.includes(:participants, :images, :tags, :group_events)
@@ -20,17 +19,24 @@ class Api::GroupsController < ApplicationController
 
 	def create
 		params = group_params
-		tag_ids = params.delete(:tag_ids).map(&:to_i)
+		tag_ids = params.delete(:tag_ids)
+		tag_ids = tag_ids.map(&:to_i) if tag_ids
 
 		@group = Group.new(params)
 
-		if @group.save
+		ActiveRecord::Base.transaction do
+			@group.save!
 			@group.tag_ids = tag_ids
-			GroupParticipant.create({group_id: @group.id, participant_id: @group.creator_id})
+			GroupParticipant.create!(
+				group_id: @group.id,
+				participant_id: @group.creator_id
+			)
+			p "Save success #{@group}"
 			render :show, status: 200
-		else
-			render json: @group.errors.full_messages, status: 422
+			return
 		end
+
+		render json: @group.errors.full_messages, status: 422
 	end
 
 	def update
@@ -55,7 +61,10 @@ class Api::GroupsController < ApplicationController
 
 	private
 	def group_params
-		params.require(:group)
-		.permit(:title, :description, :lat, :lng, :image_url, :creator_id, :city, :state, tag_ids: [])
+		params.require(:group).permit(
+			:title, :description, :lat,
+			:lng, :image_url, :creator_id,
+			:city, :state, tag_ids: []
+		)
 	end
 end
