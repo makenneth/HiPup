@@ -42,6 +42,14 @@ export const fetchGroups = () => {
   };
 };
 
+export const createGroup = (group) => {
+  const data = { group };
+  return {
+    types: [CREATE_GROUPS, CREATE_GROUPS_SUCCESS, CREATE_GROUPS_ERROR],
+    promise: new Request('/api/groups', 'POST', data).send(),
+  };
+}
+
 export const isLoaded = (state) => {
   return state.groups.loaded;
 };

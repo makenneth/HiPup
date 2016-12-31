@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { asyncConnect } from 'redux-async-connect';
 import { browserHistory } from 'react-router';
 import { fetchTags, isLoading } from 'redux/modules/tags';
+import { createGroup } from 'redux/modules/groups';
 import Immutable from 'immutable';
 
 @asyncConnect([{
@@ -24,6 +27,7 @@ import Immutable from 'immutable';
   { createGroup, fetchTags })
 export default class NewGroupForm extends Component {
   //TODO: Add uploader for images
+  //TODO: validate in handle submit
   constructor(props) {
     super(props);
 
@@ -35,9 +39,9 @@ export default class NewGroupForm extends Component {
       imageUrl: '',
       city: '',
       state: '',
-      tags: new Immutable.List(),
       numOfTags: 1,
-      errors: new Immutable.Map();
+      tags: new Immutable.List(),
+      errors: new Immutable.Map(),
     };
 
     this.validConditions = {
@@ -50,8 +54,8 @@ export default class NewGroupForm extends Component {
     this.errorMessages = {
       title: 'Title cannot be empty',
       description: 'Description cannot be empty',
-      City: 'City cannot be empty',
-      State: 'State cannot be empty',
+      city: 'City cannot be empty',
+      state: 'State cannot be empty',
     };
   }
 
@@ -75,17 +79,33 @@ export default class NewGroupForm extends Component {
 
   fillInAddress = () => {
     const place = this.autocomplete.getPlace();
+    let errors = this.state.errors;
     let city = place.adr_address.match(/locality\">(\w+\s?\w+)</);
     let state = place.adr_address.match(/region\">(\w+)</);
     let location = place.geometry.location;
-    city = city ? city[1] : '';
-    state = state ? state[1] : '';
+
+    if (!city) {
+      errors = errors.set('city', this.errorMessages.city);
+      city = '';
+    } else {
+      errors = errors.set('city', null);
+      city = city[1];
+    }
+
+    if (!state) {
+      errors = errors.set('state', this.errorMessages.state);
+      state = '';
+    } else {
+      errors = errors.set('state', null);
+      state = state[1];
+    }
 
     this.setState({
       lat: location.lat(),
       lng: location.lng(),
       state,
       city,
+      errors,
     });
   }
 
@@ -96,7 +116,7 @@ export default class NewGroupForm extends Component {
   }
 
   validateField = (field) => {
-    const isValid = eval(this.validConditions(field));
+    const isValid = this.validConditions[field];
 
     if (!isValid) {
       this.setState({
@@ -131,8 +151,8 @@ export default class NewGroupForm extends Component {
       {
         this.props.allTags.map((tag) => {
           return (
-            <option key={tag.id} value={tag.id}>
-              {tag.name}
+            <option key={tag.get('id')} value={tag.get('id')}>
+              {tag.get('name')}
             </option>
           );
         })
@@ -152,26 +172,44 @@ export default class NewGroupForm extends Component {
     );
   }
 
+  validateForm = () => {
+    // const err = new Immutable.Map();
+
+    for (const field in this.validConditions) {
+      if (!eval(this.validConditions[field])) {
+        this.setState({
+          error: this.state.errors.set(field, this.errorMessages[field])
+        });
+
+        return false;
+      }
+    }
+
+    return true;
+  }
+
   handleSubmit = (e) => {
     e.preventDefault();
-    this.props.createGroup({
-      lat: this.state.lat,
-      lng: this.state.lng,
-      city: this.state.city,
-      state: this.state.state,
-      title: this.state.title,
-      image_url: this.state.imageUrl,
-      description: this.state.description,
-      creator_id: this.props.user.id,
-      tag_ids: this.state.tags
-    }).then((group) => {
-      //this will produce error for sure
-      browserHistory.push(`groups/${group.id}`);
-    });
+    if (this.validateForm()) {
+      this.props.createGroup({
+        lat: this.state.lat,
+        lng: this.state.lng,
+        city: this.state.city,
+        state: this.state.state,
+        title: this.state.title,
+        image_url: this.state.imageUrl,
+        description: this.state.description,
+        creator_id: this.props.user.id,
+        tag_ids: this.state.tags
+      }).then((group) => {
+        //this will produce error for sure
+        browserHistory.push(`groups/${group.id}`);
+      });
+    }
   }
   render() {
     const errors = this.state.errors;
-
+    console.log(errors);
     return (
       <div className="group-form-container">
         <div className="paw-print"></div>
@@ -179,61 +217,64 @@ export default class NewGroupForm extends Component {
         <div className="group-form-parent">
           <form className="group-form" onSubmit={this.handleSubmit}>
             <div className="form-line">
-              <label for="title">Title</label>
+              <label htmlFor="title">Title</label>
               <input
                 type="text"
                 id="title"
                 className={errors.get('title') ? 'error-field' : ''}
                 value={this.state.title}
-                onBlur={this.validateField}
+                onBlur={() => this.validateField('title')}
                 onChange={this.updateField.bind(null, 'title')}
               />
+              <p className="hint">{errors.get('title')}</p>
             </div>
             <div className="form-line">
-              <label for="image">Image Url</label>
+              <label htmlFor="image">Image Url</label>
               <input
-                id="image"
                 type="url"
+                id="image"
                 className={errors.get('imageUrl') ? 'error-field' : ''}
                 value={this.state.imageUrl}
                 onChange={this.updateField.bind(null, 'imageUrl')}
               />
             </div>
             <div className="form-line">
-              <label for="autocomplete">Primary city</label>
+              <label htmlFor="autocomplete">Primary city</label>
               <input
                 id="autocomplete"
-                className="city"
-                className={errors.get('city') ? 'error-field' : ''}
-                onChange={this.updateField.bind(null, 'city')}
                 value={this.state.city}
-                onBlur={this.validateField}
+                className={`city ${errors.get('city') ? 'error-field' : ''}`}
+                onChange={this.updateField.bind(null, 'city')}
+                onBlur={() => this.validateField('city')}
               />
+              <p className="hint">{errors.get('city')}</p>
             </div>
             <div className="form-line">
-              <label for="state">Primary state</label>
+              <label htmlFor="state">Primary state</label>
               <input
                 id="state"
                 className="state"
                 className={errors.get('state') ? 'error-field' : ''}
                 onChange={this.updateField.bind(null, 'state')}
                 value={this.state.state}
-                onBlur={this.validateField}
+                onBlur={() => this.validateField('state')}
               />
+              <p className="hint">{errors.get('state')}</p>
             </div>
             <div className="form-line">
-              <label for="description">Description</label>
+              <label htmlFor="description">Description</label>
               <textarea
                 id="description"
                 className={errors.get('description') ? 'error-field' : ''}
                 value={this.state.description}
-                onBlur={this.validateField}
+                onBlur={() => this.validateField('description')}
                 onChange={this.updateField.bind(null, 'description')}
                 rows="5"
               />
+              <p className="hint">{errors.get('description')}</p>
             </div>
             <div className="form-line">
-              <label for="tag">Tags</label>
+              <label htmlFor="tag">Tags</label>
               {this.multipleCheckBox()}
             </div>
             <a onClick={this.moreTags} style={{alignSelf: 'flex-end'}}>Add More tags</a>

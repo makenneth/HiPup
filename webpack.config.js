@@ -28,5 +28,5 @@ module.exports = {
     mainFiles: ['index'],
     extensions: ['', '.js', '.jsx']
   },
-  devtool: 'inline-source-maps'
+  devtool: 'eval-source-map'
 };

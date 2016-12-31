@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { hashHistory, Link } from 'react-router';
+import { browserHistory, Link } from 'react-router';
 import { TagIndex } from 'components';
 import { openLogIn, openSignUp } from 'redux/modules/form';
 import { logOut } from 'redux/modules/auth';
 import FaSearch from 'react-icons/lib/fa/search';
 import FaTags from 'react-icons/lib/fa/tags';
+import FaPlus from 'react-icons/lib/fa/plus';
 import FaLocationArrow from 'react-icons/lib/fa/location-arrow';
 import FaCalendar from 'react-icons/lib/fa/calendar';
 import FaUser from 'react-icons/lib/fa/user';
@@ -107,10 +108,6 @@ export default class MainNav extends Component {
     }
   }
 
-  link(url) {
-    hashHistory.push(url);
-  }
-
   render() {
     return <div className="main-nav">
       <ul className="nav-icons">
@@ -159,9 +156,15 @@ export default class MainNav extends Component {
         </li>
         <li onClick={this.props.openDateModal}><FaCalendar /></li>
         {
-          this.props.currentUser &&
-            <li className="tag-icon" onClick={() => hashHistory.push("/user/profile")}>
+          this.props.user &&
+            <li className="tag-icon" onClick={() => browserHistory.push('/user/profile')}>
               <FaUser />
+            </li>
+        }
+        {
+          this.props.user &&
+            <li className="tag-icon" onClick={() => browserHistory.push('/groups/new')}>
+              <FaPlus />
             </li>
         }
       </ul>
