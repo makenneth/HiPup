@@ -1,5 +1,5 @@
 import Immutable, { fromJS } from 'immutable';
-import { FETCHED_GROUPS } from './groups';
+import { FETCH_GROUPS_SUCCESS } from './groups';
 import { FETCHED_TAGS } from './tags';
 
 const TOGGLE_TAG = 'hp/query/TOGGLE_TAG';
@@ -17,8 +17,8 @@ const initialState = fromJS({
 
 export default (state = initialState, action) => {
   switch (action.type) {
-    case FETCHED_GROUPS: {
-      if (action.payload[0].distance !== undefined) {
+    case FETCH_GROUPS_SUCCESS: {
+      if (action.payload[0].distance !== undefined && action.payload[0].distance !== null) {
         return state.set('location', true);
       }
     }
@@ -43,7 +43,7 @@ export default (state = initialState, action) => {
         searchString: '',
         range: Infinity,
         tags: state.get('tags').map(() => true),
-      })
+      });
     default:
       return state;
   }

@@ -1,6 +1,6 @@
 json.extract! group, :id, :title, :lat, :lng, :city, :state, :creator_id, :image_url
 if @location
-	json.distance Geocoder::Calculations.distance_between(@location, [group.lat, group.lng])
+  json.distance Geocoder::Calculations.distance_between(@location, [group.lat, group.lng])
 end
 
 json.created_at (Time.utc(*group.created_at))

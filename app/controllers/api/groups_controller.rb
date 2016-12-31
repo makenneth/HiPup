@@ -1,7 +1,19 @@
 class Api::GroupsController < ApplicationController
 	def index
-		@groups = Group.includes(:tags, :participants).limit(20)
+		group_json = nil
 		@location = get_geolocation
+		if @location
+			@groups = Group.includes(:tags, :participants)
+		else
+			groups_json = $redis.get("all_groups")
+			unless groups_json
+				@groups = Group.includes(:tags, :participants)
+				group_json = render_to_string(formats: 'json')
+				@redis.set("all_groups", group_json)
+			end
+			render json: group_json, status: 200
+		end
+
 	end
 
 	def show
@@ -24,19 +36,12 @@ class Api::GroupsController < ApplicationController
 
 		@group = Group.new(params)
 
-		ActiveRecord::Base.transaction do
-			@group.save!
-			@group.tag_ids = tag_ids
-			GroupParticipant.create!(
-				group_id: @group.id,
-				participant_id: @group.creator_id
-			)
-			p "Save success #{@group}"
+		if save_new_group
+			Thread.new
 			render :show, status: 200
-			return
+		else
+			render json: @group.errors.full_messages, status: 422
 		end
-
-		render json: @group.errors.full_messages, status: 422
 	end
 
 	def update
@@ -66,5 +71,21 @@ class Api::GroupsController < ApplicationController
 			:lng, :image_url, :creator_id,
 			:city, :state, tag_ids: []
 		)
+	end
+
+	def save_new_group
+		ActiveRecord::Base.transaction do
+			@group.save!
+			@group.tag_ids = tag_ids
+			GroupParticipant.create!(
+				group_id: @group.id,
+				participant_id: @group.creator_id
+			)
+			p "Save success #{@group}"
+
+			return true
+		end
+
+		false
 	end
 end

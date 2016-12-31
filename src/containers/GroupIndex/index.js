@@ -107,7 +107,7 @@ export default class GroupIndex extends Component {
     } else {
       libraries = this.props.groups.filter((group) => {
         return (
-          (this.props.range === Infinity || group.get('distance') <= this.props.range) &&
+          (this.props.range === Infinity || (group.get('distance') !== null && group.get('distance') <= this.props.range)) &&
           searchCriteria.test(group.get('title')) &&
           group.get('tags').some(tag => this.props.selected.get(tag.get('id')))
         );
