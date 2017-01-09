@@ -1,6 +1,6 @@
 class Api::EventUsersController < ApplicationController
 	def create
-		event_user = EventUser.new(event_users_params)
+		event_user = EventUser.new(user_id: @user.id, event_id: params[:event_id])
 		if event_user.save
 			render "api/users/show", status: 200
 		else
@@ -8,8 +8,8 @@ class Api::EventUsersController < ApplicationController
 		end
 	end
 
-	def leave
-		event_user = EventUser.find_by(event_users_params)
+	def destroy
+		event_user = EventUser.find_by(user_id: @user.id, event_id: params[:event_id])
 		if event_user.destroy
 			render "api/users/show", status: 200
 		else
@@ -20,5 +20,10 @@ class Api::EventUsersController < ApplicationController
 	private
 	def event_users_params
 		params.require(:event_user).permit(:event_id, :user_id)
+	end
+
+	def check_if_logged_in
+		@user = current_user
+		render json: ["Not logged in"], status: 403 unless @user
 	end
 end

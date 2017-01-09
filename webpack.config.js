@@ -1,23 +1,32 @@
-var path = require("path");
+var path = require('path');
 
 module.exports = {
   context: __dirname,
-  entry: "./frontend/hipUp.jsx",
+  entry: ['./src/app.js'],
   output: {
     path: path.join(__dirname, 'app', 'assets', 'javascripts'),
-    filename: "bundle.js",
-    devtoolModuleFilenameTemplate: '[resourcePath]',
-    devtoolFallbackModuleFilenameTemplate: '[resourcePath]?[hash]'
+    filename: 'bundle.js'
   },
   module: {
-    loaders: [{
-      test: /\.jsx?$/,
-      exclude: /(node_modules|bower_components)/,
-      loader: 'babel'
-    }]
+    loaders: [
+      {
+        test: /\.jsx?$/,
+        exclude: /node_modules/,
+        loader: 'babel'
+      },
+      {
+        test: /\.less$/,
+        loaders: ['style', 'css', 'less']
+      }
+    ]
   },
-  devtool: 'inline-source-maps',
   resolve: {
-    extensions: ["", ".js", ".jsx"]
-  }
+    modulesDirectories: [
+      'src',
+      'node_modules'
+    ],
+    mainFiles: ['index'],
+    extensions: ['', '.js', '.jsx']
+  },
+  devtool: 'eval-source-map'
 };

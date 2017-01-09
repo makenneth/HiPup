@@ -1,6 +1,7 @@
-Time.zone = params[:time_zone]
-json.extract! @user, :name, :owner_name, :image_url, :id, :username, :city, :state, :created_at
-json.member_since (Time.utc(*@user.created_at).in_time_zone).strftime("%B %d, %Y")
+json.extract! @user, :name, :id, :owner_name, :username,
+  :city, :state, :image_url, :created_at
+# json.memberSince @user.created_at
+#convert created_at to member since
 json.groups @user.joined_groups
 
 

@@ -3,11 +3,10 @@
  *= require_tree .
  *= require_self
  */
-@import "font-awesome";
 @import "bootstrap";
-@import url(https://fonts.googleapis.com/css?family=Kaushan+Script|Yanone+Kaffeesatz:400,700|PT+Sans+Narrow|Open+Sans:400,700);
+@import url(https://fonts.googleapis.com/css?family=Kaushan+Script|Yanone+Kaffeesatz:400,700|PT+Sans+Narrow|Open+Sans:400,700|Lato:400,300italic|Roboto+Slab:400,700|Titillium+Web:400,700);
 
- html, body, header, nav, h1, a,
+html, body, header, nav, h1, a,
 ul, li, strong, main, button, i,
 section, img, div, h2, p, form,
 fieldset, label, input, textarea,
@@ -24,15 +23,26 @@ span, article, time, small {
   box-sizing: inherit;
   background: transparent;
 }
+
 body {
   min-width: 400px;
+  &.modal-open {
+    overflow: hidden;
+    position: fixed;
+  }
 }
-.ReactModal__Body--open {
-  overflow: hidden;
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    background-color: rgba(255, 255, 255, 0.75);
+    z-index: 9999;
 }
-.ReactModal__Overlay {
-  z-index: 11;
-}
+
 .group-event-detail {
 	font-size: 18px;
 }
@@ -178,16 +188,11 @@ button {
   	font-size: 96px;
     letter-spacing: -2px;
   	font-family: 'Yanone Kaffeesatz', sans-serif;
-/*  	position: relative;
-  	left: 80px;*/
   }
   .tagline {
   	color: white;
   	text-shadow: 2px 2px black;
   	font-size: 40px;
-/*  	position: relative;
-  	top: -20px;
-  	left: 90px;*/
   	font-family: 'Yanone Kaffeesatz', sans-serif;
   }
 
@@ -327,37 +332,45 @@ button {
 .faded {
   opacity: 0.5;
 }
+
 .page-load {
-  position: absolute;
-  visibility: hidden;
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  opacity: 0.8;
+  z-index: 99;
+  background-color: rgba(0, 0, 0, 0.8);
 }
-.page-load-active {
-  visibility: visible;
-}
-.page-load-active div {
-  width: 20px;
-  height: 20px;
+.page-load div {
+  width: 30px;
+  height: 30px;
   position: fixed;
   top: 50%;
-  background-color: #3498db;
+  background-color: #ff656b;
   border-radius: 50%;
   animation: move 4s infinite cubic-bezier(.2,.64,.81,.23);
   z-index: 1000;
 }
-.page-load-active div:nth-child(2) {
-  background-color: #c0392b;
+.page-load div:nth-child(2) {
+  background-color: #ff656b;
   animation-delay: 150ms;
 }
-.page-load-active div:nth-child(3) {
-  background-color: #f1c40f;
+.page-load div:nth-child(3) {
+  background-color: #ff656b;
   animation-delay: 300ms;
 }
-.page-load-active div:nth-child(4) {
-  background-color: #27ae60;
+.page-load div:nth-child(4) {
+  background-color: #ff656b;
   animation-delay: 450ms;
 }
+
 @keyframes move {
   0% {left: 0%;}
   75% {left:100%;}
   100% {left:100%;}
+}
+input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0px 1000px white inset;
 }

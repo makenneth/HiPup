@@ -1,4 +1,4 @@
-	json.extract! @tag, :id, :name
-	json.groups @tag.groups do |group|
-		json.extract! group, :id, :title, :lat, :lng
-	end
+json.extract! @tag, :id, :name
+json.groups @tag.groups do |group|
+	json.extract! group, :id, :title, :lat, :lng
+end

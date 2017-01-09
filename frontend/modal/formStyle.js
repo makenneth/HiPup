@@ -10,11 +10,11 @@ module.exports = {
   content: {
     position: 'absolute',
     margin: "0 auto",
-    top: "10vh",
-    width: '80%',
-    maxWidth: '600px',
-    minWidth: '400px',
+    top: "50%",
+    transform: "translateY(-50%)",
+    width: '400px',
     maxHeight: '80vh',
+    height: '50%',
     maxHeight: '530px',
     border: '1px solid #ccc',
     opacity: '0.9',
@@ -22,6 +22,6 @@ module.exports = {
     overflow: 'auto',
     WebkitOverflowScrolling: 'touch',
     borderRadius: '10px',
-    padding: '40px'
+    padding: '25px'
   }
 };
