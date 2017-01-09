@@ -1,10 +1,34 @@
 import React from 'react';
 import { Route, IndexRoute } from 'react-router';
 import { NewGroupForm } from 'components';
-import { Main, GroupIndex, GroupHome, GroupDetail } from 'containers';
-// import { isAuthLoaded, loadAuth } from "redux/modules/auth";
+import {
+  Main,
+  GroupIndex,
+  GroupHome,
+  GroupDetail,
+  UserProfile,
+} from 'containers';
+import { isLoaded as isAuthLoaded, loadAuth } from 'redux/modules/auth';
 
-export default () => {
+export default (store) => {
+  const requireLoggedIn = (nextState, replace, callback) => {
+    const checkAuth = () => {
+      const { user } = getState().auth;
+        if (!user) {
+          replace('/');
+        }
+        callback();
+    };
+
+    if (!isAuthLoaded()) {
+      store.dispatch(loadAuth());
+    } else {
+      checkAuth();
+    }
+
+    callback();
+  };
+
   return (
     <Route path="/" component={Main}>
       <IndexRoute component={GroupIndex} />
@@ -13,11 +37,13 @@ export default () => {
         <IndexRoute component={GroupHome} />
       </Route>
       <Route path="groups" component={GroupIndex} />
+      <Route onEnter={requireLoggedIn}>
+        <Route path="user/events" component={ManageEvents} />
+        <Route path="user/profile" component={UserProfile} />
+      </Route>
     </Route>
   );
 };
         // <Route path="events/:eventId" component={EventShow} />
-      // <Route path="user/profile" component={UserProfile} />
-      // <Route path="user/events" component={ManageEvents} />
       // <Route path="tags/:tagId" component={TagShow} />
 

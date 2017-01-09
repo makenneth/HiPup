@@ -14,8 +14,7 @@
 
 
 # Ignore application configuration
-/config/application.yml
-/config/secrets.yml
+/config/*.yml
 # Ignore node modules
 node_modules
 
