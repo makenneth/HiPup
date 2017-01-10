@@ -25,10 +25,6 @@ export default class PasswordChange extends Component {
     };
   }
 
-  passwordChanged = () => {
-    this.props.showSuccess("Password has been updated!");
-  }
-
   setField = (ev) => {
     const fieldObj = {};
     fieldObj[ev.target.id] = ev.target.value;
@@ -64,6 +60,8 @@ export default class PasswordChange extends Component {
     this.props.updateUser({
       new_password: this.state.newPassword,
       old_password: this.state.oldPassword
+    }).then(() => {
+      this.props.showSuccessMessage("Password has been updated!");
     });
   }
 

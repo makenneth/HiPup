@@ -7,20 +7,22 @@ import {
   GroupHome,
   GroupDetail,
   UserProfile,
+  ManageEvents,
 } from 'containers';
 import { isLoaded as isAuthLoaded, loadAuth } from 'redux/modules/auth';
 
 export default (store) => {
   const requireLoggedIn = (nextState, replace, callback) => {
     const checkAuth = () => {
-      const { user } = getState().auth;
+      const state = store.getState();
+      const user = state.auth.get('user');
         if (!user) {
           replace('/');
         }
         callback();
     };
 
-    if (!isAuthLoaded()) {
+    if (!isAuthLoaded(store.getState())) {
       store.dispatch(loadAuth());
     } else {
       checkAuth();

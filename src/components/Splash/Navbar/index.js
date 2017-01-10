@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { hashHistory } from "react-router";
+import { browserHistory } from "react-router";
 
 export default class Navbar extends Component {
   constructor(props) {
@@ -11,13 +11,15 @@ export default class Navbar extends Component {
   }
   setTab = (tab, url) => {
     this.setState({ active: tab });
-    hashHistory.push(url);
+    browserHistory.push(url);
     this.props.closeModal();
   }
+
   openLogInModal(){
     this.props.closeModal();
     this.props.openLogInModal();
   }
+
   buttonsForLoggedIn() {
     const active = this.state.active;
     return (this.props.user && <ul className="nav-list-user">

@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
       history={browserHistory}
       render={props => <ReduxAsyncConnect {...props} />}
     >
-      {getRoutes()}
+      {getRoutes(store)}
     </Router>
   </Provider>, document.getElementById('root'));
 });

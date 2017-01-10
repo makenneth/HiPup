@@ -1,12 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { browserHistory } from "react-router";
+import { browserHistory, Link } from "react-router";
 import { openModal as openSuccessModal } from 'redux/modules/success';
-import { updateUser } from 'redux/modules/user';
+import { updateUser } from 'redux/modules/auth';
+import { PasswordChange } from 'components';
 // const PasswordChange = require('./passwordChange');
-// const PasswordFormStyle = require('../../modal/passwordFormStyle');
-// const SuccessMessage = require('../../mixin/successMessage');
-// const SuccessModalStyle = require("../../modal/successModalStyle");
 
 @connect(({ auth, geolocation }) =>
   ({ user: auth.get('user'), geolocation: geolocation.get('location') }),
@@ -27,24 +25,21 @@ export default class UserProfile extends Component {
     this.setState({ passwordModalOpen: false });
   }
 
-  _setMessage = (message) => {
-    this.setState({ message });
-  }
-
-  showSuccessMessage() {
+  showSuccessMessage = (message) => {
     this.closePasswordModal();
-    this.props.openSuccessModal();
+    this.props.openSuccessModal(message);
   }
 
   render() {
-    const user = this.props.user;
+    const { user, geolocation } = this.props;
+    console.log(geolocation.get('place'))
     return (
       <div className="current-user-profile cf">
         <div className="user-name">{user.get('name')}</div>
         <div className="sub-section">
           <div className="profile-img">
             <img
-              src={user.get('image_url')}
+              src={user.get('imageUrl')}
               alt={user.get('name')} width="250px"
               height="auto"
             />
@@ -56,7 +51,7 @@ export default class UserProfile extends Component {
             </li>
             <li>
               <label>Owner_name:</label>
-              <div>{user.get('owner_name')}</div>
+              <div>{user.get('ownerName')}</div>
             </li>
             <li>
               <label>Email:</label>
@@ -64,7 +59,7 @@ export default class UserProfile extends Component {
             </li>
             <li>
               <label>Current Location:</label>
-              <div>{location.get('place')}</div>
+              <div>{geolocation.getIn(['place', 'city']) + ', ' + geolocation.getIn(['place', 'state']) }</div>
             </li>
             <li>
               <label>Primary Location:</label>
@@ -100,12 +95,11 @@ export default class UserProfile extends Component {
               <PasswordChange
                 closeModal={this.closePasswordModal}
                 updateUser={this.props.updateUser}
-                showSuccess={this.props.openSuccessModal}
+                showSuccess={this.showSuccessMessage}
               />
           }
-         </Modal>
+         </div>
       </div>
     );
   }
 };
-
