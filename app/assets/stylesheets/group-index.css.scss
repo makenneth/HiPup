@@ -165,17 +165,20 @@
 		font-size: 2.5vw;
 	}
 }
+
 @media only screen and (max-width: 800px){
 	.group-index-card, .group-index-item, .back-side {
 		width: 40vw;
 	}
-	.group-index-item h4{
+
+	.group-index-item h4 {
 		font-size: 25px;
 	}
 }
 @media only screen and (max-width: 645px){
 	.group-index-card, .group-index-item, .back-side {
 		width: 350px;
+
 		h4 {
 			font-size: 25px;
 

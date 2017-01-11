@@ -9,8 +9,7 @@ class Group < ActiveRecord::Base
 	has_many :tags, through: :taggings, source: :tag
 	has_many :group_events
 
-	attr_accessor :distance
-
+	attr_reader :image
 	def ensure_image
 		self.image_url = "https://placehold.it/500x300.jpg/000" if self.image_url == ""
 	end

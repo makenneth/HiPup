@@ -1,4 +1,6 @@
 class Api::GroupsController < ApplicationController
+	include FileUploader
+
 	def index
 		group_json = nil
 		@location = get_geolocation
@@ -30,14 +32,16 @@ class Api::GroupsController < ApplicationController
 	end
 
 	def create
-		params = group_params
-		tag_ids = params.delete(:tag_ids)
+		data_params = params[:group]
+		tag_ids = data_params.delete(:tag_ids)
 		tag_ids = tag_ids.map(&:to_i) if tag_ids
+		image = data_params.delete(:image)
+		url = upload(image[:filename], image[:content_type], image[:file_contents])
+		data_params = data_params.inject({}){|memo,(k,v)| memo[k.to_sym] = v; memo}
+		@group = Group.new(data_params)
+		@group.image_url = url
 
-		@group = Group.new(params)
-
-		if save_new_group
-			Thread.new
+		if save_new_group(tag_ids)
 			render :show, status: 200
 		else
 			render json: @group.errors.full_messages, status: 422
@@ -68,15 +72,15 @@ class Api::GroupsController < ApplicationController
 	def group_params
 		params.require(:group).permit(
 			:title, :description, :lat,
-			:lng, :image_url, :creator_id,
+			:lng, :creator_id, :image,
 			:city, :state, tag_ids: []
 		)
 	end
 
-	def save_new_group
+	def save_new_group(tag_ids)
 		ActiveRecord::Base.transaction do
 			@group.save!
-			@group.tag_ids = tag_ids
+			@group.tag_ids = tag_ids if tag_ids
 			GroupParticipant.create!(
 				group_id: @group.id,
 				participant_id: @group.creator_id

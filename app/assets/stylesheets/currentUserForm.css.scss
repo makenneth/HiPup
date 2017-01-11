@@ -2,7 +2,8 @@
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-	width: 80%;
+	width: 60%;
+	max-width: 400px;
 	margin: 0 auto;
 	font-family: 'Titillium Web', sans-serif;
 
@@ -14,19 +15,27 @@
 		background-color: transparent;
 		color: black;
 	}
+
 	.close-icon:hover {
 		color: red;
 	}
+
+	.hint {
+		position: relative;
+		color: red;
+		margin-bottom: 35px;
+	}
+
 	#change-password {
 		display: flex;
 		flex-wrap: nowrap;
 		flex-direction: column;
-		font-size: 20px;
+		font-size: 16px;
+
 		input {
-			border-width: 0 0 3px 0;
-			padding: 5px 5px 0 5px;
+			border-width: 0 0 1px 0;
+			padding: 5px 0px 7px 0px;
 			margin-top: 1%;
-			margin-bottom: 10%;
 		}
 
 		input:focus {
@@ -41,18 +50,24 @@
 			text-align: center;
 			align-self: center;
 			background-color: #ce5938;
+			margin-bottom: 0;
+
+			&:hover {
+				background-color: rgba(206, 89, 56, 0.75);
+			}
 		}
+
 		.error {
 			box-shadow: 0 0 5px 5px red;
 		}
 		.password-errors {
-			font-size: 24px;
+			font-size: 18px;
 			font-weight: 700;
 			color: red;
 		}
 	}
 	h3 {
-		font-size: 24px;
+		font-size: 20px;
 		align-self: center;
 		margin-bottom: 5%;
 	}

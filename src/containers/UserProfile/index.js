@@ -1,88 +1,79 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { HashHistory } from "react-router";
-// const Modal = require('react-modal');
-const PasswordChange = require('./passwordChange');
-const PasswordFormStyle = require('../../modal/passwordFormStyle');
-const SuccessMessage = require('../../mixin/successMessage');
-const SuccessModalStyle = require("../../modal/successModalStyle");
+import { browserHistory, Link } from "react-router";
+import { openModal as openSuccessModal } from 'redux/modules/success';
+import { updateUser } from 'redux/modules/auth';
+import { PasswordChange } from 'components';
+// const PasswordChange = require('./passwordChange');
 
 @connect(({ auth, geolocation }) =>
-  ({ user: auth.get('user'), geolocation: geolocation.get('location') })
+  ({ user: auth.get('user'), geolocation: geolocation.get('location') }),
+  ({ openSuccessModal, updateUser })
 )
 export default class UserProfile extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      passwordModalOpen: false,
-      profileEditModalOpen: false,
-      successIsOpen: false,
-      message: ""
-    };
-  }
+  state = {
+    passwordModalOpen: false,
+    // profileEditModalOpen: false,
+    message: '',
+  };
 
-  openPasswordModal() {
+  openPasswordModal = () => {
     this.setState({ passwordModalOpen: true });
   }
-  closePasswordModal() {
+
+  closePasswordModal = () => {
     this.setState({ passwordModalOpen: false });
   }
-  _setMessage(message) {
-    this.setState({ message });
-  }
-  showSuccessMessage() {
+
+  showSuccessMessage = (message) => {
     this.closePasswordModal();
-    this.openSuccessModal();
-  }
-
-  openSuccessModal() {
-    this.setState({ successIsOpen: true });
-  }
-
-  closeSuccessModal() {
-    this.setState({ successIsOpen: false });
+    this.props.openSuccessModal(message);
   }
 
   render() {
-    const user = this.props.user;
+    const { user, geolocation } = this.props;
     return (
       <div className="current-user-profile cf">
-        <div className="user-name">{user.name}</div>
+        <div className="user-name">{user.get('name')}</div>
         <div className="sub-section">
           <div className="profile-img">
             <img
-              src={user.image_url}
-              alt={user.name} width="250px"
+              src={user.get('imageUrl')}
+              alt={user.get('name')} width="150px"
               height="auto"
             />
           </div>
           <ul className='profile-list'>
             <li>
               <label>Username:</label>
-              <div>{user.username}</div>
+              <div>{user.get('username')}</div>
             </li>
             <li>
               <label>Owner_name:</label>
-              <div>{user.owner_name}</div>
+              <div>{user.get('ownerName')}</div>
             </li>
             <li>
               <label>Email:</label>
-              <div>{user.email}</div>
+              <div>{user.get('email')}</div>
             </li>
             <li>
               <label>Current Location:</label>
-              <div>{location.place}</div>
+              <div>{geolocation.getIn(['place', 'city']) + ', ' + geolocation.getIn(['place', 'state']) }</div>
             </li>
             <li>
               <label>Primary Location:</label>
-              <div>{user.city + ", " + user.state}</div>
+              <div>{user.get('city') + ", " + user.get('state')}</div>
             </li>
             <li className="glist">
               <label>Group Association:</label>
               <ul className="group-list">
                 {
-                  user.groups.map((group) => {
-                    return <li key={group.id}><a href=`/groups/${group.id}`>{group.title}</a></li>;
+                  user.get('groups').map((group) => {
+                    return (<li key={group.get('id')}>
+                      <Link to={`/groups/${group.get('id')}`}>
+                        {group.get('title')}
+                      </Link>
+                    </li>);
                   })
                 }
               </ul>
@@ -92,32 +83,22 @@ export default class UserProfile extends Component {
         <div className="profile-edit-button">
           <button
             className="change-password"
-            onClick={this.openPasswordModal}>
+            onClick={this.openPasswordModal}
+          >
             Update Password
           </button>
         </div>
+        {
+          this.state.passwordModalOpen &&
+            <div className="overlay">
+              <PasswordChange
+                closeModal={this.closePasswordModal}
+                updateUser={this.props.updateUser}
+                showSuccess={this.showSuccessMessage}
+              />
+             </div>
+        }
       </div>
     );
   }
 };
-        <Modal
-          isOpen={this.state.passwordModalOpen}
-          onRequestClose={this.state.closePasswordModal}
-          style={PasswordFormStyle}
-        >
-          <PasswordChange
-            closeModal={this.closePasswordModal}
-            setMessage={this._setMessage}
-            showSuccess={this.showSuccessMessage}
-          />
-         </Modal>
-         <Modal
-            onRequestClose={this.closeSuccesModal}
-            style={SuccessModalStyle}
-            isOpen={this.state.successIsOpen}
-          >
-            <SuccessMessage
-              closeModal={this.closeSuccessModal}
-              message={this.state.message}
-            />
-          </Modal>
