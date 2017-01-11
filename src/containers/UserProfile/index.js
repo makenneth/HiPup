@@ -32,7 +32,6 @@ export default class UserProfile extends Component {
 
   render() {
     const { user, geolocation } = this.props;
-    console.log(geolocation.get('place'))
     return (
       <div className="current-user-profile cf">
         <div className="user-name">{user.get('name')}</div>
@@ -40,7 +39,7 @@ export default class UserProfile extends Component {
           <div className="profile-img">
             <img
               src={user.get('imageUrl')}
-              alt={user.get('name')} width="250px"
+              alt={user.get('name')} width="150px"
               height="auto"
             />
           </div>
@@ -89,16 +88,16 @@ export default class UserProfile extends Component {
             Update Password
           </button>
         </div>
-        <div className="overlay">
-          {
-            this.state.passwordModalOpen &&
+        {
+          this.state.passwordModalOpen &&
+            <div className="overlay">
               <PasswordChange
                 closeModal={this.closePasswordModal}
                 updateUser={this.props.updateUser}
                 showSuccess={this.showSuccessMessage}
               />
-          }
-         </div>
+             </div>
+        }
       </div>
     );
   }

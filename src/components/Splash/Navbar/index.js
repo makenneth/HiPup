@@ -6,18 +6,19 @@ export default class Navbar extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      active: 0
+      active: 0,
     };
   }
+
   setTab = (tab, url) => {
     this.setState({ active: tab });
     browserHistory.push(url);
     this.props.closeModal();
   }
 
-  openLogInModal(){
+  openLogInModal = () => {
     this.props.closeModal();
-    this.props.openLogInModal();
+    this.props.openLogIn();
   }
 
   buttonsForLoggedIn() {

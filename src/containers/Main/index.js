@@ -79,7 +79,7 @@ export default class Main extends Component {
           this.props.location.pathname !== '/' &&
             <div className="menu-icon" onClick={this.openNavModal}>&#9776;</div>
         }
-        <Navbar user={this.props.user} logOut={this.props.logOut} />
+        <Navbar user={this.props.user} logOut={this.props.logOut} openLogIn={this.props.openLogIn} />
         {
           this.props.loginOpen &&
             (<div className="overlay">
