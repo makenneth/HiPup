@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { asyncConnect } from 'redux-async-connect';
 import { EventMap } from 'components';
 import { openLogIn, openSignUp } from 'redux/modules/form';
 import { openConfirm, closeConfirm } from 'redux/modules/confirmation';
-import { hasLoaded, isCached, fetchGroupEvent, setEvent } from 'redux/modules/groupEvent';
-
+import { hasLoaded, isCached, fetchGroupEvent, setEvent } from 'redux/modules/eventDetail';
+import { immutableSample } from 'helpers';
 import moment from 'moment';
 
 @asyncConnect([{
@@ -15,7 +17,7 @@ import moment from 'moment';
       if (isCached(state, params.eventId)) {
         store.dispatch(setEvent(params.eventId));
       } else {
-        promise = store.dispatch(fetchSingleEvent(params.eventId));
+        promise = store.dispatch(fetchGroupEvent(params.eventId));
       }
     }
 
@@ -23,11 +25,12 @@ import moment from 'moment';
   }
 }])
 @connect(
-  ({ eventDetail }) => ({
+  ({ eventDetail, auth }) => ({
     groupEvent: eventDetail.get('groupEvent'),
+    user: auth.get('user'),
     eventDetail,
   }),
-  { openLogIn, openSignUp, openConfirmation, fetchGroupEvent }
+  { openLogIn, openSignUp, openConfirm, fetchGroupEvent }
 )
 export default class EventShow extends Component {
   state = {
@@ -170,40 +173,48 @@ export default class EventShow extends Component {
 
   render() {
     const { groupEvent, user } = this.props;
+    if (!groupEvent) {
+      return (
+        <div />
+      );
+    }
     const eventTime = groupEvent.get('eventTime');
-    const notCancelledNorOld = groupEvent.get('status') !== "CANCEL" &&
-                  groupEvent.get('time') > Date.now();
-
+    const shouldBeActive = groupEvent.get('status') !== 'CANCEL' && new Date(eventTime) > Date.now();
+    const status = (function getStatus() {
+      if (eventTime < Date.now()) {
+        return 'Finished';
+      } else if (groupEvent.get('status') === 'CANCEL') {
+        return 'Cancelled';
+      } else {
+        return 'On Schedule';
+      }
+    }());
+          // {this.editButton()}
     return (
       <div className="event-parent">
         <div className="event-details">
-          {this.editButton()}
           {this.editTitle()}
           <div className="event-sub">
             <div className="event-time-info">
               <div className="date-and-time">
                 <h3>{moment(eventTime).format('dddd, MMMM DD, YYYY')}</h3>
-                <p>{moment(eventtime).format('hh:mm a')}</p>
-                <p>
-                  Status:  {
-                    groupEvent.get('time') < Date.now() ? "Finished" :
-                      groupEvent.get('status') === "CANCEL" ? "Cancelled" : "On Schedule"}
-                </p>
+                <p>{moment(eventTime).format('hh:mm a')}</p>
+                <p>Status:  {status}</p>
               </div>
               <div id="location">
                 <h4>{groupEvent.get('street')}</h4>
-                <p>{groupEvent.get('city')}, {groupEvent.get('state')} {groupEvent.get('zip')}</p>
+                <p>{`${groupEvent.get('city')}, ${groupEvent.get('state')} ${groupEvent.get('zip')}`}</p>
               </div>
             </div>
             <div className="event-detail-map-container">
               {
-                user && user.get('id') === groupEvent.get('hostId') && notCancelledNorOld &&
+                user && user.get('id') === groupEvent.get('hostId') && shouldBeActive &&
                   <button className="cancel-event" onClick={this.cancelEvent}>Cancel Event</button>
               }
               <div className="event-map">
                 {
-                  this.props.groupEvent.get('eventTime') &&
-                    <EventMap lat={groupEvent.get('lat')} lng={groupEvent.get('lng')} />
+                  // this.props.groupEvent.get('eventTime') &&
+                  //   <EventMap lat={groupEvent.get('lat')} lng={groupEvent.get('lng')} />
                 }
               </div>
             </div>
@@ -212,17 +223,17 @@ export default class EventShow extends Component {
         </div>
         <div className="rsvp-member">
           {
-            notCancelledNorOld &&
+            shouldBeActive &&
               (<div className="rsvp-buttons">
               <div id="title">Interested?</div>
               <div>{this.toggleEventButton()}</div>
               </div>)
           }
           <div className="event-participants">
-            {groupEvent.get('eventUsers').size} {notCancelledNorOld ? "going" : "went"}:
+            <h4>{`${groupEvent.get('eventUsers').size} ${shouldBeActive ? ' are going' : ' has went'}:`}</h4>
             <ul className="participant-list">
               {
-                groupEvent.get('eventUsers').slice(0, 10).map((participant) => {
+                immutableSample(groupEvent.get('eventUsers'), 8).map((participant) => {
                   return (<li key={participant.get('id')} >
                     <div
                       className='mini-pic'

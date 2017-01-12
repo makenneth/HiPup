@@ -11,11 +11,11 @@ export default class GroupEventItem extends Component {
     const groupEvent = this.props.groupEvent;
     return (
       <div className="group-event-container">
-        <div className="group-event-title" onClick={this.showEvent}>
-          {groupEvent.get('title')}
-        </div>
         <div className="group-event-detail">
           <div className="event-detail-left">
+            <div className="group-event-title" onClick={this.showEvent}>
+              {groupEvent.get('title')}
+            </div>
             <p className="location">{groupEvent.get('city')}, {groupEvent.get('state')}</p>
             <p>{groupEvent.get('description').slice(0,120)}...</p>
           </div>
@@ -23,8 +23,8 @@ export default class GroupEventItem extends Component {
             <p className="event-time">{moment(groupEvent.get('eventTime')).format('dddd, MMMM DD, YYYY')}</p>
             <p className="event-hour">{moment(groupEvent.get('eventTime')).format('hh:mm a')}</p>
             {
-              (groupEvent.get('time') > Date.now() || groupEvent.get('status') === "SCHEDULED") &&
-                <button className="rsvp" onClick={this.showEvent}>RSVP</button>
+              (groupEvent.get('eventTime') > Date.now() || groupEvent.get('status') === "SCHEDULED") &&
+                <button className="rsvp" onClick={this.showEvent}>Event Detail</button>
             }
           </div>
         </div>

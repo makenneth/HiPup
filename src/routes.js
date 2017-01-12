@@ -8,6 +8,7 @@ import {
   GroupDetail,
   UserProfile,
   ManageEvents,
+  EventShow,
 } from 'containers';
 import { isLoaded as isAuthLoaded, loadAuth } from 'redux/modules/auth';
 
@@ -37,6 +38,7 @@ export default (store) => {
       <Route path="groups/new" component={NewGroupForm} />
       <Route path="groups/:groupId" component={GroupDetail}>
         <IndexRoute component={GroupHome} />
+        <Route path="events/:eventId" component={EventShow} />
       </Route>
       <Route path="groups" component={GroupIndex} />
       <Route onEnter={requireLoggedIn}>
@@ -46,6 +48,5 @@ export default (store) => {
     </Route>
   );
 };
-        // <Route path="events/:eventId" component={EventShow} />
       // <Route path="tags/:tagId" component={TagShow} />
 

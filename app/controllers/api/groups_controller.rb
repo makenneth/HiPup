@@ -11,7 +11,7 @@ class Api::GroupsController < ApplicationController
 			unless groups_json
 				@groups = Group.includes(:tags, :participants)
 				group_json = render_to_string(formats: 'json')
-				@redis.set("all_groups", group_json)
+				$redis.set("all_groups", group_json)
 			end
 			render json: group_json, status: 200
 		end

@@ -1,17 +1,20 @@
 .group-detail {
 	min-width: 500px;
 }
+
 .rsvp {
 	background-color: #2372b2;
 	padding: 5px 15px;
 	color: white;
 	border-radius: 5px;
-
+	margin-right: 0;
 }
+
 .rsvp:hover {
 	background-color: #0e2d47	;
 	box-shadow: 0 0 2px 5px #eee;
 }
+
 .group-event-container {
 	min-width: 470px;
 	padding-bottom: 5px;
@@ -22,6 +25,7 @@
 	flex-direction: column;
 	flex-wrap: nowrap;
 	justify-content: flex-start;
+
 	.group-event-title {
 		font-size: 20px;
 	}
@@ -34,15 +38,18 @@
 		flex-wrap: nowrap;
 		justify-content: space-between;
 	}
+
 	.event-detail-left {
 		font-size: 16px;
 		width: 70%;
 		margin-right: 10px;
 		min-width: 270px;
+
 		.location {
 			font-size: 18px;
 		}
 	}
+
 	.event-detail-right {
 		align-self: flex-start;
 		text-align: right;
@@ -64,11 +71,13 @@
 	font-family: 'Titillium Web', sans-serif;
 	justify-content: space-around;
 	margin-bottom: 20px;
+
 	li {
 		list-style-type: none;
 		font-size: 22px;
 		color: #36384c;
 	}
+
 	.active-tab {
 		border-bottom: 5px solid #36384c;
 		font-weight: 900;
@@ -78,24 +87,32 @@
 .event-details {
 	display: flex;
 	flex-direction: column;
+	flex: 1;
 	width: 100%;
-	min-width: 520px;
+	min-width: 450px;
 	margin: 0px;
 	border: 1px solid black;
 	padding: 10px;
 	border-radius: 5px;
 	box-shadow: 2px 2px 2px 0 black;
-		.edit {
-			align-self: flex-end;
-			font-size: 24px;
-			cursor: pointer;
-		}
 
-		textarea, input {
-			font-size: 22px;
-			padding: 5px;
-			border: 2px solid black;
-		}
+	#header h3 {
+		font-weight: 700;
+	}
+
+	.edit {
+		align-self: flex-end;
+		font-size: 24px;
+		cursor: pointer;
+	}
+
+	textarea,
+	input {
+		font-size: 22px;
+		padding: 5px;
+		border: 2px solid black;
+	}
+
 	.date-and-time {
 		padding-bottom: 10px;
 		border-bottom: 3px solid black;
@@ -107,38 +124,42 @@
 			font-size:20px;
 		}
 	}
-		.cancel-event {
-			background-color: #ccc;
-			border: 1px solid #ccc;
-			border-radius: 5px;
-			padding: 5px;
-		}
-		.cancel-event:hover {
-			background-color: #333;
-		}
+
+	.cancel-event {
+		background-color: #ccc;
+		border: 1px solid #ccc;
+		border-radius: 5px;
+		padding: 5px;
+	}
+
+	.cancel-event:hover {
+		background-color: #333;
+	}
+
 	.event-sub {
 		display: flex;
 		flex-direction: row;
 		flex-wrap: nowrap;
 		justify-content: space-between;
-			p {
-				font-size: 18px;
-				margin-top: 2px;
-			}
+
+		p {
+			font-size: 18px;
+			margin-top: 2px;
+		}
+
 		.event-time-info {
 			display:flex;
 			flex-direction: column;
-
 		}
-		.location {
-			h4 {
-				margin-bottom: 2px;
-			}
+
+		.location h4 {
+			margin-bottom: 2px;
 		}
 	}
-		#description {
-			font-size: 20px;
-		}
+
+	#description {
+		font-size: 16px;
+	}
 }
 
 .event-parent {
@@ -148,18 +169,18 @@
 	flex-direction: row;
 	flex-wrap: nowrap;
 	justify-content: space-between;
-	width: 90%;
+	max-width: 750px;
+
 	.rsvp-member {
 		margin: 0;
 		display: flex;
 		flex-direction: column;
-		width: 100%;
-		max-width: 250px;
 		align-content: center;
 		border: 1px solid black;
 		padding: 10px;
 		border-radius: 5px;
 		box-shadow: 2px 2px 2px 0 black;
+
 		.rsvp-buttons {
 			padding-bottom: 5px;
 			border-bottom: 5px solid black;
@@ -178,15 +199,19 @@
 				cursor: pointer;
 				align-self: center;
 		}
+
 		.join {
 			background-color: #30690E;
 		}
+
 		.leave {
 			background-color: #791710;
 		}
+
 		.join:hover {
 			background-color: #BFE4A9;
 		}
+
 		.leave:hover {
 			background-color: #DB7D76;
 		}

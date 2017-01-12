@@ -1,1 +1,2 @@
-export Request from "./request/request";
+export Request from "./Request";
+export * from "./Sample";
