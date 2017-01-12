@@ -23,11 +23,11 @@ export default (state = initialState, action) => {
       return state.merge({
         loading: false,
         loaded: true,
-        groupEvents: fromJS(action.payload),
+        groupEvent: fromJS(action.payload),
       });
     }
     case RSVP_CHANGED: {
-      return state.setIn(['groupEvent', 'event_users'], );
+      // return state.setIn(['groupEvent', 'event_users'], );
     }
     case FETCH_FAIL:
       return state.merge({

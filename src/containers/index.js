@@ -7,3 +7,4 @@ export SuccessMessage from './SuccessMessage';
 export Confirmation from './Confirmation';
 export UserProfile from './UserProfile';
 export ManageEvents from './ManageEvents';
+export EventShow from './EventShow';

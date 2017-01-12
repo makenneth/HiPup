@@ -50,7 +50,7 @@ export default class GroupDetail extends Component {
     const children = React.Children.map(this.props.children,
       child => React.cloneElement(child, {
         joinGroup: this.joinGroup,
-        hasJoinedGroup: this.hasJoinedGroup
+        hasJoinedGroup: this.hasJoinedGroup,
       })
     );
     return (
@@ -63,7 +63,7 @@ export default class GroupDetail extends Component {
           path={this.props.location.pathname}
           user={this.props.user}
         />
-        {this.props.children}
+        {children}
       </div>
     );
   }

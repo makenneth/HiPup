@@ -4,6 +4,7 @@ import geolocation from './geolocation';
 import auth from './auth';
 import form from './form';
 import groupEvents from './groupEvents';
+import eventDetail from './eventDetail';
 import groups from './groups';
 import group from './group';
 import success from './success';
@@ -19,6 +20,7 @@ export default combineReducers({
   auth,
   groups,
   group,
+  eventDetail,
   groupEvents,
   success,
   confirmation,

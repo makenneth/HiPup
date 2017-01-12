@@ -14,6 +14,6 @@ unless simple
 	json.description group.description
 	json.groupEvents group.group_events do |event|
 		json.extract! event, :lat, :lng, :city, :state, :title,
-						:description, :street, :zip, :id, :group_id, :event_time
+						:description, :street, :zip, :id, :group_id, :event_time, :status
 	end
 end

@@ -4,7 +4,7 @@ import { browserHistory } from 'react-router';
 import moment from 'moment';
 
 @connect(
-  ({ auth }) => ({ groupEvents: auth.getIn(['user', 'joinedEvents']) })
+  ({ auth }) => ({ joinedEvents: auth.getIn(['user', 'joinedEvents']) })
 )
 export default class ManageEvents extends Component {
   redirect = (groupId, id) => {
@@ -22,14 +22,14 @@ export default class ManageEvents extends Component {
     return (
       <div id="parent-container">
         <div className="title">Upcoming Events:</div>
-        <div class="events-container">
+        <div className="events-container">
           {
             this.props.joinedEvents.map((joinedEvent) => {
               const group = joinedEvent.get('belongedGroup');
               const eventTime = group.get('eventTime');
               return (<div
                 key={joinedEvent.get('id')}
-                class="user-events-detail"
+                className="user-events-detail"
                 onClick={() => this.showDetail(joinedEvent.get('id'))}
                >
                 <li

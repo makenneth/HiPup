@@ -5,6 +5,7 @@ export default class GroupIndexItem extends Component {
   showDetail = () => {
     browserHistory.push(`groups/${this.props.group.get('id')}`);
   }
+
   render() {
     const group = this.props.group;
     const tagTitles = group.get('tags').map(tag => tag.get('name'));
@@ -22,8 +23,8 @@ export default class GroupIndexItem extends Component {
           <h4>{group.get('title')}</h4>
         </div>
         <div className="back-side">
-          <p>We have { group.get('participants').size } members!</p>
-          <p>Location: { `${group.get('city')}, ${group.get('state')}` }</p>
+          <p>We have {group.get('participants').size} members!</p>
+          <p>Location: {`${group.get('city')}, ${group.get('state')}`}</p>
           <div id="hidden-tags">
             {
               tagTitles.map((tag, index) => {
