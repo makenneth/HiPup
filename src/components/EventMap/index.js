@@ -1,5 +1,6 @@
-import React, { Component } from "react";
-export default class Map extends Component {
+import React, { Component } from 'react';
+
+export default class EventMap extends Component {
   componentDidMount() {
     const mapDOMNode = this.refs.map;
     const mapOptions = {

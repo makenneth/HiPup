@@ -213,8 +213,8 @@ export default class EventShow extends Component {
               }
               <div className="event-map">
                 {
-                  // this.props.groupEvent.get('eventTime') &&
-                  //   <EventMap lat={groupEvent.get('lat')} lng={groupEvent.get('lng')} />
+                  this.props.groupEvent.get('eventTime') &&
+                    <EventMap lat={groupEvent.get('lat')} lng={groupEvent.get('lng')} />
                 }
               </div>
             </div>
@@ -230,7 +230,7 @@ export default class EventShow extends Component {
               </div>)
           }
           <div className="event-participants">
-            <h4>{`${groupEvent.get('eventUsers').size} ${shouldBeActive ? ' are going' : ' has went'}:`}</h4>
+            <h4>{`${groupEvent.get('eventUsers').size} ${shouldBeActive ? ' are going' : ' has gone'}:`}</h4>
             <ul className="participant-list">
               {
                 immutableSample(groupEvent.get('eventUsers'), 8).map((participant) => {
