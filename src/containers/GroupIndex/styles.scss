@@ -1,0 +1,213 @@
+@mixin index-item-anim {
+  transition: all 0.6s ease-out;
+  -moz-transition: all 0.6s ease-out;
+  -webkit-transition: all 0.6s ease-out;
+  -o-transition: all 0.6s ease-out;
+}
+
+.group-index {
+  transform: translate3d(0, 0, 0);
+  -webkit-transform: translate3d(0, 0, 0);
+  width: 90%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+  min-width: 350px;
+  h1 {
+    width: 60%;
+    color: white;
+    p {
+      cursor: pointer;
+      text-decoration: underline;
+    }
+    p:hover {
+      @include index-item-anim;
+      color: blue;
+    }
+  }
+}
+
+.group-index-body {
+  padding-top: 3%;
+  background-color: rgba(0, 0, 0, 0.8);
+}
+ .front-side, .back-side {
+  position: absolute;
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  height: 160px;
+  height: 11.25vw;
+  width: 28vw;
+  min-width: 250px;
+  min-height: 106px;
+  overflow: hidden;
+  padding: 20px 0;
+  margin: 0 10px 10px 0px;
+  font-family: 'Open sans', sans-serif;
+  font-weight: 700;
+  @include index-item-anim;
+}
+
+.front-side {
+  -webkit-transform: rotateX(0deg);
+  -moz-transform: rotateX(0deg);
+  transform: rotateX(0deg);
+  opacity: 1;
+  background-color: black;
+}
+.back-side {
+   position: absolute;
+  -webkit-transform: rotateX(-180deg);
+  -moz-transform: rotateX(-180deg);
+  transform: rotateX(-180deg);
+  background-color: black;
+  color: white;
+  opacity: 0.1;
+  p {
+    font-size: 18px;
+  }
+}
+.group-index-card {
+  transform: translate3d(0, 0, 0);
+  -webkit-transform: translate3d(0, 0, 0);
+  position: relative;
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+    height: 160px;
+    height: 11.25vw;
+    width: 28vw;
+    min-width: 250px;
+    min-height: 106px;
+    /*overflow: hidden;*/
+    padding: 20px 0;
+    margin: 0 10px 10px 0px;
+    cursor: pointer;
+    background-color: transparent;
+
+}
+.group-index-item {
+    perspective: 1000px;
+    -webkit-perspective: 1000px;
+    display: flex;
+    flex-direction: column;
+
+    font-family: 'Open sans', sans-serif;
+    font-weight: 700;
+    color: white;
+  }
+
+#hidden-tags {
+    font-family: 'Open sans', sans-serif;
+    font-size: 16px;
+    text-align: center;
+    color: white;
+    text-shadow: 1px 2px black;
+    display: flex;
+    flex-direction: row;
+    .hidden-tags-tags {
+      margin-top: 15px;
+      background-color: #444;
+      opacity: 0.8;
+      border-radius: 3px;
+      margin-left: 10px;
+      padding: 5px 10px;
+      position: relative;
+    }
+    .hidden-tags-tags:before {
+      content: "";
+      width: 10px;
+      padding: 10px;
+      border-width: 12px 12px 12px 0;
+    }
+    .hidden-tags-tags:after {
+      content:"";
+      position: absolute;
+      top: 13px;
+      left: 10px;
+      width:6px;
+      height:6px;
+      -moz-border-radius:25px;
+      -webkit-border-radius:25px;
+      border-radius:25px;
+      background-color: white;
+    }
+  }
+
+
+  .group-index-item h4{
+    font-size: 2vw;
+    text-align: center;
+    text-shadow: 1px 1px black;
+  }
+
+
+  .group-index-card:hover .back-side {
+    display: flex;
+    flex-direction: column;
+    transform: rotateX(0deg);
+    -webkit-transform: rotateX(0deg);
+    -moz-transform: rotateX(0deg);
+    @include index-item-anim;
+    opacity: 0.9;
+  }
+  .group-index-card:hover .front-side {
+    transform: rotateX(-180deg);
+    -webkit-transform: rotateX(-180deg);
+  }
+@media only screen and (max-width: 1100px){
+  .group-index-item h4{
+    font-size: 2.5vw;
+  }
+}
+
+@media only screen and (max-width: 800px){
+  .group-index-card, .group-index-item, .back-side {
+    width: 40vw;
+  }
+
+  .group-index-item h4 {
+    font-size: 25px;
+  }
+}
+@media only screen and (max-width: 645px){
+  .group-index-card, .group-index-item, .back-side {
+    width: 350px;
+
+    h4 {
+      font-size: 25px;
+
+    }
+  }
+}
+
+
+.git-logo,
+.link-logo {
+  cursor: pointer;
+  background-size: cover;
+  margin-right: 10px;
+  width: 60px;
+  height: 60px;
+}
+
+.git-logo {
+  background-image: url("/icons/github.png");
+}
+
+.git-logo:hover {
+  background-image: url("/icons/github-hover.png");
+}
+
+.link-logo {
+  background-image: url("/icons/linkedin.png");
+}
+
+.link-logo:hover {
+  background-image: url("/icons/linkedin-hover.png");
+}

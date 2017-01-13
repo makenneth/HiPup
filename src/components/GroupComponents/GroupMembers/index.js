@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import MemberProfile from '../MemberProfile';
 import { immutableSample } from 'helpers';
 
-import './profile.less';
+import './profile.scss';
 
 export default class GroupMembers extends Component {
   state = {

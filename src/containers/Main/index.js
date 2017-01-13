@@ -12,7 +12,7 @@ import {
   SignUpForm,
   MainNav,
 } from 'components';
-import './formStyle.less'
+import './formStyle.scss'
 
 @asyncConnect([
   {

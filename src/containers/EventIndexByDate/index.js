@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { EventItemByDate } from 'components';
 import { fetchGroupEvents, isLoaded } from 'redux/modules/groupEvents';
+import './styles.scss';
 
 @connect(
   ({ groupEvents }) => ({

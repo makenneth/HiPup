@@ -4,7 +4,7 @@ import moment from 'moment';
 
 export default class GroupEventItem extends Component {
   showEvent = () => {
-    browserHistory.push(`groups/${this.props.groupId}/events/${this.props.groupEvent.get('id')}`);
+    browserHistory.push(`/groups/${this.props.groupId}/events/${this.props.groupEvent.get('id')}`);
   }
 
   render() {

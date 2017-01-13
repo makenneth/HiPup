@@ -5,6 +5,8 @@ import { GroupEvents, GroupMembers } from 'components';
 import Immutable from 'immutable';
 import moment from 'moment';
 
+import './styles.scss';
+
 @connect(({ group }) => ({ group: group.get('group') }), {})
 export default class GroupHome extends Component {
   // state = {

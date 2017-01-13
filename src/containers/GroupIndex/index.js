@@ -7,7 +7,8 @@ import { clearAllFilters } from 'redux/modules/query';
 import { fetchTags } from 'redux/modules/tags';
 import FaAngleDown from 'react-icons/lib/fa/angle-down';
 
-import './dateModalStyle.less';
+import './dateModalStyle.scss';
+import './styles.scss';
 
 const banner = 'https://images.unsplash.com/photo-1443750200537-00fd518bdc82?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&w=1080&fit=max&s=ad7a9ff44b3026fcf49d80830ffb20ee';
 
