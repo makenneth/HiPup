@@ -1,0 +1,16 @@
+#success-message {
+  display: flex;
+  flex-direction: column;
+  padding: 5px;
+  font-size: 28px;
+  font-family: 'Dosis', sans-serif;
+  color: white;
+  text-align: center;
+
+  .ok {
+    margin-top: 5%;
+    width: 100%;
+    border: 1px solid white;
+    border-radius: 5px;
+  }
+}
