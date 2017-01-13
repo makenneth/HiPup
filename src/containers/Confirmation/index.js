@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { closeConfirm } from 'redux/modules/confirmation';
 
-import './styles.less';
+import './styles.scss';
 
 @connect(
   ({ confirmation }) => ({

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Immutable from 'immutable';
-import './styles.less';
+import './styles.scss';
 
 export default class PasswordChange extends Component {
   constructor(props) {
@@ -12,10 +12,6 @@ export default class PasswordChange extends Component {
       newPasswordRepeat: '',
       errors: new Immutable.Map(),
     };
-  }
-
-  componentDidUpdate(nextProps, nextState) {
-    console.log(nextState.errors);
   }
 
   setOldPassword = (ev) => {
