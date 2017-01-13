@@ -18,6 +18,8 @@ import {
   changeAllTags,
 } from 'redux/modules/query';
 
+import './styles.scss';
+
 @connect(
   ({ tags, query, geolocation, auth }) => ({
     user: auth.get('user'),

@@ -5,6 +5,8 @@ import GroupNav from '../GroupNav';
 import { fetchGroup, joinGroup, leaveGroup, isLoaded } from 'redux/modules/group';
 import { openLogIn } from 'redux/modules/form';
 
+import './styles.scss';
+
 @connect(({ auth, geolocation, group }) => ({
   user: auth.get('user'),
   location: geolocation.get('location'),

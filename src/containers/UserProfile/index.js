@@ -4,7 +4,8 @@ import { browserHistory, Link } from "react-router";
 import { openModal as openSuccessModal } from 'redux/modules/success';
 import { updateUser } from 'redux/modules/auth';
 import { PasswordChange } from 'components';
-// const PasswordChange = require('./passwordChange');
+
+import './styles.scss';
 
 @connect(({ auth, geolocation }) =>
   ({ user: auth.get('user'), geolocation: geolocation.get('location') }),

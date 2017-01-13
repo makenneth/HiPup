@@ -66,7 +66,9 @@
 		}
 	}
 
-	.guest-login, .button-create, .button-login  {
+	.guest-login,
+	.button-create,
+	.button-login  {
 		background-color: orange;
 		color: white;
 		padding: 10px;
@@ -79,6 +81,7 @@
 	.button-create:hover {
 		background-color: rgba(255, 165, 0, 0.75);
 	}
+
 	.guest-login {
 		width: 100px;
 		text-align: center;
@@ -86,6 +89,7 @@
 			background-color: rgba(255, 165, 0, 0.75);
 		}
 	}
+
 	.button-login {
 		background-color: #72B49B;
 		width: 100px;
@@ -130,14 +134,15 @@
 	display: flex;
 	padding-top: 20px;
 	justify-content: space-around;
-
 }
+
 @media screen and (max-width: 490px){
 	.user-forms {
 		padding: 20px;
-		.form-line {font-size: 20px; }
-		label {width: 100px; }
-		input {width: 200px;}
+
+		.form-line { font-size: 20px; }
+		label { width: 100px; }
+		input { width: 200px; }
 	}
 
 	.form-btn-div { margin-top: 60px; }

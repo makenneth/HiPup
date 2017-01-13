@@ -4,6 +4,8 @@ import { browserHistory } from 'react-router';
 import { removeGroup } from 'redux/modules/group';
 import { openConfirm } from 'redux/modules/confirmation';
 
+import './styles.scss';
+
 @connect(() => ({}), { removeGroup, openConfirm })
 export default class GroupNav extends Component {
   state = {
