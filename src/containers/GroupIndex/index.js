@@ -116,7 +116,7 @@ export default class GroupIndex extends Component {
     }
 
     return (
-      <div>
+      <div className="app-container">
         <div className="banner-img">
           <div className="logo">HiPup</div>
           <span className="tagline">Playdates for pets</span>

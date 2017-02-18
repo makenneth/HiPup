@@ -1,5 +1,8 @@
 import 'babel-polyfill';
 import 'whatwg-fetch';
+import 'assets/scss/reset.scss';
+import 'assets/scss/app.scss';
+
 import React from 'react';
 import { render } from 'react-dom';
 import { Router, browserHistory } from 'react-router';
