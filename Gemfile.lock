@@ -106,6 +106,7 @@ GEM
     puma (3.6.0)
     puma (3.6.0-java)
     rack (1.6.4)
+    rack-cors (0.4.1)
     rack-test (0.6.3)
       rack (>= 1.0)
     rails (4.2.5.1)
@@ -186,6 +187,7 @@ DEPENDENCIES
   pg
   pry-rails
   puma
+  rack-cors
   rails (= 4.2.5.1)
   rails_12factor
   redis (~> 3.2)

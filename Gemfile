@@ -13,6 +13,7 @@ gem 'sass-rails', '~> 5.0'
 gem 'bootstrap-sass'
 gem 'redis', '~>3.2'
 gem 'redis-namespace'
+gem 'rack-cors', :require => 'rack/cors'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .coffee assets and views
