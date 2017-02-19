@@ -44,8 +44,8 @@ export default class GroupDetail extends Component {
 
   hasJoinedGroup = () => {
     return this.props.group && this.props.user &&
-      !!this.props.user.get('groups')
-        .find(group => this.props.group.getIn(['group', 'id']) === group.get('id'));
+      Boolean(this.props.user.get('groups')
+        .find(group => this.props.group.getIn(['group', 'id']) === group.get('id')));
   }
 
   render() {

@@ -35,6 +35,31 @@ module.exports = {
         loaders: ['style-loader', 'css-loader', 'sass-loader']
       },
       { test: /\.json$/, loader: 'json-loader' },
+      {
+        test: /\.ttf$/,
+        loader: 'url',
+        query: {
+          limit: '10000',
+          mimetype: 'application/octet-stream'
+        }
+      },
+      {
+        test: /\.(woff|woff2)$/,
+        loader: 'url',
+        query: {
+          limit: '10000',
+          mimetype: 'application/font-woff'
+        }
+      },
+      { test: /\.eot$/, loader: 'file' },
+      {
+        test: /\.svg$/,
+        loader: 'url',
+        query: {
+          limit: '10000',
+          mimetype: 'image/svg+xml'
+        }
+      }
     ]
   },
   resolve: {

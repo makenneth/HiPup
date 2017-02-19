@@ -26,7 +26,6 @@ const intialState = fromJS({
 });
 
 export default (state = intialState, action) => {
-  // console.log('+ action', action);
   switch (action.type) {
     case LOAD_AUTH_SUCCESS: {
       if (!state.get('accurate')) {

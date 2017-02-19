@@ -4,7 +4,14 @@ import { asyncConnect } from 'redux-async-connect';
 import { EventMap } from 'components';
 import { openLogIn, openSignUp } from 'redux/modules/form';
 import { openConfirm, closeConfirm } from 'redux/modules/confirmation';
-import { hasLoaded, isCached, fetchGroupEvent, setEvent } from 'redux/modules/eventDetail';
+import {
+  hasLoaded,
+  isCached,
+  fetchGroupEvent,
+  setEvent,
+  rsvpEvent,
+  removeRSVP,
+} from 'redux/modules/eventDetail';
 import { immutableSample } from 'helpers';
 import moment from 'moment';
 
@@ -12,7 +19,6 @@ import moment from 'moment';
   promise: ({ store, params }) => {
     let promise;
     const state = store.getState().eventDetail;
-
     if (!hasLoaded(state, params.eventId)) {
       if (isCached(state, params.eventId)) {
         store.dispatch(setEvent(params.eventId));
@@ -30,7 +36,7 @@ import moment from 'moment';
     user: auth.get('user'),
     eventDetail,
   }),
-  { openLogIn, openSignUp, openConfirm, fetchGroupEvent }
+  { openLogIn, openSignUp, openConfirm, fetchGroupEvent, rsvpEvent, removeRSVP }
 )
 export default class EventShow extends Component {
   state = {
@@ -125,10 +131,11 @@ export default class EventShow extends Component {
         return <button onClick={this.joinAndRsvpEvent} className="join">Sign In</button>;
         //this should show the sign in modal
       } else if (!this.props.hasJoinedGroup()) {
+        console.log('hasn"t joined group', this.props.user);
         return <button onClick={this.joinAndRsvpEvent} className="join">Join And RSVP</button>;
-      } else if (this.state.currentUser && this.props.hasJoinedGroup()) {
-        return <button onClick={this.rsvpEvent} className="join">RSVP</button>;
       }
+
+      return <button onClick={this.rsvpEvent} className="join">RSVP</button>;
     } else {
       return <button onClick={this.changeRSVP} className="leave">Change RSVP</button>;
     }
@@ -144,13 +151,13 @@ export default class EventShow extends Component {
 
   rsvpEvent = () => {
     if (this.props.user && !this.alreadyRSVP()) {
-      this.props.rsvpEvent(this.props.user.get('id'), this.props.groupEvent.get('id'));
+      this.props.rsvpEvent(this.props.groupEvent.get('id'));
     }
   }
 
   changeRSVP = () => {
     if (this.props.user && this.alreadyRSVP()) {
-      this.props.changeRSVP(this.props.user.get('id'), this.props.groupEvent.get('id'));
+      this.props.removeRSVP(this.props.groupEvent.get('id'));
     }
   }
 
@@ -189,7 +196,7 @@ export default class EventShow extends Component {
         return 'On Schedule';
       }
     }());
-          // {this.editButton()}
+
     return (
       <div className="event-parent">
         <div className="event-details">

@@ -1,4 +1,6 @@
 class Api::EventUsersController < ApplicationController
+	before_action :check_if_logged_in
+
 	def create
 		event_user = EventUser.new(user_id: @user.id, event_id: params[:event_id])
 		if event_user.save
@@ -9,8 +11,8 @@ class Api::EventUsersController < ApplicationController
 	end
 
 	def destroy
-		event_user = EventUser.find_by(user_id: @user.id, event_id: params[:event_id])
-		if event_user.destroy
+		event_user = EventUser.find_by(user_id: @user.id, event_id: params[:id].to_i)
+		if event_user && event_user.destroy
 			render "api/users/show", status: 200
 		else
 			render ["User Not found"], status: 404
@@ -19,7 +21,7 @@ class Api::EventUsersController < ApplicationController
 
 	private
 	def event_users_params
-		params.require(:event_user).permit(:event_id, :user_id)
+		params.require(:event_user).permit(:event_id)
 	end
 
 	def check_if_logged_in

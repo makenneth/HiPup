@@ -37,7 +37,7 @@ export default (state = initialState, action) => {
       });
     }
     case RSVP_ADDED: {
-      return state.updateIn(['groupEvent' , 'eventUsers'], arr => arr.push(action.payload));
+      return state.updateIn(['groupEvent' , 'eventUsers'], arr => arr.push(fromJS(action.payload)));
     }
     case RSVP_REMOVED: {
       const delIdx = state.getIn(['groupEvent', 'eventUsers'])
