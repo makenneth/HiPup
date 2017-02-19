@@ -59,11 +59,13 @@
       margin-bottom: 5px;
     }
   }
+
   .group-description {
     @include container-border;
     position: relative;
     width: 100%;
     padding: 15px 15px;
+    margin-bottom: 10px;
 
     h3 {
       margin-top: 0px;
@@ -93,7 +95,7 @@
 
 .event-container {
   @include container-border;
-  margin-top: 15px;
+  margin: 0;
   width: 100%;
   padding: 15px;
   flex: 1;
@@ -104,7 +106,7 @@
   order: 3;
   padding: 15px;
   border-radius: 2px;
-  margin-left: 50px;
+  margin-left: 15px;
   flex-grow: 1;
 
   h3 {
@@ -152,14 +154,6 @@
 
     .group-info-container {
       order: 1;
-
-      .group-description {
-        width: 96%;
-      }
-
-      .event-container {
-        width: 96%;
-      }
     }
 
     .group-info {
@@ -171,7 +165,15 @@
     .group-member-container {
       order: 3;
       width: 40%;
-      margin-left: 0px;
+      margin-left: 10px;
+    }
+
+    .event-container {
+      margin: 10px 0;
+    }
+
+    .group-description {
+      margin-bottom: 0;
     }
   }
 }

@@ -27,6 +27,7 @@ body {
 .group-event-detail {
   font-size: 18px;
 }
+
 .active-tab,
 .inactive-event-tab {
   cursor: pointer;
@@ -179,7 +180,11 @@ button {
   flex-direction: row;
   justify-content: space-between;
   position: relative;
-  h3 {font-size: 30px;}
+
+  h3 {
+    font-size: 30px;
+  }
+
   div.edit {
     position: absolute;
     top: 10px;
@@ -188,11 +193,11 @@ button {
     height: 40px;
     font-size: 40px;
   }
+
   h2 {
     align-self: center;
   }
 }
-
 
 .tag-groups {
   color: black;
@@ -210,11 +215,13 @@ button {
 .event-by-date {
   color: white;
 }
+
 .cf:after {
   content: "";
   display: block;
   clear: both;
 }
+
 .faded {
   opacity: 0.5;
 }
@@ -229,6 +236,7 @@ button {
   z-index: 99;
   background-color: rgba(0, 0, 0, 0.8);
 }
+
 .page-load div {
   width: 30px;
   height: 30px;
@@ -239,14 +247,17 @@ button {
   animation: move 4s infinite cubic-bezier(.2,.64,.81,.23);
   z-index: 1000;
 }
+
 .page-load div:nth-child(2) {
   background-color: #ff656b;
   animation-delay: 150ms;
 }
+
 .page-load div:nth-child(3) {
   background-color: #ff656b;
   animation-delay: 300ms;
 }
+
 .page-load div:nth-child(4) {
   background-color: #ff656b;
   animation-delay: 450ms;
@@ -257,6 +268,7 @@ button {
   75% {left:100%;}
   100% {left:100%;}
 }
+
 input:-webkit-autofill {
-    -webkit-box-shadow: 0 0 0px 1000px white inset;
+  -webkit-box-shadow: 0 0 0px 1000px white inset;
 }
