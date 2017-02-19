@@ -148,102 +148,6 @@
 	.form-btn-div { margin-top: 60px; }
 }
 
-.group-form-container {
-	display: flex;
-	flex-wrap: nowrap;
-	justify-content: center;
-	flex-direction: column;
-	position: relative;
-	border: 2px solid #333;
-	padding: 25px 25px;
-	border-radius: 3px;
-	margin: 0 auto;
-	max-width: 400px;
-	width: 60%;
-	min-width: 300px;
-	height: 60%;
-	font-family: 'Dosis', sans-serif;
-
-	.group-form-title {
-		font-size: 24px;
-		align-self: center;
-		margin-bottom: 5%;
-	}
-
-	.group-form {
-		display: flex;
-		flex-direction: column;
-		justify-content: space-between;
-		font-size: 16px;
-		margin-top: 10px;
-
-		.form-line {
-			position: relative;
-			display: flex;
-			flex-direction: row;
-			justify-content: space-between;
-		}
-
-		input {
-			margin-bottom: 5%;
-			font-size: 14px;
-			border: 1px solid black;
-			padding: 5px;
-			width: 60%;
-			border-radius: 3px;
-		}
-
-		textarea {
-			border: 1px solid black;
-			padding: 5px;
-			width: 60%;
-			border-radius: 3px;
-			margin-bottom: 5%;
-		}
-
-		input:focus {
-			border: 1px solid transparent;
-		  box-shadow: 0 0 3px 2px #969696;
-		}
-
-
-		.error-field {
-			border: 1px solid #ff1414;
-		  box-shadow: 0 0 3px 2px #ff1414;
-		}
-
-		.error-field:focus {
-			border: 1px solid transparent;
-		  box-shadow: 0 0 3px 2px #969696;
-		  & ~ .hint {
-		  	display: none;
-		  }
-		}
-
-		.hint {
-			display: initial;
-			font-size: 12px;
-			color: #ff1414;
-			right: 0;
-			position: absolute;
-			bottom: 2px;
-		}
-	}
-	.create-group-button {
-		margin-top: 5%;
-		width: 60%;
-		align-self: center;
-		text-align: center;
-		cursor: pointer;
-		border: 1px solid transparent !important;
-		color: white;
-		background-color: rgb(173, 55, 40);
-		&:hover {
-			background-color: rgba(173, 55, 40, 0.75);
-		}
-	}
-}
-
 .event-form .close-icon {
 	background-color: transparent;
 	color: black;
@@ -294,6 +198,7 @@
 	font-size: 28px;
 	font-family: 'Dosis', sans-serif;
 }
+
 .back-button {
 	cursor: pointer;
 	position: absolute;

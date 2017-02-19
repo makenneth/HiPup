@@ -24,6 +24,10 @@ body {
   z-index: 9999;
 }
 
+.page-container {
+  background-color: #f1f1f1;
+}
+
 .group-event-detail {
   font-size: 18px;
 }
@@ -226,47 +230,73 @@ button {
   opacity: 0.5;
 }
 
-.page-load {
-  position: fixed;
-  height: 100%;
-  width: 100%;
-  top: 0;
-  left: 0;
+.menu-icon {
+  background-color:black;
   opacity: 0.8;
-  z-index: 99;
-  background-color: rgba(0, 0, 0, 0.8);
-}
-
-.page-load div {
-  width: 30px;
-  height: 30px;
   position: fixed;
-  top: 50%;
-  background-color: #ff656b;
-  border-radius: 50%;
-  animation: move 4s infinite cubic-bezier(.2,.64,.81,.23);
-  z-index: 1000;
+  left: 20px;
+  top: 20px;
+  width: 50px;
+  height: 50px;
+  color: white;
+  font-size: 34px;
+  text-align: center;
+  vertical-align: middle;
+  border-radius: 5px;
 }
 
-.page-load div:nth-child(2) {
-  background-color: #ff656b;
-  animation-delay: 150ms;
+.menu-icon:hover {
+  opacity: 0;
+  transform: rotate(-180deg);
+  transition: all 0.5s ease-out;
+  -webkit-transition: all 0.5s ease-out;
+  -o-transition: all 0.5s ease-out;
+  -moz-transition: all 0.5s ease-out;
 }
 
-.page-load div:nth-child(3) {
-  background-color: #ff656b;
-  animation-delay: 300ms;
+.menu-icon:hover + .nav-main {
+  transform: translateX(0px);
 }
 
-.page-load div:nth-child(4) {
-  background-color: #ff656b;
-  animation-delay: 450ms;
+.nav-main {
+  width: 180px;
+  padding: 20px;
+  position: fixed;
+  box-shadow: 0px 1px 1px #E0E0E0;
+  height: 100%;
+  top: 0;
+  background-color: white;
+  z-index: 9999;
+  transform: translateX(-300px);
+  transition: all 1s ease-out;
+  -webkit-transition: all 1s ease-out;
+  -o-transition: all 1s ease-out;
+  -moz-transition: all 1s ease-out;
 }
 
-@keyframes move {
-  0% {left: 0%;}
-  75% {left:100%;}
-  100% {left:100%;}
+.nav-main:hover {
+  transform: translateX(0px);
+}
+
+.close-icon {
+  right: 40px;
+  top: 40px;
+  width: 35px;
+  height: 35px;
+  color: white;
+  font-size: 26px;
+  text-align: center;
+  border-radius: 5px;
+  background-color:black;
+  opacity: 0.8;
+  position: fixed;
+}
+
+.menu-icon:hover,
+.close-icon:hover {
+  cursor: pointer;
+  background-color: white;
+  color: black;
 }
 
 input:-webkit-autofill {

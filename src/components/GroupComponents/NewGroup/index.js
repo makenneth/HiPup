@@ -7,6 +7,9 @@ import { startLoad, endLoad } from 'redux/modules/common';
 import { createGroup } from 'redux/modules/groups';
 import Immutable from 'immutable';
 
+// import banner from 'assets/images/dog-board-mini.png';
+import './styles.scss';
+
 @asyncConnect([{
   promise: ({ store }) => {
     let promise;
@@ -239,13 +242,16 @@ export default class NewGroupForm extends Component {
   }
   render() {
     const errors = this.state.errors;
+        // (<div className="group-banner-container">
+        //   <div className="banner" />
+        // </div>)
 
     return (
       <div className="group-form-container">
-        <div className="paw-print"></div>
-        <div className="group-form-title">New Group</div>
-        <div className="group-form-parent">
-          <form className="group-form" onSubmit={this.handleSubmit}>
+        <form className="group-form" onSubmit={this.handleSubmit}>
+          <div className="paw-print"></div>
+          <div className="group-form-title">New Group</div>
+          <div className="group-form-parent">
             <div className="form-line">
               <label htmlFor="title">Title</label>
               <input
@@ -310,12 +316,15 @@ export default class NewGroupForm extends Component {
               <label htmlFor="tag">Tags</label>
               {this.multipleCheckBox()}
             </div>
-            <a onClick={this.moreTags} style={{alignSelf: 'flex-end'}}>Add More tags</a>
-
-            <input className="create-group-button" type="submit" value="Create New Group" />
-          </form>
-          <div className="back-button" onClick={() => browserHistory.push('/')}></div>
-        </div>
+            <div className="more-tags" onClick={this.moreTags}>
+              <div>Add More tags</div>
+            </div>
+            <div className="form-line">
+              <input className="create-group-button" type="submit" value="Create New Group" />
+            </div>
+            <div className="back-button" onClick={() => browserHistory.push('/')}></div>
+          </div>
+        </form>
       </div>
     );
   }

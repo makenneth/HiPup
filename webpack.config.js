@@ -34,6 +34,14 @@ module.exports = {
         test: /\.scss$/,
         loaders: ['style-loader', 'css-loader', 'sass-loader']
       },
+      {
+        test: /\.png$/,
+        loader: 'url',
+        query: {
+          limit: '10000',
+          mimetype: 'application/png'
+        }
+      },
       { test: /\.json$/, loader: 'json-loader' },
       {
         test: /\.ttf$/,
