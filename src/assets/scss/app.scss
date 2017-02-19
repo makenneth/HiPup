@@ -5,8 +5,8 @@
 #body {
   overflow: scroll;
 }
+
 body {
-  min-width: 400px;
   &.modal-open {
     overflow: hidden;
     position: fixed;

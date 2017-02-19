@@ -1,8 +1,4 @@
-@mixin container-border {
-  border: 5px double #aaaaaa;
-  border-radius: 1px;
-  box-shadow: 0 0 10px 1px #dcdcdc;
-}
+@import '~assets/scss/mixins.scss';
 
 .page-container {
   display: flex;

@@ -1,0 +1,204 @@
+@import '~assets/scss/mixins.scss';
+
+.event-parent {
+  font-family: 'OpenSans', sans-serif;
+  margin: 20px auto 0 auto;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  height: 100%;
+  width: 80%;
+  max-width: 900px;
+  min-width: 520px;
+
+  .rsvp-member {
+    @include container-border;
+    width: 100%;
+    height: initial;
+    margin: 0;
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    padding: 10px;
+    order: 0;
+    overflow: scroll;
+
+    .rsvp-buttons {
+      padding-bottom: 5px;
+      border-bottom: 1px solid transparent;
+      margin-bottom: 10px;
+    }
+
+    .event-participants {
+      margin-left: 15px;
+      display: flex;
+
+      .participant-list {
+        display: flex;
+
+        li {
+          display: flex;
+          flex-direction: column;
+          padding: 0 5px;
+          align-items: center;
+          font-weight: 700;
+          cursor: pointer;
+
+          &:hover {
+            background-color: #e0e0e0;
+          }
+        }
+      }
+    }
+
+    #title {
+      font-size: 24px;
+    }
+
+    button {
+        padding: 5px 10px;
+        color: white;
+        border-radius: 4px;
+        font-size: 16px;
+        cursor: pointer;
+        align-self: center;
+    }
+
+    .join {
+      background-color: #30690E;
+    }
+
+    .leave {
+      background-color: #791710;
+    }
+
+    .join:hover {
+      background-color: #BFE4A9;
+    }
+
+    .leave:hover {
+      background-color: #DB7D76;
+    }
+  }
+}
+
+.event-details {
+  @include container-border;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  width: 100%;
+  margin: 0px;
+  padding: 10px 20px;
+  order: 1;
+
+  #header h3 {
+    font-weight: 700;
+  }
+
+  .edit {
+    align-self: flex-end;
+    font-size: 24px;
+    cursor: pointer;
+  }
+
+  textarea,
+  input {
+    font-size: 22px;
+    padding: 5px;
+    border: 2px solid black;
+  }
+
+  .date-and-time {
+    padding-bottom: 10px;
+    border-bottom: 3px solid black;
+    h3 {
+      font-size: 24px;
+      margin-bottom: 4px;
+    }
+    p {
+      font-size:20px;
+    }
+  }
+
+  .cancel-event {
+    background-color: #ccc;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 5px;
+  }
+
+  .cancel-event:hover {
+    background-color: #333;
+  }
+
+  .event-sub {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+
+    p {
+      font-size: 18px;
+      margin-top: 2px;
+    }
+
+    .event-time-info {
+      display:flex;
+      flex-direction: column;
+    }
+
+    .location h4 {
+      margin-bottom: 2px;
+    }
+  }
+
+  #description {
+    font-size: 16px;
+    padding-top: 15px;
+  }
+}
+
+@media screen and (min-width: 900px) {
+  .event-parent {
+    flex-direction: row;
+
+    .rsvp-member {
+      width: initial;
+      height: 100%;
+      margin-top: 0;
+      margin-left: 15px;
+      order: initial;
+      flex-direction: column;
+
+      .rsvp-buttons {
+        padding-bottom: 5px;
+        border-bottom: 5px solid black;
+        margin-bottom: 10px;
+      }
+
+      .event-participants {
+        margin-left: 15px;
+        display: flex;
+        flex-direction: column;
+
+        .participant-list {
+          display: flex;
+          flex-direction: column;
+
+          li {
+            display: flex;
+            padding: 5px 0px;
+            align-items: center;
+          }
+        }
+      }
+    }
+
+    .event-details {
+      order: 0;
+    }
+  }
+}

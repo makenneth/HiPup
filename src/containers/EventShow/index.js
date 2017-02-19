@@ -14,6 +14,7 @@ import {
 } from 'redux/modules/eventDetail';
 import { immutableSample } from 'helpers';
 import moment from 'moment';
+import './styles.scss';
 
 @asyncConnect([{
   promise: ({ store, params }) => {
