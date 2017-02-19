@@ -4,7 +4,8 @@ import { Request } from 'helpers';
 const FETCH = 'hp/eventDetail/FETCH';
 const FETCH_SUCCESS = 'hp/eventDetail/FETCH_SUCCESS';
 const FETCH_FAIL = 'hp/eventDetail/FETCH_FAIL';
-const RSVP_CHANGED = 'hp/eventDetail/RSVP_CHANGED';
+export const RSVP_REMOVED = 'hp/eventDetail/RSVP_REMOVED';
+export const RSVP_ADDED = 'hp/eventDetail/RSVP_ADDED';
 const SET_EVENT = 'hp/eventDetail/SET_EVENT';
 
 const initialState = fromJS({
@@ -20,14 +21,28 @@ export default (state = initialState, action) => {
     case FETCH:
       return state.set('loading', true);
     case FETCH_SUCCESS: {
+      const groupEvent = state.get('groupEvent');
+      if (Boolean(groupEvent)) {
+        return state.merge({
+          loading: false,
+          loaded: true,
+          cached: state.setIn(['cached', groupEvent.get('id')], groupEvent),
+          groupEvent: fromJS(action.payload),
+        });
+      }
       return state.merge({
         loading: false,
         loaded: true,
         groupEvent: fromJS(action.payload),
       });
     }
-    case RSVP_CHANGED: {
-      // return state.setIn(['groupEvent', 'event_users'], );
+    case RSVP_ADDED: {
+      return state.updateIn(['groupEvent' , 'eventUsers'], arr => arr.push(action.payload));
+    }
+    case RSVP_REMOVED: {
+      const delIdx = state.getIn(['groupEvent', 'eventUsers'])
+        .findIndex(u => u.get('id') === action.payload.id);
+      return state.updateIn(['groupEvent' , 'eventUsers'], arr => arr.delete(delIdx));
     }
     case FETCH_FAIL:
       return state.merge({
@@ -35,8 +50,16 @@ export default (state = initialState, action) => {
         loaded: true,
         error: action.payload,
       });
-    case SET_EVENT:
+    case SET_EVENT: {
+      const groupEvent = state.get('groupEvent');
+      if (Boolean(groupEvent)) {
+        return state.merge({
+          cached: state.cached.set(groupEvent.get('id'), groupEvent),
+          groupEvent: state.getIn(['cached', action.payload]),
+        });
+      }
       return state.set('groupEvent', state.getIn(['cached', action.payload]))
+    }
     default:
       return state;
   }
@@ -49,17 +72,19 @@ export const fetchGroupEvent = (id) => {
   };
 };
 
-export const rsvpEvent = () => {
+export const rsvpEvent = (event_id) => {
   return {
-    types: ['???', RSVP_CHANGED, '???'],
-    promise: new Request(`/api/event_users/${id}`, 'POST', {}),
+    types: ['???', RSVP_ADDED, '???'],
+    promise: new Request('/api/event_users', 'POST', {
+      event_id,
+    }).send(),
   };
 };
 
-export const changeRSVP = () => {
+export const removeRSVP = (event_id) => {
   return {
-    types: ['???', RSVP_CHANGED, '???'],
-    promise: new Request(`/api/event_users/${id}`, 'DELETE', {}),
+    types: ['???', RSVP_REMOVED, '???'],
+    promise: new Request(`/api/event_users/${event_id}`, 'DELETE', {}).send(),
   };
 };
 
@@ -71,7 +96,7 @@ export const setEvent = (id) => {
 };
 
 export const isCached = (state, id) => {
-  return state.getIn(['cached', 'id']);
+  return state.get('cached') && state.getIn(['cached', 'id']);
 };
 
 export const hasLoaded = (state, id) => {
