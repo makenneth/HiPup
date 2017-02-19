@@ -55,6 +55,7 @@ export default class GroupDetail extends Component {
         hasJoinedGroup: this.hasJoinedGroup,
       })
     );
+
     return (
       <div className="group-parent-div">
         <GroupNav

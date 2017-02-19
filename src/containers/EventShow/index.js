@@ -31,7 +31,8 @@ import moment from 'moment';
   }
 }])
 @connect(
-  ({ eventDetail, auth }) => ({
+  ({ group, eventDetail, auth }) => ({
+    group: group.get('group'),
     groupEvent: eventDetail.get('groupEvent'),
     user: auth.get('user'),
     eventDetail,
@@ -130,8 +131,7 @@ export default class EventShow extends Component {
       if (!this.props.user) {
         return <button onClick={this.joinAndRsvpEvent} className="join">Sign In</button>;
         //this should show the sign in modal
-      } else if (!this.props.hasJoinedGroup()) {
-        console.log('hasn"t joined group', this.props.user);
+      } else if (!this.hasJoinedGroup()) {
         return <button onClick={this.joinAndRsvpEvent} className="join">Join And RSVP</button>;
       }
 
@@ -139,6 +139,12 @@ export default class EventShow extends Component {
     } else {
       return <button onClick={this.changeRSVP} className="leave">Change RSVP</button>;
     }
+  }
+
+  hasJoinedGroup() {
+    return this.props.group && this.props.user &&
+      Boolean(this.props.user.get('groups')
+        .find(group => this.props.group.get('id') === group.get('id')));
   }
 
   joinAndRsvpEvent = () => {
@@ -163,7 +169,8 @@ export default class EventShow extends Component {
 
   alreadyRSVP() {
     if (!this.props.user) return false;
-    return !!this.props.user.get('joinedEvents').find(gEvent => this.props.groupEvent.id === gEvent.id);
+    return !!this.props.user.get('joinedEvents')
+      .find(gEvent => this.props.groupEvent.id === gEvent.id);
   }
 
   cancelEvent = () => {
