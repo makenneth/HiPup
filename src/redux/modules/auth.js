@@ -1,5 +1,6 @@
 import Immutable, { fromJS } from 'immutable';
 import { Request } from 'helpers';
+import { RSVP_REMOVED, RSVP_ADDED } from './eventDetail';
 import { JOINED_GROUP, LEFT_GROUP } from './group';
 
 const LOAD_AUTH = 'mp/auth/LOAD_AUTH';
@@ -16,8 +17,10 @@ const initialState = fromJS({
 });
 
 export default (state = initialState, action) => {
-  console.log(action);
   switch (action.type) {
+    case RSVP_REMOVED:
+    case RSVP_ADDED:
+      return state.updateIn(['user', 'joinedEvents'], _ => fromJS(action.payload.joinedEvents));
     case JOINED_GROUP:
       return state.updateIn(['user', 'groups'], arr => arr.push(fromJS(action.payload.group)));
     case LEFT_GROUP:

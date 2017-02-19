@@ -62,15 +62,12 @@ export default class Main extends Component {
   }
 
   confirmation() {
-    return this.props.confirmOpen &&
-      (<div className="overlay">
-        <Confirmation />
-      </div>);
+
   }
 
   render() {
     return (
-      <div>
+      <div className="main-container">
         {this.loader()}
         <div className="page-container" style={this.managePageStyle()}>
           {this.props.children}
@@ -96,7 +93,12 @@ export default class Main extends Component {
               <SignUpForm closeModal={this.props.closeSignUp} signUp={this.props.signUp} />
             </div>)
         }
-        <Confirmation />
+        {
+          this.props.confirmOpen &&
+            (<div className="overlay">
+              <Confirmation />
+            </div>)
+        }
       </div>
     );
   }

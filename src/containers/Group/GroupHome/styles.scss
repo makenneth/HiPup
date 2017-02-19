@@ -1,7 +1,12 @@
-.group-parent-div {
-  /*background-image: url('/background-image.jpg');*/
-  background-size: cover;
-  width: 100%;
+@mixin container-border {
+  border: 5px double #aaaaaa;
+  border-radius: 1px;
+  box-shadow: 0 0 10px 1px #dcdcdc;
+}
+
+.page-container {
+  display: flex;
+  flex-direction: column;
 }
 
 .group-info-container {
@@ -19,7 +24,7 @@
 }
 
 .group-home {
-  font-family: 'Titillium Web', sans-serif;
+  font-family: 'OpenSans', sans-serif;
   display: flex;
   flex-wrap: nowrap;
   flex-direction: row;
@@ -27,21 +32,25 @@
   justify-content: space-around;
   font-size: 16px;
   width: 90%;
+  height: 100%;
+  max-width: 1000px;
+  flex: 1;
+
   .founded {
     margin-bottom: 10px;
   }
+
   .address {
     font-size: 22px;
     font-weight: 700;
   }
+
   .group-info {
+    @include container-border;
     order: 1;
-    border: 3px solid #333;
-    border-radius: 10px;
-    box-shadow: 2px 2px 0 2px #aaa;
     flex-grow: 1;
     padding: 15px;
-    margin-right: 5px;
+    margin-right: 15px;
 
     li {
       min-width: 150px;
@@ -55,10 +64,8 @@
     }
   }
   .group-description {
+    @include container-border;
     position: relative;
-    border: 3px solid #333;
-    border-radius: 10px;
-    box-shadow: 2px 2px 0 2px #aaa;
     width: 100%;
     padding: 15px 15px;
 
@@ -87,24 +94,21 @@
     }
   }
 }
-.event-container {
-  margin-top: 5px;
-  width: 100%;
-  min-width: 450px;
-  border: 3px solid #333;
-  padding: 15px;
-  border-radius: 10px;
-  box-shadow: 2px 2px 0 2px #aaa;
 
-}
-.group-member-container {
-  order: 3;
-  border: 3px solid #333;
-  border-radius: 10px;
-  box-shadow: 2px 2px 0 2px #aaa;
+.event-container {
+  @include container-border;
+  margin-top: 15px;
+  width: 100%;
   padding: 15px;
-  border-radius: 10px;
-  margin-left: 40px;
+  flex: 1;
+}
+
+.group-member-container {
+  @include container-border;
+  order: 3;
+  padding: 15px;
+  border-radius: 2px;
+  margin-left: 50px;
   flex-grow: 1;
 
   h3 {
