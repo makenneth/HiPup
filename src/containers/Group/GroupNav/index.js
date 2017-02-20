@@ -9,7 +9,6 @@ import './styles.scss';
 @connect(() => ({}), { removeGroup, openConfirm })
 export default class GroupNav extends Component {
   state = {
-    eventFormIsOpen: false,
     editFormIsOpen: false,
     // message: '',
     // editMode: false,
@@ -18,7 +17,7 @@ export default class GroupNav extends Component {
 
   adminNav() {
     return (this.adminCheck() && <ul className="admin-group-nav">
-      <li><a onClick={this.openModal}>Create Event</a></li>
+      <li><a onClick={this.props.openNewEventModal}>Create Event</a></li>
       <li><a onClick={this.deleteGroup}>Delete Group</a></li>
     </ul>);
   }
@@ -30,16 +29,9 @@ export default class GroupNav extends Component {
   }
 
   confirmDeleteGroup = () => {
-    this.props.removeGroup(this.props.group.get('id'));
-    browserHistory.push("/");
-  }
-
-  openModal() {
-    this.setState({ eventFormIsOpen: true });
-  }
-
-  closeModal() {
-    this.setState({ eventFormIsOpen: false });
+    this.props.removeGroup(this.props.group.get('id')).then(() => {
+      browserHistory.push('/');
+    });
   }
 
   _setMessage(message) {
@@ -100,6 +92,10 @@ export default class GroupNav extends Component {
 
   joinButton() {
     if ((/events\/\d+$/).test(this.props.path)) return '';
+    if (this.adminCheck()) {
+      return <div />;
+    }
+
     if (!this.props.user || !this.props.hasJoinedGroup()) {//should be in user store
       return <ul className="join-group" onClick={this.props.joinGroup}>Join Group</ul>
     } else {
@@ -128,8 +124,3 @@ export default class GroupNav extends Component {
     );
   }
 };
-        /*<Modal isOpen={this.state.eventFormIsOpen} style={EventFormStyle}
-              onRequestClose={this.closeModal}>
-          <NewEventForm closeModal={this.closeModal} groupId={id}/>
-        </Modal>
-*/

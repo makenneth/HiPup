@@ -12,7 +12,8 @@ import {
   SignUpForm,
   MainNav,
 } from 'components';
-import './formStyle.scss'
+import './formStyle.scss';
+import './styles.scss';
 
 @asyncConnect([
   {
@@ -61,10 +62,6 @@ export default class Main extends Component {
     </div>);
   }
 
-  confirmation() {
-
-  }
-
   render() {
     return (
       <div className="main-container">
@@ -76,7 +73,14 @@ export default class Main extends Component {
           this.props.location.pathname !== '/' &&
             <div className="menu-icon" onClick={this.openNavModal}>&#9776;</div>
         }
-        <Navbar user={this.props.user} logOut={this.props.logOut} openLogIn={this.props.openLogIn} />
+        {
+          this.props.location.pathname !== '/' &&
+            <Navbar
+              user={this.props.user}
+              logOut={this.props.logOut}
+              openLogIn={this.props.openLogIn}
+            />
+        }
         {
           this.props.loginOpen &&
             (<div className="overlay">
@@ -93,12 +97,7 @@ export default class Main extends Component {
               <SignUpForm closeModal={this.props.closeSignUp} signUp={this.props.signUp} />
             </div>)
         }
-        {
-          this.props.confirmOpen &&
-            (<div className="overlay">
-              <Confirmation />
-            </div>)
-        }
+        <Confirmation />
       </div>
     );
   }

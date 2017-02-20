@@ -44,8 +44,12 @@
   background-color: transparent;
   position: static;
   margin: 0 0 0 95%;
-
 }
+
+.event-by-date {
+  color: white;
+}
+
 .event-by-date button {
   width: 98%;
   font-size: 18px;
@@ -57,6 +61,5 @@
 }
 
 .event-query-item:hover {
-  background-color: #999;
+  background-color: #323232;
 }
-

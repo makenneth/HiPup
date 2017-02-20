@@ -1,15 +1,18 @@
 import React, { Component } from "react";
+import { findDOMNode } from 'react-dom';
 import { connect } from "react-redux";
 import { browserHistory } from "react-router";
 
 export default class Navbar extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      active: 0,
-    };
-  }
+  state = {
+    active: 0,
+  };
 
+  handleClick(ev) {
+    if (this.state.dropdownOpen && !findDOMNode(this).contains(ev.target)) {
+      this.setState({ dropdownOpen: false });
+    }
+  }
   setTab = (tab, url) => {
     this.setState({ active: tab });
     browserHistory.push(url);

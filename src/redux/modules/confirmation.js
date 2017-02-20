@@ -9,7 +9,7 @@ const initialState = fromJS({
 });
 
 export default (state = initialState, action) => {
-  switch (action.payload) {
+  switch (action.type) {
     case OPEN_CONFIRMATION:
       return state.merge({
         isOpen: true,

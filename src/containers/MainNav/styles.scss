@@ -101,8 +101,8 @@
     justify-content: space-between;
     align-items: center;
   }
-
 }
+
 .tag-list:after {
   border-left: 20px solid transparent;
   border-right: 20px solid transparent;
@@ -115,6 +115,7 @@
   height: 0;
   z-index: 1000;
 }
+
 .tag-list:before {
   position: absolute;
   width: 360px;
@@ -123,13 +124,14 @@
   height: 25px;
   background-color: transparent;
 }
+
 .tag-icon:hover .tag-list {
   visibility: visible;
   width: 360px;
   height: 300px;
 }
 
-.tag-icon input[type="checkbox"]{
+.tag-icon input[type="checkbox"] {
   -webkit-appearance: none;
   -moz-appearance: none;
 
@@ -238,10 +240,12 @@
   width: 100%;
   z-index: 10;
   @include hovermenu;
+
   .nav-icons {
     color: white;
     display: flex;
     font-size: 2.5em;
+
     li:hover {
       color: #778899;
       @include hovermenu;
@@ -252,6 +256,7 @@
     }
   }
 }
+
 .main-nav-solid {
   background-color: black;
   opacity: 0.9;
@@ -313,6 +318,7 @@
   border-radius: 55px;
   background-color: black;
   opacity: 0.8;
+
   ul {
     display: none;
   }

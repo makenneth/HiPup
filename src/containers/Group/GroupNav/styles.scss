@@ -13,6 +13,7 @@
   background-position: center 65%;
   font-size: 40px;
   font-family: 'Kaushan Script', cursive;
+  text-transform: capitalize;
   color: black;
   text-shadow: 2px 2px #ccc;
   background-size: cover;
@@ -23,30 +24,34 @@
     left: 15%;
     top: 2%;
   }
-    input {
+
+  input {
     font-family: 'Kaushan Script', cursive;
     align-self: center;
     margin-left: 20px;
     font-size: 40px;
     color: #000;
-
   }
+
   input {
     padding: 5px;
     border: 2px solid white;
   }
+
   .edit {
     position: absolute;
     top: 0px;
     left: 0px;
     font-size: 20px;
     color: white;
-  }
-  .edit:hover {
-    background-color: white;
-    color: black;
+
+    &:hover {
+      background-color: white;
+      color: black;
+    }
   }
 }
+
 .group-nav-container {
   min-height: 50px;
   min-width: 820px;
@@ -59,18 +64,23 @@
   color: white;
   font-family:'Dosis', sans-serif;
   font-weight: 700;
-  li:hover {
+
+  li a {
     color: white;
+
+    &:hover {
+      color: #c1c1c1;
+    }
   }
 }
+
 @media (min-width: 1244px){
   .nav-div {
-      background-image: url('/pictures/banner-sm.jpg');
-      -ms-background-position-x: center;
-      -ms-background-position-y: center;
-      background-position: center 65%;
-
-      background-size: cover;
+    background-image: url('/pictures/banner-sm.jpg');
+    -ms-background-position-x: center;
+    -ms-background-position-y: center;
+    background-position: center 65%;
+    background-size: cover;
   }
 }
 

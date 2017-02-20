@@ -1,0 +1,42 @@
+.page-load {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  opacity: 0.8;
+  z-index: 99;
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.page-load div {
+  width: 30px;
+  height: 30px;
+  position: fixed;
+  top: 50%;
+  background-color: #ff656b;
+  border-radius: 50%;
+  animation: move 4s infinite cubic-bezier(.2,.64,.81,.23);
+  z-index: 1000;
+}
+
+.page-load div:nth-child(2) {
+  background-color: #ff656b;
+  animation-delay: 150ms;
+}
+
+.page-load div:nth-child(3) {
+  background-color: #ff656b;
+  animation-delay: 300ms;
+}
+
+.page-load div:nth-child(4) {
+  background-color: #ff656b;
+  animation-delay: 450ms;
+}
+
+@keyframes move {
+  0% {left: 0%;}
+  75% {left:100%;}
+  100% {left:100%;}
+}
