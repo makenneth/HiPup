@@ -7,7 +7,6 @@ import { startLoad, endLoad } from 'redux/modules/common';
 import { createGroup } from 'redux/modules/groups';
 import Immutable from 'immutable';
 
-// import banner from 'assets/images/dog-board-mini.png';
 import './styles.scss';
 
 @asyncConnect([{
@@ -84,6 +83,7 @@ export default class NewGroupForm extends Component {
   componentWillReceiveProps(nextProps) {
     if ((!this.props.group && nextProps.group) ||
       (this.props.group && (this.props.group.hashCode !== nextProps.group.hashCode))) {
+      console.log('redirecting');
       browserHistory.push(`/groups/${nextProps.group.get('id')}`);
     }
   }
@@ -242,9 +242,6 @@ export default class NewGroupForm extends Component {
   }
   render() {
     const errors = this.state.errors;
-        // (<div className="group-banner-container">
-        //   <div className="banner" />
-        // </div>)
 
     return (
       <div className="group-form-container">

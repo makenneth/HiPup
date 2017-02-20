@@ -148,57 +148,6 @@
 	.form-btn-div { margin-top: 60px; }
 }
 
-.event-form .close-icon {
-	background-color: transparent;
-	color: black;
-}
-.event-form .close-icon:hover {
-	color: white;
-}
-
-.event-form {
-	color: black;
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-	font-family: 'Dosis', sans-serif;
-	font-size: 20px;
-	width: 100%;
-	margin: 0 auto;
-	margin-top: 10%;
-
-	.form-line {
-		display: flex;
-		flex-direction: row;
-		margin-bottom: 3%;
-		label {
-			width: 30%;
-		}
-	}
-	input, textarea {
-		width: 60%;
-
-		border: 1px solid black;
-		border-radius: 3px;
-		padding: 5px;
-		align-self: center;
-	}
-
-	.submit-button {
-		margin-top: 20px;
-		text-align: center;
-		background-color: red;
-		color: white;
-		border: none;
-	}
-}
-
-.event-form-div .title {
-	text-align: center;
-	font-size: 28px;
-	font-family: 'Dosis', sans-serif;
-}
-
 .back-button {
 	cursor: pointer;
 	position: absolute;

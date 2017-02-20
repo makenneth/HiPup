@@ -9,6 +9,9 @@ export const FETCH_GROUP_FAIL = 'hp/group/FETCH_GROUP_FAIL';
 export const JOINED_GROUP = 'hp/group/JOINED_GROUP';
 export const LEFT_GROUP = 'hp/group/LEFT_GROUP';
 export const REMOVE_GROUP_SUCCESS = 'hp/group/REMOVE_GROUP_SUCCESS';
+const CREATE_GROUP_EVENT = 'hp/groupEvents/CREATE_GROUP_EVENT';
+const CREATE_GROUP_EVENT_SUCCESS = 'hp/groupEvents/CREATE_GROUP_EVENT_SUCCESS';
+const CREATE_GROUP_EVENT_FAIL = 'hp/groupEvents/CREATE_GROUP_EVENT_FAIL';
 const initialState = fromJS({
   loading: false,
   loaded: false,
@@ -41,13 +44,17 @@ export default (state = initialState, action) => {
       });
     }
     case JOINED_GROUP:
-      return state.updateIn(['group', 'participants'], arr => arr.push(fromJS(action.payload.user)));
+      return state.updateIn(['group', 'participants'],
+        arr => arr.push(fromJS(action.payload.user))
+      );
     case FETCH_GROUP_FAIL:
       return state.merge({
         error: action.payload,
         loading: false,
         loaded: true,
       });
+    case CREATE_GROUP_EVENT:
+      return state.updateIn(['group', 'groupEvents'], arr => arr.push(action.payload));
     default:
       return state;
   }
@@ -83,6 +90,15 @@ export const removeGroup = (groupId) => {
   return {
     types: ['TO BE ADDED', REMOVE_GROUP_SUCCESS, 'TO BE ADDED'],
     promise: new Request(`/api/group/${groupId}`, 'DELETE').send(),
+  };
+};
+
+export const createGroupEvent = (groupEvent) => {
+  return {
+    type: [CREATE_GROUP_EVENT, CREATE_GROUP_EVENT_SUCCESS, CREATE_GROUP_EVENT_FAIL],
+    promise: new Request('/api/group_events', 'POST', {
+      groupEvent,
+    }),
   };
 };
 

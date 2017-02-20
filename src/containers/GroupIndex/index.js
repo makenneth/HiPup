@@ -129,7 +129,6 @@ export default class GroupIndex extends Component {
           </div>
         </div>
         {this.mainNav()}
-
         <div className="group-index-body">
           {this.groupIndex(libraries)}
         </div>

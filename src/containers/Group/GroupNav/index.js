@@ -9,7 +9,6 @@ import './styles.scss';
 @connect(() => ({}), { removeGroup, openConfirm })
 export default class GroupNav extends Component {
   state = {
-    eventFormIsOpen: false,
     editFormIsOpen: false,
     // message: '',
     // editMode: false,
@@ -18,7 +17,7 @@ export default class GroupNav extends Component {
 
   adminNav() {
     return (this.adminCheck() && <ul className="admin-group-nav">
-      <li><a onClick={this.openModal}>Create Event</a></li>
+      <li><a onClick={this.props.openNewEventModal}>Create Event</a></li>
       <li><a onClick={this.deleteGroup}>Delete Group</a></li>
     </ul>);
   }
@@ -33,14 +32,6 @@ export default class GroupNav extends Component {
     this.props.removeGroup(this.props.group.get('id')).then(() => {
       browserHistory.push('/');
     });
-  }
-
-  openModal() {
-    this.setState({ eventFormIsOpen: true });
-  }
-
-  closeModal() {
-    this.setState({ eventFormIsOpen: false });
   }
 
   _setMessage(message) {
@@ -133,8 +124,3 @@ export default class GroupNav extends Component {
     );
   }
 };
-        /*<Modal isOpen={this.state.eventFormIsOpen} style={EventFormStyle}
-              onRequestClose={this.closeModal}>
-          <NewEventForm closeModal={this.closeModal} groupId={id}/>
-        </Modal>
-*/
