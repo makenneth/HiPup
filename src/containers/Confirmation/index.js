@@ -25,7 +25,7 @@ export default class Confirmation extends Component {
       <div className="overlay">
         <div className="confirmation-modal">
           <div className="confirmation-alert">
-            <h2>Are you sure?</h2>
+            <h3>Are you sure?</h3>
             <div className="button-div">
               <button onClick={this.handleConfirm}>Yes</button>
               <button onClick={this.props.closeConfirm}>No</button>
