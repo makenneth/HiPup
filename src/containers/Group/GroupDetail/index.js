@@ -4,7 +4,7 @@ import { asyncConnect } from "redux-async-connect";
 import GroupNav from '../GroupNav';
 import { NewEvent } from 'components';
 import { fetchGroup, joinGroup, leaveGroup, isLoaded } from 'redux/modules/group';
-import { createGroupEvent } from 'redux/modules/groupEvents';
+import { createGroupEvent } from 'redux/modules/group';
 import { openLogIn } from 'redux/modules/form';
 
 import './styles.scss';
@@ -13,7 +13,7 @@ import './styles.scss';
   user: auth.get('user'),
   location: geolocation.get('location'),
   group: group,
-}), { fetchGroup, joinGroup, leaveGroup, openLogIn })
+}), { fetchGroup, joinGroup, leaveGroup, openLogIn, createGroupEvent })
 export default class GroupDetail extends Component {
   state = {
     newEventModalOpen: false,
@@ -82,7 +82,7 @@ export default class GroupDetail extends Component {
           this.state.newEventModalOpen &&
             <NewEvent
               user={user}
-              group={group}
+              group={group && group.get('group')}
               closeModal={this.closeModal}
               createGroupEvent={this.props.createGroupEvent}
             />

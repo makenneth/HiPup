@@ -82,8 +82,7 @@ export default class NewGroupForm extends Component {
 
   componentWillReceiveProps(nextProps) {
     if ((!this.props.group && nextProps.group) ||
-      (this.props.group && (this.props.group.hashCode !== nextProps.group.hashCode))) {
-      console.log('redirecting');
+      (this.props.group && (this.props.group !== nextProps.group))) {
       browserHistory.push(`/groups/${nextProps.group.get('id')}`);
     }
   }

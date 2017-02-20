@@ -40,7 +40,7 @@ export default (state = initialState, action) => {
     case REMOVE_GROUP_SUCCESS: {
       return state.merge({
         group: null,
-        cached: state.deleteIn(['cached', action.payload]),
+        cached: state.deleteIn(['cached', action.payload.id]),
       });
     }
     case JOINED_GROUP:
@@ -53,8 +53,8 @@ export default (state = initialState, action) => {
         loading: false,
         loaded: true,
       });
-    case CREATE_GROUP_EVENT:
-      return state.updateIn(['group', 'groupEvents'], arr => arr.push(action.payload));
+    case CREATE_GROUP_EVENT_SUCCESS:
+      return state.updateIn(['group', 'groupEvents'], arr => arr.push(fromJS(action.payload)));
     default:
       return state;
   }
@@ -89,16 +89,16 @@ export const leaveGroup = (groupId) => {
 export const removeGroup = (groupId) => {
   return {
     types: ['TO BE ADDED', REMOVE_GROUP_SUCCESS, 'TO BE ADDED'],
-    promise: new Request(`/api/group/${groupId}`, 'DELETE').send(),
+    promise: new Request(`/api/groups/${groupId}`, 'DELETE').send(),
   };
 };
 
-export const createGroupEvent = (groupEvent) => {
+export const createGroupEvent = (group_event) => {
   return {
-    type: [CREATE_GROUP_EVENT, CREATE_GROUP_EVENT_SUCCESS, CREATE_GROUP_EVENT_FAIL],
+    types: [CREATE_GROUP_EVENT, CREATE_GROUP_EVENT_SUCCESS, CREATE_GROUP_EVENT_FAIL],
     promise: new Request('/api/group_events', 'POST', {
-      groupEvent,
-    }),
+      group_event,
+    }).send(),
   };
 };
 

@@ -11,7 +11,7 @@
     overflow: scroll;
     -webkit-overflow-scrolling: touch;
     border-radius: 3px;
-    padding: 20px;
+    padding: 30px;
 }
 
 .event-form {
@@ -23,7 +23,6 @@
     font-size: 20px;
     width: 100%;
     margin: 0 auto;
-    margin-top: 10%;
 
     .form-line {
         display: flex;
@@ -37,6 +36,7 @@
         border: 1px solid black;
         border-radius: 3px;
         padding: 5px;
+        font-size: 16px;
         width: 250px;
         align-self: center;
     }
@@ -54,6 +54,8 @@
     }
 
     .close-icon {
+        top: 10px;
+        right: 10px;
         color: black;
         background-color: #f1f1f1 !important;
     }

@@ -17,26 +17,24 @@ export default class NewEventForm extends Component {
     lng: '',
   };
 
-  componentDidMount() {
-    const options = {
-      types: ['address'],
-      componentRestrictions: {
-        country: "us"
-      }
-    };
+  // componentDidMount() {
+  //   const options = {
+  //     types: ['(regions)'],
+  //     componentRestrictions: { country: 'us' }
+  //   };
 
-    this.autocomplete = new google.maps.places.Autocomplete(
-      document.getElementById("autocomplete"),
-      options
-    );
+  //   this.autocomplete = new google.maps.places.Autocomplete(
+  //     document.getElementById('autocomplete'),
+  //     options,
+  //   );
 
-    this.nefListener = this.autocomplete.addListener('place_changed', this.parseAddress);
-  }
+  //   this.nefListener = this.autocomplete.addListener('place_changed', this.parseAddress);
+  // }
 
   componentWillReceiveProps(nextProps) {
     const group = nextProps.group;
     if (group !== this.props.group) {
-      const newId = group.get('groupEvents').maxBy(g => g.get('id'));
+      const newId = group.get('groupEvents').maxBy(g => g.get('id')).get('id');
       browserHistory.push(`/groups/${group.get('id')}/events/${newId}`);
       this.props.closeModal();
     }
@@ -46,24 +44,25 @@ export default class NewEventForm extends Component {
     if (this.nefListener) this.nefListener.remove();
   }
 
-  parseAddress = () => {
-    const places = this.autocomplete.getPlace();
-    if (!places) return;
-    const address = places.adr_address;
-    const location = places.geometry.location;
-    const street = address.match(/-address\">(.*?)</);
-    const city = address.match(/locality\">(.*?)</);
-    const state = address.match(/region\">(.*?)</);
-    const zip = address.match(/postal-code\">(.*?)</);
-    this.setState({
-      street: street ? street[1] : '',
-      city: city ? city[1] : '',
-      state: state ? state[1] : '',
-      zip: zip ? zip[1] : '',
-      lat: street ? location.lat() : 0,
-      lng: street ? location.lng() : 0
-    })
-  }
+  // parseAddress = () => {
+  //   debugger;
+  //   const places = this.autocomplete.getPlace();
+  //   if (!places) return;
+  //   const address = places.adr_address;
+  //   const location = places.geometry.location;
+  //   const street = address.match(/-address\">(.*?)</);
+  //   const city = address.match(/locality\">(.*?)</);
+  //   const state = address.match(/region\">(.*?)</);
+  //   const zip = address.match(/postal-code\">(.*?)</);
+  //   this.setState({
+  //     street: street ? street[1] : '',
+  //     city: city ? city[1] : '',
+  //     state: state ? state[1] : '',
+  //     zip: zip ? zip[1] : '',
+  //     lat: street ? location.lat() : 0,
+  //     lng: street ? location.lng() : 0
+  //   })
+  // }
 
   updateField = (field, e) => {
     var fieldObj = {}
@@ -76,9 +75,11 @@ export default class NewEventForm extends Component {
     const data = Object.assign({}, this.state, {
       host_id: this.props.user.get('id'),
       group_id: this.props.group.get('id'),
+      lat: 0,
+      lng: 0,
     });
 
-    this.props.createEvent(data);
+    this.props.createGroupEvent(data);
   }
 
   render() {
@@ -88,74 +89,73 @@ export default class NewEventForm extends Component {
           <div className="close-icon" onClick={this.props.closeModal}>&#10006;</div>
           <div className="title">New Event</div>
           <div className="form-line">
-            <label for="title">Title</label>
+            <label htmlFor="title">Title</label>
             <input
               type="text"
               id="title"
               value={this.state.title}
-              onChange={this.updateField.bind(null, "title")}
+              onChange={this.updateField.bind(null, 'title')}
             />
           </div>
           <div className="form-line">
-            <label for="description">Description</label>
+            <label htmlFor="description">Description</label>
             <textarea
-              id="descrption"
+              id="description"
               value={this.state.description}
-              onChange={this.updateField.bind(null, "description")}
+              onChange={this.updateField.bind(null, 'description')}
             />
           </div>
           <div className="form-line">
-            <label for="date">Date</label>
+            <label htmlFor="date">Date</label>
             <input
               type="date"
               id="date"
               value={this.state.date}
-              onChange={this.updateField.bind(null, "date")}
+              onChange={this.updateField.bind(null, 'date')}
             />
           </div>
           <div className="form-line">
-            <label for="time">Time</label>
+            <label htmlFor="time">Time</label>
             <input
               type="time"
               id="time"
               value={this.state.time}
-              onChange={this.updateField.bind(null, "time")}
+              onChange={this.updateField.bind(null, 'time')}
             />
           </div>
           <div className="form-line">
-            <label for="autocomplete">Street Address</label>
+            <label htmlFor="street">Street Address</label>
             <input
-              type="text"
-              id="autocomplete"
+              htmlFor="street"
               value={this.state.street}
-              onChange={this.updateField.bind(null, "street")}
+              onChange={this.updateField.bind(null, 'street')}
              />
            </div>
           <div className="form-line">
-            <label for="city">City</label>
+            <label htmlFor="city">City</label>
             <input
               type="text"
               id="city"
               value={this.state.city}
-              onChange={this.updateField.bind(null, "city")}
+              onChange={this.updateField.bind(null, 'city')}
             />
           </div>
           <div className="form-line">
-            <label for="state">State</label>
+            <label htmlFor="state">State</label>
             <input
               type="text"
               id="state"
               value={this.state.state}
-              onChange={this.updateField.bind(null, "state")}
+              onChange={this.updateField.bind(null, 'state')}
             />
           </div>
           <div className="form-line">
-            <label for="zip">Zip</label>
+            <label htmlFor="zip">Zip</label>
             <input
               type="text"
               id="zip"
               value={this.state.zip}
-              onChange={this.updateField.bind(null, "zip")}
+              onChange={this.updateField.bind(null, 'zip')}
             />
           </div>
           <input type="submit" className="submit-button" onSubmit={this.handleSubmit} value="New Event" />

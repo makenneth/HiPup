@@ -34,7 +34,7 @@ export default (state = initialState, action) => {
         loaded: true
       });
     case REMOVE_GROUP_SUCCESS: {
-      const delIdx = state.get('groups').findIndex(g => g.get('id') === action.payload);
+      const delIdx = state.get('groups').findIndex(g => g.get('id') === action.payload.id);
       return state.set('groups', state.get('groups').delete(delIdx));
     }
     default:
