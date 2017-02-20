@@ -24,10 +24,6 @@ body {
   z-index: 9999;
 }
 
-.page-container {
-  background-color: #f1f1f1;
-}
-
 .group-event-detail {
   font-size: 18px;
 }
@@ -259,13 +255,13 @@ button {
 }
 
 .nav-main {
-  width: 180px;
-  padding: 20px;
+  width: 200px;
+  padding: 20px 20px;
   position: fixed;
-  box-shadow: 0px 1px 1px #E0E0E0;
+  box-shadow: 0px 1px 1px #c1c1c1;
   height: 100%;
   top: 0;
-  background-color: white;
+  background-color: #f1f1f1;
   z-index: 9999;
   transform: translateX(-300px);
   transition: all 1s ease-out;

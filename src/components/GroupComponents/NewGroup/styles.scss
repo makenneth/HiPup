@@ -1,6 +1,7 @@
 @import '~assets/scss/mixins.scss';
 
 .group-form-container {
+  background-color: #f1f1f1;
   display: flex;
   flex-wrap: nowrap;
   align-items: center;
@@ -14,14 +15,13 @@
   .group-banner-container {
     height: 200px;
     width: 100%;
-    overflow: hidden;
   }
 
   .banner {
     background-image: url('~assets/images/dog-board-mini.png');
-    background-size: cover;
+    background-size: contain;
     background-repeat: no-repeat;
-    background-position: center center;
+    background-position: 50% 50%;
   }
 
   .group-form-title {

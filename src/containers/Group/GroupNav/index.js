@@ -30,8 +30,9 @@ export default class GroupNav extends Component {
   }
 
   confirmDeleteGroup = () => {
-    this.props.removeGroup(this.props.group.get('id'));
-    browserHistory.push("/");
+    this.props.removeGroup(this.props.group.get('id')).then(() => {
+      browserHistory.push('/');
+    });
   }
 
   openModal() {
@@ -100,6 +101,10 @@ export default class GroupNav extends Component {
 
   joinButton() {
     if ((/events\/\d+$/).test(this.props.path)) return '';
+    if (this.adminCheck()) {
+      return <div />;
+    }
+
     if (!this.props.user || !this.props.hasJoinedGroup()) {//should be in user store
       return <ul className="join-group" onClick={this.props.joinGroup}>Join Group</ul>
     } else {

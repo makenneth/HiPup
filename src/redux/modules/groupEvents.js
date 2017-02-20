@@ -43,7 +43,7 @@ export default (state = initialState, action) => {
 
 export const fetchGroupEvents = (start, end) => {
   return {
-    types: [FETCH, FETCH_SUCCESS, FETCH_FAIL],
+    types: [FETCH_EVENTS, FETCH_EVENTS_SUCCESS, FETCH_EVENTS_FAIL],
     promise: new Request(`/api/group_events?query=time&start=${start}&end=${end}`).send(),
   };
 };

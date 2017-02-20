@@ -37,17 +37,18 @@ export default class GroupIndex extends Component {
 
   componentDidMount() {
     if (!this.props.groupsLoaded) {
-      if (this.props.locationError) {
-        this.props.fetchGroups();
-      } else {
-        this.props.fetchGroups();
-      }
+      this.props.fetchGroups();
     }
 
     if (!this.props.tagsLoaded) {
       this.props.fetchTags();
     }
+    document.addEventListener('resize', this.placeScrollDownDiv);
     this.placeScrollDownDiv();
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('resize', this.placeScrollDownDiv);
   }
 
   openDateModal = () => this.setState({ dateModalOpen: true })
@@ -84,7 +85,7 @@ export default class GroupIndex extends Component {
     }
   }
 
-  placeScrollDownDiv() {
+  placeScrollDownDiv = () => {
     const h = window.innerHeight;
     const w = window.innerWidth;
     let bottomPX = 50;
