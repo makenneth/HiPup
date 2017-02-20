@@ -1,5 +1,6 @@
 import { fromJS } from 'immutable';
 import { Request } from 'helpers';
+import { REMOVE_GROUP_SUCCESS } from './group';
 
 const SET_RANGE = 'hp/groups/SET_RANGE';
 export const FETCH_GROUPS = 'hp/groups/FETCH_GROUPS';
@@ -32,6 +33,10 @@ export default (state = initialState, action) => {
         loading: false,
         loaded: true
       });
+    case REMOVE_GROUP_SUCCESS: {
+      const delIdx = state.get('groups').findIndex(g => g.get('id') === action.payload);
+      return state.set('groups', state.get('groups').delete(delIdx));
+    }
     default:
       return state;
   }

@@ -8,6 +8,7 @@ export const FETCH_GROUP_SUCCESS = 'hp/group/FETCH_GROUP_SUCCESS';
 export const FETCH_GROUP_FAIL = 'hp/group/FETCH_GROUP_FAIL';
 export const JOINED_GROUP = 'hp/group/JOINED_GROUP';
 export const LEFT_GROUP = 'hp/group/LEFT_GROUP';
+export const REMOVE_GROUP_SUCCESS = 'hp/group/REMOVE_GROUP_SUCCESS';
 const initialState = fromJS({
   loading: false,
   loaded: false,
@@ -32,6 +33,12 @@ export default (state = initialState, action) => {
       const partIndex = state.getIn(['group', 'participants'])
         .findIndex(participant => participant.get('id') === action.payload.userId);
       return state.updateIn(['group', 'participants'], arr => arr.delete(partIndex));
+    }
+    case REMOVE_GROUP_SUCCESS: {
+      return state.merge({
+        group: null,
+        cached: state.deleteIn(['cached', action.payload]),
+      });
     }
     case JOINED_GROUP:
       return state.updateIn(['group', 'participants'], arr => arr.push(fromJS(action.payload.user)));
@@ -74,7 +81,7 @@ export const leaveGroup = (groupId) => {
 
 export const removeGroup = (groupId) => {
   return {
-    types: ['TO BE ADDED', REMOVED_GROUP, 'TO BE ADDED'],
+    types: ['TO BE ADDED', REMOVE_GROUP_SUCCESS, 'TO BE ADDED'],
     promise: new Request(`/api/group/${groupId}`, 'DELETE').send(),
   };
 };
