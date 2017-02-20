@@ -43,12 +43,6 @@ export default class GroupIndex extends Component {
     if (!this.props.tagsLoaded) {
       this.props.fetchTags();
     }
-    document.addEventListener('resize', this.placeScrollDownDiv);
-    this.placeScrollDownDiv();
-  }
-
-  componentWillUnmount() {
-    document.removeEventListener('resize', this.placeScrollDownDiv);
   }
 
   openDateModal = () => this.setState({ dateModalOpen: true })
@@ -85,15 +79,6 @@ export default class GroupIndex extends Component {
     }
   }
 
-  placeScrollDownDiv = () => {
-    const h = window.innerHeight;
-    const w = window.innerWidth;
-    let bottomPX = 50;
-    if (h <= 842) bottomPX += 948 - h;
-    if (w >= 1000) bottomPX += 100 + w - 1000;
-    document.getElementsByClassName('scroll-down-div')[0].style.bottom = `${bottomPX}px`;
-  }
-
   scrollDown = () => {
     const h = window.innerHeight;
 
@@ -124,6 +109,7 @@ export default class GroupIndex extends Component {
         </div>
         <div className="banner">
           <div className="scroll-down-div" onClick={this.scrollDown}>
+            <span>Scroll Down to browse groups</span>
             <div className="scroll-down"><FaAngleDown /></div>
             <div className="scroll-down"><FaAngleDown /></div>
           </div>
