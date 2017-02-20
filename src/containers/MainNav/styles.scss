@@ -9,18 +9,20 @@
   visibility: hidden;
   position: absolute;
   margin-top: 5px;
+  padding: 5px;
   z-index: 15;
+  background-color: white;
   box-shadow: 1px 2px 2px #E0E0E0;
 }
 
 .search-tooltip:after {
-  border-left: 10px solid transparent;
-  border-right: 10px solid transparent;
-  border-bottom: 10px solid white;
+  border-left: 13px solid transparent;
+  border-right: 13px solid transparent;
+  border-bottom: 13px solid white;
   bottom: 90%;
   content: " ";
   position: absolute;
-  left: 0;
+  left: -1px;
   width: 0;
   height: 0;
   z-index: 1000;
@@ -41,7 +43,8 @@
   border-radius: 4px;
   background-color: white;
   height: 30px;
-  padding: 5px;
+  padding: 10px;
+  width: auto;
 
   input {
     width: 200px;
@@ -64,7 +67,7 @@
   }
 }
 
-.search-icon:hover .search-tooltip{
+.search-icon:hover .search-tooltip {
   width: 260px;
   visibility: visible;
 }
@@ -79,8 +82,9 @@
   visibility: hidden;
   background-color: rgba(0, 0, 0, 0.95);
   color: white;
-  padding: 10px;
+  padding: 20px;
   padding-right: 20px;
+  padding-bottom: 20px;
   position: absolute;
   display: flex;
   justify-content: space-between;
@@ -128,7 +132,6 @@
 .tag-icon:hover .tag-list {
   visibility: visible;
   width: 360px;
-  height: 300px;
 }
 
 .tag-icon input[type="checkbox"] {
@@ -185,7 +188,6 @@
 .location-icon:hover .location-tooltip {
   visibility: visible;
   padding: 10px;
-  width: 200px;
 
   p {
     color: black;

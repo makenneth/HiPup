@@ -208,30 +208,34 @@ export default class EventShow extends Component {
     return (
       <div className="event-parent">
         <div className="event-details">
-          {this.editTitle()}
-          <div className="event-sub">
-            <div className="event-time-info">
-              <div className="date-and-time">
-                <h3>{moment(eventTime).format('dddd, MMMM DD, YYYY')}</h3>
-                <p>{moment(eventTime).format('hh:mm a')}</p>
-                <p>Status:  {status}</p>
-              </div>
-              <div id="location">
-                <h4>{groupEvent.get('street')}</h4>
-                <p>{`${groupEvent.get('city')}, ${groupEvent.get('state')} ${groupEvent.get('zip')}`}</p>
+          <div className="upper-container">
+            <div className="upper-inner">
+              {this.editTitle()}
+              <div className="event-sub">
+                <div className="event-time-info">
+                  <div className="date-and-time">
+                    <h3>{moment(eventTime).format('dddd, MMMM DD, YYYY')}</h3>
+                    <p>{moment(eventTime).format('hh:mm a')}</p>
+                    <p>Status:  {status}</p>
+                  </div>
+                  <div id="location">
+                    <h4>{groupEvent.get('street')}</h4>
+                    <p>{`${groupEvent.get('city')}, ${groupEvent.get('state')} ${groupEvent.get('zip')}`}</p>
+                  </div>
+                </div>
               </div>
             </div>
-            <div className="event-detail-map-container">
-              {
-                user && user.get('id') === groupEvent.get('hostId') && shouldBeActive &&
-                  <button className="cancel-event" onClick={this.cancelEvent}>Cancel Event</button>
-              }
-              <div className="event-map">
+            <div className="event-map">
+              <div className="event-detail-map-container">
                 {
-                  this.props.groupEvent.get('eventTime') &&
-                    <EventMap lat={groupEvent.get('lat')} lng={groupEvent.get('lng')} />
+                  user && user.get('id') === groupEvent.get('hostId') && shouldBeActive &&
+                    <button className="cancel-event" onClick={this.cancelEvent}>Cancel Event</button>
                 }
               </div>
+              {
+                this.props.groupEvent.get('eventTime') &&
+                  <EventMap lat={groupEvent.get('lat')} lng={groupEvent.get('lng')} />
+              }
             </div>
           </div>
           {this.editDescription()}

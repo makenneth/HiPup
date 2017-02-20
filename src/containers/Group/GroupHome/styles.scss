@@ -10,6 +10,7 @@
   flex-direction: column;
   flex-grow: 3;
   order: 2;
+  width: 100%;
 }
 
 .group-tags {
@@ -166,6 +167,10 @@
       order: 3;
       width: 40%;
       margin-left: 10px;
+    }
+
+    .group-event-container {
+      width: initial;
     }
 
     .event-container {
