@@ -29,7 +29,15 @@ gem 'figaro'
 # gem 'unicorn'
 
 # Use Capistrano for deployment
-# gem 'capistrano-rails', group: :development
+group :development do
+  gem 'capistrano'
+  gem 'capistrano-rails', group: :development
+  gem 'capistrano-ext', group: :development
+  gem 'capistrano-rvm', github: 'capistrano/rvm'
+  gem 'capistrano-bundler', github: 'capistrano/bundler'
+  gem 'capistrano3-puma',   require: false
+end
+
 group :production do
   gem 'newrelic_rpm'
   gem 'rails_12factor' # error feedback

@@ -14,7 +14,7 @@
 
 
 # Ignore application configuration
-/config/*.yml
+config
 # Ignore node modules
 node_modules
 
@@ -22,3 +22,4 @@ node_modules
 bundle.js
 bundle.js.map
 dump.rdb
+Capfile
