@@ -3,6 +3,7 @@ import { LOAD_AUTH_SUCCESS } from './auth';
 import { Request } from 'helpers';
 
 const FETCHING_LOCATION = 'hp/location/FETCHING_LOCATION';
+const FETCHED_LOCATION_WITH_IP = 'hp/location/FETCHED_LOCATION_WITH_IP';
 const FETCHED_LOCATION = 'hp/location/FETCHED_LOCATION';
 const SET_LOCATION = 'hp/location/SET_LOCATION';
 const SET_CITY_NAME = 'hp/location/SET_CITY_NAME';
@@ -29,7 +30,16 @@ export default (state = intialState, action) => {
   switch (action.type) {
     case LOAD_AUTH_SUCCESS: {
       if (!state.get('accurate')) {
-        return state.setIn(['location', 'coords'], action.payload);
+        return state.set('location', fromJS({
+          coords: {
+            lat: action.payload.lat,
+            lng: action.payload.lng,
+          },
+          state: {
+            city: action.payload.city,
+            state: action.payload.state,
+          },
+        }));
       }
 
       return state;
@@ -44,6 +54,20 @@ export default (state = intialState, action) => {
       return state.merge({
         loaded: true,
         location: action.payload
+      });
+    case FETCHED_LOCATION_WITH_IP:
+      return state.merge({
+        loaded: true,
+        location: {
+          coords: {
+            lat: action.payload.lat,
+            lng: action.payload.lon,
+          },
+          place: {
+            city: action.payload.city,
+            state: action.payload.region,
+          },
+        },
       });
     case FETCHED_FAILED:
       return state.merge({
@@ -75,11 +99,15 @@ export default (state = intialState, action) => {
   }
 };
 
-export const loadLocation = () => {
+const loadLocationWithIp = (ip) => {
   return {
-    types: [FETCHING_LOCATION, FETCHED_LOCATION, FETCHED_FAILED],
-    promise: new Request('https://api.ipify.org').send(),
+    types: [FETCHING_LOCATION, FETCHED_LOCATION_WITH_IP, FETCHED_FAILED],
+    promise: new Request(`http://ip-api.com/json/${ip}`).send(),
   };
+};
+
+const getIp = () => {
+  return new Request('https://api.ipify.org?format=json').send();
 };
 
 export const setLocation = (coords) => {
@@ -93,9 +121,15 @@ export const isLoaded = (state) => {
   return state.geolocation.loaded;
 };
 
-const getLocation = () => {
+const getLocation = (dispatch) => {
   return new Promise((resolve, reject) => {
-    navigator.geolocation.getCurrentPosition((data) => resolve(data));
+    navigator.geolocation.getCurrentPosition(
+      loadLocation => {
+        getIp()
+          .then((res) => res.json())
+          .then(data => dispatch(loadLocationWithIp(data.ip)))
+      },
+    );
   });
 };
 
@@ -110,7 +144,7 @@ const updateGeolocation = (coords) => {
 };
 
 export const updateLocation = ({ dispatch }) => {
-  return getLocation()
+  return getLocation(dispatch)
     .then(({ coords }) => {
       dispatch(getCityName(coords));
       dispatch(setLocation(coords));

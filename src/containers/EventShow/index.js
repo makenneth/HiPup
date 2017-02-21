@@ -170,8 +170,8 @@ export default class EventShow extends Component {
 
   alreadyRSVP() {
     if (!this.props.user) return false;
-    return !!this.props.user.get('joinedEvents')
-      .find(gEvent => this.props.groupEvent.id === gEvent.id);
+    return Boolean(this.props.user.get('joinedEvents')
+      .find(gEvent => this.props.groupEvent.get('id') === gEvent.get('id')));
   }
 
   cancelEvent = () => {

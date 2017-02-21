@@ -64,7 +64,7 @@ test:
 #
 production:
   <<: *default
-  url: <%= ENV['DATABASE_URL'] %>
+  host: <%= ENV['DATABASE_URL'] %>
   database: hipup_production
-  username: hipup_admin_psql
+  username: admin_hipup
   password: <%= ENV['HIPUP_DATABASE_PASSWORD'] %>

@@ -32,7 +32,6 @@ class ApplicationController < ActionController::Base
   end
 
   def log_out!
-    debugger
     current_user.destroy_session_token!(session[:session_token])
     $redis.del("user:#{session[:session_token]}")
   	session[:session_token] = nil

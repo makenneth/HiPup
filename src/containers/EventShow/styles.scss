@@ -40,6 +40,7 @@
         li {
           display: flex;
           flex-direction: column;
+          justify-content: center;
           padding: 0 5px;
           align-items: center;
           font-weight: 700;
@@ -48,6 +49,16 @@
           &:hover {
             background-color: #e0e0e0;
           }
+        }
+
+        .ev-name {
+          font-size: 16px;
+        }
+
+        .mini-pic {
+          width: 40px;
+          height: 40px;
+          border-radius: 50%;
         }
       }
     }
@@ -186,8 +197,10 @@
       }
     }
 
-    .location h4 {
-      margin-bottom: 2px;
+    #location h4 {
+      margin-top: 15px;
+      margin-bottom: 5px;
+
     }
   }
 
@@ -199,7 +212,7 @@
 
   #description {
     font-size: 16px;
-    padding-top: 0;
+    padding-top: 15px;
 
     h3 {
       margin-top: 0;
@@ -236,8 +249,16 @@
 
           li {
             display: flex;
+            flex-direction: row;
             padding: 5px 0px;
             align-items: center;
+            justify-content: space-between;
+          }
+
+          .mini-pic {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
           }
         }
       }
@@ -249,22 +270,3 @@
   }
 }
 
-.participant-list {
-  li {
-    display: flex;
-    justify-content: space-between;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    margin-bottom: 1%;
-
-    .ev-name {
-      font-size: 16px;
-    }
-
-    .mini-pic {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-    }
-  }
-}

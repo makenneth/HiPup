@@ -79,6 +79,9 @@ GEM
     capistrano-rails (1.2.2)
       capistrano (~> 3.1)
       capistrano-bundler (~> 1.1)
+    capistrano3-puma (1.2.1)
+      capistrano (~> 3.0)
+      puma (>= 2.6)
     coderay (1.1.1)
     concurrent-ruby (1.0.1)
     concurrent-ruby (1.0.1-java)
@@ -211,10 +214,12 @@ DEPENDENCIES
   bcrypt (~> 3.1.7)
   bootstrap-sass
   byebug
+  capistrano
   capistrano-bundler!
   capistrano-ext
   capistrano-rails
   capistrano-rvm!
+  capistrano3-puma
   faker
   figaro
   geocoder

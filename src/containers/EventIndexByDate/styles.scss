@@ -4,11 +4,13 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  cursor: pointer;
 
   .title {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
+    text-align: right;
   }
 
   .group-title {
@@ -34,6 +36,7 @@
     .title {
       align-items: flex-start;
       align-self: flex-start;
+      text-align: left;
     }
     .time {
       align-self: flex-start;

@@ -343,6 +343,7 @@ input:-webkit-autofill {
     background-color: orange;
     color: white;
     padding: 10px;
+    min-width: 100px;
     border-radius: 4px;
     font-size: 15px;
     cursor: pointer;
@@ -354,7 +355,6 @@ input:-webkit-autofill {
   }
 
   .guest-login {
-    width: 100px;
     text-align: center;
     &:hover {
       background-color: rgba(255, 165, 0, 0.75);
@@ -363,7 +363,6 @@ input:-webkit-autofill {
 
   .button-login {
     background-color: #72B49B;
-    width: 100px;
     text-align: center;
     &:hover {
       background-color: rgba(114, 180, 155, 0.75);

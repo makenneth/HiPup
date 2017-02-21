@@ -79,6 +79,7 @@ export default class LogInForm extends Component {
       }
     }, 100);
   }
+
   render() {
     const isDisabled = this.state.password.length >= 8;
         // <div className="log-in-errors">{UserStore.errors().join(", ")}</div>
@@ -117,7 +118,7 @@ export default class LogInForm extends Component {
             <button className="guest-login" onClick={this.guestLogin}>Guest Login</button>
           </div>
         </form>
-        <div className="redirect">Don't have an account yet? <a onClick={this.redirectToSignUp}>Sign Up</a></div>
+        <div className="redirect">Don't have an account yet? <a onClick={this.props.redirectToSignUp}>Sign Up</a></div>
       </div>
     );
   }

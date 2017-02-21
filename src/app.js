@@ -1,7 +1,7 @@
 import 'babel-polyfill';
 import 'whatwg-fetch';
-import 'assets/scss/reset.scss';
 // import 'vendor/font-awesome/scss/font-awesome.scss';
+import 'assets/scss/reset.scss';
 import 'assets/scss/fonts.scss';
 import 'assets/scss/app.scss';
 import React from 'react';
