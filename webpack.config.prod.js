@@ -2,7 +2,7 @@ var webpack = require('webpack');
 var path = require('path');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var CleanPlugin = require('clean-webpack-plugin');
-const autoprefixer = require('autoprefixer');
+var autoprefixer = require('autoprefixer');
 
 module.exports = {
   entry: './src/app.js',
@@ -18,7 +18,6 @@ module.exports = {
         'NODE_ENV': JSON.stringify('production')
       }
     }),
-    new ExtractTextPlugin('[name]-[chunkhash].css', { allChunks: true }),
     new webpack.optimize.UglifyJsPlugin({
       compress: {
         warnings: false,
@@ -36,10 +35,7 @@ module.exports = {
       },
       {
         test: /\.scss$/,
-        loader: ExtractTextPlugin.extract(
-          'style-loader',
-          'css-loader?-autoprefixer!postcss-loader!sass-loader'
-        )
+        loader: 'style-loader!css-loader?-autoprefixer!postcss-loader!sass-loader'
       },
       {
         test: /\.png$/,

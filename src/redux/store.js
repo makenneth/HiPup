@@ -1,27 +1,32 @@
 import { createStore, applyMiddleware, compose } from 'redux';
-import createLogger from 'redux-logger';
 import middleware from './middleware';
 
-const logger = createLogger({
-  stateTransformer: (state) => {
-    return state && Object.keys(state).reduce((h, r) => {
-      if (r === 'reduxAsyncConnect') {
-        h[r] = state[r];
-      } else {
-        h[r] = state[r].toJS();
-      }
-      return h;
-    }, {});
-  }
-});
+const enhancers = [middleware];
 
-const createStoreWithMiddleware = applyMiddleware(middleware, logger)(createStore);
+if (process.ENV.NODE_ENV !== 'production') {
+  const createLogger = require('redux-logger');
+  const logger = createLogger({
+    stateTransformer: (state) => {
+      return state && Object.keys(state).reduce((h, r) => {
+        if (r === 'reduxAsyncConnect') {
+          h[r] = state[r];
+        } else {
+          h[r] = state[r].toJS();
+        }
+        return h;
+      }, {});
+    }
+  });
+  enhancers.push(logger);
+}
+
+const createStoreWithMiddleware = applyMiddleware(...enhancers)(createStore);
 
 export default function createFinalStore() {
   const reducer = require('./modules/reducer');
   const store = createStoreWithMiddleware(reducer);
 
-  if (module.hot) {
+  if (process.ENV.NODE_ENV !== 'production' && module.hot) {
     module.hot.accept('./modules/reducer', () =>
       store.replaceReducer(require('./modules/reducer'))
     );
