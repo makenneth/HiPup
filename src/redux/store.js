@@ -3,7 +3,7 @@ import middleware from './middleware';
 
 const enhancers = [middleware];
 
-if (process.ENV.NODE_ENV !== 'production') {
+if (process.env.NODE_ENV !== 'production') {
   const createLogger = require('redux-logger');
   const logger = createLogger({
     stateTransformer: (state) => {
@@ -26,7 +26,7 @@ export default function createFinalStore() {
   const reducer = require('./modules/reducer');
   const store = createStoreWithMiddleware(reducer);
 
-  if (process.ENV.NODE_ENV !== 'production' && module.hot) {
+  if (process.env.NODE_ENV !== 'production' && module.hot) {
     module.hot.accept('./modules/reducer', () =>
       store.replaceReducer(require('./modules/reducer'))
     );
