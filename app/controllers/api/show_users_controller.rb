@@ -1,6 +1,6 @@
 class Api::ShowUsersController < ApplicationController
 	def show
-		@user = User.find(params[:id])	
+		@user = User.find(params[:id])
 		if @user
 			render :show
 		else

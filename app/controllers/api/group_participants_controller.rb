@@ -1,5 +1,10 @@
 class Api::GroupParticipantsController < ApplicationController
-	before_action :check_if_logged_in
+	before_action :check_if_logged_in, only: [:create, :destroy]
+
+	def show
+    @users = User.eager_load(:joined_groups).where("groups.id = ?", params[:id])
+    render "api/show_users/index"
+	end
 
 	def create
 		group_participant = GroupParticipant.new(
