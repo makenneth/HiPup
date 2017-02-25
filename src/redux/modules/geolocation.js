@@ -35,7 +35,7 @@ export default (state = intialState, action) => {
             lat: action.payload.lat,
             lng: action.payload.lng,
           },
-          state: {
+          place: {
             city: action.payload.city,
             state: action.payload.state,
           },
