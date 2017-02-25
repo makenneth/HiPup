@@ -49,10 +49,11 @@
   input {
     width: 200px;
     color: black;
+    font-family: 'OpenSans', sans-serif;
     float: left;
     height: 30px;
     border: none;
-    font-size: 18px;
+    font-size: 16px;
     z-index: 1001;
   }
 
@@ -93,15 +94,17 @@
   z-index: 11;
   transform: translateY(15px);
   box-shadow: 1px 2px 2px black;
+
   li {
     font-family: 'Dosis', sans-serif;
     text-align: center;
     font-size: 20px;
     width: 40%;
+    padding: 1px 0;
     border-radius: 5px;
     display: flex;
     flex-wrap: nowrap;
-    white-space: nowrap;
+    text-align: left;
     justify-content: space-between;
     align-items: center;
   }
@@ -191,6 +194,7 @@
 
   p {
     color: black;
+    font-family: 'OpenSans', sans-serif;
     font-size: 16px;
   }
 
