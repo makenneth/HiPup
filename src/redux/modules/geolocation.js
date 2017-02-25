@@ -121,15 +121,9 @@ export const isLoaded = (state) => {
   return state.geolocation.loaded;
 };
 
-const getLocation = (dispatch) => {
+const getLocation = () => {
   return new Promise((resolve, reject) => {
-    navigator.geolocation.getCurrentPosition(
-      loadLocation => {
-        getIp()
-          .then((res) => res.json())
-          .then(data => dispatch(loadLocationWithIp(data.ip)))
-      },
-    );
+    navigator.geolocation.getCurrentPosition(data => resolve(data));
   });
 };
 
@@ -144,13 +138,21 @@ const updateGeolocation = (coords) => {
 };
 
 export const updateLocation = ({ dispatch }) => {
-  return getLocation(dispatch)
-    .then(({ coords }) => {
-      dispatch(getCityName(coords));
-      dispatch(setLocation(coords));
-      return updateGeolocation(coords);
-    })
-    .catch(err => console.log(err));
+  return getLocation()
+    .then(
+      ({ coords }) => {
+        dispatch(getCityName(coords));
+        dispatch(setLocation(coords));
+        return updateGeolocation(coords);
+      },
+      (failure) => {
+        if (failure.message.indexOf('Only secure origins are allowed') == 0) {
+          getIp()
+            .then(res => res.json())
+            .then(data => dispatch(loadLocationWithIp(data.ip)))
+        }
+      }
+    );
 };
 
 export const getCityName = ({ latitude, longitude }) => {
