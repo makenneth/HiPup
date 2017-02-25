@@ -12,6 +12,7 @@ import confirmation from './confirmation';
 import tags from './tags';
 import query from './query';
 import common from './common';
+import members from './members';
 
 export default combineReducers({
   reduxAsyncConnect,
@@ -26,5 +27,6 @@ export default combineReducers({
   confirmation,
   tags,
   common,
+  members,
   query,
 });
