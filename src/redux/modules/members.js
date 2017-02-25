@@ -10,7 +10,7 @@ const initialState = fromJS({
   cached: {},
 });
 
-export default (state = initialState, action) => {
+export default function (state = initialState, action) {
   switch (action.type) {
     case FETCH_GROUP_MEMBERS_REQUEST:
       return state.set('loading', true);
@@ -18,10 +18,10 @@ export default (state = initialState, action) => {
       const members = action.payload.reduce((acc, member) => {
         acc[member.id] = member;
         return acc;
-      }, acc);
+      }, {});
       return state.merge({
         loading: false,
-        cached: state.get('cached').merge(members),
+        cached: state.get('cached').merge(fromJS(members)),
       });
     }
     default:

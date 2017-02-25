@@ -84,7 +84,7 @@ export default class GroupIndex extends Component {
       const place = this.props.geolocation.get('place');
       return (<div className="group-index cf">
         <h1>There are no events matching your search criteria around
-         {` ${place.get('city')}, ${place.get('state')} :(`}
+         {place && ` ${place.get('city')}, ${place.get('state')} :(`}
          <p onClick={this.showAll}>Show all</p>
         </h1>
       </div>);

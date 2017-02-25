@@ -1,12 +1,13 @@
 .overlay {
     .profile {
-        position: relative;
+        position: absolute;
         margin: 0 auto;
-        top:  40%;
-        transform: translateY(40%);
-        -webkit-transform: translateY(40%);
+        top:  50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
         width: 500px;
-        height: 350px;
+        height: auto;
+        max-height: 80%;
         border: 1px solid #ccc;
         opacity: 0.9;
         background: #000;

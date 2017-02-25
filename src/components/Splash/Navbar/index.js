@@ -39,12 +39,6 @@ export default class Navbar extends Component {
       >
         Profile
       </li>
-      <li
-        className={active === 4 ? "active" : ""}
-        onClick={() => this.setTab(4, "user/events")}
-      >
-        Manage Your Events
-      </li>
       <li className="log-out" onClick={this.props.logOut}>Log Out</li>
     </ul>);
   }

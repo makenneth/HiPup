@@ -48,6 +48,7 @@ export default class GroupMembers extends Component {
               <div className="profile">
                 <MemberProfile
                   userId={this.state.selectedUserId}
+                  groupId={this.props.group.get('id')}
                   closeModal={this.closeModal}
                 />
               </div>
