@@ -64,7 +64,7 @@ export default class GroupNav extends Component {
   // }
 
   backToGroup = () => {
-    browserHistory.push(this.props.path.match(/(groups\/\d+)\/events/)[1] + "/home");
+    browserHistory.push(`/groups/${this.props.group.get('id')}`);
   }
 
   title() {
@@ -110,7 +110,7 @@ export default class GroupNav extends Component {
           {this.title()}
           <div className="group-nav-container">
             <ul className="back-nav">
-              <li onClick={() => browserHistory.push("/")}>Home</li>
+              <li onClick={() => browserHistory.push('/')}>Home</li>
                 {
                   (/\/events\/\d+/).test(this.props.path) &&
                     <li onClick={this.backToGroup}>Back To Group</li>

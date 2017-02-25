@@ -9,12 +9,16 @@ import { openLogIn } from 'redux/modules/form';
 
 import './styles.scss';
 
-@connect(({ auth, geolocation, group }) => ({
+@connect(({ auth, /* geolocation, */ group }) => ({
   user: auth.get('user'),
-  location: geolocation.get('location'),
+  // geolocation: geolocation.get('location'),
   group: group,
 }), { fetchGroup, joinGroup, leaveGroup, openLogIn, createGroupEvent })
 export default class GroupDetail extends Component {
+  static contextTypes = {
+    router: React.PropTypes.any,
+  };
+
   state = {
     newEventModalOpen: false,
   };
