@@ -72,7 +72,7 @@ export const logIn = (user) => {
 export const signUp = (user) => {
   return {
     types: [LOAD_AUTH, LOAD_AUTH_SUCCESS, LOAD_AUTH_ERROR],
-    promise: new Request('/api/user', 'POST', user).send(),
+    promise: new Request('/api/user', 'POST', { user }).send(),
   };
 };
 
@@ -82,9 +82,3 @@ export const logOut = () => {
     promise: new Request('/api/session', 'DELETE').send(),
   };
 };
-
-// export const clearError = () => {
-//   return {
-//     type: CLEAR_ERROR
-//   };
-// };

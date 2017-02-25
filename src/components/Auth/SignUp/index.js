@@ -118,14 +118,15 @@ export default class SignUpForm extends Component {
 
     return errorFields;
   }
+
   handleSubmit = (e) => {
     e.preventDefault();
-    const err = this.validate();
+    const errorFields = this.validate();
 
-    if (err) {
-      this.setState({ errorFields: err });
+    if (Object.keys(errorFields).length > 0) {
+      this.setState({ errorFields });
     } else {
-      const { error, ...others } = this.state
+      const { errorFields, ...others } = this.state
       this.props.signUp(others).then(() => {
         this.props.closeModal();
       });
@@ -134,7 +135,7 @@ export default class SignUpForm extends Component {
 
   render() {
     return (
-      <div className="form-div">
+      <div className="form-div" style={{ width: '450px' }}>
         <div className="close-form" onClick={this.props.closeModal}>&#10006;</div>
         <h3>Sign Up</h3>
         <form className="user-forms" onSubmit={this.handleSubmit}>
