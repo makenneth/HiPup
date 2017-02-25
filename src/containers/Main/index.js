@@ -23,9 +23,6 @@ import './styles.scss';
       if (!isAuthLoaded(store.getState())) {
         promises.push(store.dispatch(loadAuth()));
       }
-      // if (!isLocationLoaded(store.getState())) {
-      //   promises.push(store.dispatch(loadLocation()));
-      // }
 
       return Promise.all(promises);
     }
@@ -62,6 +59,14 @@ export default class Main extends Component {
     </div>);
   }
 
+  closeModal = () => {
+    if (this.props.loginOpen) {
+      return this.props.closeLogIn();
+    } else {
+      return this.props.closeSignUp();
+    }
+  }
+
   render() {
     return (
       <div className="main-container">
@@ -79,6 +84,7 @@ export default class Main extends Component {
               user={this.props.user}
               logOut={this.props.logOut}
               openLogIn={this.props.openLogIn}
+              closeModal={this.closeModal}
             />
         }
         {

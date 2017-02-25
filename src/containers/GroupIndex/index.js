@@ -33,6 +33,8 @@ const banner = 'https://images.unsplash.com/photo-1443750200537-00fd518bdc82?ixl
 export default class GroupIndex extends Component {
   state = {
     dateModalOpen: false,
+    showTagline: true,
+    transparentNav: true,
   };
 
   componentDidMount() {
@@ -43,6 +45,15 @@ export default class GroupIndex extends Component {
     if (!this.props.tagsLoaded) {
       this.props.fetchTags();
     }
+
+    document.addEventListener('scroll', this.handleScroll.bind(this));
+  }
+
+  handleScroll = (ev) => {
+    const top = window.pageYOffset || document.documentElement.scrollTop;
+    const transparentNav = top < 490;
+    const showTagline = top < 150;
+    this.setState({ transparentNav, showTagline });
   }
 
   openDateModal = () => this.setState({ dateModalOpen: true })
@@ -51,6 +62,7 @@ export default class GroupIndex extends Component {
   mainNav() {
     return (this.props.location.pathname === '/' &&
       <MainNav
+        transparent={this.state.transparentNav}
         openDateModal={this.openDateModal}
         searchTooltip={this.searchTooltip}
         tagTooltip ={this.tagTooltip}
@@ -87,7 +99,7 @@ export default class GroupIndex extends Component {
 
   render() {
     const searchCriteria = new RegExp(this.props.searchString.toLowerCase().trim(), 'i');
-
+    const { showTagline, transparentNav } = this.state;
     let libraries = [];
     if (!this.props.hasLocation) {
       libraries = this.props.groups;
@@ -100,19 +112,18 @@ export default class GroupIndex extends Component {
         );
       });
     }
-
     return (
       <div className="app-container">
         <div className="banner-img">
-          <div className="logo">HiPup</div>
-          <span className="tagline">Playdates for pets</span>
+          {this.state.showTagline && <div className="logo">HiPup</div>}
+          {this.state.showTagline && <span className="tagline">Playdates for pets</span>}
         </div>
         <div className="banner">
-          <div className="scroll-down-div" onClick={this.scrollDown}>
+          {this.state.showTagline && <div className="scroll-down-div" onClick={this.scrollDown}>
             <span>Scroll Down to browse groups</span>
             <div className="scroll-down"><FaAngleDown /></div>
             <div className="scroll-down"><FaAngleDown /></div>
-          </div>
+          </div>}
         </div>
         {this.mainNav()}
         <div className="group-index-body">

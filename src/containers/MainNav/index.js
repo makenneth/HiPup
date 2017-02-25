@@ -43,33 +43,10 @@ import './styles.scss';
 )
 export default class MainNav extends Component {
   componentDidMount() {
-    this.changeToSolid();
     const searchIcon = document.getElementsByClassName('search-icon')[0];
     const searchBar = document.getElementById('search-box');
     searchIcon.addEventListener('mouseover', () => {
       searchBar.focus();
-    });
-  }
-
-  changeToSolid() {
-    $(window).scroll(() => {
-      const height = $(window).scrollTop();
-      if (height > 490) {
-        $('.main-nav').addClass('main-nav-solid');
-        $(window).off('scroll');
-        this.changeToTransparent();
-      }
-    });
-  }
-
-  changeToTransparent() {
-    $(window).scroll(() => {
-      const height = $(window).scrollTop();
-      if (height < 490){
-        $('.main-nav').removeClass('main-nav-solid');
-        $(window).off('scroll');
-        this.changeToSolid();
-      }
     });
   }
 
@@ -111,7 +88,7 @@ export default class MainNav extends Component {
   }
 
   render() {
-    return <div className="main-nav">
+    return <div className={`main-nav ${!this.props.transparent ? 'main-nav-solid' : ''}`}>
       <ul className="nav-icons">
         <li className="location-icon">
           <FaLocationArrow />
