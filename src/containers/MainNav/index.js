@@ -93,7 +93,7 @@ export default class MainNav extends Component {
         <li className="location-icon">
           <FaLocationArrow />
           <div className="location-tooltip">
-            <p>Searching within {this.props.range} Miles</p>
+            {this.props.hasLocation && <p>Searching within {this.props.range} Miles</p>}
             {
               this.props.hasLocation ?
                 (<input
@@ -104,7 +104,7 @@ export default class MainNav extends Component {
                   step="25"
                   value={this.props.range}
                   onChange={ev => this.props.changeRange(ev.target.value)}
-                />) : <p>'Could not detect your location'</p>
+                />) : <p style={{ whiteSpace: 'nowrap' }}>Could not detect your location</p>
             }
           </div>
         </li>

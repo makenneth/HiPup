@@ -7,8 +7,8 @@ class Api::GroupsController < ApplicationController
 		if @location
 			@groups = Group.includes(:tags, :participants)
 		else
-			groups_json = $redis.get("all_groups")
-			unless groups_json
+			group_json = $redis.get("all_groups")
+			unless group_json
 				@groups = Group.includes(:tags, :participants)
 				group_json = render_to_string(formats: 'json')
 				$redis.set("all_groups", group_json)

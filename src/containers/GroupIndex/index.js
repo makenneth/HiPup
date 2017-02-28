@@ -100,18 +100,14 @@ export default class GroupIndex extends Component {
   render() {
     const searchCriteria = new RegExp(this.props.searchString.toLowerCase().trim(), 'i');
     const { showTagline, transparentNav } = this.state;
-    let libraries = [];
-    if (!this.props.hasLocation) {
-      libraries = this.props.groups;
-    } else {
-      libraries = this.props.groups.filter((group) => {
-        return (
-          (this.props.range === Infinity || (group.get('distance') !== null && group.get('distance') <= this.props.range)) &&
-          searchCriteria.test(group.get('title')) &&
-          group.get('tags').some(tag => this.props.selected.get(tag.get('id')))
-        );
-      });
-    }
+    const libraries = this.props.groups.filter((group) => {
+      return (
+        (!this.props.hasLocation || this.props.range === Infinity ||
+          (group.get('distance') !== null && group.get('distance') <= this.props.range)) &&
+        searchCriteria.test(group.get('title')) &&
+        group.get('tags').some(tag => this.props.selected.get(tag.get('id')))
+      );
+    });
     return (
       <div className="app-container">
         <div className="banner-img">
